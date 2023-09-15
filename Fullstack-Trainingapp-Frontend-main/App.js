@@ -34,22 +34,29 @@ export default function App() {
       lift: lift,
       result: result
     }
-    axios.post('http://127.0.0.1:3001/create', newResult)
+    try {
+      axios.post('http://127.0.0.1:3001/create', newResult)
+      .then(result => {
+        console.log(result.data.message)
+        getList();
+      })
+    } catch (err) {
+      console.error("Error creating result", err)
+    }
   }
 
   const deleteItem = (item) => {
     axios.delete(`http://127.0.0.1:3001/delete`, { params:
-  {id: 1} })
-    // axios.delete('http://127.0.0.1:3001/delete', item)
+    {id: item._id} })
     .then(result => {
-      res.status(200).json({
-      message:result + ' deleted',
-   });
-  })
-    .catch(() => {
-      alert("error deleting data")
+      console.log(result.data.message)
+      getList();
     })
-}
+      .catch(error => {
+        console.error("Error deleting data", error)
+      })
+   }
+
 
   return (
       <View style={styles.container}>

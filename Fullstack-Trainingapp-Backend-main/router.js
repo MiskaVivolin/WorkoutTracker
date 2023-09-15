@@ -1,6 +1,7 @@
 const express = require("express")
 const router = express.Router()
 const userprs = require("./models")
+const { error } = require("console")
 const app = express()
 
 router.route("/create").post((req, res) => {
@@ -14,13 +15,13 @@ router.route("/create").post((req, res) => {
         name, date, lift, result
     })
     newuserPr.save()
-    res.json({ok: true})
+    res.json({ message: `${newuserPr} Object created`})
 })
 
 router.route("/get").get((req, res) => {
-    
+
     userprs.find({  })
-    .then((data) =>{
+    .then((data) => {
         console.log('Data: ', data)
         res.json(data)
     })
@@ -31,11 +32,29 @@ router.route("/get").get((req, res) => {
 
 
 router.route("/delete").delete((req, res) => {
-    console.log("req body:", req.body)
-    console.log("req params:", req.params)
-    let itemid = req.params.id
-    userprs.findByIdAndDelete(itemid)
-    res.json({ok: true})
+
+    const itemId = req.query.id;
+    console.log("Item id: ", itemId)
+
+    console.log(userprs)
+
+    if (!itemId) {
+        return res.status(400).json({ message: "Item ID not provided" });
+    }
+
+    userprs.findByIdAndDelete(itemId, (err) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ error: "Error deleting item" });
+        }
+
+        res.json({ message: `${itemId} deleted` });
+    })
+    // .then((data) => {
+    //     res.json({ok: true})
+    //     res.json(data)
+    // })
+    
 })
 
 module.exports = router;
