@@ -5,56 +5,52 @@ const { error } = require("console")
 const app = express()
 
 router.route("/create").post((req, res) => {
-    console.log('Data received:', req.body)
+
     const name = req.body.name
     const date = req.body.date
     const lift = req.body.lift
     const result = req.body.result
 
-    const newuserPr = new userprs({
-        name, date, lift, result
-    })
-    newuserPr.save()
-    res.json({ message: `${newuserPr} Object created`})
+    if(req.body.name !== '' && req.body.date !== '' && req.body.list !== '' && req.body.result !== '') {
+        const newuserPr = new userprs({
+            name, date, lift, result
+        })
+        newuserPr.save()
+        .then(data => {
+            res.json({ successMessage: `${data} Object created`})
+            console.log(`${data} Object created\n`)
+        })
+        .catch(err => {
+            console.log("Error creating object", err)
+        })
+    } else {
+        res.json({ errorMessage: "Fill the required fields!" })
+    }
 })
 
 router.route("/get").get((req, res) => {
 
-    userprs.find({  })
+    userprs.find({})
     .then((data) => {
-        console.log('Data: ', data)
         res.json(data)
     })
-    .catch((error) => {
-        console.log('Error retrieving data')
+    .catch((err) => {
+        console.log('Error retrieving data from database', err)
     })
 })
 
 
 router.route("/delete").delete((req, res) => {
-
-    const itemId = req.query.id;
-    console.log("Item id: ", itemId)
-
-    console.log(userprs)
-
-    if (!itemId) {
-        return res.status(400).json({ message: "Item ID not provided" });
-    }
-
-    userprs.findByIdAndDelete(itemId, (err) => {
-        if (err) {
-            console.error(err);
-            return res.status(500).json({ error: "Error deleting item" });
-        }
-
-        res.json({ message: `${itemId} deleted` });
-    })
-    // .then((data) => {
-    //     res.json({ok: true})
-    //     res.json(data)
-    // })
     
+    userprs.findByIdAndDelete(req.query.id)
+    .then(data => {
+        res.json({ successMessage: `Object: ${data} deleted`})
+        console.log(`Object: ${data} deleted\n`)
+    })
+    .catch(err => {
+        res.json({ errorMessage: "Error deleting object" })
+        console.log("Error deleting object", err)
+    })
 })
 
 module.exports = router;
