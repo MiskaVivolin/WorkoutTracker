@@ -21,6 +21,7 @@ router.route("/create").post((req, res) => {
             console.log(`${data} Object created\n`)
         })
         .catch(err => {
+            res.json({ errorMessage: "Error creating object"})
             console.log("Error creating object", err)
         })
     } else {
@@ -35,7 +36,8 @@ router.route("/get").get((req, res) => {
         res.json(data)
     })
     .catch((err) => {
-        console.log('Error retrieving data from database', err)
+        res.json({ errorMessage: "Error retrieving data"})
+        console.log('Error retrieving data', err)
     })
 })
 

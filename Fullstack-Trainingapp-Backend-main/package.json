@@ -9,9 +9,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/node": "^20.6.3",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "mongoose": "^6.0.14"
+    "mongoose": "^6.0.14",
+    "typescript": "^5.2.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
