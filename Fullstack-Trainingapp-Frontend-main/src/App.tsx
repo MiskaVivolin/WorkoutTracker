@@ -1,18 +1,19 @@
-import React from 'react';
-import axios from "axios";
+import React, {useState} from 'react';
 import { StyleSheet, TextInput, Button, View, Text} from 'react-native';
 import PrList from './components/PrList';
-import getList from './components/crudcomponents/GetList';
-import CreatePr from './components/crudcomponents/CreatePr';
+import CreatePr from './components/api/CreatePr';
 
 
 
 export default function App() {
     
-    const [name, setName] = React.useState('')
-    const [date, setDate] = React.useState('')
-    const [lift, setLift] = React.useState('')
-    const [result, setResult] = React.useState('')
+    const [name, setName] = useState('')
+    const [date, setDate] = useState('')
+    const [lift, setLift] = useState('')
+    const [result, setResult] = useState('')
+
+    //prevstate?
+
     
     return (
         <View style={styles.container}>
@@ -37,7 +38,9 @@ export default function App() {
                 onChangeText={result => setResult(result)}
                 value={result}
                 />
-            <Button style={{marginBottom: 30}} title={'Add'} onPress={() => CreatePr(name, date, lift, result)}/>
+            <View style={{marginBottom: 30}}>
+                <Button title={'Add'} onPress={() => CreatePr(name, date, lift, result)}/>
+            </View>
             <PrList />
         </View>
     );

@@ -1,4 +1,21 @@
 {
-  "compilerOptions": {},
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "jsx": "react",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
+    "esModuleInterop": true,
+    "moduleResolution": "Node"
+  },
+  "include": [
+    "**/src/*.ts",
+    "**/src/*.tsx"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ],
   "extends": "expo/tsconfig.base"
 }

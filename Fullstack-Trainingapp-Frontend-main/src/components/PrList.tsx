@@ -1,14 +1,14 @@
+import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
 import { FlatList } from 'react-native'
-import { useEffect } from 'react';
-import GetList from './crudcomponents/GetList';
-import DeletePr from './crudcomponents/DeletePr';
+import GetList from './api/GetList';
+import DeletePr from './api/DeletePr';
+import { DataItem } from '../types/types'
 
 
 export default function PrList() {
 
-  const [resultList, setResultList] = React.useState([])
+  const [resultList, setResultList] = useState<DataItem[]>([])
 
   useEffect(() => {
     console.log("useEffect working")
@@ -20,11 +20,12 @@ export default function PrList() {
       <FlatList
         data={resultList}
         keyExtractor={(item, index) => index.toString()}
-        renderItem={({item}) =>
-        <View style={styles.listcontainer}><Text style={{fontSize:20}}>{item.name}   {item.date}   {item.lift}   {item.result}</Text>
+        renderItem={({ item }: {item: DataItem}) =>
+        <View style={styles.listcontainer}>
+            <Text style={{fontSize:20}}>{item.name}   {item.date}   {item.lift}   {item.result}</Text>
             <Text style={{color: '#0000ff'}} onPress={() => DeletePr(item, setResultList)}>delete</Text>
         </View>}
-    />
+      />
     </View>
   )
 }
