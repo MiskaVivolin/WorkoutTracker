@@ -11,6 +11,7 @@ export default function GetList(setResultlist: SetResultList) {
         console.log(data)
         
         const dataItems: DataItem[] = data.map((item) => ({
+            id: item._id,
             name: item.name,
             date: item.date,
             lift: item.lift,

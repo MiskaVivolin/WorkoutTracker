@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { StyleSheet, TextInput, Button, View, Text} from 'react-native';
 import PrList from './components/PrList';
-import CreatePr from './components/api/CreatePr';
+// import CreatePr from './components/api/CreatePr';
 
 
 
@@ -39,7 +39,7 @@ export default function App() {
                 value={result}
                 />
             <View style={{marginBottom: 30}}>
-                <Button title={'Add'} onPress={() => CreatePr(name, date, lift, result)}/>
+                {/* <Button title={'Add'} onPress={() => CreatePr(name, date, lift, result)}/> */}
             </View>
             <PrList />
         </View>

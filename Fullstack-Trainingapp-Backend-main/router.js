@@ -11,21 +11,21 @@ router.route("/create").post((req, res) => {
     const lift = req.body.lift
     const result = req.body.result
 
-    if(req.body.name !== '' && req.body.date !== '' && req.body.list !== '' && req.body.result !== '') {
+    if(req.body.name !== '' || undefined && req.body.date !== '' || undefined && req.body.list !== '' || undefined && req.body.result !== '' || undefined) {
         const newuserPr = new userprs({
             name, date, lift, result
         })
         newuserPr.save()
         .then(data => {
-            res.json({ successMessage: `${data} Object created`})
+            res.json({ message: `${data} Object created`})
             console.log(`${data} Object created\n`)
         })
         .catch(err => {
-            res.json({ errorMessage: "Error creating object"})
+            res.json({ message: "Error creating object"})
             console.log("Error creating object", err)
         })
     } else {
-        res.json({ errorMessage: "Fill the required fields!" })
+        res.json({ message: "Error: object has empty or undefined fields" })
     }
 })
 
@@ -46,11 +46,11 @@ router.route("/delete").delete((req, res) => {
     
     userprs.findByIdAndDelete(req.query.id)
     .then(data => {
-        res.json({ successMessage: `Object: ${data} deleted`})
+        res.json({ message: `Object: ${data} deleted`})
         console.log(`Object: ${data} deleted\n`)
     })
     .catch(err => {
-        res.json({ errorMessage: "Error deleting object" })
+        res.json({ message: "Error deleting object" })
         console.log("Error deleting object", err)
     })
 })

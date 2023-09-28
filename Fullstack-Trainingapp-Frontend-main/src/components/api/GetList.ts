@@ -2,7 +2,6 @@ import axios from 'axios'
 import { AxiosResponse } from 'axios'
 import { SetResultList, ResponseData } from '../../types/types'
 
-
 export default function GetList(setResultlist: SetResultList) {
     axios.get<ResponseData>('http://127.0.0.1:3001/get')
     .then((response: AxiosResponse<ResponseData>) =>{

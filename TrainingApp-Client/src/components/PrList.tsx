@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { FlatList } from 'react-native'
 import GetList from './api/GetList';
-// import DeletePr from './api/DeletePr';
+import DeletePr from './api/DeletePr';
 import { DataItem } from '../types/Types'
 
 
@@ -23,7 +23,7 @@ export default function PrList() {
         renderItem={({ item }: {item: DataItem}) =>
         <View style={styles.listcontainer}>
             <Text style={{fontSize:20}}>{item.name}   {item.date}   {item.lift}   {item.result}</Text>
-            {/* <Text style={{color: '#0000ff'}} onPress={() => DeletePr(item, setResultList)}>delete</Text> */}
+            <Text style={{color: '#0000ff'}} onPress={() => DeletePr(item, setResultList)}>delete</Text>
         </View>}
       />
     </View>

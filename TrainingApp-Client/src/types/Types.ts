@@ -1,5 +1,7 @@
+import { ReactNode } from 'react'
+
 export interface DataItem {
-    _id: number;
+    id: number;
     name: string;
     date: string;
     lift: string;
@@ -13,3 +15,12 @@ export interface ResponseData {
 }
 
 export type SetResultList = (data: DataItem[]) => void
+
+export type ContextChildren = {
+    children: ReactNode;
+}
+
+export type ResultListState = {
+    resultList: DataItem[];
+    setResultList: SetResultList;
+}
