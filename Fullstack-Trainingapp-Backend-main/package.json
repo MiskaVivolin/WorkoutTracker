@@ -2,7 +2,7 @@
   "name": "trainingappback",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/server.js",
   "scripts": {
     "devStart": "nodemon server.js"
   },
@@ -12,8 +12,7 @@
     "@types/node": "^20.6.3",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "mongoose": "^6.0.14",
-    "typescript": "^5.2.2"
+    "mongoose": "^6.0.14"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
