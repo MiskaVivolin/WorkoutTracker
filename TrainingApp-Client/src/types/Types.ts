@@ -10,8 +10,14 @@ export interface DataItem {
 
 export interface ResponseData {
     map(arg0: (item: any) => { name: any; date: any; lift: any; result: any; }): DataItem[];
-    data: DataItem[];
+    data: {
+        items: DataItem[];
+    }
     message: string;
+}
+
+export interface PrListProps {
+    list: DataItem[]
 }
 
 export type SetResultList = (data: DataItem[]) => void

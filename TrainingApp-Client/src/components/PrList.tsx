@@ -1,29 +1,29 @@
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { FlatList } from 'react-native'
-import GetList from './api/GetList';
-import DeletePr from './api/DeletePr';
-import { DataItem } from '../types/Types'
+import useGetList from '../hooks/useGetList';
+import useDeletePr from '../hooks/useDeletePr';
+import { DataItem, SetResultList } from '../types/Types'
 
 
-export default function PrList() {
+export default function PrList(props: { list: DataItem[]; setList: SetResultList; }) {
 
-  const [resultList, setResultList] = useState<DataItem[]>([])
+  const { list, setList } = props;
 
   useEffect(() => {
     console.log("useEffect working")
-    GetList(setResultList)
+    useGetList(setList)
   },[])
 
   return (
     <View style={styles.listcontainer}>
       <FlatList
-        data={resultList}
+        data={list}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }: {item: DataItem}) =>
         <View style={styles.listcontainer}>
             <Text style={{fontSize:20}}>{item.name}   {item.date}   {item.lift}   {item.result}</Text>
-            <Text style={{color: '#0000ff'}} onPress={() => DeletePr(item, setResultList)}>delete</Text>
+            <Text style={{color: '#0000ff'}} onPress={() => useDeletePr(item, setList)}>delete</Text>
         </View>}
       />
     </View>

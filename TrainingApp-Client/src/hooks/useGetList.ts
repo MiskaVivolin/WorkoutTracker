@@ -1,0 +1,25 @@
+import axios, { AxiosResponse } from 'axios'
+import { SetResultList, ResponseData, DataItem } from '../types/Types'
+
+const useGetList = (setResultList: SetResultList) => {
+    axios.get<ResponseData>('http://127.0.0.1:3001/get')
+        .then((response: AxiosResponse<ResponseData>) => {
+            const {data} = response;
+            const dataItems: DataItem[] = data.map((item) => ({
+                id: item._id,
+                name: item.name,
+                date: item.date,
+                lift: item.lift,
+                result: item.result
+            }))
+
+            console.log('API Success:');
+            console.log(dataItems)
+            setResultList(dataItems)
+        })
+        .catch(() => {
+            console.error("Error sending get request")
+        })
+}
+
+export default useGetList;

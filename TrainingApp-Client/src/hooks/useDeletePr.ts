@@ -1,9 +1,8 @@
 import axios, { AxiosResponse } from 'axios'
-import React from 'react'
 import { SetResultList, DataItem, ResponseData } from 'types/Types'
-import GetList from './GetList'
+import useGetList from './useGetList'
 
-export default function DeletePr(item: DataItem, setResultList: SetResultList ) {
+const useDeletePr = (item: DataItem, setResultList: SetResultList) => {
 
   axios.delete<ResponseData>('http://127.0.0.1:3001/delete', {params: { id: item.id }})
   .then((response: AxiosResponse<ResponseData>) => {
@@ -12,7 +11,9 @@ export default function DeletePr(item: DataItem, setResultList: SetResultList ) 
         alert(response.data.message)
       } else {
         console.log(response.data.message)
-        GetList(setResultList)
+        useGetList(setResultList)
     }
   })
 }
+
+export default useDeletePr;

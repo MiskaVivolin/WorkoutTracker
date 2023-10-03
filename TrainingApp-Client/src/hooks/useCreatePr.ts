@@ -1,8 +1,8 @@
 import axios, { AxiosResponse } from "axios";
-import React from "react";
-import { ResponseData } from "types/Types";
+import { ResponseData, SetResultList } from "../types/Types";
+import useGetList from "./useGetList";
 
-export default function CreatePr(name: string, date: string, lift: string, result: string) {
+const useCreatePr = (name: string, date: string, lift: string, result: string, setResultList: SetResultList) => {
 
     const newPr = {
         name: name,
@@ -21,4 +21,7 @@ export default function CreatePr(name: string, date: string, lift: string, resul
                 console.log(response.data.message)
             }
         })
+    useGetList(setResultList)
 }
+
+export default useCreatePr;

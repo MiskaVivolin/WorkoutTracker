@@ -1,24 +1,19 @@
 import React, {useState} from 'react';
 import { StyleSheet, TextInput, Button, View, Text} from 'react-native';
+import { DataItem, PrListProps } from 'types/Types';
 import PrList from './components/PrList';
-import CreatePr from './components/api/CreatePr';
-
+import useCreatePr from './hooks/useCreatePr';
 
 
 export default function App() {
     
+    const [prList, setPrList] = useState<DataItem[]>([])
     const [prObject, setPrObject] = useState({
         name: '',
         date: '',
         lift: '',
         result: ''
     })
-    const [name, setName] = useState('')
-    const [date, setDate] = useState('')
-    const [lift, setLift] = useState('')
-    const [result, setResult] = useState('')
-
-    //prevstate?
 
     
     return (
@@ -45,9 +40,9 @@ export default function App() {
                 value={prObject.result}
                 />
             <View style={{marginBottom: 30}}>
-                <Button title={'Add'} onPress={() => CreatePr(prObject.name, prObject.date, prObject.lift, prObject.result)}/>
+                <Button title={'Add'} onPress={() => useCreatePr(prObject.name, prObject.date, prObject.lift, prObject.result, setPrList)}/>
             </View>
-            <PrList />
+            <PrList list={prList} setList={setPrList} />
         </View>
     );
 }

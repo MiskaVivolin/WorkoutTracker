@@ -5,7 +5,7 @@ const ResultListContext = createContext<ResultListState | undefined>(undefined);
 
 export const useResultList = () => useContext(ResultListContext)
 
-export default function ResultListProvider({ children }: ContextChildren) {
+export default function ContextProvider({ children }: ContextChildren) {
     const [resultList, setResultList] = useState<DataItem[]>([])
 
     return (
