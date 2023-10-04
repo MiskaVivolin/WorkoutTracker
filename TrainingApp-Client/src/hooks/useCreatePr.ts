@@ -15,13 +15,13 @@ const useCreatePr = (name: string, date: string, lift: string, result: string, s
     .then((response: AxiosResponse<ResponseData>) => {
             console.log("NewPr", newPr)
             console.log(response.data)
+            useGetList(setResultList)
             if (response.data.message.toLowerCase().includes("error")){
                 alert(response.data.message)
             } else {
                 console.log(response.data.message)
             }
         })
-    useGetList(setResultList)
 }
 
 export default useCreatePr;
