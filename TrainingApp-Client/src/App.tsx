@@ -3,6 +3,7 @@ import { StyleSheet, TextInput, Button, View, Text} from 'react-native';
 import { DataItem, PrListProps } from 'types/Types';
 import PrList from './components/PrList';
 import useCreatePr from './hooks/useCreatePr';
+import InputContainer from './components/InputContainer';
 
 
 export default function App() {
@@ -14,33 +15,55 @@ export default function App() {
         lift: '',
         result: ''
     })
+    const [prObjectIsValid, setPrObjectIsValid] = useState({
+        name: true,
+        date: true,
+        lift: true,
+        result: true
+    })
+
+    const handleButtonPress = () => {
+        if(prObject.name.length === 0) {
+            setPrObjectIsValid(prevState => ({ ...prevState, name: false }))
+        } else {
+            setPrObjectIsValid(prevState => ({ ...prevState, name: true }))
+        }
+        if(prObject.date.length === 0) {
+            setPrObjectIsValid(prevState => ({ ...prevState, date: false }))
+        } else {
+            setPrObjectIsValid(prevState => ({ ...prevState, date: true }))
+        }
+        if(prObject.lift.length === 0) {
+            setPrObjectIsValid(prevState => ({ ...prevState, lift: false }))
+        } else {
+            setPrObjectIsValid(prevState => ({ ...prevState, lift: true }))
+        }
+        if(prObject.result.length === 0) {
+            setPrObjectIsValid(prevState => ({ ...prevState, result: false }))
+        } else {
+            setPrObjectIsValid(prevState => ({ ...prevState, result: true }))
+        }
+        if(prObject.name.length !== 0 && prObject.date.length !== 0 && prObject.lift.length !== 0 && prObject.result.length !== 0){
+            useCreatePr(prObject.name, prObject.date, prObject.lift, prObject.result, setPrList)
+        }
+    }
+
+    // TODO: 
+    // typet kuntoon: Inputcontainerin setObject ja tarkista routerin eri routet
+    // tyylittely
+    // UPDATE
+    // sen jälkeen mietitään onko valmis vai tuleeko laajennus + auth ja React-Router
 
     
     return (
         <View style={styles.container}>
             <Text style={{fontSize: 20, marginTop: 150}}> Add a new personal record</Text>
-            <TextInput placeholder={"Your name"}
-                style={{width: 200, borderColor:'gray', borderWidth: 1, marginTop: 30}}
-                onChangeText={newName => setPrObject({ ...prObject, name: newName })}
-                value={prObject.name}
-                />
-            <TextInput placeholder={"Date"}
-                style={{width: 200, borderColor:'gray', borderWidth: 1, marginTop: 30}}
-                onChangeText={newDate => setPrObject({ ...prObject, date: newDate })}
-                value={prObject.date}
-                />
-            <TextInput placeholder={"Exercise"}
-                style={{width: 200, borderColor:'gray', borderWidth: 1, marginTop: 30 }}
-                onChangeText={newLift => setPrObject({ ...prObject, lift: newLift })}
-                value={prObject.lift}
-                />
-            <TextInput placeholder={"Result"}
-                style={{width: 200, borderColor:'gray', borderWidth: 1, marginTop: 30 , marginBottom: 30}}
-                onChangeText={newResult => setPrObject({ ...prObject, result: newResult })}
-                value={prObject.result}
-                />
-            <View style={{marginBottom: 30}}>
-                <Button title={'Add'} onPress={() => useCreatePr(prObject.name, prObject.date, prObject.lift, prObject.result, setPrList)}/>
+            <InputContainer header={"Name"} value={"name"} object={prObject} setObject={setPrObject} objectIsValid={prObjectIsValid}/>    
+            <InputContainer header={"Date"} value={"date"} object={prObject} setObject={setPrObject} objectIsValid={prObjectIsValid}/>    
+            <InputContainer header={"Exercise"} value={"lift"} object={prObject} setObject={setPrObject} objectIsValid={prObjectIsValid}/>    
+            <InputContainer header={"Result"} value={"result"} object={prObject} setObject={setPrObject} objectIsValid={prObjectIsValid}/>    
+            <View style={{marginTop: 30, marginBottom: 30}}>
+                <Button title={'Add'} onPress={() => handleButtonPress()}/>
             </View>
             <PrList list={prList} setList={setPrList} />
         </View>

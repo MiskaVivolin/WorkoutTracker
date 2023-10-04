@@ -7,7 +7,10 @@ router.route("/create").post((req, res) => {
     const date = req.body.date;
     const lift = req.body.lift;
     const result = req.body.result;
-    if (req.body.name !== '' || undefined && req.body.date !== '' || undefined && req.body.lift !== '' || undefined && req.body.result !== '' || undefined) {
+    if (req.body.name === '' || undefined || req.body.date === '' || undefined || req.body.lift === '' || undefined || req.body.result === '' || undefined) {
+        res.json({ message: "Error: object has empty or undefined fields" });
+    }
+    else {
         const newuserPr = new userPrs({
             name, date, lift, result
         });
@@ -20,9 +23,6 @@ router.route("/create").post((req, res) => {
             res.json({ message: "Error creating object" });
             console.log("Error creating object", err);
         });
-    }
-    else {
-        res.json({ message: "Error: object has empty or undefined fields" });
     }
 });
 router.route("/get").get((req, res) => {
