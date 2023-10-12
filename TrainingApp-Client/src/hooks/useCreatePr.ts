@@ -1,19 +1,12 @@
 import axios, { AxiosResponse } from "axios";
-import { ResponseData, SetResultList } from "../types/Types";
+import { SetResultList, PrFields, ResponseData } from "../types/Types";
 import useGetList from "./useGetList";
 
-const useCreatePr = (name: string, date: string, lift: string, result: string, setResultList: SetResultList) => {
+const useCreatePr = (prObject: PrFields, setResultList: SetResultList): void => {
 
-    const newPr = {
-        name: name,
-        date: date,
-        lift: lift,
-        result: result
-    }
-
-    axios.post<ResponseData>('http://127.0.0.1:3001/create', newPr)
+    axios.post<ResponseData>('http://127.0.0.1:3001/create', prObject)
     .then((response: AxiosResponse<ResponseData>) => {
-            console.log("NewPr", newPr)
+            console.log("NewPr", prObject)
             console.log(response.data)
             useGetList(setResultList)
             if (response.data.message.toLowerCase().includes("error")){

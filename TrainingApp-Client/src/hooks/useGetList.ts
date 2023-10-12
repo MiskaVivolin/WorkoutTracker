@@ -1,12 +1,12 @@
 import axios, { AxiosResponse } from 'axios'
 import { SetResultList, ResponseData, DataItem } from '../types/Types'
 
-const useGetList = (setResultList: SetResultList) => {
-    axios.get<ResponseData>('http://127.0.0.1:3001/get')
+const useGetList = (setResultList: SetResultList): void => {
+    axios.get('http://127.0.0.1:3001/get')
         .then((response: AxiosResponse<ResponseData>) => {
             const {data} = response;
             const dataItems: DataItem[] = data.map((item) => ({
-                id: item._id,
+                _id: item._id,
                 name: item.name,
                 date: item.date,
                 lift: item.lift,
@@ -15,6 +15,7 @@ const useGetList = (setResultList: SetResultList) => {
 
             console.log('API Success:');
             console.log(dataItems)
+            console.log(response.data.message)
             setResultList(dataItems)
         })
         .catch(() => {

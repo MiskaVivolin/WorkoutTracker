@@ -2,11 +2,11 @@ import axios, { AxiosResponse } from 'axios'
 import { SetResultList, DataItem, ResponseData } from 'types/Types'
 import useGetList from './useGetList'
 
-const useDeletePr = (item: DataItem, setResultList: SetResultList) => {
+const useDeletePr = (item: DataItem, setResultList: SetResultList): void => {
 
-  axios.delete<ResponseData>('http://127.0.0.1:3001/delete', {params: { id: item.id }})
+  axios.delete<ResponseData>('http://127.0.0.1:3001/delete', {params: { id: item._id }})
   .then((response: AxiosResponse<ResponseData>) => {
-    console.log("item id: ", item.id)
+    console.log("item id: ", item._id)
     if(response.data.message.toLowerCase().includes('error')) {
         alert(response.data.message)
       } else {

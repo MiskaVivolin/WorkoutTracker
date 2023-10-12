@@ -22,7 +22,7 @@ export default function App() {
         result: true
     })
 
-    const handleButtonPress = () => {
+    const handleButtonPress = (): void => {
         if(prObject.name.length === 0) {
             setPrObjectIsValid(prevState => ({ ...prevState, name: false }))
         } else {
@@ -44,12 +44,11 @@ export default function App() {
             setPrObjectIsValid(prevState => ({ ...prevState, result: true }))
         }
         if(prObject.name.length !== 0 && prObject.date.length !== 0 && prObject.lift.length !== 0 && prObject.result.length !== 0){
-            useCreatePr(prObject.name, prObject.date, prObject.lift, prObject.result, setPrList)
+            useCreatePr(prObject, setPrList)
         }
     }
 
     // TODO: 
-    // typet kuntoon: Inputcontainerin setObject ja tarkista routerin eri routet
     // tyylittely
     // UPDATE
     // sen jälkeen mietitään onko valmis vai tuleeko laajennus + auth ja React-Router

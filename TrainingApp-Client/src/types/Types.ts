@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 
 export interface DataItem {
-    id: number;
+    readonly _id: number;
     name: string;
     date: string;
     lift: string;
@@ -16,7 +16,7 @@ export interface PrFields {
 }
 
 export interface ResponseData {
-    map(arg0: (item: any) => { name: any; date: any; lift: any; result: any; }): DataItem[];
+    map(arg0: (item: DataItem) => { name: string; date: string; lift: string; result: string; }): DataItem[];
     data: {
         items: DataItem[];
     }
@@ -37,3 +37,5 @@ export type ResultListState = {
     resultList: DataItem[];
     setResultList: SetResultList;
 }
+
+

@@ -6,7 +6,7 @@ import useDeletePr from '../hooks/useDeletePr';
 import { DataItem, SetResultList } from '../types/Types'
 
 
-export default function PrList(props: { list: DataItem[]; setList: SetResultList; }) {
+export default function PrList(props: { list: DataItem[]; setList: SetResultList; }): React.JSX.Element {
 
   const { list, setList } = props;
 
