@@ -1,9 +1,11 @@
-import React, {useState} from 'react';
-import { StyleSheet, TextInput, Button, View, Text} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import { StyleSheet, TextInput, Button, View, Text, TouchableOpacity} from 'react-native';
 import { DataItem, PrListProps } from 'types/Types';
 import PrList from './components/PrList';
 import useCreatePr from './hooks/useCreatePr';
 import InputContainer from './components/InputContainer';
+import useEditPr from './hooks/useEditPr';
+import EditItem from './components/EditItem';
 
 
 export default function App() {
@@ -21,6 +23,10 @@ export default function App() {
         lift: true,
         result: true
     })
+
+    const [isEditMode, setIsEditMode] = useState(false)
+    const [editItem, setEditItem] = useState<DataItem>({})
+
 
     const handleButtonPress = (): void => {
         if(prObject.name.length === 0) {
@@ -64,7 +70,12 @@ export default function App() {
             <View style={{marginTop: 30, marginBottom: 30}}>
                 <Button title={'Add'} onPress={() => handleButtonPress()}/>
             </View>
-            <PrList list={prList} setList={setPrList} />
+
+            {isEditMode ? 
+            <EditItem editItem={editItem} setEditItem={setEditItem} useEditPr={useEditPr} setIsEditMode={setIsEditMode}/>
+            :
+            <PrList list={prList} setList={setPrList} setIsEditMode={setIsEditMode} setEditItem={setEditItem} />
+            }
         </View>
     );
 }

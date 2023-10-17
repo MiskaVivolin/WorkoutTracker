@@ -12,10 +12,9 @@ const useGetList = (setResultList: SetResultList): void => {
                 lift: item.lift,
                 result: item.result
             }))
-
-            console.log('API Success:');
-            console.log(dataItems)
-            console.log(response.data.message)
+            if(response.data.message) {
+                console.log(response.data.message)
+            }
             setResultList(dataItems)
         })
         .catch(() => {

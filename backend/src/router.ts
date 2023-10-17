@@ -1,7 +1,7 @@
 const routerExpress = require("express")
 const router = routerExpress.Router()
 const userPrs = require("./models")
-import { DataItem, PostReq, PostRes, GetRes, DeleteReq, DeleteRes } from "./types/types";
+import type { DataItem, PostReq, PostRes, GetRes, DeleteReq, DeleteRes, GetItemReq } from "./types/types";
 
 
 router.route("/create").post((req: PostReq, res: PostRes) => {
@@ -42,6 +42,35 @@ router.route("/get").get((req: string, res: GetRes) => {
     })
 })
 
+router.route("/get/:id").get((req: GetItemReq, res: any) => {
+
+    userPrs.findById(req.params.id)
+    .then((data: string) => {
+        res.json(data)
+        console.log(`${data} Object acquired!`)
+    })
+    .catch((err: string) => {
+        res.json({ message: 'Error retrieving specific object' })
+        console.log(err)
+    })
+})
+
+router.route("/put/:id").put((req: any, res: any) => {
+
+    const { name, date, lift, results } = req.body
+    userPrs.findOneAndUpdate(
+        { _id: req.params.id },
+        { name, date, lift, results },
+        { new: true, useFindAndModify: false }
+    )
+    .then((data: string) => {
+        res.json(data)
+        console.log('Object updated: ', data)
+    })
+    .catch((err: string) => {
+        console.log('Error updating object', err)
+    })
+})
 
 router.route("/delete").delete((req: DeleteReq, res: DeleteRes) => {
     

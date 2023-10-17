@@ -1,10 +1,8 @@
 import { StyleSheet, Text, TextInput, View } from 'react-native'
 import React from 'react'
-import { PrFields } from '../types/Types';
+import { InputContainerProps, PrFields } from '../types/Types';
 
-const InputContainer = (props: { header: string; value: string; object: PrFields; setObject: any; objectIsValid: {[key: string]: boolean} }): React.JSX.Element => {
-
-    const {header, value, object, setObject, objectIsValid} = props;
+const InputContainer = ({ header, value, object, setObject, objectIsValid }: InputContainerProps): React.JSX.Element => {
 
   return (
     <View style={styles.inputContainer}>

@@ -6,8 +6,6 @@ const useCreatePr = (prObject: PrFields, setResultList: SetResultList): void => 
 
     axios.post<ResponseData>('http://127.0.0.1:3001/create', prObject)
     .then((response: AxiosResponse<ResponseData>) => {
-            console.log("NewPr", prObject)
-            console.log(response.data)
             useGetList(setResultList)
             if (response.data.message.toLowerCase().includes("error")){
                 alert(response.data.message)

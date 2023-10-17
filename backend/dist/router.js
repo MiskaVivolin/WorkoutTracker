@@ -36,6 +36,28 @@ router.route("/get").get((req, res) => {
         console.log('Error retrieving data', err);
     });
 });
+router.route("/get/:id").get((req, res) => {
+    userPrs.findById(req.params.id)
+        .then((data) => {
+        res.json(data);
+        console.log(`${data} Object acquired!`);
+    })
+        .catch((err) => {
+        res.json({ message: 'Error retrieving specific object' });
+        console.log(err);
+    });
+});
+router.route("/put/:id").put((req, res) => {
+    const { name, date, lift, results } = req.body;
+    userPrs.findOneAndUpdate({ _id: req.params.id }, { name, date, lift, results }, { new: true, useFindAndModify: false })
+        .then((data) => {
+        res.json(data);
+        console.log('Object updated: ', data);
+    })
+        .catch((err) => {
+        console.log('Error updating object', err);
+    });
+});
 router.route("/delete").delete((req, res) => {
     userPrs.findByIdAndDelete(req.query.id)
         .then((data) => {

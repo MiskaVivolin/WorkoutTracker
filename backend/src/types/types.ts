@@ -27,6 +27,14 @@ export interface GetRes {
     }) => void
 }
 
+export interface GetItemReq {
+    query: {
+        id: number
+    }
+    params: {
+        id: number
+    }
+}
 export interface DeleteReq {
     query: {
         id: number
