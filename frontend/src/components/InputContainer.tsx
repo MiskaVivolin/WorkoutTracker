@@ -6,7 +6,7 @@ const InputContainer = ({ header, value, object, setObject, objectIsValid }: Inp
 
   return (
     <View style={styles.inputContainer}>
-        <Text>{header}</Text>
+        <Text style={{fontSize: 16}}>{header}</Text>
         <TextInput style={styles.input}
             onChangeText={newName => setObject({ ...object, [value]: newName })}
             value={String(object[value as keyof PrFields])}
@@ -23,8 +23,10 @@ const styles = StyleSheet.create({
         marginTop: 30
     },
     input: {
-        width: 200, 
-        borderColor:'gray', 
+        width: 250,
+        height: 25, 
+        borderRadius: 5,
+        borderColor: '#606060', 
         borderWidth: 1, 
     },
     errorText: {

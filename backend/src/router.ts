@@ -20,8 +20,8 @@ router.route("/create").post((req: PostReq, res: PostRes) => {
         });
         newuserPr.save()
             .then((data: string) => {
-            res.json({ message: `${data} Object created` });
-            console.log(`${data} Object created\n`);
+            res.json({ message: `Object ${data} created` });
+            console.log(`Object ${data} created\n`);
         })
             .catch((err: string) => {
             res.json({ message: "Error creating object" });
@@ -47,7 +47,7 @@ router.route("/get/:id").get((req: GetItemReq, res: any) => {
     userPrs.findById(req.params.id)
     .then((data: string) => {
         res.json(data)
-        console.log(`${data} Object acquired!`)
+        console.log(`Object ${data} acquired\n`)
     })
     .catch((err: string) => {
         res.json({ message: 'Error retrieving specific object' })
@@ -64,10 +64,11 @@ router.route("/put/:id").put((req: any, res: any) => {
         { new: true, useFindAndModify: false }
     )
     .then((data: string) => {
-        res.json(data)
-        console.log('Object updated: ', data)
+        res.json({message: `Object ${data} updated`})
+        console.log(`Object ${data} updated\n`)
     })
     .catch((err: string) => {
+        res.json('Error updating object')
         console.log('Error updating object', err)
     })
 })

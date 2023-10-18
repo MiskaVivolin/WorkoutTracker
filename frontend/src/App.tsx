@@ -1,11 +1,11 @@
-import React, {useState, useEffect} from 'react';
-import { StyleSheet, TextInput, Button, View, Text, TouchableOpacity} from 'react-native';
-import { DataItem, PrListProps } from 'types/Types';
+import React, {useState} from 'react';
+import { StyleSheet, View, Text, TouchableOpacity} from 'react-native';
+import { DataItem, } from 'types/Types';
 import PrList from './components/PrList';
-import useCreatePr from './hooks/useCreatePr';
 import InputContainer from './components/InputContainer';
 import useEditPr from './hooks/useEditPr';
 import EditItem from './components/EditItem';
+import usePrValidation from './hooks/usePrValidation';
 
 
 export default function App() {
@@ -23,61 +23,34 @@ export default function App() {
         lift: true,
         result: true
     })
-
     const [isEditMode, setIsEditMode] = useState(false)
-    const [editItem, setEditItem] = useState<DataItem>({})
-
-
-    const handleButtonPress = (): void => {
-        if(prObject.name.length === 0) {
-            setPrObjectIsValid(prevState => ({ ...prevState, name: false }))
-        } else {
-            setPrObjectIsValid(prevState => ({ ...prevState, name: true }))
-        }
-        if(prObject.date.length === 0) {
-            setPrObjectIsValid(prevState => ({ ...prevState, date: false }))
-        } else {
-            setPrObjectIsValid(prevState => ({ ...prevState, date: true }))
-        }
-        if(prObject.lift.length === 0) {
-            setPrObjectIsValid(prevState => ({ ...prevState, lift: false }))
-        } else {
-            setPrObjectIsValid(prevState => ({ ...prevState, lift: true }))
-        }
-        if(prObject.result.length === 0) {
-            setPrObjectIsValid(prevState => ({ ...prevState, result: false }))
-        } else {
-            setPrObjectIsValid(prevState => ({ ...prevState, result: true }))
-        }
-        if(prObject.name.length !== 0 && prObject.date.length !== 0 && prObject.lift.length !== 0 && prObject.result.length !== 0){
-            useCreatePr(prObject, setPrList)
-        }
-    }
+    const [editItem, setEditItem] = useState<DataItem>({_id: 0, name: '', date: '', lift: '', result: ''})
 
     // TODO: 
     // tyylittely
-    // UPDATE
     // sen jälkeen mietitään onko valmis vai tuleeko laajennus + auth ja React-Router
 
     
     return (
         <View style={styles.container}>
-            <Text style={{fontSize: 20, marginTop: 150}}> Add a new personal record</Text>
+            <Text style={{fontSize: 24, marginTop: 150}}>Add a new personal record</Text>
             <InputContainer header={"Name"} value={"name"} object={prObject} setObject={setPrObject} objectIsValid={prObjectIsValid}/>    
             <InputContainer header={"Date"} value={"date"} object={prObject} setObject={setPrObject} objectIsValid={prObjectIsValid}/>    
             <InputContainer header={"Exercise"} value={"lift"} object={prObject} setObject={setPrObject} objectIsValid={prObjectIsValid}/>    
             <InputContainer header={"Result"} value={"result"} object={prObject} setObject={setPrObject} objectIsValid={prObjectIsValid}/>    
             <View style={{marginTop: 30, marginBottom: 30}}>
-                <Button title={'Add'} onPress={() => handleButtonPress()}/>
+                <TouchableOpacity style={styles.button} 
+                    onPress={() => usePrValidation(prObject, setPrObjectIsValid, setPrList, setPrObject)}>
+                    <Text style={{fontSize: 16}}>add</Text>
+                </TouchableOpacity>
             </View>
-
             {isEditMode ? 
             <EditItem editItem={editItem} setEditItem={setEditItem} useEditPr={useEditPr} setIsEditMode={setIsEditMode}/>
             :
             <PrList list={prList} setList={setPrList} setIsEditMode={setIsEditMode} setEditItem={setEditItem} />
             }
         </View>
-    );
+    )
 }
 
 const styles = StyleSheet.create({
@@ -87,5 +60,14 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    
+    button: {
+        backgroundColor: '#66a3ff',
+        paddingRight: 14, 
+        paddingLeft: 14,
+        paddingBottom: 3,
+        paddingTop: 3,
+        borderRadius: 8, 
+        borderWidth: 1, 
+        borderColor: '#606060'
+    }
 });

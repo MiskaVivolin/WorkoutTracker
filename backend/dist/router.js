@@ -17,8 +17,8 @@ router.route("/create").post((req, res) => {
         });
         newuserPr.save()
             .then((data) => {
-            res.json({ message: `${data} Object created` });
-            console.log(`${data} Object created\n`);
+            res.json({ message: `Object ${data} created` });
+            console.log(`Object ${data} created\n`);
         })
             .catch((err) => {
             res.json({ message: "Error creating object" });
@@ -40,7 +40,7 @@ router.route("/get/:id").get((req, res) => {
     userPrs.findById(req.params.id)
         .then((data) => {
         res.json(data);
-        console.log(`${data} Object acquired!`);
+        console.log(`Object ${data} acquired\n`);
     })
         .catch((err) => {
         res.json({ message: 'Error retrieving specific object' });
@@ -51,10 +51,11 @@ router.route("/put/:id").put((req, res) => {
     const { name, date, lift, results } = req.body;
     userPrs.findOneAndUpdate({ _id: req.params.id }, { name, date, lift, results }, { new: true, useFindAndModify: false })
         .then((data) => {
-        res.json(data);
-        console.log('Object updated: ', data);
+        res.json({ message: `Object ${data} updated` });
+        console.log(`Object ${data} updated\n`);
     })
         .catch((err) => {
+        res.json('Error updating object');
         console.log('Error updating object', err);
     });
 });

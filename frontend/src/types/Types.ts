@@ -22,7 +22,7 @@ export interface ResponseData extends DataItem {
 
 export interface PrListProps {
     list: DataItem[]
-    setIsEditMode: setIsEditMode
+    setIsEditMode: SetIsEditMode
     setEditItem: SetEditItem
 }
 
@@ -43,15 +43,17 @@ export interface PrListProps {
 export interface EditItemProps { 
     editItem: DataItem;
     setEditItem: SetEditItem;
-    useEditPr: (item: DataItem, setEditItem: SetEditItem) => void;
-    setIsEditMode: setIsEditMode; 
+    useEditPr: (item: DataItem, setIsEditMode: SetIsEditMode) => void;
+    setIsEditMode: SetIsEditMode; 
 }
 
 export type SetResultList = (data: DataItem[]) => void
 
 export type SetEditItem = (data: DataItem) => void
 
-export type setIsEditMode = (data: boolean) => void 
+export type SetPrObject = (data: PrFields) => void
+
+export type SetIsEditMode = (data: boolean) => void 
 
 export type ContextChildren = {
     children: ReactNode;
