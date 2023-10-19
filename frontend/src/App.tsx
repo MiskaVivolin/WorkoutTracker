@@ -1,11 +1,10 @@
-import React, {useState} from 'react';
-import { StyleSheet, View, Text, TouchableOpacity} from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, View } from 'react-native';
 import { DataItem, } from 'types/Types';
 import PrList from './components/PrList';
-import InputContainer from './components/InputContainer';
 import useEditPr from './hooks/useEditPr';
 import EditItem from './components/EditItem';
-import usePrValidation from './hooks/usePrValidation';
+import FormContainer from './components/FormContainer';
 
 
 export default function App() {
@@ -27,23 +26,14 @@ export default function App() {
     const [editItem, setEditItem] = useState<DataItem>({_id: 0, name: '', date: '', lift: '', result: ''})
 
     // TODO: 
-    // tyylittely
-    // sen jälkeen mietitään onko valmis vai tuleeko laajennus + auth ja React-Router
+    // validaatio editille
+    // Typet kuntoon
+    // sen jälkeen mietitään onko valmis vai tuleeko laajennusta esim search, filter, auth ja React-Router
 
     
     return (
-        <View style={styles.container}>
-            <Text style={{fontSize: 24, marginTop: 150}}>Add a new personal record</Text>
-            <InputContainer header={"Name"} value={"name"} object={prObject} setObject={setPrObject} objectIsValid={prObjectIsValid}/>    
-            <InputContainer header={"Date"} value={"date"} object={prObject} setObject={setPrObject} objectIsValid={prObjectIsValid}/>    
-            <InputContainer header={"Exercise"} value={"lift"} object={prObject} setObject={setPrObject} objectIsValid={prObjectIsValid}/>    
-            <InputContainer header={"Result"} value={"result"} object={prObject} setObject={setPrObject} objectIsValid={prObjectIsValid}/>    
-            <View style={{marginTop: 30, marginBottom: 30}}>
-                <TouchableOpacity style={styles.button} 
-                    onPress={() => usePrValidation(prObject, setPrObjectIsValid, setPrList, setPrObject)}>
-                    <Text style={{fontSize: 16}}>add</Text>
-                </TouchableOpacity>
-            </View>
+        <View style={{flex: 1}}>
+            <FormContainer prObject={prObject} setPrObject={setPrObject} prObjectIsValid={prObjectIsValid} setPrObjectIsValid={setPrObjectIsValid} setPrList={setPrList}/>
             {isEditMode ? 
             <EditItem editItem={editItem} setEditItem={setEditItem} useEditPr={useEditPr} setIsEditMode={setIsEditMode}/>
             :
@@ -52,22 +42,3 @@ export default function App() {
         </View>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    button: {
-        backgroundColor: '#66a3ff',
-        paddingRight: 14, 
-        paddingLeft: 14,
-        paddingBottom: 3,
-        paddingTop: 3,
-        borderRadius: 8, 
-        borderWidth: 1, 
-        borderColor: '#606060'
-    }
-});

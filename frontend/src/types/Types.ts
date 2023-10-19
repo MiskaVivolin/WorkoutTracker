@@ -22,7 +22,7 @@ export interface ResponseData extends DataItem {
 
 export interface PrListProps {
     list: DataItem[]
-    setIsEditMode: SetIsEditMode
+    setIsEditMode: SetBoolean
     setEditItem: SetEditItem
 }
 
@@ -35,6 +35,15 @@ export interface InputContainerProps {
         [key: string]: boolean
     }
 }
+export interface FormContainerProps {
+    prObject: PrFields,
+    setPrObject: any,
+    prObjectIsValid: {
+        [key: string]: boolean
+    }
+    setPrObjectIsValid: any,
+    setPrList: SetResultList
+}
 
 export interface PrListProps {
     list: DataItem[];
@@ -43,8 +52,8 @@ export interface PrListProps {
 export interface EditItemProps { 
     editItem: DataItem;
     setEditItem: SetEditItem;
-    useEditPr: (item: DataItem, setIsEditMode: SetIsEditMode) => void;
-    setIsEditMode: SetIsEditMode; 
+    useEditPr: (item: DataItem, setIsEditMode: SetBoolean) => void;
+    setIsEditMode: SetBoolean; 
 }
 
 export type SetResultList = (data: DataItem[]) => void
@@ -53,7 +62,7 @@ export type SetEditItem = (data: DataItem) => void
 
 export type SetPrObject = (data: PrFields) => void
 
-export type SetIsEditMode = (data: boolean) => void 
+export type SetBoolean = (data: boolean) => void 
 
 export type ContextChildren = {
     children: ReactNode;
