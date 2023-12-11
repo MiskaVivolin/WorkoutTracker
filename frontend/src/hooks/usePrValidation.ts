@@ -1,7 +1,8 @@
 import { PrFields, SetBoolean, SetPrObject, SetResultList } from '../types/Types'
 import useCreatePr from './useCreatePr'
+import useEditPr from './useEditPr'
 
-const usePrValidation = (prObject: PrFields, setPrObjectIsValid: any, setPrList: SetResultList, setPrObject: SetPrObject, pressedAdd: boolean, setPressedAdd: SetBoolean): void => {
+const usePrValidation = (prObject: any, setPrObjectIsValid: any, setPrList: SetResultList, setPrObject: SetPrObject, pressedAdd: boolean, setPressedAdd: SetBoolean, isEditMode: boolean, setIsEditMode: (data: boolean) => void ): void => {
 
     if(prObject.name.length === 0) {
         setPrObjectIsValid((prevState: any) => ({ ...prevState, name: false }))
@@ -28,7 +29,7 @@ const usePrValidation = (prObject: PrFields, setPrObjectIsValid: any, setPrList:
         setPrObjectIsValid((prevState: any) => ({ ...prevState, result: true }))
     }
     if(prObject.name.length !== 0 && prObject.date.length !== 0 && prObject.lift.length !== 0 && prObject.result.length !== 0){
-        if(pressedAdd) {
+        if(pressedAdd && !isEditMode) {
             useCreatePr(prObject, setPrList)
             setPressedAdd(false)
             setPrObject({
@@ -37,6 +38,9 @@ const usePrValidation = (prObject: PrFields, setPrObjectIsValid: any, setPrList:
                 lift: '',
                 result: ''
             })
+        }
+        if(pressedAdd && isEditMode) {
+            useEditPr(prObject, setIsEditMode)
         }
     }
 }

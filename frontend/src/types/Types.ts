@@ -60,7 +60,7 @@ export type SetResultList = (data: DataItem[]) => void
 
 export type SetEditItem = (data: DataItem) => void
 
-export type SetPrObject = (data: PrFields) => void
+export type SetPrObject = (data: any) => void
 
 export type SetBoolean = (data: boolean) => void 
 

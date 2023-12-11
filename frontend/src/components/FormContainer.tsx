@@ -1,17 +1,17 @@
 import { StyleSheet, Text, TextInput, View, TouchableOpacity } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { FormContainerProps, PrFields } from '../types/Types';
+import { FormContainerProps } from '../types/Types';
 import usePrValidation from '../hooks/usePrValidation';
 
 const FormContainer = ({ prObject, setPrObject, prObjectIsValid, setPrObjectIsValid, setPrList }: FormContainerProps): React.JSX.Element => {
 
   const [validationInit, setValidationInit] = useState(false)
   const [pressedAdd, setPressedAdd] = useState(false);
-
+  const [isEditMode, setIsEditMode] = useState(false)
 
   useEffect(() => {
     if(validationInit) {
-        usePrValidation(prObject, setPrObjectIsValid, setPrList, setPrObject, pressedAdd, setPressedAdd)
+        usePrValidation(prObject, setPrObjectIsValid, setPrList, setPrObject, pressedAdd, setPressedAdd, isEditMode, setIsEditMode)
         setValidationInit(false)
     }
   }, [prObject, pressedAdd])
