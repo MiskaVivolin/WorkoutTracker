@@ -48,8 +48,8 @@ router.route("/get/:id").get((req, res) => {
     });
 });
 router.route("/put/:id").put((req, res) => {
-    const { name, date, lift, results } = req.body;
-    userPrs.findOneAndUpdate({ _id: req.params.id }, { name, date, lift, results }, { new: true, useFindAndModify: false })
+    const { name, date, lift, result } = req.body;
+    userPrs.findOneAndUpdate({ _id: req.params.id }, { name, date, lift, result }, { new: true, useFindAndModify: false })
         .then((data) => {
         res.json({ message: `Object ${data} updated` });
         console.log(`Object ${data} updated\n`);

@@ -2,6 +2,7 @@ import axios, { AxiosResponse } from 'axios'
 import { SetResultList, ResponseData, DataItem } from '../types/Types'
 
 const useGetList = (setResultList: SetResultList): void => {
+    
     axios.get('http://127.0.0.1:3001/get')
         .then((response: AxiosResponse<ResponseData>) => {
             const {data} = response;

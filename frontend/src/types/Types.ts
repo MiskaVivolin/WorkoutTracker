@@ -35,6 +35,7 @@ export interface InputContainerProps {
         [key: string]: boolean
     }
 }
+
 export interface FormContainerProps {
     prObject: PrFields,
     setPrObject: any,
@@ -49,11 +50,14 @@ export interface PrListProps {
     list: DataItem[];
     setList: SetResultList; 
 }
+
 export interface EditItemProps { 
     editItem: DataItem;
     setEditItem: SetEditItem;
     useEditPr: (item: DataItem, setIsEditMode: SetBoolean) => void;
-    setIsEditMode: SetBoolean; 
+    setIsEditMode: SetBoolean;
+    isEditMode: boolean;
+    setPrList: any;
 }
 
 export type SetResultList = (data: DataItem[]) => void

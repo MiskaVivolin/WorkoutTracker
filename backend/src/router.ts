@@ -57,10 +57,10 @@ router.route("/get/:id").get((req: GetItemReq, res: any) => {
 
 router.route("/put/:id").put((req: any, res: any) => {
 
-    const { name, date, lift, results } = req.body
+    const { name, date, lift, result } = req.body
     userPrs.findOneAndUpdate(
         { _id: req.params.id },
-        { name, date, lift, results },
+        { name, date, lift, result },
         { new: true, useFindAndModify: false }
     )
     .then((data: string) => {
