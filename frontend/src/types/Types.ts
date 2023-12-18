@@ -77,4 +77,22 @@ export type ResultListState = {
     setResultList: SetResultList;
 }
 
+export type ValidationFields = {
+    username: string;
+    password: string;
+};
+  
+export type ValidationErrors = {
+    username: boolean;
+    password: boolean;
+};
+  
+export type ValidationHookResult = {
+    validationFields: ValidationFields;
+    validationErrors: ValidationErrors;
+    usernameIsValid: () => boolean;
+    passwordIsValid: () => boolean;
+    setValidationFields: React.Dispatch<React.SetStateAction<ValidationFields>>;
+    setValidationErrors: React.Dispatch<React.SetStateAction<ValidationErrors>>;
+};
 

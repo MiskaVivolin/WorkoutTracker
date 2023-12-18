@@ -8,9 +8,8 @@ const useEditPr = (prObject: DataItem, setIsEditMode: SetBoolean): void => {
     if(response.data.message.toLowerCase().includes('error')) {
       alert(response.data.message)
     } else {
-      
-        setIsEditMode(false)
-        console.log(response.data.message)
+      setIsEditMode(false)
+      console.log(response.data.message)
     }
   })
 }
