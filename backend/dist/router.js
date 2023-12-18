@@ -1,8 +1,70 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const routerExpress = require("express");
 const router = routerExpress.Router();
 const userPrs = require("./models");
+const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const User = mongoose.model('User', {
+    username: String,
+    password: String,
+});
+router.post('/signup', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { username, password } = req.body;
+    const hashedPassword = yield bcrypt.hash(password, 10);
+    const user = new User({
+        username,
+        password: hashedPassword,
+    });
+    yield user.save();
+    res.json({ message: 'User registered successfully' });
+}));
+router.post('/checkUsername', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { username, password } = req.body;
+    try {
+        const existingUsername = yield User.findOne({ username });
+        const existingPassword = yield User.findOne({ password });
+        if (existingUsername && existingPassword) {
+            res.json({ isTakenUsername: true, isTakenPassword: true });
+        }
+        else if (existingUsername) {
+            res.json({ isTakenUsername: true, isTakenPassword: false });
+        }
+        else if (existingPassword) {
+            res.json({ isTakenUsername: false, isTakenPassword: true });
+        }
+        else {
+            res.json({ isTakenUsername: false, isTakenPassword: false });
+        }
+    }
+    catch (error) {
+        console.error('Error checking username and password:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}));
+router.post('/login', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { username, password } = req.body;
+    const user = yield User.findOne({ username });
+    if (!user) {
+        return res.status(401).json({ message: 'Invalid username or password' });
+    }
+    const isPasswordValid = yield bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+        return res.status(401).json({ message: 'Invalid username or password' });
+    }
+    const token = jwt.sign({ userId: user._id }, 'your_secret_key', { expiresIn: '1h' });
+    res.json({ token });
+}));
 router.route("/create").post((req, res) => {
     const name = req.body.name;
     const date = req.body.date;
