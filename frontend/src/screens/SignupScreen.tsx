@@ -15,7 +15,7 @@ const SignupScreen = ({ navigation }) => {
   });
 
   const [validationErrors, setValidationErrors] = useState({
-    username: ''  /* Add your "taken" check here */,
+    username: '',
     password: '',
   });
 
@@ -27,9 +27,10 @@ const SignupScreen = ({ navigation }) => {
     if(validPassword && validUsername) {
       try {
         // Check if the username is already taken
-        const response = await axios.post('http://localhost:3001/checkUsername', { username: validationFields.username });
-        
-        if (response.data.isTakenUsername && response.data.isTakenUsername) {
+        const response = await axios.post('http://localhost:3001/checkUsername', { username: validationFields.username, password: validationFields.password });
+        console.log(response.data)
+        if (response.data.isTakenUsername && response.data.isTakenPassword) {
+          console.log("both user and pass are taken")
           setValidUsername(false);
           setValidPassword(false)
           setValidationErrors(() => ({
@@ -38,16 +39,18 @@ const SignupScreen = ({ navigation }) => {
           }));
           return;
         } else if (response.data.isTakenUsername) {
+          console.log("user is taken")
             setValidUsername(false);
-            setValidationErrors((prevErrors) => ({
-              ...prevErrors,
+            setValidationErrors(() => ({
               username: 'This username is already taken',
+              password: ''
             }));
           return;
         } else if (response.data.isTakenPassword) {
+          console.log("pass is taken")
             setValidPassword(false);
-            setValidationErrors((prevErrors) => ({
-              ...prevErrors,
+            setValidationErrors(() => ({
+              username: '',
               password: 'This password is already taken',
             }));
           return;

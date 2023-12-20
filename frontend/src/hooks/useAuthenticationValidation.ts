@@ -13,10 +13,10 @@ const useAuthenticationValidation = (validUsername: any, setValidUsername: any, 
   } else {
     setValidUsername(true)
   }
-  if (validationFields.password.length < 8) {
+  if (validationFields.password.length < 10) {
     setValidationErrors((prevErrors) => ({
       ...prevErrors,
-      password: 'Password must be 8 characters minimum'  /* Add your "taken" check here */,
+      password: 'Password must be 10 characters minimum'  /* Add your "taken" check here */,
     }));
     setValidPassword(false)
   } else {

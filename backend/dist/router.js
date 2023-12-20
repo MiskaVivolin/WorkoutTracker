@@ -13,38 +13,47 @@ const routerExpress = require("express");
 const router = routerExpress.Router();
 const userPrs = require("./models");
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const User = mongoose.model('User', {
-    username: String,
-    password: String,
+const userSchema = new mongoose.Schema({
+    username: { type: String, required: true, minlength: 4 },
+    password: { type: String, required: true, minlength: 10 },
 });
+const User = mongoose.model('User', userSchema);
 router.post('/signup', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { username, password } = req.body;
-    const hashedPassword = yield bcrypt.hash(password, 10);
     const user = new User({
         username,
-        password: hashedPassword,
+        password,
     });
     yield user.save();
     res.json({ message: 'User registered successfully' });
 }));
 router.post('/checkUsername', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { username, password } = req.body;
+    console.log('init check: ', req.body);
     try {
-        const existingUsername = yield User.findOne({ username });
-        const existingPassword = yield User.findOne({ password });
-        if (existingUsername && existingPassword) {
-            res.json({ isTakenUsername: true, isTakenPassword: true });
-        }
-        else if (existingUsername) {
-            res.json({ isTakenUsername: true, isTakenPassword: false });
-        }
-        else if (existingPassword) {
-            res.json({ isTakenUsername: false, isTakenPassword: true });
+        const user = yield User.findOne({ username });
+        if (!user) {
+            const pass = yield User.findOne({ password });
+            if (!pass) {
+                console.log("did not find username or password");
+                return res.json({ isTakenUsername: false, isTakenPassword: false });
+            }
+            else {
+                console.log("did not find username, found password");
+                return res.json({ isTakenUsername: false, isTakenPassword: true });
+            }
         }
         else {
-            res.json({ isTakenUsername: false, isTakenPassword: false });
+            const pass = yield User.findOne({ password });
+            if (!pass) {
+                console.log("found username, did not find password");
+                return res.json({ isTakenUsername: true, isTakenPassword: false });
+            }
+            else {
+                console.log("found username and password");
+                return res.json({ isTakenUsername: true, isTakenPassword: true });
+            }
         }
     }
     catch (error) {
@@ -54,16 +63,19 @@ router.post('/checkUsername', (req, res) => __awaiter(void 0, void 0, void 0, fu
 }));
 router.post('/login', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { username, password } = req.body;
-    const user = yield User.findOne({ username });
-    if (!user) {
-        return res.status(401).json({ message: 'Invalid username or password' });
+    console.log("init login: ", req.body);
+    try {
+        const user = yield User.findOne({ username, password });
+        if (!user) {
+            return res.status(401).json({ message: 'Invalid username or password' });
+        }
+        const token = jwt.sign({ userId: user._id }, 'your_secret_key', { expiresIn: '1h' });
+        res.json({ token });
     }
-    const isPasswordValid = yield bcrypt.compare(password, user.password);
-    if (!isPasswordValid) {
-        return res.status(401).json({ message: 'Invalid username or password' });
+    catch (error) {
+        console.error('Error during login:', error);
+        res.status(500).json({ error: 'Internal server error' });
     }
-    const token = jwt.sign({ userId: user._id }, 'your_secret_key', { expiresIn: '1h' });
-    res.json({ token });
 }));
 router.route("/create").post((req, res) => {
     const name = req.body.name;
