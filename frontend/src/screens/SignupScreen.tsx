@@ -27,18 +27,9 @@ const SignupScreen = ({ navigation }) => {
     if(validPassword && validUsername) {
       try {
         // Check if the username is already taken
-        const response = await axios.post('http://localhost:3001/checkUsername', { username: validationFields.username, password: validationFields.password });
+        const response = await axios.post('http://localhost:3001/signup', { validationFields });
         console.log(response.data)
-        if (response.data.isTakenUsername && response.data.isTakenPassword) {
-          console.log("both user and pass are taken")
-          setValidUsername(false);
-          setValidPassword(false)
-          setValidationErrors(() => ({
-            username: 'This username is already taken',
-            password: 'This password is already taken'
-          }));
-          return;
-        } else if (response.data.isTakenUsername) {
+        if (response.data.isTaken) {
           console.log("user is taken")
             setValidUsername(false);
             setValidationErrors(() => ({
@@ -46,18 +37,7 @@ const SignupScreen = ({ navigation }) => {
               password: ''
             }));
           return;
-        } else if (response.data.isTakenPassword) {
-          console.log("pass is taken")
-            setValidPassword(false);
-            setValidationErrors(() => ({
-              username: '',
-              password: 'This password is already taken',
-            }));
-          return;
-        }
-      
-        // Proceed with signup if the username is not taken
-        await axios.post('http://localhost:3001/signup', validationFields);
+        } 
         navigation.navigate('Login');
       } catch (error) {
         console.error('Signup failed', error);
