@@ -22,11 +22,11 @@ const SignupScreen = ({ navigation }) => {
 
   const handleSignup = async () => {
 
-    useAuthenticationValidation(validUsername, setValidUsername, validPassword, setValidPassword, validationFields, setValidationFields, validationErrors, setValidationErrors)
+    useAuthenticationValidation('signup', setValidUsername, setValidPassword, validationFields, setValidationErrors)
     setValidationInit(true)
     if(validPassword && validUsername) {
       try {
-        // Check if the username is already taken
+        
         const response = await axios.post('http://localhost:3001/signup', { validationFields });
         console.log(response.data)
         if (response.data.isTaken) {

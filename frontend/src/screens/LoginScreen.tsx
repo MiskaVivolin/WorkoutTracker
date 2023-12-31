@@ -4,26 +4,34 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StackNavigationProp } from 'react-navigation-stack/lib/typescript/src/vendor/types';
 import axios from 'axios';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import useAuthenticationValidation from '../hooks/useAuthenticationValidation';
 
 const LoginScreen = ({ navigation }) => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [validationInit, setValidationInit] = useState(false)
+  const [validUsername, setValidUsername] = useState(false)
+  const [validPassword, setValidPassword] = useState(false)
+  const [validationFields, setValidationFields] = useState({
+    username: '',
+    password: '',
+  });
+
+  const [validationErrors, setValidationErrors] = useState({
+    username: '',
+    password: '',
+  });
 
   const handleLogin = async () => {
     
-    if (!username || !password) {
-      console.error('Please enter both username and password');
-      return;
-    }
-    try {
-      const response = await axios.post('http://localhost:3001/login', {
-        username,
-        password,
-      });
-      await AsyncStorage.setItem('userToken', response.data.token);
-      navigation.navigate('Home');
-    } catch (error) {
-      console.error('Login failed', error);
+    useAuthenticationValidation('login', setValidUsername, setValidPassword, validationFields, setValidationErrors)
+    setValidationInit(true)
+    if(validPassword && validUsername) {
+      try {
+        const response = await axios.post('http://localhost:3001/login', { validationFields });
+        await AsyncStorage.setItem('userToken', response.data.token);
+        navigation.navigate('Home');
+      } catch (error) {
+        console.error('Login failed', error);
+      }
     }
   };
 
@@ -33,18 +41,22 @@ const LoginScreen = ({ navigation }) => {
       <Text style={styles.label}>Username:</Text>
       <TextInput
         style={styles.input}
-        value={username}
-        onChangeText={setUsername}
+        value={validationFields.username}
+        onChangeText={(text) => setValidationFields((prev) => ({ ...prev, username: text }))}
       />
-
+      {validationInit && !validUsername && (
+        <Text style={{ color: 'red', paddingBottom: 10 }}>{validationErrors.username}</Text>
+      )}
       <Text style={styles.label}>Password:</Text>
       <TextInput
         style={styles.input}
         secureTextEntry
-        value={password}
-        onChangeText={setPassword}
+        value={validationFields.password}
+        onChangeText={(text) => setValidationFields((prev) => ({ ...prev, password: text }))}
       />
-
+      {validationInit && !validPassword && (
+        <Text style={{ color: 'red', paddingBottom: 10}}>{validationErrors.password}</Text>
+      )}
       <TouchableOpacity
         style={styles.button} 
         onPress={handleLogin}>
@@ -53,8 +65,10 @@ const LoginScreen = ({ navigation }) => {
       <TouchableOpacity
         style={styles.button}
         onPress={() => {
-          setUsername('')
-          setPassword('')
+          setValidationFields({
+            username: '',
+            password: ''
+          })
           navigation.navigate('Signup')}}>
           Signup
         </TouchableOpacity>
