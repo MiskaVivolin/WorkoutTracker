@@ -45,7 +45,7 @@ router.post('/signup', (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
 }));
 router.post('/login', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { username, password } = req.body;
+    const { username, password } = req.body.validationFields;
     const user = yield User.findOne({ username });
     if (!user) {
         return res.status(401).json({ message: 'Invalid username' });

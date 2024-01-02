@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
-import axios from 'axios';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import useAuthenticationValidation from '../hooks/useAuthenticationValidation';
 
@@ -18,32 +17,6 @@ const SignupScreen = ({ navigation }) => {
     username: '',
     password: '',
   });
-
-
-  const handleSignup = async () => {
-
-    useAuthenticationValidation('signup', setValidUsername, setValidPassword, validationFields, setValidationErrors)
-    setValidationInit(true)
-    if(validPassword && validUsername) {
-      try {
-        
-        const response = await axios.post('http://localhost:3001/signup', { validationFields });
-        console.log(response.data)
-        if (response.data.isTaken) {
-          console.log("user is taken")
-            setValidUsername(false);
-            setValidationErrors(() => ({
-              username: 'This username is already taken',
-              password: ''
-            }));
-          return;
-        } 
-        navigation.navigate('Login');
-      } catch (error) {
-        console.error('Signup failed', error);
-      }
-    }
-  };
 
   return (
     <View style={styles.container}>
@@ -67,7 +40,7 @@ const SignupScreen = ({ navigation }) => {
       )}
       <TouchableOpacity 
         style={styles.button}
-        onPress={handleSignup}
+        onPress={() => useAuthenticationValidation(navigation, 'signup', setValidationInit, setValidUsername, setValidPassword, validationFields, setValidationErrors, setValidationFields)}
         >Signup</TouchableOpacity>
     </View>
   );

@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { StackNavigationProp } from 'react-navigation-stack/lib/typescript/src/vendor/types';
-import axios from 'axios';
+import { View, Text, TextInput, StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import useAuthenticationValidation from '../hooks/useAuthenticationValidation';
 
@@ -19,21 +16,6 @@ const LoginScreen = ({ navigation }) => {
     username: '',
     password: '',
   });
-
-  const handleLogin = async () => {
-    
-    useAuthenticationValidation('login', setValidUsername, setValidPassword, validationFields, setValidationErrors)
-    setValidationInit(true)
-    if(validPassword && validUsername) {
-      try {
-        const response = await axios.post('http://localhost:3001/login', { validationFields });
-        await AsyncStorage.setItem('userToken', response.data.token);
-        navigation.navigate('Home');
-      } catch (error) {
-        console.error('Login failed', error);
-      }
-    }
-  };
 
   return (
     <View style={styles.container}>
@@ -59,13 +41,17 @@ const LoginScreen = ({ navigation }) => {
       )}
       <TouchableOpacity
         style={styles.button} 
-        onPress={handleLogin}>
+        onPress={() => useAuthenticationValidation(navigation, 'login', setValidationInit, setValidUsername, setValidPassword, validationFields, setValidationErrors, setValidationFields)}>
           Login
         </TouchableOpacity>
       <TouchableOpacity
         style={styles.button}
         onPress={() => {
           setValidationFields({
+            username: '',
+            password: ''
+          })
+          setValidationErrors({
             username: '',
             password: ''
           })
