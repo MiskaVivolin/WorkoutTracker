@@ -10,7 +10,7 @@ import FormContainer from '../components/FormContainer';
 export default function HomeScreen() {
     
   const [prList, setPrList] = useState<DataItem[]>([])
-  const [prObject, setPrObject] = useState({ name: '', date: '', lift: '', result: '' })
+  const [prObject, setPrObject] = useState({ _id: 0, name: '', date: '', lift: '', result: '' })
   const [prObjectIsValid, setPrObjectIsValid] = useState({ name: true, date: true, lift: true, result: true })
   const [isEditMode, setIsEditMode] = useState(false)
   const [editItem, setEditItem] = useState<DataItem>({ _id: 0, name: '', date: '', lift: '', result: '' })

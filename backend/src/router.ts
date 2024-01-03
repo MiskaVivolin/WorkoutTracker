@@ -22,7 +22,6 @@ router.post('/signup', async (req: any, res: any) => {
     const user = await User.findOne({ username });
 
     if (!user) {
-      // User with the given username doesn't exist
       const hashedPassword = await bcrypt.hash(password, 10);
 
       const newUser = new User({

@@ -11,15 +11,17 @@ const Stack = createStackNavigator();
 export default function Index() {
   
   // TODO: 
-  // Typet kuntoon
-  // sen jälkeen mietitään onko valmis vai tuleeko laajennusta esim search, filter, auth ja React-Router
+  // Typet kuntoon backista
+  // Errorit ja varoitukset kuntoon käyttöliittymästä
+  // Auth paremmaksi niin että jokaisella käyttäjällä on omat tiedot
+  // Laajennusta esim search, filter, kaaviot, profiilitiedot jne.
   
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login">
-        <Stack.Screen name="Home" options={{ title: 'Home' }} component={HomeScreen}/>
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Signup" component={SignupScreen} />
+      <Stack.Navigator initialRouteName="LoginScreen">
+        <Stack.Screen name="HomeScreen" component={HomeScreen}/>
+        <Stack.Screen name="LoginScreen" component={LoginScreen} />
+        <Stack.Screen name="SignupScreen" component={SignupScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   )

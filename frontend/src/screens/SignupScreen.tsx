@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { SignupScreenProps } from '../types/Types';
+import { View, Text, TextInput, StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import useAuthenticationValidation from '../hooks/useAuthenticationValidation';
 
-const SignupScreen = ({ navigation }) => {
+const SignupScreen: React.FC<SignupScreenProps> = ({ navigation }) => {
 
   const [validationInit, setValidationInit] = useState(false)
   const [validUsername, setValidUsername] = useState(false)

@@ -1,4 +1,5 @@
 import { ReactNode } from 'react'
+import { StackNavigationProp } from '@react-navigation/stack';
 
 export interface DataItem {
     readonly _id: number;
@@ -37,7 +38,7 @@ export interface InputContainerProps {
 }
 
 export interface FormContainerProps {
-    prObject: PrFields,
+    prObject: DataItem,
     setPrObject: any,
     prObjectIsValid: {
         [key: string]: boolean
@@ -68,31 +69,54 @@ export type SetPrObject = (data: any) => void
 
 export type SetBoolean = (data: boolean) => void 
 
-export type ContextChildren = {
+export interface ContextChildren {
     children: ReactNode;
 }
 
-export type ResultListState = {
+export interface ResultListState {
     resultList: DataItem[];
     setResultList: SetResultList;
 }
 
-export type ValidationFields = {
+export interface ValidationFields {
     username: string;
     password: string;
 };
   
-export type ValidationErrors = {
-    username: boolean;
-    password: boolean;
-};
-  
-export type ValidationHookResult = {
+export interface ValidationHookResult {
     validationFields: ValidationFields;
-    validationErrors: ValidationErrors;
+    validationErrors: ValidationFields;
     usernameIsValid: () => boolean;
     passwordIsValid: () => boolean;
     setValidationFields: React.Dispatch<React.SetStateAction<ValidationFields>>;
-    setValidationErrors: React.Dispatch<React.SetStateAction<ValidationErrors>>;
+    setValidationErrors: React.Dispatch<React.SetStateAction<ValidationFields>>;
 };
 
+export type RootStackParamList = {
+    HomeScreen: undefined;
+    LoginScreen: undefined;
+    SignupScreen: undefined;
+};
+  
+export type HomeScreenProps = {
+    navigation: StackNavigationProp<RootStackParamList, 'HomeScreen'>;
+};
+
+export type LoginScreenProps = {
+    navigation: StackNavigationProp<RootStackParamList, 'LoginScreen'>;
+};
+
+export type SignupScreenProps = {
+    navigation: StackNavigationProp<RootStackParamList, 'SignupScreen'>;
+};
+
+export interface ApiResponse {
+    message: string;
+}
+
+export interface PrevStateBooleanObj {
+    name: boolean,
+    date: boolean,
+    lift: boolean,
+    result: boolean
+}

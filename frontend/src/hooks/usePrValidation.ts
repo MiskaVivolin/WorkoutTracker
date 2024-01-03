@@ -1,32 +1,32 @@
-import { PrFields, SetBoolean, SetPrObject, SetResultList } from '../types/Types'
+import { DataItem, PrevStateBooleanObj, SetBoolean, SetPrObject, SetResultList } from '../types/Types'
 import useCreatePr from './useCreatePr'
 import useEditPr from './useEditPr'
 
-const usePrValidation = (prObject: any, setPrObjectIsValid: any, setPrList: SetResultList, setPrObject: SetPrObject, pressedAdd: boolean, setPressedAdd: SetBoolean, isEditMode: boolean, setIsEditMode: (data: boolean) => void ): void => {
+const usePrValidation = (prObject: DataItem, setPrObjectIsValid: React.Dispatch<React.SetStateAction<PrevStateBooleanObj>>, setPrList: SetResultList, setPrObject: SetPrObject, pressedAdd: boolean, setPressedAdd: SetBoolean, isEditMode: boolean, setIsEditMode: (data: boolean) => void): void => {
 
     if(prObject.name.length === 0) {
-        setPrObjectIsValid((prevState: any) => ({ ...prevState, name: false }))
+        setPrObjectIsValid((prevState: PrevStateBooleanObj) => ({ ...prevState, name: false }))
         setPressedAdd(false)
     } else {
-        setPrObjectIsValid((prevState: any) => ({ ...prevState, name: true }))
+        setPrObjectIsValid((prevState: PrevStateBooleanObj) => ({ ...prevState, name: true }))
     }
     if(prObject.date.length === 0) {
-        setPrObjectIsValid((prevState: any) => ({ ...prevState, date: false }))
+        setPrObjectIsValid((prevState: PrevStateBooleanObj) => ({ ...prevState, date: false }))
         setPressedAdd(false)
     } else {
-        setPrObjectIsValid((prevState: any) => ({ ...prevState, date: true }))
+        setPrObjectIsValid((prevState: PrevStateBooleanObj) => ({ ...prevState, date: true }))
     }
     if(prObject.lift.length === 0) {
-        setPrObjectIsValid((prevState: any) => ({ ...prevState, lift: false }))
+        setPrObjectIsValid((prevState: PrevStateBooleanObj) => ({ ...prevState, lift: false }))
         setPressedAdd(false)
     } else {
-        setPrObjectIsValid((prevState: any) => ({ ...prevState, lift: true }))
+        setPrObjectIsValid((prevState: PrevStateBooleanObj) => ({ ...prevState, lift: true }))
     }
     if(prObject.result.length === 0) {
-        setPrObjectIsValid((prevState: any) => ({ ...prevState, result: false }))
+        setPrObjectIsValid((prevState: PrevStateBooleanObj) => ({ ...prevState, result: false }))
         setPressedAdd(false)
     } else {
-        setPrObjectIsValid((prevState: any) => ({ ...prevState, result: true }))
+        setPrObjectIsValid((prevState: PrevStateBooleanObj) => ({ ...prevState, result: true }))
     }
     if(prObject.name.length !== 0 && prObject.date.length !== 0 && prObject.lift.length !== 0 && prObject.result.length !== 0){
         if(pressedAdd && !isEditMode) {

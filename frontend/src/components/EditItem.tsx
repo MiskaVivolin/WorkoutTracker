@@ -4,7 +4,7 @@ import usePrValidation from '../hooks/usePrValidation'
 import React from 'react'
 import { EditItemProps } from '../types/Types'
 
-const EditItem = ({ editItem, setEditItem, useEditPr, setIsEditMode, isEditMode, setPrList }: EditItemProps): React.JSX.Element => {
+const EditItem = ({ editItem, setEditItem, setIsEditMode, isEditMode, setPrList }: EditItemProps): React.JSX.Element => {
 
   const [validationInit, setValidationInit] = useState(false)
   const [pressedAdd, setPressedAdd] = useState(false);

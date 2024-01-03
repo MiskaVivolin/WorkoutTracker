@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import useAuthenticationValidation from '../hooks/useAuthenticationValidation';
+import { LoginScreenProps } from '../types/Types';
 
-const LoginScreen = ({ navigation }) => {
+const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
   const [validationInit, setValidationInit] = useState(false)
   const [validUsername, setValidUsername] = useState(false)
   const [validPassword, setValidPassword] = useState(false)
@@ -55,7 +56,7 @@ const LoginScreen = ({ navigation }) => {
             username: '',
             password: ''
           })
-          navigation.navigate('Signup')}}>
+          navigation.navigate('SignupScreen')}}>
           Signup
         </TouchableOpacity>
     </View>

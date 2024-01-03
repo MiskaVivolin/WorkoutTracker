@@ -1,7 +1,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
+import axios, {AxiosError} from 'axios';
+import { ApiResponse, RootStackParamList, ValidationFields } from '../types/Types';
+import { StackNavigationProp } from '@react-navigation/stack';
 
-const useAuthenticationValidation = async (navigation: any, mode: string, setValidationInit: any, setValidUsername: any, setValidPassword: any, validationFields: any, setValidationErrors: any, setValidationFields: any): Promise<void> => {
+const useAuthenticationValidation = async (navigation: StackNavigationProp<RootStackParamList>, mode: string, setValidationInit: (data: boolean) => void, setValidUsername: (data: boolean) => void, setValidPassword: (data: boolean) => void, validationFields: ValidationFields, setValidationErrors: React.Dispatch<React.SetStateAction<ValidationFields>>, setValidationFields: (data: ValidationFields) => void): Promise<void> => {
 
 
   if (mode === 'login') {
@@ -10,7 +12,7 @@ const useAuthenticationValidation = async (navigation: any, mode: string, setVal
     try {
       const response = await axios.post('http://localhost:3001/login', { validationFields });
       await AsyncStorage.setItem('userToken', response.data.token);
-      navigation.navigate('Home');
+      navigation.navigate('HomeScreen');
       setValidationFields({
         username: '',
         password: ''
@@ -20,20 +22,23 @@ const useAuthenticationValidation = async (navigation: any, mode: string, setVal
         password: ''
       })
     } catch (error) {
-      console.error('Login failed', error);
-      console.log('error response: ', error.response)
-      if(error.response.data.message === 'Invalid username' || 'Invalid password') {
-        setValidationErrors((prevErrors) => ({
-          ...prevErrors,
-          username: 'Invalid username or password',
-        }));
+      if (axios.isAxiosError(error)) {
+        const axiosError = error as AxiosError;
+        const responseData = axiosError.response?.data as ApiResponse;
+        
+        if (responseData.message === 'Invalid username' || 'Invalid password') {
+          setValidationErrors((prevErrors: ValidationFields) => ({
+            ...prevErrors,
+            username: 'Invalid username or password',
+          }));
+        }
       }
     }
   }
 
   if (mode === 'signup') {
     if (validationFields.username.length < 4) {
-      setValidationErrors((prevErrors) => ({
+      setValidationErrors((prevErrors: ValidationFields) => ({
         ...prevErrors,
         username: 'Username must be 4 characters minimum',
       }));
@@ -42,7 +47,7 @@ const useAuthenticationValidation = async (navigation: any, mode: string, setVal
       setValidUsername(true)
     }
     if (validationFields.password.length < 10) {
-      setValidationErrors((prevErrors) => ({
+      setValidationErrors((prevErrors: ValidationFields) => ({
         ...prevErrors,
         password: 'Password must be 10 characters minimum',
       }));
@@ -62,7 +67,7 @@ const useAuthenticationValidation = async (navigation: any, mode: string, setVal
           }));
         return;
         } 
-        navigation.navigate('Login');
+        navigation.navigate('LoginScreen');
       } catch (error) {
         console.error('Signup failed', error);
       }
