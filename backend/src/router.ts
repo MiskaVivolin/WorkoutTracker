@@ -64,21 +64,22 @@ router.post('/login', async (req: any, res: any) => {
 
 router.route("/create").post((req: PostReq, res: PostRes) => {
 
-    const name = req.body.name
-    const date = req.body.date
-    const lift = req.body.lift
-    const result = req.body.result
+    const user = req.body.username
+    const name = req.body.prObject.name
+    const date = req.body.prObject.date
+    const lift = req.body.prObject.lift
+    const result = req.body.prObject.result
 
-    if (req.body.name === '' || undefined || req.body.date === '' || undefined || req.body.lift === '' || undefined || req.body.result === '' || undefined) {
+    if (name === '' || undefined || date === '' || undefined || lift === '' || undefined || result === '' || undefined) {
         res.json({ message: "Error: object has empty or undefined fields" });
     }
     else {
         const newuserPr = new userPrs({
-            name, date, lift, result
+            user, name, date, lift, result
         });
         newuserPr.save()
             .then((data: string) => {
-            res.json({ message: `Object ${data} created` });
+            res.json(data);
             console.log(`Object ${data} created\n`);
         })
             .catch((err: string) => {
@@ -92,6 +93,7 @@ router.route("/get").get((req: string, res: GetRes) => {
 
     userPrs.find({})
     .then((data: DataItem) => {
+      console.log('find data: ', data)
         res.json(data)
     })
     .catch((err: JSON) => {

@@ -26,7 +26,6 @@ router.post('/signup', (req, res) => __awaiter(void 0, void 0, void 0, function*
     try {
         const user = yield User.findOne({ username });
         if (!user) {
-            // User with the given username doesn't exist
             const hashedPassword = yield bcrypt.hash(password, 10);
             const newUser = new User({
                 username,
@@ -58,20 +57,21 @@ router.post('/login', (req, res) => __awaiter(void 0, void 0, void 0, function* 
     res.json({ token });
 }));
 router.route("/create").post((req, res) => {
-    const name = req.body.name;
-    const date = req.body.date;
-    const lift = req.body.lift;
-    const result = req.body.result;
-    if (req.body.name === '' || undefined || req.body.date === '' || undefined || req.body.lift === '' || undefined || req.body.result === '' || undefined) {
+    const user = req.body.username;
+    const name = req.body.prObject.name;
+    const date = req.body.prObject.date;
+    const lift = req.body.prObject.lift;
+    const result = req.body.prObject.result;
+    if (name === '' || undefined || date === '' || undefined || lift === '' || undefined || result === '' || undefined) {
         res.json({ message: "Error: object has empty or undefined fields" });
     }
     else {
         const newuserPr = new userPrs({
-            name, date, lift, result
+            user, name, date, lift, result
         });
         newuserPr.save()
             .then((data) => {
-            res.json({ message: `Object ${data} created` });
+            res.json(data);
             console.log(`Object ${data} created\n`);
         })
             .catch((err) => {
@@ -83,6 +83,7 @@ router.route("/create").post((req, res) => {
 router.route("/get").get((req, res) => {
     userPrs.find({})
         .then((data) => {
+        console.log('find data: ', data);
         res.json(data);
     })
         .catch((err) => {

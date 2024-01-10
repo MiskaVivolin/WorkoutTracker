@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './screens/HomeScreen';
 import LoginScreen from './screens/LoginScreen';
 import SignupScreen from './screens/SignupScreen';
+import { UserTokenProvider } from './context/UserTokenContext';
 
 
 const Stack = createStackNavigator();
@@ -18,11 +19,13 @@ export default function Index() {
   
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="LoginScreen">
-        <Stack.Screen name="HomeScreen" component={HomeScreen}/>
-        <Stack.Screen name="LoginScreen" component={LoginScreen} />
-        <Stack.Screen name="SignupScreen" component={SignupScreen} />
-      </Stack.Navigator>
+      <UserTokenProvider>
+        <Stack.Navigator initialRouteName="LoginScreen">
+          <Stack.Screen name="HomeScreen" component={HomeScreen}/>
+          <Stack.Screen name="LoginScreen" component={LoginScreen} />
+          <Stack.Screen name="SignupScreen" component={SignupScreen} />
+        </Stack.Navigator>
+      </UserTokenProvider>
     </NavigationContainer>
   )
 }

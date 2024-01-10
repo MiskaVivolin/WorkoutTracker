@@ -1,6 +1,7 @@
 "use strict";
 const modelMongoose = require("mongoose");
 const prSchema = {
+    user: String,
     name: String,
     lift: String,
     date: String,

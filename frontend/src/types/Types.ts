@@ -3,6 +3,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 
 export interface DataItem {
     readonly _id: number;
+    readonly user: string;
     name: string;
     date: string;
     lift: string;
@@ -23,6 +24,7 @@ export interface ResponseData extends DataItem {
 
 export interface PrListProps {
     list: DataItem[]
+    setList: SetResultList
     setIsEditMode: SetBoolean
     setEditItem: SetEditItem
 }
@@ -44,12 +46,8 @@ export interface FormContainerProps {
         [key: string]: boolean
     }
     setPrObjectIsValid: any,
-    setPrList: SetResultList
-}
-
-export interface PrListProps {
-    list: DataItem[];
-    setList: SetResultList; 
+    setPrList: SetResultList,
+    username: string;
 }
 
 export interface EditItemProps { 
@@ -61,7 +59,7 @@ export interface EditItemProps {
     setPrList: any;
 }
 
-export type SetResultList = (data: DataItem[]) => void
+export type SetResultList = React.Dispatch<React.SetStateAction<DataItem[]>>;
 
 export type SetEditItem = (data: DataItem) => void
 
@@ -120,3 +118,11 @@ export interface PrevStateBooleanObj {
     lift: boolean,
     result: boolean
 }
+
+export type User = {
+    username: string;
+  };
+
+export type HomeScreenParams = {
+    username: string;
+  };

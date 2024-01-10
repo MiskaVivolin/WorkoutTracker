@@ -1,10 +1,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios, {AxiosError} from 'axios';
-import { ApiResponse, RootStackParamList, ValidationFields } from '../types/Types';
+import { ApiResponse, HomeScreenParams, RootStackParamList, ValidationFields } from '../types/Types';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 const useAuthenticationValidation = async (navigation: StackNavigationProp<RootStackParamList>, mode: string, setValidationInit: (data: boolean) => void, setValidUsername: (data: boolean) => void, setValidPassword: (data: boolean) => void, validationFields: ValidationFields, setValidationErrors: React.Dispatch<React.SetStateAction<ValidationFields>>, setValidationFields: (data: ValidationFields) => void): Promise<void> => {
-
 
   if (mode === 'login') {
     console.log(validationFields)
@@ -12,7 +11,9 @@ const useAuthenticationValidation = async (navigation: StackNavigationProp<RootS
     try {
       const response = await axios.post('http://localhost:3001/login', { validationFields });
       await AsyncStorage.setItem('userToken', response.data.token);
-      navigation.navigate('HomeScreen');
+      const usrToken = await response.data.token
+      console.log('usertoken: ', usrToken)
+      navigation.navigate('HomeScreen', { username: validationFields.username });
       setValidationFields({
         username: '',
         password: ''

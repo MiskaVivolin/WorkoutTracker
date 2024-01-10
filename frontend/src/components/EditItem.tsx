@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, TextInput, Pressable } from 'react-native'
 import { useEffect, useState } from 'react'
 import usePrValidation from '../hooks/usePrValidation'
 import React from 'react'
@@ -17,7 +17,7 @@ const EditItem = ({ editItem, setEditItem, setIsEditMode, isEditMode, setPrList 
 
   useEffect(() => {
     if(validationInit) {
-        usePrValidation(editItem, setEditItemIsValid, setPrList, setEditItem, pressedAdd, setPressedAdd, isEditMode, setIsEditMode)
+        usePrValidation(editItem, setEditItemIsValid, setPrList, setEditItem, pressedAdd, setPressedAdd, isEditMode, setIsEditMode, null)
         setValidationInit(false)
     }
   }, [editItem, pressedAdd])
@@ -62,7 +62,7 @@ const EditItem = ({ editItem, setEditItem, setIsEditMode, isEditMode, setPrList 
           {!editItemIsValid['result'] && <Text style={styles.errorText}>Result must not be empty</Text>}
         </View>
         <View style={{ flexDirection: 'row', paddingTop: 3}}>
-          <TouchableOpacity
+          <Pressable
             style={{ flex: 1, marginRight: 100, paddingRight: 8, paddingLeft: 8, paddingBottom: 1, paddingTop: 1, backgroundColor: '#70db70', borderRadius: 8, borderWidth: 1, borderColor: '#606060' }}
             onPress={() => {
               setValidationInit(true)
@@ -70,13 +70,13 @@ const EditItem = ({ editItem, setEditItem, setIsEditMode, isEditMode, setPrList 
               }}
             >
             <Text style={{fontSize: 16}}>  save   </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
+          </Pressable>
+          <Pressable
             style={{ flex: 1, paddingRight: 8, paddingLeft: 8, paddingBottom: 1, paddingTop: 1, backgroundColor: '#ff6666', borderRadius: 8, borderWidth: 1, borderColor: '#606060' }}
             onPress={() => setIsEditMode(false)}
             >
             <Text style={{fontSize: 16}}>cancel</Text>
-          </TouchableOpacity>
+          </Pressable>
         </View>
       </View>
     </View>

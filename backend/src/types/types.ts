@@ -1,5 +1,6 @@
 export interface DataItem {
     id: number;
+    user: string;
     name: string;
     date: string;
     lift: string;
@@ -8,15 +9,18 @@ export interface DataItem {
 
 export interface PostReq {
     body: {
-        name: string,
-        date: string,
-        lift: string,
-        result: string
+        username: string,
+        prObject: {
+            name: string,
+            date: string,
+            lift: string,
+            result: string
+        }
     }
 }
 
 export interface PostRes {
-    json: (args: { 
+    json: (args: string | { 
         message: string
     }) => void; 
 }

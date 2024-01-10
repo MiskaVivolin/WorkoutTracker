@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { SignupScreenProps } from '../types/Types';
-import { View, Text, TextInput, StyleSheet } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { View, Text, TextInput, StyleSheet, Pressable } from 'react-native';
 import useAuthenticationValidation from '../hooks/useAuthenticationValidation';
 
 const SignupScreen: React.FC<SignupScreenProps> = ({ navigation }) => {
@@ -39,10 +38,10 @@ const SignupScreen: React.FC<SignupScreenProps> = ({ navigation }) => {
       {validationInit && !validPassword && (
         <Text style={{ color: 'red', paddingBottom: 10}}>{validationErrors.password}</Text>
       )}
-      <TouchableOpacity 
+      <Pressable 
         style={styles.button}
         onPress={() => useAuthenticationValidation(navigation, 'signup', setValidationInit, setValidUsername, setValidPassword, validationFields, setValidationErrors, setValidationFields)}
-        >Signup</TouchableOpacity>
+        ><Text>Signup</Text></Pressable>
     </View>
   );
 };

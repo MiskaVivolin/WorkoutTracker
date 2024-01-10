@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { View, Text, TextInput, StyleSheet, Pressable } from 'react-native';
 import useAuthenticationValidation from '../hooks/useAuthenticationValidation';
 import { LoginScreenProps } from '../types/Types';
+import { useUserToken } from '../context/UserTokenContext';
 
 const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
+
+  const { setToken } = useUserToken()
   const [validationInit, setValidationInit] = useState(false)
   const [validUsername, setValidUsername] = useState(false)
   const [validPassword, setValidPassword] = useState(false)
@@ -40,12 +42,14 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
       {validationInit && !validPassword && (
         <Text style={{ color: 'red', paddingBottom: 10}}>{validationErrors.password}</Text>
       )}
-      <TouchableOpacity
+      <Pressable
         style={styles.button} 
-        onPress={() => useAuthenticationValidation(navigation, 'login', setValidationInit, setValidUsername, setValidPassword, validationFields, setValidationErrors, setValidationFields)}>
-          Login
-        </TouchableOpacity>
-      <TouchableOpacity
+        onPress={() => {
+          setToken(validationFields.username)
+          useAuthenticationValidation(navigation, 'login', setValidationInit, setValidUsername, setValidPassword, validationFields, setValidationErrors, setValidationFields)}}>
+          <Text>Login</Text>
+        </Pressable>
+      <Pressable
         style={styles.button}
         onPress={() => {
           setValidationFields({
@@ -57,8 +61,8 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
             password: ''
           })
           navigation.navigate('SignupScreen')}}>
-          Signup
-        </TouchableOpacity>
+          <Text>Signup</Text>
+        </Pressable>
     </View>
   );
 };

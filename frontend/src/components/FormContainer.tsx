@@ -1,9 +1,9 @@
-import { StyleSheet, Text, TextInput, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, TextInput, View, Pressable } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { FormContainerProps } from '../types/Types';
 import usePrValidation from '../hooks/usePrValidation';
 
-const FormContainer = ({ prObject, setPrObject, prObjectIsValid, setPrObjectIsValid, setPrList }: FormContainerProps): React.JSX.Element => {
+const FormContainer = ({ prObject, setPrObject, prObjectIsValid, setPrObjectIsValid, setPrList, username }: FormContainerProps): React.JSX.Element => {
 
   const [validationInit, setValidationInit] = useState(false)
   const [pressedAdd, setPressedAdd] = useState(false);
@@ -11,7 +11,7 @@ const FormContainer = ({ prObject, setPrObject, prObjectIsValid, setPrObjectIsVa
 
   useEffect(() => {
     if(validationInit) {
-        usePrValidation(prObject, setPrObjectIsValid, setPrList, setPrObject, pressedAdd, setPressedAdd, isEditMode, setIsEditMode)
+        usePrValidation(prObject, setPrObjectIsValid, setPrList, setPrObject, pressedAdd, setPressedAdd, isEditMode, setIsEditMode, username)
         setValidationInit(false)
     }
   }, [prObject, pressedAdd])
@@ -64,13 +64,13 @@ const FormContainer = ({ prObject, setPrObject, prObjectIsValid, setPrObjectIsVa
           {!prObjectIsValid['result'] && <Text style={styles.errorText}>Result must not be empty</Text>}
       </View>
       <View style={{marginTop: 30, marginBottom: 30}}>
-        <TouchableOpacity style={styles.button} 
+        <Pressable style={styles.button} 
           onPress={() => {
             setValidationInit(true)
             setPressedAdd(true)
             }}>
           <Text style={{fontSize: 16}}>add</Text>
-        </TouchableOpacity>
+        </Pressable>
       </View>
     </View>
   )
