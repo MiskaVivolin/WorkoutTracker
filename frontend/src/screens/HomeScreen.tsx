@@ -20,6 +20,7 @@ const HomeScreen: React.FC = () => {
 
   // TODO: 
   // Typet ja errorit kuntoon
+  // Testaa puhelimella (button shadow)
   // logout toiminto. poista default header. Appin nimi/idea esiin jonnekkin
   // sen jälkeen mietitään onko valmis vai tuleeko laajennusta esim search, filter, kaaviot, emojit/kuvat
   
