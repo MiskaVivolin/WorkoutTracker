@@ -19,10 +19,12 @@ const HomeScreen: React.FC = () => {
   const [editItem, setEditItem] = useState<DataItem>({ _id: 0, user: '', name: '', date: '', lift: '', result: '' })
 
   // TODO: 
+  // tyylittely
   // Typet ja errorit kuntoon
   // Testaa puhelimella (button shadow)
   // logout toiminto. poista default header. Appin nimi/idea esiin jonnekkin
-  // sen jälkeen mietitään onko valmis vai tuleeko laajennusta esim search, filter, kaaviot, emojit/kuvat
+  // kun on kirjautunut, refresh ei lähetä takaisin loginscreenille
+  // sen jälkeen mietitään onko valmis vai tuleeko laajennusta esim search, filter, kaaviot, emojit/kuvat, profiilitiedot jne.
   
   return (
     <View style={{flex: 1}}>

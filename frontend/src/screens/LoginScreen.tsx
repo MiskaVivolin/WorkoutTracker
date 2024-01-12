@@ -3,6 +3,7 @@ import { View, Text, TextInput, StyleSheet, Pressable, Platform } from 'react-na
 import useAuthenticationValidation from '../hooks/useAuthenticationValidation';
 import { LoginScreenProps } from '../types/Types';
 import { useUserToken } from '../context/UserTokenContext';
+import Navbar from '../components/NavBar';
 
 const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
 
@@ -21,88 +22,124 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
   });
 
   return (
-    <View style={styles.container}>
-      <Text style={{fontSize: 24, marginBottom: 50, fontFamily: 'Daniels'}}>Record Tracker</Text>
-      <Text style={styles.label}>Username</Text>
-      <TextInput
-        style={styles.input}
-        value={validationFields.username}
-        onChangeText={(text) => setValidationFields((prev) => ({ ...prev, username: text }))}
-      />
-      {validationInit && !validUsername && (
-        <Text style={{ color: 'red', paddingBottom: 10 }}>{validationErrors.username}</Text>
-      )}
-      <Text style={styles.label}>Password</Text>
-      <TextInput
-        style={styles.input}
-        secureTextEntry
-        value={validationFields.password}
-        onChangeText={(text) => setValidationFields((prev) => ({ ...prev, password: text }))}
-      />
-      {validationInit && !validPassword && (
-        <Text style={{ color: 'red', paddingBottom: 10}}>{validationErrors.password}</Text>
-      )}
-      <View style={{flexDirection: 'row'}}>
-        <Pressable
-          style={styles.button2}
-          onPress={() => {
-            setValidationFields({
-              username: '',
-              password: ''
-            })
-            setValidationErrors({
-              username: '',
-              password: ''
-            })
-            navigation.navigate('SignupScreen')}}>
-            <Text style={{color: '#2e7d7d', fontWeight: '500', fontSize: 16}}>Create an account</Text>
-          </Pressable>
+    <View>
+      <View style={{flex: 1,  alignItems: 'flex-start'}}>
+        <Navbar />
+      </View>
+      <View style={styles.container}>
+        <Text style={styles.labelHeader}>Workout Tracker</Text>
+        <Text style={styles.label}>Username</Text>
+        <TextInput
+          style={styles.input}
+          value={validationFields.username}
+          onChangeText={(text) => setValidationFields((prev) => ({ ...prev, username: text }))}
+        />
+        <Text style={styles.label2}>Password</Text>
+        <TextInput
+          style={styles.input}
+          secureTextEntry
+          value={validationFields.password}
+          onChangeText={(text) => setValidationFields((prev) => ({ ...prev, password: text }))}
+          />
+          {validationInit && !validUsername && (
+            <Text style={styles.labelError}>{validationErrors.username}</Text>
+          )}
+        <View style={{flexDirection: 'row'}}>
           <Pressable
-            style={styles.button} 
+            style={styles.button2}
             onPress={() => {
-              setToken(validationFields.username)
-              useAuthenticationValidation(navigation, 'login', setValidationInit, setValidUsername, setValidPassword, validationFields, setValidationErrors, setValidationFields)}}>
-              <Text style={{color: 'white', fontWeight: '500', fontSize: 16, alignSelf: 'center'}}>Log in</Text>
-          </Pressable>
-        </View>
+              setValidationFields({
+                username: '',
+                password: ''
+              })
+              setValidationErrors({
+                username: '',
+                password: ''
+              })
+              navigation.navigate('SignupScreen')}}>
+              <Text style={styles.labelLink}>Create an account</Text>
+            </Pressable>
+            <Pressable
+              style={styles.button} 
+              onPress={() => {
+                setToken(validationFields.username)
+                useAuthenticationValidation(navigation, 'login', setValidationInit, setValidUsername, setValidPassword, validationFields, setValidationErrors, setValidationFields)}}>
+                <Text style={styles.labelButton}>Log in</Text>
+            </Pressable>
+          </View>
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 5,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white'
   },
   label: {
-    color: '#505050',
-    fontSize: 14,
+    fontSize: 13,
+    fontFamily: 'MerriweatherSans',
+    color: '#606060',
     marginBottom: 2,
     paddingRight: 280,
-    
+  },
+  label2: {
+    fontSize: 13,
+    fontFamily: 'MerriweatherSans',
+    color: '#606060',
+    marginBottom: 2,
+    paddingRight: 284,
+  },
+  labelHeader: {
+    fontSize: 32, 
+    fontFamily: 'BlackOpsOne-Regular', 
+    color: '#303030',
+    marginBottom: 100, 
+  },
+  labelError: {
+    fontSize: 13,
+    fontFamily: 'MerriweatherSans', 
+    color: 'red',
+  },
+  labelLink: {
+    fontSize: 15,
+    fontFamily: 'MerriweatherSans',
+    color: '#2e7d7d', 
+    fontWeight: '500', 
+  },
+  labelButton: {
+    fontSize: 15, 
+    fontFamily: 'MerriweatherSans',
+    fontWeight: '500', 
+    color: 'white', 
+    alignSelf: 'center', 
   },
   input: {
+    fontFamily: 'MerriweatherSans',
+    fontSize: 12,
+    color: '#606060',
     height: 35,
     backgroundColor: '#F8F8F8',
     width: 350,
     borderColor: '#A9A9A9',
     borderWidth: 1,
-    marginBottom: 12,
+    marginBottom: 15,
     paddingHorizontal: 8,
     borderRadius: 3
   },
   button: {
     marginLeft: 95,
     width: 100,
-    padding: 5,
+    padding: 6,
     paddingHorizontal: 10,
-    marginTop: 50,
+    marginTop: 70,
     backgroundColor: '#6aa9a9',
     borderRadius: 10, 
     borderWidth: 1, 
-    borderColor: '#668585',
+    borderColor: '#678e8e',
     textAlign: 'center',
     fontSize: 16,
     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)', 
@@ -126,7 +163,7 @@ const styles = StyleSheet.create({
     width: 155,
     paddingVertical: 5,
     paddingHorizontal: 10,
-    marginTop: 50,
+    marginTop: 70,
     textAlign: 'center',
     fontSize: 16
   },
