@@ -6,19 +6,19 @@ export interface DataItem {
     readonly user: string;
     name: string;
     date: string;
-    lift: string;
+    exercise: string;
     result: string;
 }
 
 export interface PrFields {
     name: string;
     date: string;
-    lift: string;
+    exercise: string;
     result: string;
 }
 
 export interface ResponseData extends DataItem {
-    map(arg0: (item: DataItem) => { name: string; date: string; lift: string; result: string; }): DataItem[];
+    map(arg0: (item: DataItem) => { name: string; date: string; exercise: string; result: string; }): DataItem[];
     message: string;
 }
 
@@ -115,7 +115,7 @@ export interface ApiResponse {
 export interface PrevStateBooleanObj {
     name: boolean,
     date: boolean,
-    lift: boolean,
+    exercise: boolean,
     result: boolean
 }
 

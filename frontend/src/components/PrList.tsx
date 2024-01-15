@@ -18,7 +18,7 @@ export default function PrList({ list, setList, setIsEditMode, setEditItem }: Pr
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }: {item: DataItem}) =>
         <View style={styles.listItem}>
-            <Text style={{fontSize:20}}>{item.name}    {item.date}    {item.lift}    {item.result}</Text>
+            <Text style={{fontSize:20}}>{item.name}    {item.date}    {item.exercise}    {item.result}</Text>
             <View style={{ flexDirection: 'row', paddingTop: 5}}>
             <Pressable
               style={{ flex: 1, marginRight: 100, paddingRight: 8, paddingLeft: 8, paddingBottom: 1, paddingTop: 1, backgroundColor: '#70db70', borderRadius: 8, borderWidth: 1, borderColor: '#606060' }}
@@ -43,6 +43,7 @@ export default function PrList({ list, setList, setIsEditMode, setEditItem }: Pr
 const styles = StyleSheet.create({
   listcontainer: {
     flex: 1,
+    backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
   },

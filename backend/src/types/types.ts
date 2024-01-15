@@ -3,7 +3,7 @@ export interface DataItem {
     user: string;
     name: string;
     date: string;
-    lift: string;
+    exercise: string;
     result: string;
 }
 
@@ -13,7 +13,7 @@ export interface PostReq {
         prObject: {
             name: string,
             date: string,
-            lift: string,
+            exercise: string,
             result: string
         }
     }

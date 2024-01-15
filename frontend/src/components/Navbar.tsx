@@ -35,7 +35,6 @@ const styles = StyleSheet.create({
     fontSize: 32, 
     fontFamily: 'BlackOpsOne-Regular', 
     color: '#303030',
-    marginBottom: 100, 
   },
 });
 

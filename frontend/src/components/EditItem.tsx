@@ -11,7 +11,7 @@ const EditItem = ({ editItem, setEditItem, setIsEditMode, isEditMode, setPrList 
   const [editItemIsValid, setEditItemIsValid] = useState({
     name: true,
     date: true,
-    lift: true,
+    exercise: true,
     result: true
 })
 
@@ -41,10 +41,10 @@ const EditItem = ({ editItem, setEditItem, setIsEditMode, isEditMode, setPrList 
               />
           </View>
           <View style={{flexDirection: 'column'}}>
-            <Text style={{fontSize: 14, marginBottom: 3}}>  Lift</Text>
+            <Text style={{fontSize: 14, marginBottom: 3}}>  Exercise</Text>
             <TextInput style={styles.input}
-              onChangeText={lift => setEditItem({ ...editItem, lift })}
-              value={editItem.lift}
+              onChangeText={exercise => setEditItem({ ...editItem, exercise })}
+              value={editItem.exercise}
               />
           </View>
           <View style={{flexDirection: 'column'}}>
@@ -58,7 +58,7 @@ const EditItem = ({ editItem, setEditItem, setIsEditMode, isEditMode, setPrList 
         <View style={{flexDirection: 'row',}}>
           {!editItemIsValid['name'] && <Text style={styles.errorText}>Name must not be empty</Text>}
           {!editItemIsValid['date'] && <Text style={styles.errorText}>Date must not be empty</Text>}
-          {!editItemIsValid['lift'] && <Text style={styles.errorText}>Lift must not be empty</Text>}
+          {!editItemIsValid['exercise'] && <Text style={styles.errorText}>Exercise must not be empty</Text>}
           {!editItemIsValid['result'] && <Text style={styles.errorText}>Result must not be empty</Text>}
         </View>
         <View style={{ flexDirection: 'row', paddingTop: 3}}>

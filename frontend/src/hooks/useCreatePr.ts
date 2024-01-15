@@ -13,7 +13,7 @@ const useCreatePr = (prObject: PrFields, setResultList: SetResultList, username:
         user: response.data.user,
         name: response.data.name,
         date: response.data.date,
-        lift: response.data.lift,
+        exercise: response.data.exercise,
         result: response.data.result
       }
       setResultList((prevList: DataItem[]) => [...prevList, newObj]);

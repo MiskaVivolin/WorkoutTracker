@@ -60,14 +60,14 @@ router.route("/create").post((req, res) => {
     const user = req.body.username;
     const name = req.body.prObject.name;
     const date = req.body.prObject.date;
-    const lift = req.body.prObject.lift;
+    const exercise = req.body.prObject.exercise;
     const result = req.body.prObject.result;
-    if (name === '' || undefined || date === '' || undefined || lift === '' || undefined || result === '' || undefined) {
+    if (name === '' || undefined || date === '' || undefined || exercise === '' || undefined || result === '' || undefined) {
         res.json({ message: "Error: object has empty or undefined fields" });
     }
     else {
         const newuserPr = new userPrs({
-            user, name, date, lift, result
+            user, name, date, exercise, result
         });
         newuserPr.save()
             .then((data) => {
@@ -103,8 +103,8 @@ router.route("/get/:id").get((req, res) => {
     });
 });
 router.route("/put/:id").put((req, res) => {
-    const { name, date, lift, result } = req.body;
-    userPrs.findOneAndUpdate({ _id: req.params.id }, { name, date, lift, result }, { new: true, useFindAndModify: false })
+    const { name, date, exercise, result } = req.body;
+    userPrs.findOneAndUpdate({ _id: req.params.id }, { name, date, exercise, result }, { new: true, useFindAndModify: false })
         .then((data) => {
         res.json({ message: `Object ${data} updated` });
         console.log(`Object ${data} updated\n`);

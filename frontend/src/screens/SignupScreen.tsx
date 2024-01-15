@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { SignupScreenProps } from '../types/Types';
 import { View, Text, TextInput, StyleSheet, Pressable, Platform } from 'react-native';
 import useAuthenticationValidation from '../hooks/useAuthenticationValidation';
+import Navbar from '../components/Navbar';
 
 const SignupScreen: React.FC<SignupScreenProps> = ({ navigation }) => {
 
@@ -19,35 +20,38 @@ const SignupScreen: React.FC<SignupScreenProps> = ({ navigation }) => {
   });
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.labelHeader}>Create a new account</Text>
-      <Text style={styles.label}>Username</Text>
-      <TextInput 
-        style={styles.input}
-        value={validationFields.username}
-        onChangeText={(text) => setValidationFields((prev) => ({ ...prev, username: text }))}/>
-      {validationInit && !validUsername && (
-        <Text style={styles.labelError}>{validationErrors.username}</Text>
-      )}
-      <Text style={styles.label2}>Password</Text>
-      <TextInput secureTextEntry 
-        style={styles.input}
-        value={validationFields.password} 
-        onChangeText={(text) => setValidationFields((prev) => ({ ...prev, password: text }))} 
-        />
-      {validationInit && !validPassword && (
-        <Text style={styles.labelError}>{validationErrors.password}</Text>
-      )}
-      <View style={{flexDirection: 'row'}}>
-        <Pressable 
-          style={styles.button2}
-          onPress={() => navigation.navigate('LoginScreen')}
-          ><Text style={styles.labelLink}>Back</Text></Pressable>
-        <Pressable 
-          style={styles.button}
-          onPress={() => useAuthenticationValidation(navigation, 'signup', setValidationInit, setValidUsername, setValidPassword, validationFields, setValidationErrors, setValidationFields)}
-          ><Text style={styles.labelButton}>Sign up</Text></Pressable>
-        </View>
+    <View style={{flex: 1}}>
+      <Navbar />
+      <View style={styles.container}>
+        <Text style={styles.labelHeader}>Create a new account</Text>
+        <Text style={styles.label}>Username</Text>
+        <TextInput 
+          style={styles.input}
+          value={validationFields.username}
+          onChangeText={(text) => setValidationFields((prev) => ({ ...prev, username: text }))}/>
+        {validationInit && !validUsername && (
+          <Text style={styles.labelError}>{validationErrors.username}</Text>
+        )}
+        <Text style={styles.label2}>Password</Text>
+        <TextInput secureTextEntry 
+          style={styles.input}
+          value={validationFields.password} 
+          onChangeText={(text) => setValidationFields((prev) => ({ ...prev, password: text }))} 
+          />
+        {validationInit && !validPassword && (
+          <Text style={styles.labelError}>{validationErrors.password}</Text>
+        )}
+        <View style={{flexDirection: 'row'}}>
+          <Pressable 
+            style={styles.button2}
+            onPress={() => navigation.navigate('LoginScreen')}
+            ><Text style={styles.labelLink}>Back</Text></Pressable>
+          <Pressable 
+            style={styles.button}
+            onPress={() => useAuthenticationValidation(navigation, 'signup', setValidationInit, setValidUsername, setValidPassword, validationFields, setValidationErrors, setValidationFields)}
+            ><Text style={styles.labelButton}>Sign up</Text></Pressable>
+          </View>
+      </View>
     </View>
   );
 };
@@ -74,15 +78,16 @@ const styles = StyleSheet.create({
       paddingRight: 284,
     },
     labelHeader: {
-      fontSize: 32, 
-      fontFamily: 'BlackOpsOne-Regular', 
-      color: '#303030',
+      fontSize: 24, 
+      fontFamily: 'MerriweatherSans', 
+      color: '#505050',
       marginBottom: 100, 
     },
     labelError: {
       fontSize: 13,
       fontFamily: 'MerriweatherSans', 
       color: 'red',
+      marginBottom: 10
     },
     labelLink: {
       fontSize: 15,

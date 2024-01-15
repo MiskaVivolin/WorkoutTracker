@@ -16,11 +16,11 @@ const usePrValidation = (prObject: DataItem, setPrObjectIsValid: React.Dispatch<
     } else {
         setPrObjectIsValid((prevState: PrevStateBooleanObj) => ({ ...prevState, date: true }))
     }
-    if(prObject.lift.length === 0) {
-        setPrObjectIsValid((prevState: PrevStateBooleanObj) => ({ ...prevState, lift: false }))
+    if(prObject.exercise.length === 0) {
+        setPrObjectIsValid((prevState: PrevStateBooleanObj) => ({ ...prevState, exercise: false }))
         setPressedAdd(false)
     } else {
-        setPrObjectIsValid((prevState: PrevStateBooleanObj) => ({ ...prevState, lift: true }))
+        setPrObjectIsValid((prevState: PrevStateBooleanObj) => ({ ...prevState, exercise: true }))
     }
     if(prObject.result.length === 0) {
         setPrObjectIsValid((prevState: PrevStateBooleanObj) => ({ ...prevState, result: false }))
@@ -28,14 +28,14 @@ const usePrValidation = (prObject: DataItem, setPrObjectIsValid: React.Dispatch<
     } else {
         setPrObjectIsValid((prevState: PrevStateBooleanObj) => ({ ...prevState, result: true }))
     }
-    if(prObject.name.length !== 0 && prObject.date.length !== 0 && prObject.lift.length !== 0 && prObject.result.length !== 0){
+    if(prObject.name.length !== 0 && prObject.date.length !== 0 && prObject.exercise.length !== 0 && prObject.result.length !== 0){
         if(pressedAdd && !isEditMode) {
             useCreatePr(prObject, setPrList, username)
             setPressedAdd(false)
             setPrObject({
                 name: '',
                 date: '',
-                lift: '',
+                exercise: '',
                 result: ''
             })
         }

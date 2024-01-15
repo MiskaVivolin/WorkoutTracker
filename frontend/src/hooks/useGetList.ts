@@ -17,7 +17,7 @@ const useGetList = (setResultList: SetResultList): void => {
             user: item.user,
             name: item.name,
             date: item.date,
-            lift: item.lift,
+            exercise: item.exercise,
             result: item.result
           }))
           if(response.data.message) {
@@ -25,13 +25,10 @@ const useGetList = (setResultList: SetResultList): void => {
           }
           const resultList: DataItem[] = []
           dataItems.forEach(item => {
-            console.log('item: ', item)
-            console.log('username: ', userToken)
             if(item.user === userToken) {
               resultList.push(item)
             }  
           })
-          console.log('List: ', resultList)
           setResultList(resultList)
         })
         .catch(() => {

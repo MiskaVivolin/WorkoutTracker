@@ -3,7 +3,7 @@ import { View, Text, TextInput, StyleSheet, Pressable, Platform } from 'react-na
 import useAuthenticationValidation from '../hooks/useAuthenticationValidation';
 import { LoginScreenProps } from '../types/Types';
 import { useUserToken } from '../context/UserTokenContext';
-import Navbar from '../components/NavBar';
+import Navbar from '../components/Navbar';
 
 const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
 
@@ -22,12 +22,10 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
   });
 
   return (
-    <View>
-      <View style={{flex: 1,  alignItems: 'flex-start'}}>
-        <Navbar />
-      </View>
+    <View style={{flex: 1}}>
+      <Navbar />
       <View style={styles.container}>
-        <Text style={styles.labelHeader}>Workout Tracker</Text>
+        <Text style={styles.labelHeader}>Log in to your account</Text>
         <Text style={styles.label}>Username</Text>
         <TextInput
           style={styles.input}
@@ -74,7 +72,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 5,
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white'
@@ -94,9 +92,9 @@ const styles = StyleSheet.create({
     paddingRight: 284,
   },
   labelHeader: {
-    fontSize: 32, 
-    fontFamily: 'BlackOpsOne-Regular', 
-    color: '#303030',
+    fontSize: 24, 
+    fontFamily: 'MerriweatherSans', 
+    color: '#505050',
     marginBottom: 100, 
   },
   labelError: {
