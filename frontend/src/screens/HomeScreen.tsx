@@ -22,10 +22,8 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   const [editItem, setEditItem] = useState<DataItem>({ _id: 0, user: '', name: '', date: '', exercise: '', result: '' })
 
   // TODO: 
-  // tyylittely
-  // Typet ja errorit kuntoon
-  // Testaa puhelimella (button shadow)
-  // logout toiminto. poista default header. Appin nimi/idea esiin jonnekkin
+  // responsiivisuus ja puhelimen toimivuus
+  // logout toiminto
   // kun on kirjautunut, refresh ei lähetä takaisin loginscreenille
   // sen jälkeen mietitään onko valmis vai tuleeko laajennusta esim search, filter, kaaviot, emojit/kuvat, profiilitiedot jne.
   
@@ -34,7 +32,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   }
   
   return (
-    <View style={{flex: 1}}>
+    <View style={{flex: 1, backgroundColor: 'white'}}>
       <Navbar />
       <View>
         <FormContainer prObject={prObject} setPrObject={setPrObject} prObjectIsValid={prObjectIsValid} setPrObjectIsValid={setPrObjectIsValid} setPrList={setPrList} username={username}/>
