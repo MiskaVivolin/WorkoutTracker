@@ -59,6 +59,11 @@ export interface EditItemProps {
     setPrList: any;
 }
 
+export interface NavbarProps {
+    showButton: boolean;
+    navigation: StackNavigationProp<RootStackParamList>;
+}
+
 export type SetResultList = React.Dispatch<React.SetStateAction<DataItem[]>>;
 
 export type SetEditItem = (data: DataItem) => void

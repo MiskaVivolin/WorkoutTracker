@@ -1,23 +1,33 @@
 import React from 'react';
 import { View, Text, StyleSheet, Pressable, Platform } from 'react-native';
+import { NavbarProps } from '../types/Types';
 
-
-const Navbar: React.FC = () => {
+const Navbar: React.FC<NavbarProps> = ({navigation, showButton}) => {
   return (
-    <View style={{flexDirection: 'row'}}>
+    <View style={styles.divContainer}>
       <View style={styles.headerContainer}>
         <Text style={styles.labelHeader}>Workout Tracker</Text>
       </View>
-      <View style={{backgroundColor: '#f0f0f0'}}>
-        <Pressable style={styles.button}>
+      {showButton ? 
+      <View style={styles.buttonContainer}>
+        <Pressable style={styles.button}
+          onPress={() => navigation.navigate('LoginScreen')}
+        >
           <Text style={styles.labelButton}>Log out</Text>
         </Pressable>
       </View>
+      :
+      <></>
+      }
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  divContainer: {
+    flexDirection: 'row',
+    position: 'relative',
+  },
   headerContainer: {
     flex: 1,
     flexDirection: 'row',
@@ -25,17 +35,25 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: '#f0f0f0',
   },
+  buttonContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'flex-end',
+    backgroundColor: 'transparent',
+    position: 'absolute',
+  },
   labelHeader: {
-    fontSize: 32, 
-    fontFamily: 'BlackOpsOne-Regular', 
+    fontSize: 32,
+    fontFamily: 'BlackOpsOne-Regular',
     color: '#303030',
   },
   labelButton: {
-    fontSize: 15, 
+    fontSize: 15,
     fontFamily: 'MerriweatherSans',
-    fontWeight: '500', 
-    color: 'white', 
-    alignSelf: 'center', 
+    fontWeight: '500',
+    color: 'white',
+    alignSelf: 'center',
   },
   button: {
     width: 95,

@@ -33,7 +33,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
-      <Navbar />
+      <Navbar navigation={navigation} showButton={true}/>
       <View>
         <FormContainer prObject={prObject} setPrObject={setPrObject} prObjectIsValid={prObjectIsValid} setPrObjectIsValid={setPrObjectIsValid} setPrList={setPrList} username={username}/>
         {isEditMode ? 
