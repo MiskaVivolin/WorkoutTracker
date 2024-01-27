@@ -6,87 +6,80 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 import type { DataItem, PostReq, PostRes, GetRes, DeleteReq, DeleteRes, GetItemReq } from "./types/types";
 
-
-const User = mongoose.model('User', {
-    username: String,
-    password: String,
-  });
-
-router.post('/signup', async (req: any, res: any) => {
-    
-  const { username, password } = req.body;
-  const hashedPassword = await bcrypt.hash(password, 10);
-
-  const user = new User({
-    username,
-    password: hashedPassword,
-  });
-
-  await user.save();
-
-  res.json({ message: 'User registered successfully' });
+const userSchema = new mongoose.Schema({
+  username: { type: String, required: true, minlength: 4 },
+  password: { type: String, required: true, minlength: 10, unique: true },
 });
 
-router.post('/checkUsername', async (req: any, res: any) => {
-    const { username, password } = req.body;
-  
-    try {
-      const existingUsername = await User.findOne({ username });
-      const existingPassword = await User.findOne({ password });
-    
-      if (existingUsername && existingPassword) {
-        res.json({ isTakenUsername: true, isTakenPassword: true });
-      } else if (existingUsername) {
-        res.json({ isTakenUsername: true, isTakenPassword: false });
-      } else if (existingPassword) {
-        res.json({ isTakenUsername: false, isTakenPassword: true });
-      } else {
-        res.json({ isTakenUsername: false, isTakenPassword: false });
-      }
-    } catch (error) {
-      console.error('Error checking username and password:', error);
-      res.status(500).json({ error: 'Internal server error' });
+userSchema.index({ password: 1 }, { unique: true });
+
+const User = mongoose.model('User', userSchema);
+
+router.post('/signup', async (req: any, res: any) => {
+  const { username, password } = req.body.validationFields;
+
+  try {
+    const user = await User.findOne({ username });
+
+    if (!user) {
+      const hashedPassword = await bcrypt.hash(password, 10);
+
+      const newUser = new User({
+        username,
+        password: hashedPassword,
+      });
+      
+      await newUser.save();
+      
+      res.json({ isTaken: false });
+    } else {
+      res.json({ isTaken: true });
     }
-  });
+  } catch (error) {
+    console.error('Error checking username and password:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
 router.post('/login', async (req: any, res: any) => {
 
-    const { username, password } = req.body;
-  
-    const user = await User.findOne({ username });
-  
-    if (!user) {
-      return res.status(401).json({ message: 'Invalid username or password' });
-    }
-  
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-  
-    if (!isPasswordValid) {
-      return res.status(401).json({ message: 'Invalid username or password' });
-    }
-  
-    const token = jwt.sign({ userId: user._id }, 'your_secret_key', { expiresIn: '1h' });
-  
-    res.json({ token });
-  });
+  const { username, password } = req.body.validationFields;
+
+  const user = await User.findOne({ username });
+
+  if (!user) {
+    return res.status(401).json({ message: 'Invalid username' });
+  }
+
+  const isPasswordValid = await bcrypt.compare(password, user.password);
+
+  if (!isPasswordValid) {
+    return res.status(401).json({ message: 'Invalid password' });
+  }
+
+  const token = jwt.sign({ userId: user._id }, 'your_secret_key', { expiresIn: '1h' });
+
+  res.json({ token });
+});
 
 router.route("/create").post((req: PostReq, res: PostRes) => {
 
-    const name = req.body.name
-    const date = req.body.date
-    const lift = req.body.lift
-    const result = req.body.result
+    const user = req.body.username
+    const name = req.body.prObject.name
+    const date = req.body.prObject.date
+    const exercise = req.body.prObject.exercise
+    const result = req.body.prObject.result
 
-    if (req.body.name === '' || undefined || req.body.date === '' || undefined || req.body.lift === '' || undefined || req.body.result === '' || undefined) {
+    if (name === '' || undefined || date === '' || undefined || exercise === '' || undefined || result === '' || undefined) {
         res.json({ message: "Error: object has empty or undefined fields" });
     }
     else {
         const newuserPr = new userPrs({
-            name, date, lift, result
+            user, name, date, exercise, result
         });
         newuserPr.save()
             .then((data: string) => {
-            res.json({ message: `Object ${data} created` });
+            res.json(data);
             console.log(`Object ${data} created\n`);
         })
             .catch((err: string) => {
@@ -100,6 +93,7 @@ router.route("/get").get((req: string, res: GetRes) => {
 
     userPrs.find({})
     .then((data: DataItem) => {
+      console.log('find data: ', data)
         res.json(data)
     })
     .catch((err: JSON) => {
@@ -123,10 +117,10 @@ router.route("/get/:id").get((req: GetItemReq, res: any) => {
 
 router.route("/put/:id").put((req: any, res: any) => {
 
-    const { name, date, lift, result } = req.body
+    const { name, date, exercise, result } = req.body
     userPrs.findOneAndUpdate(
         { _id: req.params.id },
-        { name, date, lift, result },
+        { name, date, exercise, result },
         { new: true, useFindAndModify: false }
     )
     .then((data: string) => {

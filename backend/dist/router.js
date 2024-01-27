@@ -15,36 +15,27 @@ const userPrs = require("./models");
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const User = mongoose.model('User', {
-    username: String,
-    password: String,
+const userSchema = new mongoose.Schema({
+    username: { type: String, required: true, minlength: 4 },
+    password: { type: String, required: true, minlength: 10, unique: true },
 });
+userSchema.index({ password: 1 }, { unique: true });
+const User = mongoose.model('User', userSchema);
 router.post('/signup', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { username, password } = req.body;
-    const hashedPassword = yield bcrypt.hash(password, 10);
-    const user = new User({
-        username,
-        password: hashedPassword,
-    });
-    yield user.save();
-    res.json({ message: 'User registered successfully' });
-}));
-router.post('/checkUsername', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { username, password } = req.body;
+    const { username, password } = req.body.validationFields;
     try {
-        const existingUsername = yield User.findOne({ username });
-        const existingPassword = yield User.findOne({ password });
-        if (existingUsername && existingPassword) {
-            res.json({ isTakenUsername: true, isTakenPassword: true });
-        }
-        else if (existingUsername) {
-            res.json({ isTakenUsername: true, isTakenPassword: false });
-        }
-        else if (existingPassword) {
-            res.json({ isTakenUsername: false, isTakenPassword: true });
+        const user = yield User.findOne({ username });
+        if (!user) {
+            const hashedPassword = yield bcrypt.hash(password, 10);
+            const newUser = new User({
+                username,
+                password: hashedPassword,
+            });
+            yield newUser.save();
+            res.json({ isTaken: false });
         }
         else {
-            res.json({ isTakenUsername: false, isTakenPassword: false });
+            res.json({ isTaken: true });
         }
     }
     catch (error) {
@@ -53,33 +44,34 @@ router.post('/checkUsername', (req, res) => __awaiter(void 0, void 0, void 0, fu
     }
 }));
 router.post('/login', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { username, password } = req.body;
+    const { username, password } = req.body.validationFields;
     const user = yield User.findOne({ username });
     if (!user) {
-        return res.status(401).json({ message: 'Invalid username or password' });
+        return res.status(401).json({ message: 'Invalid username' });
     }
     const isPasswordValid = yield bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-        return res.status(401).json({ message: 'Invalid username or password' });
+        return res.status(401).json({ message: 'Invalid password' });
     }
     const token = jwt.sign({ userId: user._id }, 'your_secret_key', { expiresIn: '1h' });
     res.json({ token });
 }));
 router.route("/create").post((req, res) => {
-    const name = req.body.name;
-    const date = req.body.date;
-    const lift = req.body.lift;
-    const result = req.body.result;
-    if (req.body.name === '' || undefined || req.body.date === '' || undefined || req.body.lift === '' || undefined || req.body.result === '' || undefined) {
+    const user = req.body.username;
+    const name = req.body.prObject.name;
+    const date = req.body.prObject.date;
+    const exercise = req.body.prObject.exercise;
+    const result = req.body.prObject.result;
+    if (name === '' || undefined || date === '' || undefined || exercise === '' || undefined || result === '' || undefined) {
         res.json({ message: "Error: object has empty or undefined fields" });
     }
     else {
         const newuserPr = new userPrs({
-            name, date, lift, result
+            user, name, date, exercise, result
         });
         newuserPr.save()
             .then((data) => {
-            res.json({ message: `Object ${data} created` });
+            res.json(data);
             console.log(`Object ${data} created\n`);
         })
             .catch((err) => {
@@ -91,6 +83,7 @@ router.route("/create").post((req, res) => {
 router.route("/get").get((req, res) => {
     userPrs.find({})
         .then((data) => {
+        console.log('find data: ', data);
         res.json(data);
     })
         .catch((err) => {
@@ -110,8 +103,8 @@ router.route("/get/:id").get((req, res) => {
     });
 });
 router.route("/put/:id").put((req, res) => {
-    const { name, date, lift, result } = req.body;
-    userPrs.findOneAndUpdate({ _id: req.params.id }, { name, date, lift, result }, { new: true, useFindAndModify: false })
+    const { name, date, exercise, result } = req.body;
+    userPrs.findOneAndUpdate({ _id: req.params.id }, { name, date, exercise, result }, { new: true, useFindAndModify: false })
         .then((data) => {
         res.json({ message: `Object ${data} updated` });
         console.log(`Object ${data} updated\n`);

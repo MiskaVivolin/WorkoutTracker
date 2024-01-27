@@ -1,6 +1,5 @@
 import axios, { AxiosResponse } from 'axios'
 import { SetResultList, DataItem, ResponseData } from 'types/Types'
-import useGetList from './useGetList'
 
 const useDeletePr = (item: DataItem, setResultList: SetResultList): void => {
 
@@ -10,7 +9,7 @@ const useDeletePr = (item: DataItem, setResultList: SetResultList): void => {
         alert(response.data.message)
       } else {
         console.log(response.data.message)
-        useGetList(setResultList)
+        setResultList((prevList) => prevList.filter((prevItem) => prevItem._id !== item._id));
     }
   })
 }

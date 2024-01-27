@@ -12,7 +12,7 @@
       "backgroundColor": "#ffffff"
     },
     "assetBundlePatterns": [
-      "**/*"
+      "assets/fonts/*"
     ],
     "ios": {
       "supportsTablet": true
@@ -25,6 +25,10 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "defaultFontFamily": {
+      "regular": "MerriweatherSans",
+      "italic": "MerriweatherSans-Italic"
     }
   }
 }

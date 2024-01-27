@@ -1,27 +1,30 @@
 import { ReactNode } from 'react'
+import { StackNavigationProp } from '@react-navigation/stack';
 
 export interface DataItem {
     readonly _id: number;
+    readonly user: string;
     name: string;
     date: string;
-    lift: string;
+    exercise: string;
     result: string;
 }
 
 export interface PrFields {
     name: string;
     date: string;
-    lift: string;
+    exercise: string;
     result: string;
 }
 
 export interface ResponseData extends DataItem {
-    map(arg0: (item: DataItem) => { name: string; date: string; lift: string; result: string; }): DataItem[];
+    map(arg0: (item: DataItem) => { name: string; date: string; exercise: string; result: string; }): DataItem[];
     message: string;
 }
 
 export interface PrListProps {
     list: DataItem[]
+    setList: SetResultList
     setIsEditMode: SetBoolean
     setEditItem: SetEditItem
 }
@@ -37,18 +40,14 @@ export interface InputContainerProps {
 }
 
 export interface FormContainerProps {
-    prObject: PrFields,
+    prObject: DataItem,
     setPrObject: any,
     prObjectIsValid: {
         [key: string]: boolean
     }
     setPrObjectIsValid: any,
-    setPrList: SetResultList
-}
-
-export interface PrListProps {
-    list: DataItem[];
-    setList: SetResultList; 
+    setPrList: SetResultList,
+    username: string;
 }
 
 export interface EditItemProps { 
@@ -60,7 +59,12 @@ export interface EditItemProps {
     setPrList: any;
 }
 
-export type SetResultList = (data: DataItem[]) => void
+export interface NavbarProps {
+    showButton: boolean;
+    navigation: StackNavigationProp<RootStackParamList>;
+}
+
+export type SetResultList = React.Dispatch<React.SetStateAction<DataItem[]>>;
 
 export type SetEditItem = (data: DataItem) => void
 
@@ -68,31 +72,62 @@ export type SetPrObject = (data: any) => void
 
 export type SetBoolean = (data: boolean) => void 
 
-export type ContextChildren = {
+export interface ContextChildren {
     children: ReactNode;
 }
 
-export type ResultListState = {
+export interface ResultListState {
     resultList: DataItem[];
     setResultList: SetResultList;
 }
 
-export type ValidationFields = {
+export interface ValidationFields {
     username: string;
     password: string;
 };
   
-export type ValidationErrors = {
-    username: boolean;
-    password: boolean;
-};
-  
-export type ValidationHookResult = {
+export interface ValidationHookResult {
     validationFields: ValidationFields;
-    validationErrors: ValidationErrors;
+    validationErrors: ValidationFields;
     usernameIsValid: () => boolean;
     passwordIsValid: () => boolean;
     setValidationFields: React.Dispatch<React.SetStateAction<ValidationFields>>;
-    setValidationErrors: React.Dispatch<React.SetStateAction<ValidationErrors>>;
+    setValidationErrors: React.Dispatch<React.SetStateAction<ValidationFields>>;
 };
 
+export type RootStackParamList = {
+    HomeScreen: undefined;
+    LoginScreen: undefined;
+    SignupScreen: undefined;
+};
+  
+export type HomeScreenProps = {
+    navigation: StackNavigationProp<RootStackParamList, 'HomeScreen'>;
+};
+
+export type LoginScreenProps = {
+    navigation: StackNavigationProp<RootStackParamList, 'LoginScreen'>;
+};
+
+export type SignupScreenProps = {
+    navigation: StackNavigationProp<RootStackParamList, 'SignupScreen'>;
+};
+
+export interface ApiResponse {
+    message: string;
+}
+
+export interface PrevStateBooleanObj {
+    name: boolean,
+    date: boolean,
+    exercise: boolean,
+    result: boolean
+}
+
+export type User = {
+    username: string;
+  };
+
+export type HomeScreenParams = {
+    username: string;
+  };
