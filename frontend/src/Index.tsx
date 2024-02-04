@@ -5,41 +5,46 @@ import HomeScreen from './screens/HomeScreen';
 import LoginScreen from './screens/LoginScreen';
 import SignupScreen from './screens/SignupScreen';
 import { UserTokenProvider } from './context/UserTokenContext';
-import AppLoading from 'expo-app-loading';
+import * as SplashScreen from 'expo-splash-screen'
 import * as Font from 'expo-font'
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-const getFonts = () => Font.loadAsync({
-    'BlackOpsOne-Regular': require('../assets/fonts/BlackOpsOne-Regular.ttf'),
-    'MerriweatherSans': require('../assets/fonts/MerriweatherSans-VariableFont_wght.ttf')
-  })
-
+SplashScreen.preventAutoHideAsync();
 const Stack = createStackNavigator();
 
 export default function Index() {
+  const [appIsReady, setAppIsReady] = useState(false);
 
-  const [fontsLoaded, setFontsLoaded] = useState(false);
+  useEffect(() => {
+    async function prepare() {
+      try {
+        await Font.loadAsync({
+          'BlackOpsOne-Regular': require('../assets/fonts/BlackOpsOne-Regular.ttf'),
+          'MerriweatherSans': require('../assets/fonts/MerriweatherSans-VariableFont_wght.ttf')
+        });
+      } catch (error) {
+        console.warn(error);
+      } finally {
+        setAppIsReady(true);
+        await SplashScreen.hideAsync();
+      }
+    }
+    prepare();
+  }, []);
 
-  if (fontsLoaded) {
-    return (
-      <NavigationContainer>
-        <UserTokenProvider>
-          <Stack.Navigator>
-            <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false }} initialParams={{ username: 'undefined' }}/>
-            <Stack.Screen name="LoginScreen" component={LoginScreen} options={{ headerShown: false }}/>
-            <Stack.Screen name="SignupScreen" component={SignupScreen} options={{ headerShown: false }}/>
-          </Stack.Navigator>
-        </UserTokenProvider>
-      </NavigationContainer>
-    )
-  } else {
-    return (
-      <AppLoading 
-        startAsync={getFonts}
-        onFinish={() => setFontsLoaded(true)}
-        onError={(error) => console.error(error)}
-      />
-    )
+  if (!appIsReady) {
+    return null;
   }
+
+  return (
+    <NavigationContainer>
+         <UserTokenProvider>
+           <Stack.Navigator initialRouteName="LoginScreen">
+             <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false }} initialParams={{ username: 'undefined' }}/>
+             <Stack.Screen name="LoginScreen" component={LoginScreen} options={{ headerShown: false }}/>
+             <Stack.Screen name="SignupScreen" component={SignupScreen} options={{ headerShown: false }}/>
+           </Stack.Navigator>
+         </UserTokenProvider>
+       </NavigationContainer>
+  );
 }

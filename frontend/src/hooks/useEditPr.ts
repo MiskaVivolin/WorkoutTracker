@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios'
-import { DataItem, ResponseData, SetBoolean } from 'types/Types'
+import { DataItem, ResponseData, SetBoolean } from '../types/Types'
 
 const useEditPr = (prObject: DataItem, setIsEditMode: SetBoolean): void => {
   
@@ -12,6 +12,9 @@ const useEditPr = (prObject: DataItem, setIsEditMode: SetBoolean): void => {
       console.log(response.data.message)
     }
   })
+  .catch((error) => {
+    console.error('Error sending put request:', error);
+  });
 }
 
 export default useEditPr;

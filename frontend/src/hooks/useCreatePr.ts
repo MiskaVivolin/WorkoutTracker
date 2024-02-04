@@ -19,6 +19,9 @@ const useCreatePr = (prObject: PrFields, setResultList: SetResultList, username:
       setResultList((prevList: DataItem[]) => [...prevList, newObj]);
     }
   })
+  .catch((error) => {
+    console.error('Error creating item:', error);
+  });
 }
 
 export default useCreatePr;
