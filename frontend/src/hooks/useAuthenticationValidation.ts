@@ -1,18 +1,16 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios, {AxiosError} from 'axios';
+import axios, { AxiosError } from 'axios';
 import { ApiResponse, RootStackParamList, ValidationFields } from '../types/Types';
 import { StackNavigationProp } from '@react-navigation/stack';
 
-const useAuthenticationValidation = async (navigation: StackNavigationProp<RootStackParamList>, mode: string, setValidationInit: (data: boolean) => void, setValidUsername: (data: boolean) => void, setValidPassword: (data: boolean) => void, validationFields: ValidationFields, setValidationErrors: React.Dispatch<React.SetStateAction<ValidationFields>>, setValidationFields: (data: ValidationFields) => void): Promise<void> => {
+const useAuthenticationValidation = async (navigation: StackNavigationProp<RootStackParamList>, mode: string, setValidationInit: (data: boolean) => void, validationFields: ValidationFields, setValidationErrors: React.Dispatch<React.SetStateAction<ValidationFields>>, setValidationFields: (data: ValidationFields) => void, setValidUsername?: (data: boolean) => void, setValidPassword?: (data: boolean) => void, isFirstRender?: boolean): Promise<void> => {
 
   if (mode === 'login') {
-    console.log(validationFields)
     setValidationInit(true)
     try {
       const response = await axios.post('http://localhost:3001/login', { validationFields });
       await AsyncStorage.setItem('userToken', response.data.token);
-      const usrToken = await response.data.token
-      console.log('usertoken: ', usrToken)
+      await AsyncStorage.setItem('userInputFields', JSON.stringify(validationFields))
       navigation.navigate('HomeScreen', { username: validationFields.username });
       setValidationFields({
         username: '',
@@ -26,18 +24,23 @@ const useAuthenticationValidation = async (navigation: StackNavigationProp<RootS
       if (axios.isAxiosError(error)) {
         const axiosError = error as AxiosError;
         const responseData = axiosError.response?.data as ApiResponse;
-        
-        if (responseData.message === 'Invalid username' || 'Invalid password') {
-          setValidationErrors((prevErrors: ValidationFields) => ({
-            ...prevErrors,
-            username: 'Invalid username or password',
-          }));
+        if (axiosError.response?.status !== 401) {
+          console.error(error)
+        }
+        if(!isFirstRender) {
+          if (responseData.message === 'Invalid username' || 'Invalid password') {
+            console.error("error logging in")
+            setValidationErrors((prevErrors: ValidationFields) => ({
+              ...prevErrors,
+              username: 'Invalid username or password',
+            }));
+          }
         }
       }
     }
   }
 
-  if (mode === 'signup') {
+  if (mode === 'signup' && setValidUsername && setValidPassword) {
     if (validationFields.username.length < 4) {
       setValidationErrors((prevErrors: ValidationFields) => ({
         ...prevErrors,

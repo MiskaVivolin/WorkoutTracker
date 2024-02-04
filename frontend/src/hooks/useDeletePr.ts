@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios'
-import { SetResultList, DataItem, ResponseData } from 'types/Types'
+import { SetResultList, DataItem, ResponseData } from '../types/Types'
 
 const useDeletePr = (item: DataItem, setResultList: SetResultList): void => {
 
@@ -12,6 +12,9 @@ const useDeletePr = (item: DataItem, setResultList: SetResultList): void => {
         setResultList((prevList) => prevList.filter((prevItem) => prevItem._id !== item._id));
     }
   })
+  .catch((error) => {
+    console.error('Error sending delete request:', error);
+  });
 }
 
 export default useDeletePr;

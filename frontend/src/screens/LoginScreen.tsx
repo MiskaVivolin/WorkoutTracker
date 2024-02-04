@@ -1,26 +1,71 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { View, Text, TextInput, StyleSheet, Pressable, Platform } from 'react-native';
 import useAuthenticationValidation from '../hooks/useAuthenticationValidation';
 import { LoginScreenProps } from '../types/Types';
 import { useUserToken } from '../context/UserTokenContext';
 import Navbar from '../components/Navbar';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
-
+  
   const { setToken } = useUserToken()
+  const isFirstRender = useRef(true);
   const [validationInit, setValidationInit] = useState(false)
-  const [validUsername, setValidUsername] = useState(false)
-  const [validPassword, setValidPassword] = useState(false)
   const [validationFields, setValidationFields] = useState({
     username: '',
     password: '',
   });
-
   const [validationErrors, setValidationErrors] = useState({
     username: '',
     password: '',
   });
+  let storedUser = {
+    username: '',
+    password: '',
+  }
 
+  useEffect(() => {
+    AsyncStorage.getItem('userInputFields')
+      .then((storedUserJSON) => {
+        if(storedUserJSON) {
+          storedUser = JSON.parse(storedUserJSON);
+          if(storedUser) {
+            setValidationFields(storedUser)
+          }
+          console.log('Stored user:', storedUser);
+        }
+      })
+  }, []);
+
+  useEffect(() => {
+    if(isFirstRender.current) {
+      setTimeout(() => {
+        handleLogin();
+      }, 500);
+    }
+  }, [validationFields]);
+  
+  const handleLogin = () => {
+    if(storedUser.username !== '') {
+      setToken(storedUser.username)
+    } else {
+      if(!isFirstRender.current) {
+        setToken(validationFields.username);
+      }
+    }
+    useAuthenticationValidation(
+      navigation,
+      'login',
+      setValidationInit,
+      validationFields,
+      setValidationErrors,
+      setValidationFields,
+      undefined,
+      undefined,
+      isFirstRender.current,
+    );
+  };
+  
   return (
     <View style={{flex: 1}}>
       <Navbar navigation={navigation} showButton={false}/>
@@ -30,16 +75,22 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
         <TextInput
           style={styles.input}
           value={validationFields.username}
-          onChangeText={(text) => setValidationFields((prev) => ({ ...prev, username: text }))}
+          onChangeText={(text) => {
+            isFirstRender.current = false
+            setValidationFields((prev) => ({ ...prev, username: text }))}
+          } 
         />
         <Text style={styles.label2}>Password</Text>
         <TextInput
           style={styles.input}
           secureTextEntry
           value={validationFields.password}
-          onChangeText={(text) => setValidationFields((prev) => ({ ...prev, password: text }))}
-          />
-          {validationInit && !validUsername && (
+          onChangeText={(text) => {
+            isFirstRender.current = false;
+            setValidationFields((prev) => ({ ...prev, password: text }))}
+          }
+           />
+          {validationInit && (
             <Text style={styles.labelError}>{validationErrors.username}</Text>
           )}
         <View style={{flexDirection: 'row'}}>
@@ -59,9 +110,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
             </Pressable>
             <Pressable
               style={styles.button} 
-              onPress={() => {
-                setToken(validationFields.username)
-                useAuthenticationValidation(navigation, 'login', setValidationInit, setValidUsername, setValidPassword, validationFields, setValidationErrors, setValidationFields)}}>
+              onPress={() => handleLogin()}>
                 <Text style={styles.labelButton}>Log in</Text>
             </Pressable>
           </View>
@@ -165,6 +214,5 @@ const styles = StyleSheet.create({
     fontSize: 16
   },
 });
-
 
 export default LoginScreen;

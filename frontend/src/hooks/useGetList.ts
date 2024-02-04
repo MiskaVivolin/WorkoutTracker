@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios'
 import { SetResultList, ResponseData, DataItem } from '../types/Types'
-import { useUserToken } from '../context/UserTokenContext'
+import { useUserToken } from './../context/UserTokenContext'
 import { useEffect } from 'react'
 
 const useGetList = (setResultList: SetResultList): void => {
@@ -21,7 +21,7 @@ const useGetList = (setResultList: SetResultList): void => {
             result: item.result
           }))
           if(response.data.message) {
-            console.log(response.data.message)
+            alert(response.data.message)
           }
           const resultList: DataItem[] = []
           dataItems.forEach(item => {
@@ -31,8 +31,8 @@ const useGetList = (setResultList: SetResultList): void => {
           })
           setResultList(resultList)
         })
-        .catch(() => {
-          console.error("Error sending get request")
+        .catch((error) => {
+          console.error("Error sending get request:", error)
         })
       }
 

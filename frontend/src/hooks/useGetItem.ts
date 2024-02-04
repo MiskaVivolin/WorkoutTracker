@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios'
-import { ResponseData, SetEditItem } from 'types/Types'
+import { ResponseData, SetEditItem } from '../types/Types'
 
 const useGetItem = (id: number, setEditItem: SetEditItem): void => {
 
@@ -11,6 +11,9 @@ const useGetItem = (id: number, setEditItem: SetEditItem): void => {
       setEditItem(response.data)
     }
   })
+  .catch((error) => {
+    console.error('Error sending get request:', error);
+  });
 }
 
 export default useGetItem;

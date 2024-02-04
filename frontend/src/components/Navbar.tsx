@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Pressable, Platform } from 'react-native';
 import { NavbarProps } from '../types/Types';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Navbar: React.FC<NavbarProps> = ({navigation, showButton}) => {
   return (
@@ -11,7 +12,10 @@ const Navbar: React.FC<NavbarProps> = ({navigation, showButton}) => {
       {showButton ? 
       <View style={styles.buttonContainer}>
         <Pressable style={styles.button}
-          onPress={() => navigation.navigate('LoginScreen')}
+          onPress={() => {
+            AsyncStorage.removeItem('userInputFields')
+            navigation.navigate('LoginScreen')
+          }}
         >
           <Text style={styles.labelButton}>Log out</Text>
         </Pressable>
