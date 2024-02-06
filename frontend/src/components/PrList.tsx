@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { StyleSheet, Text, View, Pressable, Platform } from 'react-native'
+import { StyleSheet, Text, View, Pressable, Dimensions } from 'react-native'
 import { FlatList } from 'react-native'
 import useGetList from '../hooks/useGetList';
 import useDeletePr from '../hooks/useDeletePr';
@@ -7,14 +7,14 @@ import { DataItem, PrListProps } from '../types/Types'
 import useGetItem from '../hooks/useGetItem';
 
 
-export default function PrList({ list, setList, setIsEditMode, setEditItem }: PrListProps): React.JSX.Element {
+export default function PrList({ resultList, setResultList, setIsEditMode, setEditItem }: PrListProps): React.JSX.Element {
 
-  useGetList(setList)
+  useGetList(setResultList)
 
   return (
     <View style={styles.listcontainer}>
       <FlatList
-        data={list}
+        data={resultList}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }: {item: DataItem}) =>
         <View style={styles.listItem}>
@@ -26,22 +26,15 @@ export default function PrList({ list, setList, setIsEditMode, setEditItem }: Pr
             <Text style={styles.label}>{item.exercise}</Text>
             <Text style={styles.label}>{item.result}</Text>
           </View>
-            <View style={{ flexDirection: 'row', paddingTop: 5}}>
-            <Pressable
-              style={styles.button}
-              onPress={() => {
-                useGetItem(item._id, setEditItem)
-                setIsEditMode(true)
-                }}>
-            <Text style={styles.labelButton}>edit</Text>
-          </Pressable>
           <Pressable
             style={styles.button}
-            onPress={() => useDeletePr(item, setList)}>
-            <Text style={styles.labelButton}>delete</Text>
+            onPress={() => {
+              useGetItem(item._id, setEditItem)
+              setIsEditMode(true)
+              }}>
+          <Text style={styles.labelButton}>Edit</Text>
           </Pressable>
-        </View>
-      </View>}
+        </View>}
       />
     </View>
   )
@@ -58,7 +51,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: 'MerriweatherSans',
     color: '#606060',
-    marginVertical: 3,
+    marginVertical: 4,
     marginHorizontal: 20
   },
   labelButton: {
@@ -77,12 +70,14 @@ const styles = StyleSheet.create({
     borderColor: '#A9A9A9',
     paddingTop: 8,
     backgroundColor: '#F8F8F8',
-    minWidth: 300
+    minWidth: Dimensions.get('window').width < 320 ? 270 : 300,
+    maxWidth: Dimensions.get('window').width < 360 ? 270 : 340,
   },
   button: {
     width: 95,
     padding: 7,
-    margin: 10,
+    marginTop: 6,
+    marginBottom: 10,
     marginHorizontal: 25,
     backgroundColor: '#6aa9a9',
     borderRadius: 10, 
@@ -91,20 +86,19 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 16,
     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)', 
-    ...Platform.select({
-      ios: {
-        shadowColor: '#696969',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.4,
-        shadowRadius: 2,
-      },
-      android: {
-        elevation: 2,
-        shadowColor: '#696969',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.4,
-        shadowRadius: 2,
-      }
-    })
-  }
+  },
+  buttonDelete: {
+    width: 95,
+    padding: 7,
+    marginTop: 2,
+    marginBottom: 10,
+    marginHorizontal: 25,
+    backgroundColor: '#ff4d4d',
+    borderRadius: 10, 
+    borderWidth: 1, 
+    borderColor: '#678e8e',
+    textAlign: 'center',
+    fontSize: 16,
+    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)', 
+  },
 })

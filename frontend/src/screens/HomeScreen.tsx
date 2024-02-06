@@ -13,25 +13,27 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   
   const route = useRoute();
   const { username } = route.params as User;
-  const [prList, setPrList] = useState<DataItem[]>([])
+  const [resultList, setResultList] = useState<DataItem[]>([])
   const [prObject, setPrObject] = useState({ _id: 0, user: '', name: '', date: '', exercise: '', result: '' })
   const [prObjectIsValid, setPrObjectIsValid] = useState({ name: true, date: true, exercise: true, result: true })
   const [isEditMode, setIsEditMode] = useState(false)
   const [editItem, setEditItem] = useState<DataItem>({ _id: 0, user: '', name: '', date: '', exercise: '', result: '' })
 
   // TODO: 
-  // responsiivisuus ja puhelimen toimivuus
-  // sen jälkeen mietitään onko valmis vai tuleeko laajennusta esim search, filter, kaaviot, emojit/kuvat, profiilitiedot jne.
+  // funktion typet hookeille ja constien nimitys kuntoon
+  // button joka vie toiselle sivulle. tänne siirtyy resultlist
+  // sen jälkeen mietitään laajennusta esim. search, filter, kaaviot, emojit/kuvat, profiilitiedot jne.
+  // dokumentaatio
   
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
       <Navbar navigation={navigation} showButton={true}/>
       <View>
-        <FormContainer prObject={prObject} setPrObject={setPrObject} prObjectIsValid={prObjectIsValid} setPrObjectIsValid={setPrObjectIsValid} setPrList={setPrList} username={username}/>
+        <FormContainer prObject={prObject} setPrObject={setPrObject} prObjectIsValid={prObjectIsValid} setPrObjectIsValid={setPrObjectIsValid} setResultList={setResultList} username={username}/>
         {isEditMode ? 
-          <EditItem editItem={editItem} setEditItem={setEditItem} useEditPr={useEditPr} setIsEditMode={setIsEditMode} isEditMode={isEditMode} setPrList={setPrList}/>
+          <EditItem editItem={editItem} setEditItem={setEditItem} useEditPr={useEditPr} setIsEditMode={setIsEditMode} isEditMode={isEditMode} setResultList={setResultList}/>
           :
-          <PrList list={prList} setList={setPrList} setIsEditMode={setIsEditMode} setEditItem={setEditItem}/>
+          <PrList resultList={resultList} setResultList={setResultList} setIsEditMode={setIsEditMode} setEditItem={setEditItem}/>
         }
       </View>
     </View>
