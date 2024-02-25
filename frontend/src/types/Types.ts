@@ -23,8 +23,8 @@ export interface ResponseData extends DataItem {
 }
 
 export interface PrListProps {
-    list: DataItem[]
-    setList: SetResultList
+    resultList: DataItem[]
+    setResultList: SetResultList
     setIsEditMode: SetBoolean
     setEditItem: SetEditItem
 }
@@ -44,9 +44,9 @@ export interface FormContainerProps {
     setPrObject: any,
     prObjectIsValid: {
         [key: string]: boolean
-    }
+    },
     setPrObjectIsValid: any,
-    setPrList: SetResultList,
+    setResultList: SetResultList,
     username: string;
 }
 
@@ -56,7 +56,7 @@ export interface EditItemProps {
     useEditPr: (item: DataItem, setIsEditMode: SetBoolean) => void;
     setIsEditMode: SetBoolean;
     isEditMode: boolean;
-    setPrList: any;
+    setResultList: SetResultList;
 }
 
 export interface NavbarProps {
@@ -126,8 +126,20 @@ export interface PrevStateBooleanObj {
 
 export type User = {
     username: string;
-  };
+}
 
 export type HomeScreenParams = {
     username: string;
-  };
+}
+
+export type AuthenticationProps = {
+    navigation: StackNavigationProp<RootStackParamList>, 
+    mode: string, 
+    setValidationInit: (data: boolean) => void, 
+    validationFields: ValidationFields, 
+    setValidationErrors: React.Dispatch<React.SetStateAction<ValidationFields>>, 
+    setValidationFields: (data: ValidationFields) => void, 
+    setValidUsername?: (data: boolean) => void, 
+    setValidPassword?: (data: boolean) => void, 
+    isFirstRender?: boolean
+}

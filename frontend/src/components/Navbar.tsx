@@ -1,35 +1,35 @@
 import React from 'react';
-import { View, Text, StyleSheet, Pressable, Platform } from 'react-native';
+import { View, Text, StyleSheet, Pressable, Dimensions } from 'react-native';
 import { NavbarProps } from '../types/Types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const Navbar: React.FC<NavbarProps> = ({navigation, showButton}) => {
+const Navbar: React.FC<NavbarProps> = ({ navigation, showButton }) => {
+
   return (
     <View style={styles.divContainer}>
       <View style={styles.headerContainer}>
         <Text style={styles.labelHeader}>Workout Tracker</Text>
       </View>
-      {showButton ? 
-      <View style={styles.buttonContainer}>
-        <Pressable style={styles.button}
-          onPress={() => {
-            AsyncStorage.removeItem('userInputFields')
-            navigation.navigate('LoginScreen')
-          }}
-        >
-          <Text style={styles.labelButton}>Log out</Text>
-        </Pressable>
-      </View>
-      :
-      <></>
-      }
+      {showButton ? (
+        <View style={styles.buttonContainer}>
+          <Pressable
+            style={styles.button}
+            onPress={() => {
+              AsyncStorage.removeItem('userInputFields');
+              navigation.navigate('LoginScreen');
+            }}
+          >
+            <Text style={styles.labelButton}>Log out</Text>
+          </Pressable>
+        </View>
+      ) : null}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   divContainer: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     position: 'relative',
   },
   headerContainer: {
@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 10,
     backgroundColor: '#f0f0f0',
+    maxHeight: Dimensions.get('window').width < 330 ? 54 : 58,
   },
   buttonContainer: {
     flex: 1,
@@ -45,10 +46,10 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'flex-end',
     backgroundColor: 'transparent',
-    position: 'absolute',
+    position: Dimensions.get('window').width < 550 ? 'relative' : 'absolute',
   },
   labelHeader: {
-    fontSize: 32,
+    fontSize: Dimensions.get('window').width < 330 ? 28 : 32,
     fontFamily: 'BlackOpsOne-Regular',
     color: '#303030',
   },
@@ -62,6 +63,7 @@ const styles = StyleSheet.create({
   button: {
     width: 95,
     padding: 7,
+    paddingBottom: 7,
     margin: 12,
     marginHorizontal: 25,
     backgroundColor: '#6aa9a9',
@@ -70,22 +72,7 @@ const styles = StyleSheet.create({
     borderColor: '#678e8e',
     textAlign: 'center',
     fontSize: 16,
-    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)', 
-    ...Platform.select({
-      ios: {
-        shadowColor: '#696969',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.4,
-        shadowRadius: 2,
-      },
-      android: {
-        elevation: 2,
-        shadowColor: '#696969',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.4,
-        shadowRadius: 2,
-      }
-    })
+    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)',
   }
 });
 
