@@ -53,17 +53,17 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
         setToken(validationFields.username);
       }
     }
-    useAuthenticationValidation(
+    useAuthenticationValidation({
       navigation,
-      'login',
+      mode: 'login',
       setValidationInit,
       validationFields,
       setValidationErrors,
       setValidationFields,
-      undefined,
-      undefined,
-      isFirstRender.current,
-    );
+      setValidUsername: undefined,
+      setValidPassword: undefined,
+      isFirstRender: isFirstRender.current,
+    });
   };
   
   return (

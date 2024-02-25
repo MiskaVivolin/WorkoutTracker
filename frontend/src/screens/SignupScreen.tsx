@@ -50,7 +50,7 @@ const SignupScreen: React.FC<SignupScreenProps> = ({ navigation }) => {
             ><Text style={styles.labelLink}>Back</Text></Pressable>
           <Pressable 
             style={styles.buttonNext}
-            onPress={() => useAuthenticationValidation(navigation, 'signup', setValidationInit, validationFields, setValidationErrors, setValidationFields, setValidUsername, setValidPassword,)}
+            onPress={() => useAuthenticationValidation({navigation, mode: 'signup', setValidationInit, validationFields, setValidationErrors, setValidationFields, setValidUsername, setValidPassword, isFirstRender: undefined})}
             ><Text style={styles.labelButton}>Sign up</Text></Pressable>
           </View>
       </View>

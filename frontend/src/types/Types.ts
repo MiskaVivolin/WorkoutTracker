@@ -126,8 +126,20 @@ export interface PrevStateBooleanObj {
 
 export type User = {
     username: string;
-  };
+}
 
 export type HomeScreenParams = {
     username: string;
-  };
+}
+
+export type AuthenticationProps = {
+    navigation: StackNavigationProp<RootStackParamList>, 
+    mode: string, 
+    setValidationInit: (data: boolean) => void, 
+    validationFields: ValidationFields, 
+    setValidationErrors: React.Dispatch<React.SetStateAction<ValidationFields>>, 
+    setValidationFields: (data: ValidationFields) => void, 
+    setValidUsername?: (data: boolean) => void, 
+    setValidPassword?: (data: boolean) => void, 
+    isFirstRender?: boolean
+}

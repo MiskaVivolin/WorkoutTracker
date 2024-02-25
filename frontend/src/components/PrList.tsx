@@ -87,18 +87,4 @@ const styles = StyleSheet.create({
     fontSize: 16,
     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)', 
   },
-  buttonDelete: {
-    width: 95,
-    padding: 7,
-    marginTop: 2,
-    marginBottom: 10,
-    marginHorizontal: 25,
-    backgroundColor: '#ff4d4d',
-    borderRadius: 10, 
-    borderWidth: 1, 
-    borderColor: '#678e8e',
-    textAlign: 'center',
-    fontSize: 16,
-    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)', 
-  },
 })
