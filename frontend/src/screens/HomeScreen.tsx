@@ -23,6 +23,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   // funktion typet hookeille ja constien nimitys kuntoon
   // button joka vie toiselle sivulle. tänne siirtyy resultlist
   // sen jälkeen mietitään laajennusta esim. search, filter, kaaviot, emojit/kuvat, profiilitiedot jne.
+  // docker, testing
   // dokumentaatio
   
   return (
