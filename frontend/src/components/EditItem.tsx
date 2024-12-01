@@ -207,8 +207,8 @@ const styles = StyleSheet.create({
   buttonDelete: {
     width: 95,
     padding: 7,
-    marginTop: 8,
-    marginBottom: 4,
+    marginTop: 12,
+    marginBottom: 12,
     marginHorizontal: 25,
     backgroundColor: '#ff4d4d',
     borderRadius: 10, 

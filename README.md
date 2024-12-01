@@ -7,6 +7,9 @@ Fully responsive mobile and web application to track personal gym workout result
 Install with opening two terminals, one in the backend folder and one in the frontend folder and entering "npm i" in both. Then to start the application enter "npm start". 
 
 frontend/node_modules/expo/AppEntry.js might need to be changed to:
+Install with opening two terminals, one in the backend folder and one in the frontend folder and entering "npm i" in both. Then to start the application enter "npm start".
+
+frontend/node_modules/expo/AppEntry.js might need to be changed to:
 ```
 import registerRootComponent from 'expo/build/launch/registerRootComponent';
 
