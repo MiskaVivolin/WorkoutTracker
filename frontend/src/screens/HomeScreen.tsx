@@ -31,11 +31,6 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
       <Navbar navigation={navigation} showButton={true}/>
       <View>
         <FormContainer prObject={prObject} setPrObject={setPrObject} prObjectIsValid={prObjectIsValid} setPrObjectIsValid={setPrObjectIsValid} setResultList={setResultList} username={username}/>
-        {isEditMode ? 
-          <EditItem editItem={editItem} setEditItem={setEditItem} useEditPr={useEditPr} setIsEditMode={setIsEditMode} isEditMode={isEditMode} setResultList={setResultList}/>
-          :
-          <PrList resultList={resultList} setResultList={setResultList} setIsEditMode={setIsEditMode} setEditItem={setEditItem}/>
-        }
       </View>
     </View>
   )

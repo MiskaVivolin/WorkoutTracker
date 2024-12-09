@@ -11,7 +11,19 @@ const Navbar: React.FC<NavbarProps> = ({ navigation, showButton }) => {
         <Text style={styles.labelHeader}>Workout Tracker</Text>
       </View>
       {showButton ? (
-        <View style={styles.buttonContainer}>
+      <View style={styles.listButtonContainer}>
+          <Pressable
+            style={styles.button}
+            onPress={() => {
+              navigation.navigate('ResultScreen')
+            }}
+          >
+            <Text style={styles.labelButton}>List</Text>
+          </Pressable>
+        </View>
+        ) : null}
+      {showButton ? (
+        <View style={styles.logoutButtonContainer}>
           <Pressable
             style={styles.button}
             onPress={() => {
@@ -40,13 +52,21 @@ const styles = StyleSheet.create({
     backgroundColor: '#f0f0f0',
     maxHeight: Dimensions.get('window').width < 330 ? 54 : 58,
   },
-  buttonContainer: {
+  logoutButtonContainer: {
     flex: 1,
     flexDirection: 'row',
     width: '100%',
     justifyContent: 'flex-end',
     backgroundColor: 'transparent',
     position: Dimensions.get('window').width < 550 ? 'relative' : 'absolute',
+  },
+  listButtonContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'flex-start',
+    backgroundColor: 'transparent',
+    position: 'relative',
   },
   labelHeader: {
     fontSize: Dimensions.get('window').width < 330 ? 28 : 32,

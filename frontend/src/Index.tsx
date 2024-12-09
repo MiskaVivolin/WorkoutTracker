@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './screens/HomeScreen';
 import LoginScreen from './screens/LoginScreen';
 import SignupScreen from './screens/SignupScreen';
+import ResultScreen from './screens/ResultScreen';
 import { UserTokenProvider } from './context/UserTokenContext';
 import * as SplashScreen from 'expo-splash-screen'
 import * as Font from 'expo-font'
@@ -43,6 +44,7 @@ export default function Index() {
              <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false }} initialParams={{ username: 'undefined' }}/>
              <Stack.Screen name="LoginScreen" component={LoginScreen} options={{ headerShown: false }}/>
              <Stack.Screen name="SignupScreen" component={SignupScreen} options={{ headerShown: false }}/>
+             <Stack.Screen name="ResultScreen" component={ResultScreen} options={{ headerShown: false }}/>
            </Stack.Navigator>
          </UserTokenProvider>
        </NavigationContainer>

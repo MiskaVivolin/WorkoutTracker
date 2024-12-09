@@ -99,6 +99,7 @@ export type RootStackParamList = {
     HomeScreen: undefined;
     LoginScreen: undefined;
     SignupScreen: undefined;
+    ResultScreen: undefined;
 };
   
 export type HomeScreenProps = {
