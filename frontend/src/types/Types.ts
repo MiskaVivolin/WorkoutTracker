@@ -60,7 +60,8 @@ export interface EditItemProps {
 }
 
 export interface NavbarProps {
-    showButton: boolean;
+    showButtons?: boolean;
+    addButtonToggle: boolean;
     navigation: StackNavigationProp<RootStackParamList>;
 }
 

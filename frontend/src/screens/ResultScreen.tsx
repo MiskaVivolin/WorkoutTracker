@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
-import { DataItem, HomeScreenProps, User } from '../types/Types';
+import { DataItem, HomeScreenProps } from '../types/Types';
+import useEditPr from '../hooks/useEditPr';
 import PrList from '../components/PrList';
 import Navbar from '../components/Navbar';
+import EditItem from '../components/EditItem';
 
 
 const ResultScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
@@ -14,8 +16,12 @@ const ResultScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
-      <Navbar navigation={navigation} showButton={true}/>
-      <PrList resultList={resultList} setResultList={setResultList} setIsEditMode={setIsEditMode} setEditItem={setEditItem}/>
+      <Navbar navigation={navigation} showButtons={true} addButtonToggle={true}/>
+      {isEditMode ? 
+        <EditItem editItem={editItem} setEditItem={setEditItem} useEditPr={useEditPr} setIsEditMode={setIsEditMode} isEditMode={isEditMode} setResultList={setResultList}/>
+        :
+        <PrList resultList={resultList} setResultList={setResultList} setIsEditMode={setIsEditMode} setEditItem={setEditItem}/>
+      }
     </View>
   )
 }

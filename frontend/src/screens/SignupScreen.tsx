@@ -21,7 +21,7 @@ const SignupScreen: React.FC<SignupScreenProps> = ({ navigation }) => {
 
   return (
     <View style={{flex: 1}}>
-      <Navbar navigation={navigation} showButton={false}/>
+      <Navbar navigation={navigation} showButtons={false}/>
       <View style={styles.container}>
         <Text style={styles.labelHeader}>Create a new account</Text>
         <View style={styles.fieldContainer}>

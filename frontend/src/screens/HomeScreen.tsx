@@ -28,7 +28,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
-      <Navbar navigation={navigation} showButton={true}/>
+      <Navbar navigation={navigation} showButtons={true} addButtonToggle={false}/>
       <View>
         <FormContainer prObject={prObject} setPrObject={setPrObject} prObjectIsValid={prObjectIsValid} setPrObjectIsValid={setPrObjectIsValid} setResultList={setResultList} username={username}/>
       </View>

@@ -68,7 +68,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
   
   return (
     <View style={{flex: 1}}>
-      <Navbar navigation={navigation} showButton={false}/>
+      <Navbar navigation={navigation} showButtons={false}/>
       <View style={styles.container}>
         <Text style={styles.labelHeader}>Log in to your account</Text>
         <View style={styles.fieldContainer}>

@@ -3,15 +3,26 @@ import { View, Text, StyleSheet, Pressable, Dimensions } from 'react-native';
 import { NavbarProps } from '../types/Types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const Navbar: React.FC<NavbarProps> = ({ navigation, showButton }) => {
+const Navbar: React.FC<NavbarProps> = ({ navigation, showButtons, addButtonToggle }) => {
 
   return (
     <View style={styles.divContainer}>
       <View style={styles.headerContainer}>
         <Text style={styles.labelHeader}>Workout Tracker</Text>
       </View>
-      {showButton ? (
+      {showButtons ? (
       <View style={styles.listButtonContainer}>
+          
+          {addButtonToggle ?
+          <Pressable
+            style={styles.button}
+            onPress={() => {
+              navigation.navigate('HomeScreen')
+            }}
+          >
+            <Text style={styles.labelButton}>Add</Text>
+          </Pressable>
+          :
           <Pressable
             style={styles.button}
             onPress={() => {
@@ -20,9 +31,11 @@ const Navbar: React.FC<NavbarProps> = ({ navigation, showButton }) => {
           >
             <Text style={styles.labelButton}>List</Text>
           </Pressable>
+          }
+
         </View>
         ) : null}
-      {showButton ? (
+      {showButtons ? (
         <View style={styles.logoutButtonContainer}>
           <Pressable
             style={styles.button}
