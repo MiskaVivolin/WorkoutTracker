@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
-import { DataItem, HomeScreenProps, User } from '../types/Types';
+import { DataItem, AddExerciseScreenProps, User } from '../types/Types';
 import PrList from '../components/PrList';
 import useEditPr from '../hooks/useEditPr';
 import EditItem from '../components/EditItem';
@@ -9,7 +9,7 @@ import { useRoute } from '@react-navigation/native';
 import Navbar from '../components/Navbar';
 
 
-const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
+const AddExerciseScreen: React.FC<AddExerciseScreenProps> = ({ navigation }) => {
   
   const route = useRoute();
   const { username } = route.params as User;
@@ -36,4 +36,4 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   )
 }
 
-export default HomeScreen;
+export default AddExerciseScreen;

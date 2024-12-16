@@ -60,8 +60,8 @@ export interface EditItemProps {
 }
 
 export interface NavbarProps {
-    showButtons?: boolean;
-    addButtonToggle: boolean;
+    showButtons: boolean;
+    addButtonToggle?: boolean;
     navigation: StackNavigationProp<RootStackParamList>;
 }
 
@@ -97,14 +97,14 @@ export interface ValidationHookResult {
 };
 
 export type RootStackParamList = {
-    HomeScreen: undefined;
+    AddExerciseScreen: undefined;
     LoginScreen: undefined;
     SignupScreen: undefined;
     ResultScreen: undefined;
 };
   
-export type HomeScreenProps = {
-    navigation: StackNavigationProp<RootStackParamList, 'HomeScreen'>;
+export type AddExerciseScreenProps = {
+    navigation: StackNavigationProp<RootStackParamList, 'AddExerciseScreen'>;
 };
 
 export type LoginScreenProps = {
@@ -130,7 +130,7 @@ export type User = {
     username: string;
 }
 
-export type HomeScreenParams = {
+export type AddExerciseScreenParams = {
     username: string;
 }
 

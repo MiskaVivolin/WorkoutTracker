@@ -13,6 +13,7 @@ export default function PrList({ resultList, setResultList, setIsEditMode, setEd
 
   return (
     <View style={styles.listcontainer}>
+      <Text style={styles.labelHeader}>Your Exercise Results</Text>
       <FlatList
         data={resultList}
         keyExtractor={(item, index) => index.toString()}
@@ -53,6 +54,13 @@ const styles = StyleSheet.create({
     color: '#606060',
     marginVertical: 4,
     marginHorizontal: 20
+  },
+  labelHeader: {
+    fontSize: Dimensions.get('window').width < 320 ? 22 : 24, 
+    fontFamily: 'MerriweatherSans', 
+    color: '#505050',
+    marginTop: Dimensions.get('window').height < 1000 ? 30 : 50,
+    marginBottom: Dimensions.get('window').height < 1000 ? 30 : 50, 
   },
   labelButton: {
     fontSize: 15, 

@@ -17,7 +17,7 @@ const Navbar: React.FC<NavbarProps> = ({ navigation, showButtons, addButtonToggl
           <Pressable
             style={styles.button}
             onPress={() => {
-              navigation.navigate('HomeScreen')
+              navigation.navigate('AddExerciseScreen')
             }}
           >
             <Text style={styles.labelButton}>Add</Text>
