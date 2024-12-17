@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import { StyleSheet, Text, View, Pressable, Dimensions } from 'react-native'
 import { FlatList } from 'react-native'
 import useGetList from '../hooks/useGetList';
-import useDeletePr from '../hooks/useDeletePr';
 import { DataItem, PrListProps } from '../types/Types'
 import useGetItem from '../hooks/useGetItem';
 

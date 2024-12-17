@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { DataItem, AddExerciseScreenProps, User } from '../types/Types';
 import PrList from '../components/PrList';
@@ -7,17 +7,16 @@ import EditItem from '../components/EditItem';
 import FormContainer from '../components/FormContainer';
 import { useRoute } from '@react-navigation/native';
 import Navbar from '../components/Navbar';
+import { useUserToken } from '../context/UserTokenContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const AddExerciseScreen: React.FC<AddExerciseScreenProps> = ({ navigation }) => {
   
-  const route = useRoute();
-  const { username } = route.params as User;
   const [resultList, setResultList] = useState<DataItem[]>([])
   const [prObject, setPrObject] = useState({ _id: 0, user: '', name: '', date: '', exercise: '', result: '' })
   const [prObjectIsValid, setPrObjectIsValid] = useState({ name: true, date: true, exercise: true, result: true })
-  const [isEditMode, setIsEditMode] = useState(false)
-  const [editItem, setEditItem] = useState<DataItem>({ _id: 0, user: '', name: '', date: '', exercise: '', result: '' })
+  
 
   // TODO: 
   // funktion typet hookeille ja constien nimitys kuntoon
@@ -28,9 +27,11 @@ const AddExerciseScreen: React.FC<AddExerciseScreenProps> = ({ navigation }) => 
   
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
-      <Navbar navigation={navigation} showButtons={true} addButtonToggle={false}/>
-      <View>
-        <FormContainer prObject={prObject} setPrObject={setPrObject} prObjectIsValid={prObjectIsValid} setPrObjectIsValid={setPrObjectIsValid} setResultList={setResultList} username={username}/>
+        <View>
+        <Navbar navigation={navigation} showButtons={true} addButtonToggle={false}/>
+        <View>
+          <FormContainer prObject={prObject} setPrObject={setPrObject} prObjectIsValid={prObjectIsValid} setPrObjectIsValid={setPrObjectIsValid} setResultList={setResultList}/>
+        </View>
       </View>
     </View>
   )

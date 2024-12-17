@@ -3,7 +3,8 @@ import { View, Text, StyleSheet, Pressable, Dimensions } from 'react-native';
 import { NavbarProps } from '../types/Types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const Navbar: React.FC<NavbarProps> = ({ navigation, showButtons, addButtonToggle }) => {
+const Navbar: React.FC<NavbarProps> = ({ navigation, showButtons, addButtonToggle}) => {
+  
 
   return (
     <View style={styles.divContainer}>

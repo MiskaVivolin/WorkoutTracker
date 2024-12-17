@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
-import { DataItem, HomeScreenProps } from '../types/Types';
+import { DataItem, ResultScreenProps } from '../types/Types';
 import useEditPr from '../hooks/useEditPr';
 import PrList from '../components/PrList';
 import Navbar from '../components/Navbar';
 import EditItem from '../components/EditItem';
+import { useRoute } from '@react-navigation/native';
 
 
-const ResultScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
+const ResultScreen: React.FC<ResultScreenProps> = ({ navigation }) => {
   
   const [resultList, setResultList] = useState<DataItem[]>([])
   const [isEditMode, setIsEditMode] = useState(false)

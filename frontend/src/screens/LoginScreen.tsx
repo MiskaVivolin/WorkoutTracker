@@ -8,7 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
   
-  const { setToken } = useUserToken()
+  const { userToken, setToken } = useUserToken()
   const isFirstRender = useRef(true);
   const [validationInit, setValidationInit] = useState(false)
   const [validationFields, setValidationFields] = useState({
@@ -27,6 +27,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
   useEffect(() => {
     AsyncStorage.getItem('userInputFields')
       .then((storedUserJSON) => {
+        console.log("this userToken: ", userToken)
         if(storedUserJSON) {
           storedUser = JSON.parse(storedUserJSON);
           if(storedUser) {

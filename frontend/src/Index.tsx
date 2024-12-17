@@ -41,7 +41,7 @@ export default function Index() {
     <NavigationContainer>
          <UserTokenProvider>
            <Stack.Navigator initialRouteName="LoginScreen">
-             <Stack.Screen name="AddExerciseScreen" component={AddExerciseScreen} options={{ headerShown: false }} initialParams={{ username: 'undefined' }}/>
+             <Stack.Screen name="AddExerciseScreen" component={AddExerciseScreen} options={{ headerShown: false }}/>
              <Stack.Screen name="LoginScreen" component={LoginScreen} options={{ headerShown: false }}/>
              <Stack.Screen name="SignupScreen" component={SignupScreen} options={{ headerShown: false }}/>
              <Stack.Screen name="ResultScreen" component={ResultScreen} options={{ headerShown: false }}/>

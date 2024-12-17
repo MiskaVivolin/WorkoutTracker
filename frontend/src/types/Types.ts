@@ -47,7 +47,6 @@ export interface FormContainerProps {
     },
     setPrObjectIsValid: any,
     setResultList: SetResultList,
-    username: string;
 }
 
 export interface EditItemProps { 
@@ -105,6 +104,12 @@ export type RootStackParamList = {
   
 export type AddExerciseScreenProps = {
     navigation: StackNavigationProp<RootStackParamList, 'AddExerciseScreen'>;
+    route: { params: { username: string } };
+};
+
+export type ResultScreenProps = {
+    navigation: StackNavigationProp<RootStackParamList, 'AddExerciseScreen'>;
+    route: { params: { username: string } };
 };
 
 export type LoginScreenProps = {
@@ -131,6 +136,10 @@ export type User = {
 }
 
 export type AddExerciseScreenParams = {
+    username: string;
+}
+
+export type ResultScreenParams = {
     username: string;
 }
 
