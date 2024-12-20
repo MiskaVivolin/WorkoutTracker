@@ -12,12 +12,12 @@ export default function PrList({ resultList, setResultList, setIsEditMode, setEd
 
   return (
     <View style={styles.listcontainer}>
-      <Text style={styles.labelHeader}>Your Exercise Results</Text>
+      <Text style={styles.labelHeader}>Your results</Text>
       <FlatList
         data={resultList}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }: {item: DataItem}) =>
-        <View style={styles.listItem}>
+          <View style={styles.listItem}>
           <View style={{flexDirection: 'row'}}>
             <Text style={styles.label}>{item.name}</Text>
             <Text style={styles.label}>{item.date}</Text>
@@ -31,7 +31,7 @@ export default function PrList({ resultList, setResultList, setIsEditMode, setEd
             onPress={() => {
               useGetItem(item._id, setEditItem)
               setIsEditMode(true)
-              }}>
+            }}>
           <Text style={styles.labelButton}>Edit</Text>
           </Pressable>
         </View>}

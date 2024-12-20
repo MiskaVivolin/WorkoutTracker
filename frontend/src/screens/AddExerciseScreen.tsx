@@ -6,7 +6,7 @@ import useEditPr from '../hooks/useEditPr';
 import EditItem from '../components/EditItem';
 import FormContainer from '../components/FormContainer';
 import { useRoute } from '@react-navigation/native';
-import Navbar from '../components/Navbar';
+import NavBar from '../components/Navbar';
 import { useUserToken } from '../context/UserTokenContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -28,7 +28,7 @@ const AddExerciseScreen: React.FC<AddExerciseScreenProps> = ({ navigation }) => 
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
         <View>
-        <Navbar navigation={navigation} showButtons={true} addButtonToggle={false}/>
+        <NavBar navigation={navigation} showButtons={true} addButtonToggle={false}/>
         <View>
           <FormContainer prObject={prObject} setPrObject={setPrObject} prObjectIsValid={prObjectIsValid} setPrObjectIsValid={setPrObjectIsValid} setResultList={setResultList}/>
         </View>

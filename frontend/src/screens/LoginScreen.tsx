@@ -61,8 +61,6 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
       validationFields,
       setValidationErrors,
       setValidationFields,
-      setValidUsername: undefined,
-      setValidPassword: undefined,
       isFirstRender: isFirstRender.current,
     });
   };

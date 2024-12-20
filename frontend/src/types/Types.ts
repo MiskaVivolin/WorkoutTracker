@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import { Dispatch, ReactNode, SetStateAction } from 'react'
 import { StackNavigationProp } from '@react-navigation/stack';
 
 export interface DataItem {
@@ -58,10 +58,15 @@ export interface EditItemProps {
     setResultList: SetResultList;
 }
 
-export interface NavbarProps {
+export interface NavBarProps {
     showButtons: boolean;
     addButtonToggle?: boolean;
     navigation: StackNavigationProp<RootStackParamList>;
+}
+
+export interface PopUpProps {
+    setValidationInit: SetBoolean,
+    setPressedAdd: SetBoolean;
 }
 
 export type SetResultList = React.Dispatch<React.SetStateAction<DataItem[]>>;

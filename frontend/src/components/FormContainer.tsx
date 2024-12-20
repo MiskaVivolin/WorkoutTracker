@@ -4,6 +4,7 @@ import { FormContainerProps } from '../types/Types';
 import usePrValidation from '../hooks/usePrValidation';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useUserToken } from '../context/UserTokenContext';
+import PopUp from './PopUp';
 
 const FormContainer = ({ prObject, setPrObject, prObjectIsValid, setPrObjectIsValid, setResultList }: FormContainerProps): React.JSX.Element => {
 
@@ -60,9 +61,10 @@ const FormContainer = ({ prObject, setPrObject, prObjectIsValid, setPrObjectIsVa
           onPress={() => {
             setValidationInit(true)
             setPressedAdd(true)
-            }}>
+          }}>
           <Text style={styles.labelButton}>Add</Text>
         </Pressable>
+        <PopUp setValidationInit={setValidationInit} setPressedAdd={setPressedAdd}/>
       </View>
     </View>
   )
