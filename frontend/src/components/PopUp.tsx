@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, Animated, StyleSheet, Dimensions, Pressable } from 'react-native';
 import { PopUpProps } from '../types/Types';
 
-const PopUp: React.FC<PopUpProps> = ({setValidationInit, setPressedAdd}) => {
+const PopUp: React.FC<PopUpProps> = ({setValidationInit, setPressedAdd, prObjectIsValid}) => {
   const [visible, setVisible] = useState(false); // Controls visibility of the popup
   const fadeAnim = new Animated.Value(0); // Initial opacity value for animation
 
@@ -17,6 +17,7 @@ const PopUp: React.FC<PopUpProps> = ({setValidationInit, setPressedAdd}) => {
 
   useEffect(() => {
     if (visible) {
+      console.log("visible")
       fadeIn(); // Start the fade-in animation when popup becomes visible
       const fadeTimeout = setTimeout(() => {
         fadeOut(); // After 1.5 seconds, fade out
@@ -29,9 +30,9 @@ const PopUp: React.FC<PopUpProps> = ({setValidationInit, setPressedAdd}) => {
 
   // Fade-in animation
   const fadeIn = () => {
+    console.log("prObjectisvalid, ", prObjectIsValid)
     Animated.timing(fadeAnim, {
       toValue: 1, // Full opacity
-      duration: 500, // Duration of the fade-in
       useNativeDriver: true,
     }).start();
   };
@@ -40,7 +41,6 @@ const PopUp: React.FC<PopUpProps> = ({setValidationInit, setPressedAdd}) => {
   const fadeOut = () => {
     Animated.timing(fadeAnim, {
       toValue: 0, // Fade out to opacity 0
-      duration: 500, // Duration of the fade-out
       useNativeDriver: true,
     }).start(() => {
       setVisible(false); // Hide the popup after fading out
@@ -56,15 +56,15 @@ const PopUp: React.FC<PopUpProps> = ({setValidationInit, setPressedAdd}) => {
       </Pressable>
 
       {/* Conditionally render the popup only if it's visible */}
-      {visible && (
-        <Animated.View
+      {visible && prObjectIsValid && (
+        <View
           style={[
             styles.popup,
             { opacity: fadeAnim }, // Bind the opacity to the fadeAnim value
           ]}
         >
           <Text style={styles.popupText}>Object Added</Text>
-        </Animated.View>
+        </View>
       )}
     </View>
   );
@@ -79,8 +79,9 @@ const styles = StyleSheet.create({
   },
   popup: {
     position: 'absolute',
-    bottom: 50,
-    left: '50%',
+    padding: 50,
+    bottom: 400,
+    
     transform: [{ translateX: -75 }], // Center horizontally
     backgroundColor: 'rgba(0, 0, 0, 0.7)',
     paddingVertical: 10,

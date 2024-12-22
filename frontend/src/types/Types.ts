@@ -67,6 +67,9 @@ export interface NavBarProps {
 export interface PopUpProps {
     setValidationInit: SetBoolean,
     setPressedAdd: SetBoolean;
+    prObjectIsValid: {
+        [key: string]: boolean
+    }
 }
 
 export type SetResultList = React.Dispatch<React.SetStateAction<DataItem[]>>;

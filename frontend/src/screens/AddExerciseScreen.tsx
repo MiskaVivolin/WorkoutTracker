@@ -6,7 +6,7 @@ import useEditPr from '../hooks/useEditPr';
 import EditItem from '../components/EditItem';
 import FormContainer from '../components/FormContainer';
 import { useRoute } from '@react-navigation/native';
-import NavBar from '../components/Navbar';
+import NavBar from '../components/NavBar';
 import { useUserToken } from '../context/UserTokenContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
