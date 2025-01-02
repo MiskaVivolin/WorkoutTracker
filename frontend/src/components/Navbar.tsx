@@ -1,17 +1,43 @@
 import React from 'react';
 import { View, Text, StyleSheet, Pressable, Dimensions } from 'react-native';
-import { NavbarProps } from '../types/Types';
+import { NavBarProps } from '../types/Types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const Navbar: React.FC<NavbarProps> = ({ navigation, showButton }) => {
+const NavBar: React.FC<NavBarProps> = ({ navigation, showButtons, addButtonToggle}) => {
+  
 
   return (
     <View style={styles.divContainer}>
       <View style={styles.headerContainer}>
         <Text style={styles.labelHeader}>Workout Tracker</Text>
       </View>
-      {showButton ? (
-        <View style={styles.buttonContainer}>
+      {showButtons ? (
+      <View style={styles.listButtonContainer}>
+          
+          {addButtonToggle ?
+          <Pressable
+            style={styles.button}
+            onPress={() => {
+              navigation.navigate('AddExerciseScreen')
+            }}
+          >
+            <Text style={styles.labelButton}>Add</Text>
+          </Pressable>
+          :
+          <Pressable
+            style={styles.button}
+            onPress={() => {
+              navigation.navigate('ResultScreen')
+            }}
+          >
+            <Text style={styles.labelButton}>List</Text>
+          </Pressable>
+          }
+
+        </View>
+        ) : null}
+      {showButtons ? (
+        <View style={styles.logoutButtonContainer}>
           <Pressable
             style={styles.button}
             onPress={() => {
@@ -40,13 +66,21 @@ const styles = StyleSheet.create({
     backgroundColor: '#f0f0f0',
     maxHeight: Dimensions.get('window').width < 330 ? 54 : 58,
   },
-  buttonContainer: {
+  logoutButtonContainer: {
     flex: 1,
     flexDirection: 'row',
     width: '100%',
     justifyContent: 'flex-end',
     backgroundColor: 'transparent',
     position: Dimensions.get('window').width < 550 ? 'relative' : 'absolute',
+  },
+  listButtonContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'flex-start',
+    backgroundColor: 'transparent',
+    position: 'relative',
   },
   labelHeader: {
     fontSize: Dimensions.get('window').width < 330 ? 28 : 32,
@@ -76,4 +110,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Navbar;
+export default NavBar;

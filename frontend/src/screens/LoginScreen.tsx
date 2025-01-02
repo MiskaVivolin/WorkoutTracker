@@ -3,12 +3,12 @@ import { View, Text, TextInput, StyleSheet, Pressable, Dimensions } from 'react-
 import useAuthenticationValidation from '../hooks/useAuthenticationValidation';
 import { LoginScreenProps } from '../types/Types';
 import { useUserToken } from '../context/UserTokenContext';
-import Navbar from '../components/Navbar';
+import Navbar from '../components/NavBar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
   
-  const { setToken } = useUserToken()
+  const { userToken, setToken } = useUserToken()
   const isFirstRender = useRef(true);
   const [validationInit, setValidationInit] = useState(false)
   const [validationFields, setValidationFields] = useState({
@@ -27,6 +27,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
   useEffect(() => {
     AsyncStorage.getItem('userInputFields')
       .then((storedUserJSON) => {
+        console.log("this userToken: ", userToken)
         if(storedUserJSON) {
           storedUser = JSON.parse(storedUserJSON);
           if(storedUser) {
@@ -60,15 +61,13 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
       validationFields,
       setValidationErrors,
       setValidationFields,
-      setValidUsername: undefined,
-      setValidPassword: undefined,
       isFirstRender: isFirstRender.current,
     });
   };
   
   return (
     <View style={{flex: 1}}>
-      <Navbar navigation={navigation} showButton={false}/>
+      <Navbar navigation={navigation} showButtons={false}/>
       <View style={styles.container}>
         <Text style={styles.labelHeader}>Log in to your account</Text>
         <View style={styles.fieldContainer}>

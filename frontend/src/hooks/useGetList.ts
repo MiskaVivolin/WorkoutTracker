@@ -8,6 +8,7 @@ const useGetList = (setResultList: SetResultList): void => {
   const {userToken} = useUserToken()
 
   useEffect(() => {
+    console.log("usertoken: ", userToken)
     const fetchData = async () => {
       axios.get('http://127.0.0.1:3001/get')
         .then((response: AxiosResponse<ResponseData>) => {

@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import { Dispatch, ReactNode, SetStateAction } from 'react'
 import { StackNavigationProp } from '@react-navigation/stack';
 
 export interface DataItem {
@@ -47,7 +47,6 @@ export interface FormContainerProps {
     },
     setPrObjectIsValid: any,
     setResultList: SetResultList,
-    username: string;
 }
 
 export interface EditItemProps { 
@@ -59,9 +58,18 @@ export interface EditItemProps {
     setResultList: SetResultList;
 }
 
-export interface NavbarProps {
-    showButton: boolean;
+export interface NavBarProps {
+    showButtons: boolean;
+    addButtonToggle?: boolean;
     navigation: StackNavigationProp<RootStackParamList>;
+}
+
+export interface PopUpProps {
+    setValidationInit: SetBoolean,
+    setPressedAdd: SetBoolean;
+    prObjectIsValid: {
+        [key: string]: boolean
+    }
 }
 
 export type SetResultList = React.Dispatch<React.SetStateAction<DataItem[]>>;
@@ -96,13 +104,20 @@ export interface ValidationHookResult {
 };
 
 export type RootStackParamList = {
-    HomeScreen: undefined;
+    AddExerciseScreen: undefined;
     LoginScreen: undefined;
     SignupScreen: undefined;
+    ResultScreen: undefined;
 };
   
-export type HomeScreenProps = {
-    navigation: StackNavigationProp<RootStackParamList, 'HomeScreen'>;
+export type AddExerciseScreenProps = {
+    navigation: StackNavigationProp<RootStackParamList, 'AddExerciseScreen'>;
+    route: { params: { username: string } };
+};
+
+export type ResultScreenProps = {
+    navigation: StackNavigationProp<RootStackParamList, 'AddExerciseScreen'>;
+    route: { params: { username: string } };
 };
 
 export type LoginScreenProps = {
@@ -128,7 +143,11 @@ export type User = {
     username: string;
 }
 
-export type HomeScreenParams = {
+export type AddExerciseScreenParams = {
+    username: string;
+}
+
+export type ResultScreenParams = {
     username: string;
 }
 

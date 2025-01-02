@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import { StyleSheet, Text, View, Pressable, Dimensions } from 'react-native'
 import { FlatList } from 'react-native'
 import useGetList from '../hooks/useGetList';
-import useDeletePr from '../hooks/useDeletePr';
 import { DataItem, PrListProps } from '../types/Types'
 import useGetItem from '../hooks/useGetItem';
 
@@ -13,11 +12,12 @@ export default function PrList({ resultList, setResultList, setIsEditMode, setEd
 
   return (
     <View style={styles.listcontainer}>
+      <Text style={styles.labelHeader}>Your results</Text>
       <FlatList
         data={resultList}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }: {item: DataItem}) =>
-        <View style={styles.listItem}>
+          <View style={styles.listItem}>
           <View style={{flexDirection: 'row'}}>
             <Text style={styles.label}>{item.name}</Text>
             <Text style={styles.label}>{item.date}</Text>
@@ -31,7 +31,7 @@ export default function PrList({ resultList, setResultList, setIsEditMode, setEd
             onPress={() => {
               useGetItem(item._id, setEditItem)
               setIsEditMode(true)
-              }}>
+            }}>
           <Text style={styles.labelButton}>Edit</Text>
           </Pressable>
         </View>}
@@ -53,6 +53,13 @@ const styles = StyleSheet.create({
     color: '#606060',
     marginVertical: 4,
     marginHorizontal: 20
+  },
+  labelHeader: {
+    fontSize: Dimensions.get('window').width < 320 ? 22 : 24, 
+    fontFamily: 'MerriweatherSans', 
+    color: '#505050',
+    marginTop: Dimensions.get('window').height < 1000 ? 30 : 50,
+    marginBottom: Dimensions.get('window').height < 1000 ? 30 : 50, 
   },
   labelButton: {
     fontSize: 15, 
