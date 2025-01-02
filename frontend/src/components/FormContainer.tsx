@@ -57,14 +57,7 @@ const FormContainer = ({ prObject, setPrObject, prObjectIsValid, setPrObjectIsVa
         <Text style={styles.labelError}>Result must not be empty</Text>}
       </View>
       <View style={{marginTop: 30, marginBottom: 30}}>
-        <Pressable style={styles.button} 
-          onPress={() => {
-            setValidationInit(true)
-            setPressedAdd(true)
-          }}>
-          <Text style={styles.labelButton}>Add</Text>
-        </Pressable>
-        <PopUp setValidationInit={setValidationInit} setPressedAdd={setPressedAdd}/>
+        <PopUp setValidationInit={setValidationInit} setPressedAdd={setPressedAdd} prObjectIsValid={prObjectIsValid}/>
       </View>
     </View>
   )
