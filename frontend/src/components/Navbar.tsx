@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Pressable, Dimensions } from 'react-native';
 import { NavBarProps } from '../types/Types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const NavBar: React.FC<NavBarProps> = ({ navigation, showButtons, addButtonToggle}) => {
+const Navbar: React.FC<NavBarProps> = ({ navigation, showButtons, addButtonToggle}) => {
   
 
   return (
@@ -110,4 +110,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default NavBar;
+export default Navbar;

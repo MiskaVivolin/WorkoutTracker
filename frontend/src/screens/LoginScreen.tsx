@@ -3,7 +3,7 @@ import { View, Text, TextInput, StyleSheet, Pressable, Dimensions } from 'react-
 import useAuthenticationValidation from '../hooks/useAuthenticationValidation';
 import { LoginScreenProps } from '../types/Types';
 import { useUserToken } from '../context/UserTokenContext';
-import Navbar from '../components/NavBar';
+import Navbar from '../components/Navbar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {

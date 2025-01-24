@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { DataItem, ResultScreenProps } from '../types/Types';
 import useEditPr from '../hooks/useEditPr';
 import PrList from '../components/PrList';
-import Navbar from '../components/NavBar';
+import Navbar from '../components/Navbar';
 import EditItem from '../components/EditItem';
 import { useRoute } from '@react-navigation/native';
 

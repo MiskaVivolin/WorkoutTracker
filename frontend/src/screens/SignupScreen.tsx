@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { SignupScreenProps } from '../types/Types';
 import { View, Text, TextInput, StyleSheet, Pressable, Platform, Dimensions } from 'react-native';
 import useAuthenticationValidation from '../hooks/useAuthenticationValidation';
-import Navbar from '../components/NavBar';
+import Navbar from '../components/Navbar';
 
 const SignupScreen: React.FC<SignupScreenProps> = ({ navigation }) => {
 
