@@ -1,14 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { View } from 'react-native';
-import { DataItem, AddExerciseScreenProps, User } from '../types/Types';
-import PrList from '../components/PrList';
-import useEditPr from '../hooks/useEditPr';
-import EditItem from '../components/EditItem';
+import { DataItem, AddExerciseScreenProps, } from '../types/Types';
 import FormContainer from '../components/FormContainer';
-import { useRoute } from '@react-navigation/native';
 import Navbar from '../components/Navbar';
-import { useUserToken } from '../context/UserTokenContext';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const AddExerciseScreen: React.FC<AddExerciseScreenProps> = ({ navigation }) => {
@@ -19,11 +13,17 @@ const AddExerciseScreen: React.FC<AddExerciseScreenProps> = ({ navigation }) => 
   
 
   // TODO: 
-  // funktion typet hookeille ja constien nimitys kuntoon
-  // button joka vie toiselle sivulle. tänne siirtyy resultlist
+  // dokumentaatio, päivitä kuvat
+  // Results/Add nappi paremmaksi
+  // PopUp paremmaksi
+  // korjaa bugi: kun editoi tulosta, jos joku kenttä jää tyhjäksi ja validaatio valittaa, se työntää textinputit formcontainerin yli.
+  // korjaa bugi: consoli printtaa kaksi kertaa POST errorin
+  // tarkista voiko propseja vähentää
+  // kun vaihtaa sivua, validaation pitäisi restartata (ei enää valita tyhjistä fieldeistä)
+  // muuta prObjectien nimet (ja muiden mahdollisesti)
+  // funktion typet hookeille ja constien nimitys kuntoon, tarkista statet
   // sen jälkeen mietitään laajennusta esim. search, filter, kaaviot, emojit/kuvat, profiilitiedot jne.
   // docker, testing
-  // dokumentaatio
   
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>

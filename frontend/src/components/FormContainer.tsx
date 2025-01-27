@@ -1,21 +1,20 @@
 import { StyleSheet, Text, TextInput, View, Pressable, Dimensions } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { FormContainerProps } from '../types/Types';
-import usePrValidation from '../hooks/usePrValidation';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import ResultItemValidation from '../functions/ResultItemValidation';
 import { useUserToken } from '../context/UserTokenContext';
 import PopUp from './PopUp';
 
 const FormContainer = ({ prObject, setPrObject, prObjectIsValid, setPrObjectIsValid, setResultList }: FormContainerProps): React.JSX.Element => {
 
-  const [validationInit, setValidationInit] = useState(false)
+  const [validationInit, setValidationInit] = useState(false);
   const [pressedAdd, setPressedAdd] = useState(false);
-  const [isEditMode, setIsEditMode] = useState(false)
-  const {userToken} = useUserToken()
+  const [isEditMode, setIsEditMode] = useState(false);
+  const { userToken } = useUserToken();
 
   useEffect(() => {
     if(validationInit) {
-      usePrValidation(prObject, setPrObjectIsValid, setResultList, setPrObject, pressedAdd, setPressedAdd, isEditMode, setIsEditMode, userToken)
+      ResultItemValidation(prObject, setPrObjectIsValid, setResultList, setPrObject, pressedAdd, setPressedAdd, isEditMode, setIsEditMode, userToken)
       setValidationInit(false)
     }
   }, [prObject, pressedAdd])

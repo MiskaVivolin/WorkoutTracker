@@ -13,7 +13,7 @@ import * as Font from 'expo-font'
 SplashScreen.preventAutoHideAsync();
 const Stack = createStackNavigator();
 
-export default function Index() {
+export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
 
   useEffect(() => {

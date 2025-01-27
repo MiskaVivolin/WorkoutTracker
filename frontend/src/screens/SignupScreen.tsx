@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { SignupScreenProps } from '../types/Types';
-import { View, Text, TextInput, StyleSheet, Pressable, Platform, Dimensions } from 'react-native';
-import useAuthenticationValidation from '../hooks/useAuthenticationValidation';
+import { View, Text, TextInput, StyleSheet, Pressable, Dimensions } from 'react-native';
+import AuthenticationValidation from '../functions/AuthenticationValidation';
 import Navbar from '../components/Navbar';
 
 const SignupScreen: React.FC<SignupScreenProps> = ({ navigation }) => {
@@ -50,7 +50,7 @@ const SignupScreen: React.FC<SignupScreenProps> = ({ navigation }) => {
             ><Text style={styles.labelLink}>Back</Text></Pressable>
           <Pressable 
             style={styles.buttonNext}
-            onPress={() => useAuthenticationValidation({navigation, mode: 'signup', setValidationInit, validationFields, setValidationErrors, setValidationFields, setValidUsername, setValidPassword})}
+            onPress={() => AuthenticationValidation({navigation, mode: 'signup', setValidationInit, validationFields, setValidationErrors, setValidationFields, setValidUsername, setValidPassword})}
             ><Text style={styles.labelButton}>Sign up</Text></Pressable>
           </View>
       </View>

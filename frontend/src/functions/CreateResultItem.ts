@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { SetResultList, PrFields, ResponseData, DataItem } from "../types/Types";
 
-const useCreatePr = (prObject: PrFields, setResultList: SetResultList, username: string | null): void => {
+const CreateResultItem = (prObject: PrFields, setResultList: SetResultList, username: string | null): void => {
 
   axios.post<ResponseData>('http://127.0.0.1:3001/create', { prObject, username })
   .then((response: AxiosResponse<ResponseData>) => {
@@ -24,4 +24,4 @@ const useCreatePr = (prObject: PrFields, setResultList: SetResultList, username:
   });
 }
 
-export default useCreatePr;
+export default CreateResultItem;

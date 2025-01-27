@@ -1,11 +1,11 @@
 import axios, { AxiosResponse } from 'axios'
 import { SetResultList, ResponseData, DataItem } from '../types/Types'
-import { useUserToken } from './../context/UserTokenContext'
+import { useUserToken } from '../context/UserTokenContext'
 import { useEffect } from 'react'
 
-const useGetList = (setResultList: SetResultList): void => {
+const useGetResultList = (setResultList: SetResultList): void => {
   
-  const {userToken} = useUserToken()
+  const { userToken } = useUserToken();
 
   useEffect(() => {
     console.log("usertoken: ", userToken)
@@ -41,4 +41,4 @@ const useGetList = (setResultList: SetResultList): void => {
   }, [setResultList, userToken])
 }
 
-export default useGetList;
+export default useGetResultList;

@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios'
 import { SetResultList, DataItem, ResponseData } from '../types/Types'
 
-const useDeletePr = (item: DataItem, setResultList: SetResultList): void => {
+const DeleteResultItem = (item: DataItem, setResultList: SetResultList): void => {
 
   axios.delete<ResponseData>('http://127.0.0.1:3001/delete', {params: { id: item._id }})
   .then((response: AxiosResponse<ResponseData>) => {
@@ -17,4 +17,4 @@ const useDeletePr = (item: DataItem, setResultList: SetResultList): void => {
   });
 }
 
-export default useDeletePr;
+export default DeleteResultItem;

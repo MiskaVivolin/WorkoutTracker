@@ -1,9 +1,9 @@
 import { StyleSheet, Text, View, TextInput, Pressable, Dimensions, } from 'react-native'
 import { useEffect, useState } from 'react'
-import usePrValidation from '../hooks/usePrValidation'
+import ResultItemValidation from '../functions/ResultItemValidation'
 import React from 'react'
 import { EditItemProps } from '../types/Types'
-import useDeletePr from '../hooks/useDeletePr'
+import DeleteResultItem from '../functions/DeleteResultItem'
 
 const EditItem = ({ editItem, setEditItem, setIsEditMode, isEditMode, setResultList }: EditItemProps): React.JSX.Element => {
 
@@ -18,7 +18,7 @@ const EditItem = ({ editItem, setEditItem, setIsEditMode, isEditMode, setResultL
 
   useEffect(() => {
     if(validationInit) {
-        usePrValidation(editItem, setEditItemIsValid, setResultList, setEditItem, pressedAdd, setPressedAdd, isEditMode, setIsEditMode, null)
+        ResultItemValidation(editItem, setEditItemIsValid, setResultList, setEditItem, pressedAdd, setPressedAdd, isEditMode, setIsEditMode, null)
         setValidationInit(false)
     }
   }, [editItem, pressedAdd])
@@ -87,7 +87,7 @@ const EditItem = ({ editItem, setEditItem, setIsEditMode, isEditMode, setResultL
             style={styles.buttonDelete}
             onPress={() => {
               setIsEditMode(false)
-              useDeletePr(editItem, setResultList)
+              DeleteResultItem(editItem, setResultList)
               }}
             >
             <Text style={styles.labelButton}>Delete</Text>
@@ -108,7 +108,7 @@ const EditItem = ({ editItem, setEditItem, setIsEditMode, isEditMode, setResultL
             style={styles.buttonDelete}
             onPress={() => {
               setIsEditMode(false)
-              useDeletePr(editItem, setResultList)
+              DeleteResultItem(editItem, setResultList)
               }}
             >
             <Text style={styles.labelButton}>Delete</Text>

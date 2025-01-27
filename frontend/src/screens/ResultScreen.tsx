@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
 import { DataItem, ResultScreenProps } from '../types/Types';
-import useEditPr from '../hooks/useEditPr';
+import useEditPr from '../functions/EditResultItem';
 import PrList from '../components/PrList';
 import Navbar from '../components/Navbar';
 import EditItem from '../components/EditItem';
-import { useRoute } from '@react-navigation/native';
-
 
 const ResultScreen: React.FC<ResultScreenProps> = ({ navigation }) => {
   

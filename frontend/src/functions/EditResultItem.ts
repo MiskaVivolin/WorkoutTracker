@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios'
 import { DataItem, ResponseData, SetBoolean } from '../types/Types'
 
-const useEditPr = (prObject: DataItem, setIsEditMode: SetBoolean): void => {
+const EditResultItem = (prObject: DataItem, setIsEditMode: SetBoolean): void => {
   
   axios.put<ResponseData>(`http://127.0.0.1:3001/put/${prObject._id}`, prObject)
   .then((response: AxiosResponse<ResponseData>) => {
@@ -17,4 +17,4 @@ const useEditPr = (prObject: DataItem, setIsEditMode: SetBoolean): void => {
   });
 }
 
-export default useEditPr;
+export default EditResultItem;

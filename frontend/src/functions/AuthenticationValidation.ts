@@ -3,7 +3,7 @@ import axios, { AxiosError } from 'axios';
 import { ApiResponse, AuthenticationProps, ValidationFields } from '../types/Types';
 
 
-const useAuthenticationValidation = async ({ navigation, mode, setValidationInit, validationFields, setValidationErrors, setValidationFields, setValidUsername, setValidPassword, isFirstRender }: AuthenticationProps): Promise<void> => {
+const AuthenticationValidation = async ({ navigation, mode, setValidationInit, validationFields, setValidationErrors, setValidationFields, setValidUsername, setValidPassword, isFirstRender }: AuthenticationProps): Promise<void> => {
 
   if (mode === 'login') {
     setValidationInit(true)
@@ -79,4 +79,4 @@ const useAuthenticationValidation = async ({ navigation, mode, setValidationInit
   }
 };
 
-export default useAuthenticationValidation;
+export default AuthenticationValidation;

@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios'
 import { ResponseData, SetEditItem } from '../types/Types'
 
-const useGetItem = (id: number, setEditItem: SetEditItem): void => {
+const GetResultItem = (id: number, setEditItem: SetEditItem): void => {
 
   axios.get<ResponseData>(`http://127.0.0.1:3001/get/${id}`)
   .then((response: AxiosResponse<ResponseData>) => {
@@ -16,4 +16,4 @@ const useGetItem = (id: number, setEditItem: SetEditItem): void => {
   });
 }
 
-export default useGetItem;
+export default GetResultItem;

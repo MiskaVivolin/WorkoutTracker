@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react'
 import { StyleSheet, Text, View, Pressable, Dimensions } from 'react-native'
 import { FlatList } from 'react-native'
-import useGetList from '../hooks/useGetList';
+import useGetResultList from '../hooks/useGetResultList'
 import { DataItem, PrListProps } from '../types/Types'
-import useGetItem from '../hooks/useGetItem';
+import GetResultItem from '../functions/GetResultItem';
 
 
 export default function PrList({ resultList, setResultList, setIsEditMode, setEditItem }: PrListProps): React.JSX.Element {
 
-  useGetList(setResultList)
+  useGetResultList(setResultList);
 
   return (
     <View style={styles.listcontainer}>
@@ -29,7 +29,7 @@ export default function PrList({ resultList, setResultList, setIsEditMode, setEd
           <Pressable
             style={styles.button}
             onPress={() => {
-              useGetItem(item._id, setEditItem)
+              GetResultItem(item._id, setEditItem)
               setIsEditMode(true)
             }}>
           <Text style={styles.labelButton}>Edit</Text>
@@ -94,4 +94,4 @@ const styles = StyleSheet.create({
     fontSize: 16,
     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)', 
   },
-})
+});

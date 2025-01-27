@@ -1,4 +1,4 @@
-import { Dispatch, ReactNode, SetStateAction } from 'react'
+import { ReactNode } from 'react'
 import { StackNavigationProp } from '@react-navigation/stack';
 
 export interface DataItem {
@@ -112,12 +112,10 @@ export type RootStackParamList = {
   
 export type AddExerciseScreenProps = {
     navigation: StackNavigationProp<RootStackParamList, 'AddExerciseScreen'>;
-    route: { params: { username: string } };
 };
 
 export type ResultScreenProps = {
     navigation: StackNavigationProp<RootStackParamList, 'AddExerciseScreen'>;
-    route: { params: { username: string } };
 };
 
 export type LoginScreenProps = {

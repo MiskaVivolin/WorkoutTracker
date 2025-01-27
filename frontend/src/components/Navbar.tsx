@@ -30,7 +30,7 @@ const Navbar: React.FC<NavBarProps> = ({ navigation, showButtons, addButtonToggl
               navigation.navigate('ResultScreen')
             }}
           >
-            <Text style={styles.labelButton}>List</Text>
+            <Text style={styles.labelButton}>Results</Text>
           </Pressable>
           }
 

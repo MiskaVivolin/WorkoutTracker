@@ -1,9 +1,8 @@
 import { DataItem, PrevStateBooleanObj, SetBoolean, SetPrObject, SetResultList } from '../types/Types'
-import useCreatePr from './useCreatePr'
-import useEditPr from './useEditPr'
+import CreateResultItem from './CreateResultItem'
+import EditResultItem from './EditResultItem'
 
-const usePrValidation = (prObject: DataItem, setPrObjectIsValid: React.Dispatch<React.SetStateAction<PrevStateBooleanObj>>, setResultList: SetResultList, setPrObject: SetPrObject, pressedAdd: boolean, setPressedAdd: SetBoolean, isEditMode: boolean, setIsEditMode: (data: boolean) => void, username: string | null): void => {
-
+const ResultItemValidation = (prObject: DataItem, setPrObjectIsValid: React.Dispatch<React.SetStateAction<PrevStateBooleanObj>>, setResultList: SetResultList, setPrObject: SetPrObject, pressedAdd: boolean, setPressedAdd: SetBoolean, isEditMode: boolean, setIsEditMode: (data: boolean) => void, username: string | null): void => {
 
     if(prObject.name.length === 0) {
         setPrObjectIsValid((prevState: PrevStateBooleanObj) => ({ ...prevState, name: false }))
@@ -31,7 +30,7 @@ const usePrValidation = (prObject: DataItem, setPrObjectIsValid: React.Dispatch<
     }
     if(prObject.name.length !== 0 && prObject.date.length !== 0 && prObject.exercise.length !== 0 && prObject.result.length !== 0){
         if(pressedAdd && !isEditMode) {
-            useCreatePr(prObject, setResultList, username)
+            CreateResultItem(prObject, setResultList, username)
             setPressedAdd(false)
             setPrObject({
                 name: '',
@@ -41,9 +40,9 @@ const usePrValidation = (prObject: DataItem, setPrObjectIsValid: React.Dispatch<
             })
         }
         if(pressedAdd && isEditMode) {
-            useEditPr(prObject, setIsEditMode)
+            EditResultItem(prObject, setIsEditMode)
         }
     }
 }
 
-export default usePrValidation
+export default ResultItemValidation;
