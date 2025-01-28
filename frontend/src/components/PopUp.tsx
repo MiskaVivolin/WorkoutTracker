@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, Animated, StyleSheet, Dimensions, Pressable } from 'react-native';
 import { PopUpProps } from '../types/Types';
 
-const PopUp: React.FC<PopUpProps> = ({setValidationInit, setPressedAdd, prObjectIsValid}) => {
+const PopUp: React.FC<PopUpProps> = ({setValidationInit, setPressedAdd, workoutItemIsValid}) => {
   const [visible, setVisible] = useState(false); // Controls visibility of the popup
   const fadeAnim = new Animated.Value(0); // Initial opacity value for animation
 
@@ -30,7 +30,7 @@ const PopUp: React.FC<PopUpProps> = ({setValidationInit, setPressedAdd, prObject
 
   // Fade-in animation
   const fadeIn = () => {
-    console.log("prObjectisvalid, ", prObjectIsValid)
+    console.log("workoutItemIsValid, ", workoutItemIsValid)
     Animated.timing(fadeAnim, {
       toValue: 1, // Full opacity
       useNativeDriver: true,
@@ -56,7 +56,7 @@ const PopUp: React.FC<PopUpProps> = ({setValidationInit, setPressedAdd, prObject
       </Pressable>
 
       {/* Conditionally render the popup only if it's visible */}
-      {visible && prObjectIsValid && (
+      {visible && workoutItemIsValid && (
         <View
           style={[
             styles.popup,

@@ -5,7 +5,7 @@ import ResultItemValidation from '../functions/ResultItemValidation';
 import { useUserToken } from '../context/UserTokenContext';
 import PopUp from './PopUp';
 
-const FormContainer = ({ prObject, setPrObject, prObjectIsValid, setPrObjectIsValid, setResultList }: FormContainerProps): React.JSX.Element => {
+const FormContainer = ({ workoutItem, setWorkoutItem, workoutItemIsValid, setWorkoutItemIsValid, setWorkoutList }: FormContainerProps): React.JSX.Element => {
 
   const [validationInit, setValidationInit] = useState(false);
   const [pressedAdd, setPressedAdd] = useState(false);
@@ -14,10 +14,10 @@ const FormContainer = ({ prObject, setPrObject, prObjectIsValid, setPrObjectIsVa
 
   useEffect(() => {
     if(validationInit) {
-      ResultItemValidation(prObject, setPrObjectIsValid, setResultList, setPrObject, pressedAdd, setPressedAdd, isEditMode, setIsEditMode, userToken)
+      ResultItemValidation(workoutItem, setWorkoutItemIsValid, setWorkoutList, setWorkoutItem, pressedAdd, setPressedAdd, isEditMode, setIsEditMode, userToken)
       setValidationInit(false)
     }
-  }, [prObject, pressedAdd])
+  }, [workoutItem, pressedAdd])
 
   return (
     <View style={styles.container}>
@@ -25,38 +25,38 @@ const FormContainer = ({ prObject, setPrObject, prObjectIsValid, setPrObjectIsVa
       <View style={styles.fieldContainer}>
         <Text style={styles.label}>Name</Text>
         <TextInput style={styles.input}
-          onChangeText={name => {setPrObject({ ...prObject, name })}}
-          value={prObject.name}
+          onChangeText={name => {setWorkoutItem({ ...workoutItem, name })}}
+          value={workoutItem.name}
           />
-        {!prObjectIsValid['name'] && 
+        {!workoutItemIsValid['name'] && 
         <Text style={styles.labelError}>Name must not be empty</Text>}
       
         <Text style={styles.label}>Date</Text>
         <TextInput style={styles.input}
-          onChangeText={date => {setPrObject({ ...prObject, date })}}
-          value={prObject.date}
+          onChangeText={date => {setWorkoutItem({ ...workoutItem, date })}}
+          value={workoutItem.date}
           />
-        {!prObjectIsValid['date'] && 
+        {!workoutItemIsValid['date'] && 
         <Text style={styles.labelError}>Date must not be empty</Text>}
         
         <Text style={styles.label}>Exercise</Text>
         <TextInput style={styles.input}
-          onChangeText={exercise => {setPrObject({ ...prObject, exercise })}}
-          value={prObject.exercise}
+          onChangeText={exercise => {setWorkoutItem({ ...workoutItem, exercise })}}
+          value={workoutItem.exercise}
           />
-        {!prObjectIsValid['exercise'] && 
+        {!workoutItemIsValid['exercise'] && 
         <Text style={styles.labelError}>Exercise must not be empty</Text>}
       
         <Text style={styles.label}>Result</Text>
         <TextInput style={styles.input}
-          onChangeText={result => {setPrObject({ ...prObject, result })}}
-          value={prObject.result}
+          onChangeText={result => {setWorkoutItem({ ...workoutItem, result })}}
+          value={workoutItem.result}
           />
-        {!prObjectIsValid['result'] && 
+        {!workoutItemIsValid['result'] && 
         <Text style={styles.labelError}>Result must not be empty</Text>}
       </View>
       <View style={{marginTop: 30, marginBottom: 30}}>
-        <PopUp setValidationInit={setValidationInit} setPressedAdd={setPressedAdd} prObjectIsValid={prObjectIsValid}/>
+        <PopUp setValidationInit={setValidationInit} setPressedAdd={setPressedAdd} workoutItemIsValid={workoutItemIsValid}/>
       </View>
     </View>
   )

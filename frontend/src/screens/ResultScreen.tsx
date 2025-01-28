@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
-import { DataItem, ResultScreenProps } from '../types/Types';
+import { WorkoutItem, ResultScreenProps } from '../types/Types';
 import useEditPr from '../functions/EditResultItem';
 import PrList from '../components/PrList';
 import Navbar from '../components/Navbar';
@@ -8,18 +8,18 @@ import EditItem from '../components/EditItem';
 
 const ResultScreen: React.FC<ResultScreenProps> = ({ navigation }) => {
   
-  const [resultList, setResultList] = useState<DataItem[]>([])
+  const [workoutList, setWorkoutList] = useState<WorkoutItem[]>([])
   const [isEditMode, setIsEditMode] = useState(false)
-  const [editItem, setEditItem] = useState<DataItem>({ _id: 0, user: '', name: '', date: '', exercise: '', result: '' })
+  const [editWorkoutItem, setEditWorkoutItem] = useState<WorkoutItem>({ _id: 0, user: '', name: '', date: '', exercise: '', result: '' })
 
   
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
       <Navbar navigation={navigation} showButtons={true} addButtonToggle={true}/>
       {isEditMode ? 
-        <EditItem editItem={editItem} setEditItem={setEditItem} useEditPr={useEditPr} setIsEditMode={setIsEditMode} isEditMode={isEditMode} setResultList={setResultList}/>
+        <EditItem editWorkoutItem={editWorkoutItem} setEditWorkoutItem={setEditWorkoutItem} useEditPr={useEditPr} setIsEditMode={setIsEditMode} isEditMode={isEditMode} setWorkoutList={setWorkoutList}/>
         :
-        <PrList resultList={resultList} setResultList={setResultList} setIsEditMode={setIsEditMode} setEditItem={setEditItem}/>
+        <PrList workoutList={workoutList} setWorkoutList={setWorkoutList} setIsEditMode={setIsEditMode} setEditWorkoutItem={setEditWorkoutItem}/>
       }
     </View>
   )

@@ -2,21 +2,21 @@ import React, { useEffect } from 'react'
 import { StyleSheet, Text, View, Pressable, Dimensions } from 'react-native'
 import { FlatList } from 'react-native'
 import useGetResultList from '../hooks/useGetResultList'
-import { DataItem, PrListProps } from '../types/Types'
+import { WorkoutItem, WorkoutListProps } from '../types/Types'
 import GetResultItem from '../functions/GetResultItem';
 
 
-export default function PrList({ resultList, setResultList, setIsEditMode, setEditItem }: PrListProps): React.JSX.Element {
+export default function PrList({ workoutList, setWorkoutList, setIsEditMode, setEditWorkoutItem }: WorkoutListProps): React.JSX.Element {
 
-  useGetResultList(setResultList);
+  useGetResultList(setWorkoutList);
 
   return (
     <View style={styles.listcontainer}>
-      <Text style={styles.labelHeader}>Your results</Text>
+      <Text style={styles.labelHeader}>Your workout list</Text>
       <FlatList
-        data={resultList}
+        data={workoutList}
         keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item }: {item: DataItem}) =>
+        renderItem={({ item }: {item: WorkoutItem}) =>
           <View style={styles.listItem}>
           <View style={{flexDirection: 'row'}}>
             <Text style={styles.label}>{item.name}</Text>
@@ -29,7 +29,7 @@ export default function PrList({ resultList, setResultList, setIsEditMode, setEd
           <Pressable
             style={styles.button}
             onPress={() => {
-              GetResultItem(item._id, setEditItem)
+              GetResultItem(item._id, setEditWorkoutItem)
               setIsEditMode(true)
             }}>
           <Text style={styles.labelButton}>Edit</Text>

@@ -2,10 +2,10 @@ import { StyleSheet, Text, View, TextInput, Pressable, Dimensions, } from 'react
 import { useEffect, useState } from 'react'
 import ResultItemValidation from '../functions/ResultItemValidation'
 import React from 'react'
-import { EditItemProps } from '../types/Types'
+import { EditWorkoutItemProps } from '../types/Types'
 import DeleteResultItem from '../functions/DeleteResultItem'
 
-const EditItem = ({ editItem, setEditItem, setIsEditMode, isEditMode, setResultList }: EditItemProps): React.JSX.Element => {
+const EditItem = ({ editWorkoutItem, setEditWorkoutItem, setIsEditMode, isEditMode, setWorkoutList }: EditWorkoutItemProps): React.JSX.Element => {
 
   const [validationInit, setValidationInit] = useState(false)
   const [pressedAdd, setPressedAdd] = useState(false);
@@ -18,29 +18,29 @@ const EditItem = ({ editItem, setEditItem, setIsEditMode, isEditMode, setResultL
 
   useEffect(() => {
     if(validationInit) {
-        ResultItemValidation(editItem, setEditItemIsValid, setResultList, setEditItem, pressedAdd, setPressedAdd, isEditMode, setIsEditMode, null)
+        ResultItemValidation(editWorkoutItem, setEditItemIsValid, setWorkoutList, setEditWorkoutItem, pressedAdd, setPressedAdd, isEditMode, setIsEditMode, null)
         setValidationInit(false)
     }
-  }, [editItem, pressedAdd])
+  }, [editWorkoutItem, pressedAdd])
 
   return (
     <View style={styles.listcontainer}>
       <View style={styles.listItem}>
-        <Text style={styles.labelHeader}>Edit your exercise result</Text>
+        <Text style={styles.labelHeader}>Edit your workout</Text>
         <View style={{flexDirection: 'row', marginTop: 1, marginBottom: 5}}>
           <View style={{flexDirection: 'column'}}>
             <Text style={styles.label}>Name</Text>
             <TextInput style={styles.input}
-              onChangeText={name => setEditItem({ ...editItem, name })}
-              value={editItem.name}
+              onChangeText={name => setEditWorkoutItem({ ...editWorkoutItem, name })}
+              value={editWorkoutItem.name}
               />
             {!editItemIsValid['name'] && <Text style={styles.labelError}>Name must not be empty</Text>}
           </View>
           <View style={{flexDirection: 'column'}}>
             <Text style={styles.label}>Date</Text>
             <TextInput style={styles.input}
-              onChangeText={date => setEditItem({ ...editItem, date })}
-              value={editItem.date}
+              onChangeText={date => setEditWorkoutItem({ ...editWorkoutItem, date })}
+              value={editWorkoutItem.date}
               />
             {!editItemIsValid['date'] && <Text style={styles.labelError}>Date must not be empty</Text>}
           </View>
@@ -49,16 +49,16 @@ const EditItem = ({ editItem, setEditItem, setIsEditMode, isEditMode, setResultL
           <View style={{flexDirection: 'column'}}>
             <Text style={styles.label}>Exercise</Text>
             <TextInput style={styles.input}
-              onChangeText={exercise => setEditItem({ ...editItem, exercise })}
-              value={editItem.exercise}
+              onChangeText={exercise => setEditWorkoutItem({ ...editWorkoutItem, exercise })}
+              value={editWorkoutItem.exercise}
               />
             {!editItemIsValid['exercise'] && <Text style={styles.labelError}>Exercise must not be empty</Text>}
           </View>
           <View style={{flexDirection: 'column'}}>
             <Text style={styles.label}>Result</Text>
             <TextInput style={styles.input}
-              onChangeText={result => setEditItem({ ...editItem, result })}
-              value={editItem.result}
+              onChangeText={result => setEditWorkoutItem({ ...editWorkoutItem, result })}
+              value={editWorkoutItem.result}
               />
             {!editItemIsValid['result'] && <Text style={styles.labelError}>Result must not be empty</Text>}  
             </View>
@@ -87,7 +87,7 @@ const EditItem = ({ editItem, setEditItem, setIsEditMode, isEditMode, setResultL
             style={styles.buttonDelete}
             onPress={() => {
               setIsEditMode(false)
-              DeleteResultItem(editItem, setResultList)
+              DeleteResultItem(editWorkoutItem, setWorkoutList)
               }}
             >
             <Text style={styles.labelButton}>Delete</Text>
@@ -108,7 +108,7 @@ const EditItem = ({ editItem, setEditItem, setIsEditMode, isEditMode, setResultL
             style={styles.buttonDelete}
             onPress={() => {
               setIsEditMode(false)
-              DeleteResultItem(editItem, setResultList)
+              DeleteResultItem(editWorkoutItem, setWorkoutList)
               }}
             >
             <Text style={styles.labelButton}>Delete</Text>

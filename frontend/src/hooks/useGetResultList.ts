@@ -1,9 +1,9 @@
 import axios, { AxiosResponse } from 'axios'
-import { SetResultList, ResponseData, DataItem } from '../types/Types'
+import { SetWorkoutList, ResponseData, WorkoutItem } from '../types/Types'
 import { useUserToken } from '../context/UserTokenContext'
 import { useEffect } from 'react'
 
-const useGetResultList = (setResultList: SetResultList): void => {
+const useGetResultList = (setResultList: SetWorkoutList): void => {
   
   const { userToken } = useUserToken();
 
@@ -13,7 +13,7 @@ const useGetResultList = (setResultList: SetResultList): void => {
       axios.get('http://127.0.0.1:3001/get')
         .then((response: AxiosResponse<ResponseData>) => {
           const { data } = response;
-          const dataItems: DataItem[] = data.map((item) => ({
+          const dataItems: WorkoutItem[] = data.map((item) => ({
             _id: item._id,
             user: item.user,
             name: item.name,
@@ -24,7 +24,7 @@ const useGetResultList = (setResultList: SetResultList): void => {
           if(response.data.message) {
             alert(response.data.message)
           }
-          const resultList: DataItem[] = []
+          const resultList: WorkoutItem[] = []
           dataItems.forEach(item => {
             if(item.user === userToken) {
               resultList.push(item)

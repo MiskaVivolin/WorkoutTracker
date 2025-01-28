@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 import { StackNavigationProp } from '@react-navigation/stack';
 
-export interface DataItem {
+export interface WorkoutItem {
     readonly _id: number;
     readonly user: string;
     name: string;
@@ -10,52 +10,52 @@ export interface DataItem {
     result: string;
 }
 
-export interface PrFields {
+export interface WorkoutItemFields {
     name: string;
     date: string;
     exercise: string;
     result: string;
 }
 
-export interface ResponseData extends DataItem {
-    map(arg0: (item: DataItem) => { name: string; date: string; exercise: string; result: string; }): DataItem[];
+export interface ResponseData extends WorkoutItem {
+    map(arg0: (item: WorkoutItem) => { name: string; date: string; exercise: string; result: string; }): WorkoutItem[];
     message: string;
 }
 
-export interface PrListProps {
-    resultList: DataItem[]
-    setResultList: SetResultList
-    setIsEditMode: SetBoolean
-    setEditItem: SetEditItem
+export interface WorkoutListProps {
+    workoutList: WorkoutItem[];
+    setWorkoutList: SetWorkoutList;
+    setIsEditMode: SetBoolean;
+    setEditWorkoutItem: SetEditWorkoutItem;
 }
 
 export interface InputContainerProps {
     header: string,
     value: string,
-    object: PrFields,
-    setObject: any,
-    objectIsValid: {
+    workoutItem: WorkoutItemFields,
+    setItem: any,
+    workoutItemIsValid: {
         [key: string]: boolean
     }
 }
 
 export interface FormContainerProps {
-    prObject: DataItem,
-    setPrObject: any,
-    prObjectIsValid: {
+    workoutItem: WorkoutItem,
+    setWorkoutItem: any,
+    workoutItemIsValid: {
         [key: string]: boolean
     },
-    setPrObjectIsValid: any,
-    setResultList: SetResultList,
+    setWorkoutItemIsValid: any,
+    setWorkoutList: SetWorkoutList,
 }
 
-export interface EditItemProps { 
-    editItem: DataItem;
-    setEditItem: SetEditItem;
-    useEditPr: (item: DataItem, setIsEditMode: SetBoolean) => void;
+export interface EditWorkoutItemProps { 
+    editWorkoutItem: WorkoutItem;
+    setEditWorkoutItem: SetEditWorkoutItem;
+    useEditPr: (item: WorkoutItem, setIsEditMode: SetBoolean) => void;
     setIsEditMode: SetBoolean;
     isEditMode: boolean;
-    setResultList: SetResultList;
+    setWorkoutList: SetWorkoutList;
 }
 
 export interface NavBarProps {
@@ -65,18 +65,18 @@ export interface NavBarProps {
 }
 
 export interface PopUpProps {
-    setValidationInit: SetBoolean,
+    setValidationInit: SetBoolean;
     setPressedAdd: SetBoolean;
-    prObjectIsValid: {
-        [key: string]: boolean
+    workoutItemIsValid: {
+        [key: string]: boolean;
     }
 }
 
-export type SetResultList = React.Dispatch<React.SetStateAction<DataItem[]>>;
+export type SetWorkoutList = React.Dispatch<React.SetStateAction<WorkoutItem[]>>;
 
-export type SetEditItem = (data: DataItem) => void
+export type SetEditWorkoutItem = (data: WorkoutItem) => void
 
-export type SetPrObject = (data: any) => void
+export type SetWorkoutItem = (data: any) => void
 
 export type SetBoolean = (data: boolean) => void 
 
@@ -84,9 +84,9 @@ export interface ContextChildren {
     children: ReactNode;
 }
 
-export interface ResultListState {
-    resultList: DataItem[];
-    setResultList: SetResultList;
+export interface WorkoutListState {
+    workoutList: WorkoutItem[];
+    setWorkoutList: SetWorkoutList;
 }
 
 export interface ValidationFields {
