@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, Animated, StyleSheet, Dimensions, Pressable } from 'react-native';
 import { PopUpProps } from '../types/Types';
 
-const PopUp: React.FC<PopUpProps> = ({setValidationInit, setPressedAdd, workoutItemIsValid}) => {
+const PopUp = ({setValidationInit, setPressedAdd, workoutItemIsValid}: PopUpProps) => {
   const [visible, setVisible] = useState(false); // Controls visibility of the popup
   const fadeAnim = new Animated.Value(0); // Initial opacity value for animation
 

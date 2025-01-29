@@ -1,9 +1,9 @@
 import axios, { AxiosResponse } from 'axios'
-import { DataItem, ResponseData, SetBoolean } from '../types/Types'
+import { WorkoutItem, ResponseData, SetBoolean } from '../types/Types'
 
-const EditResultItem = (prObject: DataItem, setIsEditMode: SetBoolean): void => {
+const EditWorkoutItem = (workoutItem: WorkoutItem, setIsEditMode: SetBoolean): void => {
   
-  axios.put<ResponseData>(`http://127.0.0.1:3001/put/${prObject._id}`, prObject)
+  axios.put<ResponseData>(`http://127.0.0.1:3001/put/${workoutItem._id}`, workoutItem)
   .then((response: AxiosResponse<ResponseData>) => {
     if(response.data.message.toLowerCase().includes('error')) {
       alert(response.data.message)
@@ -17,4 +17,4 @@ const EditResultItem = (prObject: DataItem, setIsEditMode: SetBoolean): void => 
   });
 }
 
-export default EditResultItem;
+export default EditWorkoutItem;

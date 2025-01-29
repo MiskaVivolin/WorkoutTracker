@@ -35,7 +35,7 @@ const AddExerciseScreen: React.FC<AddExerciseScreenProps> = ({ navigation }) => 
         <View>
         <Navbar navigation={navigation} showButtons={true} addButtonToggle={false}/>
         <View>
-          <FormContainer workoutItem={workoutItem} setWorkoutItem={setWorkoutItem} workoutItemIsValid={workoutItemIsValid} setWorkoutItemIsValid={setWorkoutItemIsValid} setWorkoutList={setWorkoutList}/>
+          <FormContainer workoutItem={workoutItem} setWorkoutItem={setWorkoutItem} workoutItemFieldIsValid={workoutItemIsValid} setWorkoutItemFieldIsValid={setWorkoutItemIsValid} setWorkoutList={setWorkoutList}/>
         </View>
       </View>
     </View>

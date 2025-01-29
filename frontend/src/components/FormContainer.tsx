@@ -1,11 +1,11 @@
-import { StyleSheet, Text, TextInput, View, Pressable, Dimensions } from 'react-native'
 import React, { useEffect, useState } from 'react'
+import { StyleSheet, Text, TextInput, View, Dimensions } from 'react-native'
 import { FormContainerProps } from '../types/Types';
-import ResultItemValidation from '../functions/ResultItemValidation';
+import WorkoutItemValidation from '../functions/WorkoutItemValidation';
 import { useUserToken } from '../context/UserTokenContext';
 import PopUp from './PopUp';
 
-const FormContainer = ({ workoutItem, setWorkoutItem, workoutItemIsValid, setWorkoutItemIsValid, setWorkoutList }: FormContainerProps): React.JSX.Element => {
+const FormContainer = ({ workoutItem, setWorkoutItem, workoutItemFieldIsValid, setWorkoutItemFieldIsValid, setWorkoutList }: FormContainerProps) => {
 
   const [validationInit, setValidationInit] = useState(false);
   const [pressedAdd, setPressedAdd] = useState(false);
@@ -14,7 +14,7 @@ const FormContainer = ({ workoutItem, setWorkoutItem, workoutItemIsValid, setWor
 
   useEffect(() => {
     if(validationInit) {
-      ResultItemValidation(workoutItem, setWorkoutItemIsValid, setWorkoutList, setWorkoutItem, pressedAdd, setPressedAdd, isEditMode, setIsEditMode, userToken)
+      WorkoutItemValidation(workoutItem, setWorkoutItem, setWorkoutItemFieldIsValid, setWorkoutList, pressedAdd, setPressedAdd, isEditMode, setIsEditMode, userToken)
       setValidationInit(false)
     }
   }, [workoutItem, pressedAdd])
@@ -28,7 +28,7 @@ const FormContainer = ({ workoutItem, setWorkoutItem, workoutItemIsValid, setWor
           onChangeText={name => {setWorkoutItem({ ...workoutItem, name })}}
           value={workoutItem.name}
           />
-        {!workoutItemIsValid['name'] && 
+        {!workoutItemFieldIsValid['name'] && 
         <Text style={styles.labelError}>Name must not be empty</Text>}
       
         <Text style={styles.label}>Date</Text>
@@ -36,7 +36,7 @@ const FormContainer = ({ workoutItem, setWorkoutItem, workoutItemIsValid, setWor
           onChangeText={date => {setWorkoutItem({ ...workoutItem, date })}}
           value={workoutItem.date}
           />
-        {!workoutItemIsValid['date'] && 
+        {!workoutItemFieldIsValid['date'] && 
         <Text style={styles.labelError}>Date must not be empty</Text>}
         
         <Text style={styles.label}>Exercise</Text>
@@ -44,7 +44,7 @@ const FormContainer = ({ workoutItem, setWorkoutItem, workoutItemIsValid, setWor
           onChangeText={exercise => {setWorkoutItem({ ...workoutItem, exercise })}}
           value={workoutItem.exercise}
           />
-        {!workoutItemIsValid['exercise'] && 
+        {!workoutItemFieldIsValid['exercise'] && 
         <Text style={styles.labelError}>Exercise must not be empty</Text>}
       
         <Text style={styles.label}>Result</Text>
@@ -52,11 +52,11 @@ const FormContainer = ({ workoutItem, setWorkoutItem, workoutItemIsValid, setWor
           onChangeText={result => {setWorkoutItem({ ...workoutItem, result })}}
           value={workoutItem.result}
           />
-        {!workoutItemIsValid['result'] && 
+        {!workoutItemFieldIsValid['result'] && 
         <Text style={styles.labelError}>Result must not be empty</Text>}
       </View>
       <View style={{marginTop: 30, marginBottom: 30}}>
-        <PopUp setValidationInit={setValidationInit} setPressedAdd={setPressedAdd} workoutItemIsValid={workoutItemIsValid}/>
+        <PopUp setValidationInit={setValidationInit} setPressedAdd={setPressedAdd} workoutItemIsValid={workoutItemFieldIsValid}/>
       </View>
     </View>
   )

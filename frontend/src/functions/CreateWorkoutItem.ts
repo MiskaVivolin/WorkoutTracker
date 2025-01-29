@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
-import { SetResultList, PrFields, ResponseData, DataItem } from "../types/Types";
+import { SetWorkoutList, WorkoutItemFields, ResponseData, WorkoutItem } from "../types/Types";
 
-const CreateResultItem = (prObject: PrFields, setResultList: SetResultList, username: string | null): void => {
+const CreateWorkoutItem = (prObject: WorkoutItemFields, setWorkoutList: SetWorkoutList, username: string | null): void => {
 
   axios.post<ResponseData>('http://127.0.0.1:3001/create', { prObject, username })
   .then((response: AxiosResponse<ResponseData>) => {
@@ -16,7 +16,7 @@ const CreateResultItem = (prObject: PrFields, setResultList: SetResultList, user
         exercise: response.data.exercise,
         result: response.data.result
       }
-      setResultList((prevList: DataItem[]) => [...prevList, newObj]);
+      setWorkoutList((prevList: WorkoutItem[]) => [...prevList, newObj]);
     }
   })
   .catch((error) => {
@@ -24,4 +24,4 @@ const CreateResultItem = (prObject: PrFields, setResultList: SetResultList, user
   });
 }
 
-export default CreateResultItem;
+export default CreateWorkoutItem;

@@ -3,7 +3,7 @@ import { SetWorkoutList, ResponseData, WorkoutItem } from '../types/Types'
 import { useUserToken } from '../context/UserTokenContext'
 import { useEffect } from 'react'
 
-const useGetResultList = (setResultList: SetWorkoutList): void => {
+const useGetWorkoutList = (setResultList: SetWorkoutList): void => {
   
   const { userToken } = useUserToken();
 
@@ -41,4 +41,4 @@ const useGetResultList = (setResultList: SetWorkoutList): void => {
   }, [setResultList, userToken])
 }
 
-export default useGetResultList;
+export default useGetWorkoutList;

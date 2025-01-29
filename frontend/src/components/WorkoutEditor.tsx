@@ -1,27 +1,28 @@
+import React from 'react'
 import { StyleSheet, Text, View, TextInput, Pressable, Dimensions, } from 'react-native'
 import { useEffect, useState } from 'react'
-import ResultItemValidation from '../functions/ResultItemValidation'
-import React from 'react'
-import { EditWorkoutItemProps } from '../types/Types'
-import DeleteResultItem from '../functions/DeleteResultItem'
+import WorkoutItemValidation from '../functions/WorkoutItemValidation'
+import { WorkoutEditorProps } from '../types/Types'
+import DeleteWorkoutItem from '../functions/DeleteWorkoutItem'
 
-const EditItem = ({ editWorkoutItem, setEditWorkoutItem, setIsEditMode, isEditMode, setWorkoutList }: EditWorkoutItemProps): React.JSX.Element => {
+const WorkoutEditor = ({ workoutItem, setWorkoutItem, setIsEditMode, isEditMode, setWorkoutList }: WorkoutEditorProps) => {
 
   const [validationInit, setValidationInit] = useState(false)
   const [pressedAdd, setPressedAdd] = useState(false);
-  const [editItemIsValid, setEditItemIsValid] = useState({
+  const [workoutItemFieldIsValid, setWorkoutItemFieldIsValid] = useState({
     name: true,
     date: true,
     exercise: true,
     result: true,
-})
+  })
 
   useEffect(() => {
     if(validationInit) {
-        ResultItemValidation(editWorkoutItem, setEditItemIsValid, setWorkoutList, setEditWorkoutItem, pressedAdd, setPressedAdd, isEditMode, setIsEditMode, null)
+                          // workoutItem, setWorkoutItemFieldIsValid, setWorkoutList, setWorkoutItem, pressedAdd, setPressedAdd, isEditMode, setIsEditMode, username
+        WorkoutItemValidation(workoutItem, setWorkoutItem, setWorkoutItemFieldIsValid, setWorkoutList, pressedAdd, setPressedAdd, isEditMode, setIsEditMode, null)
         setValidationInit(false)
     }
-  }, [editWorkoutItem, pressedAdd])
+  }, [workoutItem, pressedAdd])
 
   return (
     <View style={styles.listcontainer}>
@@ -31,36 +32,36 @@ const EditItem = ({ editWorkoutItem, setEditWorkoutItem, setIsEditMode, isEditMo
           <View style={{flexDirection: 'column'}}>
             <Text style={styles.label}>Name</Text>
             <TextInput style={styles.input}
-              onChangeText={name => setEditWorkoutItem({ ...editWorkoutItem, name })}
-              value={editWorkoutItem.name}
+              onChangeText={name => setWorkoutItem({ ...workoutItem, name })}
+              value={workoutItem.name}
               />
-            {!editItemIsValid['name'] && <Text style={styles.labelError}>Name must not be empty</Text>}
+            {!workoutItemFieldIsValid['name'] && <Text style={styles.labelError}>Name must not be empty</Text>}
           </View>
           <View style={{flexDirection: 'column'}}>
             <Text style={styles.label}>Date</Text>
             <TextInput style={styles.input}
-              onChangeText={date => setEditWorkoutItem({ ...editWorkoutItem, date })}
-              value={editWorkoutItem.date}
+              onChangeText={date => setWorkoutItem({ ...workoutItem, date })}
+              value={workoutItem.date}
               />
-            {!editItemIsValid['date'] && <Text style={styles.labelError}>Date must not be empty</Text>}
+            {!workoutItemFieldIsValid['date'] && <Text style={styles.labelError}>Date must not be empty</Text>}
           </View>
         </View>
         <View style={{flexDirection: 'row', marginTop: 1, marginBottom: 5}}>
           <View style={{flexDirection: 'column'}}>
             <Text style={styles.label}>Exercise</Text>
             <TextInput style={styles.input}
-              onChangeText={exercise => setEditWorkoutItem({ ...editWorkoutItem, exercise })}
-              value={editWorkoutItem.exercise}
+              onChangeText={exercise => setWorkoutItem({ ...workoutItem, exercise })}
+              value={workoutItem.exercise}
               />
-            {!editItemIsValid['exercise'] && <Text style={styles.labelError}>Exercise must not be empty</Text>}
+            {!workoutItemFieldIsValid['exercise'] && <Text style={styles.labelError}>Exercise must not be empty</Text>}
           </View>
           <View style={{flexDirection: 'column'}}>
             <Text style={styles.label}>Result</Text>
             <TextInput style={styles.input}
-              onChangeText={result => setEditWorkoutItem({ ...editWorkoutItem, result })}
-              value={editWorkoutItem.result}
+              onChangeText={result => setWorkoutItem({ ...workoutItem, result })}
+              value={workoutItem.result}
               />
-            {!editItemIsValid['result'] && <Text style={styles.labelError}>Result must not be empty</Text>}  
+            {!workoutItemFieldIsValid['result'] && <Text style={styles.labelError}>Result must not be empty</Text>}  
             </View>
           </View>
         {Dimensions.get('window').width < 420 
@@ -87,7 +88,7 @@ const EditItem = ({ editWorkoutItem, setEditWorkoutItem, setIsEditMode, isEditMo
             style={styles.buttonDelete}
             onPress={() => {
               setIsEditMode(false)
-              DeleteResultItem(editWorkoutItem, setWorkoutList)
+              DeleteWorkoutItem(workoutItem, setWorkoutList)
               }}
             >
             <Text style={styles.labelButton}>Delete</Text>
@@ -108,7 +109,7 @@ const EditItem = ({ editWorkoutItem, setEditWorkoutItem, setIsEditMode, isEditMo
             style={styles.buttonDelete}
             onPress={() => {
               setIsEditMode(false)
-              DeleteResultItem(editWorkoutItem, setWorkoutList)
+              DeleteWorkoutItem(workoutItem, setWorkoutList)
               }}
             >
             <Text style={styles.labelButton}>Delete</Text>
@@ -218,6 +219,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)',
   }
-});
+})
 
-export default EditItem;
+export default WorkoutEditor;

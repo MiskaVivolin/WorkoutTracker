@@ -1,9 +1,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios, { AxiosError } from 'axios';
-import { ApiResponse, AuthenticationProps, ValidationFields } from '../types/Types';
+import { ApiResponse, AuthenticationValidationProps, ValidationFields } from '../types/Types';
 
 
-const AuthenticationValidation = async ({ navigation, mode, setValidationInit, validationFields, setValidationErrors, setValidationFields, setValidUsername, setValidPassword, isFirstRender }: AuthenticationProps): Promise<void> => {
+const AuthenticationValidation = async ({ navigation, mode, setValidationInit, validationFields, setValidationErrors, setValidationFields, setValidUsername, setValidPassword, isFirstRender }: AuthenticationValidationProps): Promise<void> => {
 
   if (mode === 'login') {
     setValidationInit(true)

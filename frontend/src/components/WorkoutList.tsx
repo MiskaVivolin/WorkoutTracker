@@ -1,14 +1,14 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { StyleSheet, Text, View, Pressable, Dimensions } from 'react-native'
 import { FlatList } from 'react-native'
-import useGetResultList from '../hooks/useGetResultList'
+import useGetWorkoutList from '../hooks/useGetWorkoutList'
 import { WorkoutItem, WorkoutListProps } from '../types/Types'
-import GetResultItem from '../functions/GetResultItem';
+import GetWorkoutItem from '../functions/GetWorkoutItem'
 
 
-export default function PrList({ workoutList, setWorkoutList, setIsEditMode, setEditWorkoutItem }: WorkoutListProps): React.JSX.Element {
+const WorkoutList = ({ workoutList, setWorkoutList, setIsEditMode, setWorkoutItem }: WorkoutListProps) => {
 
-  useGetResultList(setWorkoutList);
+  useGetWorkoutList(setWorkoutList);
 
   return (
     <View style={styles.listcontainer}>
@@ -29,7 +29,7 @@ export default function PrList({ workoutList, setWorkoutList, setIsEditMode, set
           <Pressable
             style={styles.button}
             onPress={() => {
-              GetResultItem(item._id, setEditWorkoutItem)
+              GetWorkoutItem(item._id, setWorkoutItem)
               setIsEditMode(true)
             }}>
           <Text style={styles.labelButton}>Edit</Text>
@@ -95,3 +95,5 @@ const styles = StyleSheet.create({
     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)', 
   },
 });
+
+export default WorkoutList;
