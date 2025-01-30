@@ -14,7 +14,7 @@ const FormContainer = ({ workoutItem, setWorkoutItem, workoutItemFieldIsValid, s
 
   useEffect(() => {
     if(validationInit) {
-      WorkoutItemValidation(workoutItem, setWorkoutItem, setWorkoutItemFieldIsValid, setWorkoutList, pressedAdd, setPressedAdd, isEditMode, setIsEditMode, userToken)
+      WorkoutItemValidation({workoutItem, setWorkoutItem, setWorkoutItemFieldIsValid, setWorkoutList, pressedAdd, setPressedAdd, isEditMode, setIsEditMode, userToken})
       setValidationInit(false)
     }
   }, [workoutItem, pressedAdd])

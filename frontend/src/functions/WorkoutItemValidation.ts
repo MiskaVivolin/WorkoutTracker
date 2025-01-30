@@ -1,16 +1,8 @@
-import { PrevStateBooleanObj, SetBoolean, SetWorkoutItem, SetWorkoutList, WorkoutItem } from '../types/Types'
+import { PrevStateBooleanObj, SetBoolean, SetWorkoutItem, SetWorkoutList, WorkoutItem, WorkoutItemValidationProps } from '../types/Types'
 import CreateWorkoutItem from './CreateWorkoutItem'
 import EditWorkoutItem from './EditWorkoutItem'
 
-const WorkoutItemValidation = (workoutItem: WorkoutItem,
-    setWorkoutItem: SetWorkoutItem,
-    setWorkoutItemFieldIsValid: React.Dispatch<React.SetStateAction<PrevStateBooleanObj>>,
-    setWorkoutList: SetWorkoutList,
-    pressedAdd: boolean,
-    setPressedAdd: SetBoolean,
-    isEditMode: boolean,
-    setIsEditMode: (data: boolean) => void,
-    username: string | null,): void => {
+const WorkoutItemValidation = ({workoutItem, setWorkoutItem, setWorkoutItemFieldIsValid, setWorkoutList, pressedAdd, setPressedAdd, isEditMode, setIsEditMode, userToken}: WorkoutItemValidationProps): void => {
 
     if(workoutItem.name.length === 0) {
         setWorkoutItemFieldIsValid((prevState: PrevStateBooleanObj) => ({ ...prevState, name: false }))
@@ -38,9 +30,11 @@ const WorkoutItemValidation = (workoutItem: WorkoutItem,
     }
     if(workoutItem.name.length !== 0 && workoutItem.date.length !== 0 && workoutItem.exercise.length !== 0 && workoutItem.result.length !== 0){
         if(pressedAdd && !isEditMode) {
-            CreateWorkoutItem(workoutItem, setWorkoutList, username)
+            CreateWorkoutItem(workoutItem, setWorkoutList, userToken)
             setPressedAdd(false)
             setWorkoutItem({
+                _id: 0,
+                user: '',
                 name: '',
                 date: '',
                 exercise: '',

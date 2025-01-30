@@ -18,7 +18,7 @@ const Navbar = ({ navigation, showButtons, addButtonToggle}: NavBarProps) => {
           <Pressable
             style={styles.button}
             onPress={() => {
-              navigation.navigate('AddExerciseScreen')
+              navigation.navigate('AddWorkoutScreen')
             }}
           >
             <Text style={styles.labelButton}>Add</Text>
@@ -27,7 +27,7 @@ const Navbar = ({ navigation, showButtons, addButtonToggle}: NavBarProps) => {
           <Pressable
             style={styles.button}
             onPress={() => {
-              navigation.navigate('ResultScreen')
+              navigation.navigate('WorkoutListScreen')
             }}
           >
             <Text style={styles.labelButton}>Workout list</Text>

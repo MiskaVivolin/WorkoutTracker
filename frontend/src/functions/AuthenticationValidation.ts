@@ -11,7 +11,7 @@ const AuthenticationValidation = async ({ navigation, mode, setValidationInit, v
       const response = await axios.post('http://localhost:3001/login', { validationFields });
       await AsyncStorage.setItem('userToken', response.data.token);
       await AsyncStorage.setItem('userInputFields', JSON.stringify(validationFields))
-      navigation.navigate('AddExerciseScreen');
+      navigation.navigate('AddWorkoutScreen');
       setValidationFields({
         username: '',
         password: ''

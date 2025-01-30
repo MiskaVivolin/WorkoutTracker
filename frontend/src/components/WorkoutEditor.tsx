@@ -4,11 +4,13 @@ import { useEffect, useState } from 'react'
 import WorkoutItemValidation from '../functions/WorkoutItemValidation'
 import { WorkoutEditorProps } from '../types/Types'
 import DeleteWorkoutItem from '../functions/DeleteWorkoutItem'
+import { useUserToken } from '../context/UserTokenContext'
 
 const WorkoutEditor = ({ workoutItem, setWorkoutItem, setIsEditMode, isEditMode, setWorkoutList }: WorkoutEditorProps) => {
 
   const [validationInit, setValidationInit] = useState(false)
   const [pressedAdd, setPressedAdd] = useState(false);
+  const { userToken } = useUserToken();
   const [workoutItemFieldIsValid, setWorkoutItemFieldIsValid] = useState({
     name: true,
     date: true,
@@ -18,9 +20,8 @@ const WorkoutEditor = ({ workoutItem, setWorkoutItem, setIsEditMode, isEditMode,
 
   useEffect(() => {
     if(validationInit) {
-                          // workoutItem, setWorkoutItemFieldIsValid, setWorkoutList, setWorkoutItem, pressedAdd, setPressedAdd, isEditMode, setIsEditMode, username
-        WorkoutItemValidation(workoutItem, setWorkoutItem, setWorkoutItemFieldIsValid, setWorkoutList, pressedAdd, setPressedAdd, isEditMode, setIsEditMode, null)
-        setValidationInit(false)
+      WorkoutItemValidation({workoutItem, setWorkoutItem, setWorkoutItemFieldIsValid, setWorkoutList, pressedAdd, setPressedAdd, isEditMode, setIsEditMode, userToken})
+      setValidationInit(false)
     }
   }, [workoutItem, pressedAdd])
 

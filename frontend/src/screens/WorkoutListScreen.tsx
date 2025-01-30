@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
-import { WorkoutItem, ResultScreenProps } from '../types/Types';
-import useEditPr from '../functions/EditWorkoutItem';
+import { WorkoutItem, WorkoutListScreenProps } from '../types/Types';
 import WorkoutList from '../components/WorkoutList';
 import Navbar from '../components/Navbar';
 import WorkoutEditor from '../components/WorkoutEditor';
 
-const ResultScreen: React.FC<ResultScreenProps> = ({ navigation }) => {
+const WorkoutListScreen: React.FC<WorkoutListScreenProps> = ({ navigation }) => {
   
   const [workoutList, setWorkoutList] = useState<WorkoutItem[]>([])
   const [isEditMode, setIsEditMode] = useState(false)
@@ -25,4 +24,4 @@ const ResultScreen: React.FC<ResultScreenProps> = ({ navigation }) => {
   )
 }
 
-export default ResultScreen;
+export default WorkoutListScreen;

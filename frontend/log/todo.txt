@@ -1,0 +1,17 @@
+  // TODO: 
+  // dokumentaatio, päivitä kuvat
+  // Results/Add nappi paremmaksi
+  // PopUp paremmaksi
+  // korjaa bugi: kun editoi tulosta, jos joku kenttä jää tyhjäksi ja validaatio valittaa, se työntää textinputit formcontainerin yli.
+  // korjaa bugi: consoli printtaa kaksi kertaa POST errorin
+  // tarkista voiko propseja vähentää
+  // kun vaihtaa sivua, validaation pitäisi restartata (ei enää valita tyhjistä fieldeistä)
+  // jos listassa ei ole itemeitä, näytä teksti ja kuva.
+  // mahdollisuus lisätä settien määrä. (numero field jonka default on 1? + ja - napit?)
+  // name fieldin default on username
+  // any typet kuntoon backendissä
+  // bugi: jos login ohjaa workoutList sivulle, lista ei päivity kunnolla
+  // muuta värejä paremmaksi ja muutenkin yleisilmettä
+  // funktion typet hookeille ja constien nimitys kuntoon, tarkista statet
+  // sen jälkeen mietitään laajennusta esim. search, filter, kaaviot, emojit/kuvat, profiilitiedot jne.
+  // docker, testing

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import AddExerciseScreen from './screens/AddExerciseScreen';
+import AddWorkoutScreen from './screens/AddWorkoutScreen';
 import LoginScreen from './screens/LoginScreen';
 import SignupScreen from './screens/SignupScreen';
-import ResultScreen from './screens/ResultScreen';
+import WorkoutListScreen from './screens/WorkoutListScreen';
 import { UserTokenProvider } from './context/UserTokenContext';
 import * as SplashScreen from 'expo-splash-screen'
 import * as Font from 'expo-font'
@@ -41,10 +41,10 @@ export default function App() {
     <NavigationContainer>
          <UserTokenProvider>
            <Stack.Navigator initialRouteName="LoginScreen">
-             <Stack.Screen name="AddExerciseScreen" component={AddExerciseScreen} options={{ headerShown: false }}/>
+             <Stack.Screen name="AddWorkoutScreen" component={AddWorkoutScreen} options={{ headerShown: false }}/>
              <Stack.Screen name="LoginScreen" component={LoginScreen} options={{ headerShown: false }}/>
              <Stack.Screen name="SignupScreen" component={SignupScreen} options={{ headerShown: false }}/>
-             <Stack.Screen name="ResultScreen" component={ResultScreen} options={{ headerShown: false }}/>
+             <Stack.Screen name="WorkoutListScreen" component={WorkoutListScreen} options={{ headerShown: false }}/>
            </Stack.Navigator>
          </UserTokenProvider>
        </NavigationContainer>

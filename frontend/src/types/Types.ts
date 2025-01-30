@@ -22,21 +22,11 @@ export interface ResponseData extends WorkoutItem {
     message: string;
 }
 
-// export interface InputContainerProps {
-//     header: string,
-//     value: string,
-//     workoutItem: WorkoutItemFields,
-//     setItem: any,
-//     workoutItemIsValid: {
-//         [key: string]: boolean
-//     }
-// }
-
 export type SetWorkoutList = React.Dispatch<React.SetStateAction<WorkoutItem[]>>;
 
-export type SetWorkoutItem = (data: WorkoutItem) => void
+export type SetWorkoutItem = (data: WorkoutItem) => void;
 
-export type SetBoolean = (data: boolean) => void 
+export type SetBoolean = (data: boolean) => void;
 
 export interface ContextChildren {
     children: ReactNode;
@@ -51,37 +41,12 @@ export interface ValidationFields {
     username: string;
     password: string;
 };
-  
-// export interface ValidationHookResult {
-//     validationFields: ValidationFields;
-//     validationErrors: ValidationFields;
-//     usernameIsValid: () => boolean;
-//     passwordIsValid: () => boolean;
-//     setValidationFields: React.Dispatch<React.SetStateAction<ValidationFields>>;
-//     setValidationErrors: React.Dispatch<React.SetStateAction<ValidationFields>>;
-// };
 
 export type RootStackParamList = {
-    AddExerciseScreen: undefined;
+    AddWorkoutScreen: undefined;
     LoginScreen: undefined;
     SignupScreen: undefined;
-    ResultScreen: undefined;
-};
-  
-export type AddExerciseScreenProps = {
-    navigation: StackNavigationProp<RootStackParamList, 'AddExerciseScreen'>;
-};
-
-export type ResultScreenProps = {
-    navigation: StackNavigationProp<RootStackParamList, 'AddExerciseScreen'>;
-};
-
-export type LoginScreenProps = {
-    navigation: StackNavigationProp<RootStackParamList, 'LoginScreen'>;
-};
-
-export type SignupScreenProps = {
-    navigation: StackNavigationProp<RootStackParamList, 'SignupScreen'>;
+    WorkoutListScreen: undefined;
 };
 
 export interface ApiResponse {
@@ -89,10 +54,10 @@ export interface ApiResponse {
 }
 
 export interface PrevStateBooleanObj {
-    name: boolean,
-    date: boolean,
-    exercise: boolean,
-    result: boolean
+    name: boolean;
+    date: boolean;
+    exercise: boolean;
+    result: boolean;
 }
 
 export type User = {
@@ -103,9 +68,27 @@ export type AddExerciseScreenParams = {
     username: string;
 }
 
-export type ResultScreenParams = {
+export type WorkoutListScreenParams = {
     username: string;
 }
+
+// screen props
+
+export type AddWorkoutScreenProps = {
+    navigation: StackNavigationProp<RootStackParamList, 'AddWorkoutScreen'>;
+};
+
+export type WorkoutListScreenProps = {
+    navigation: StackNavigationProp<RootStackParamList, 'WorkoutListScreen'>;
+};
+
+export type LoginScreenProps = {
+    navigation: StackNavigationProp<RootStackParamList, 'LoginScreen'>;
+};
+
+export type SignupScreenProps = {
+    navigation: StackNavigationProp<RootStackParamList, 'SignupScreen'>;
+};
 
 // component props
 
@@ -118,13 +101,13 @@ export interface WorkoutEditorProps {
 }
 
 export interface FormContainerProps {
-    workoutItem: WorkoutItem,
-    setWorkoutItem: any,
+    workoutItem: WorkoutItem;
+    setWorkoutItem: SetWorkoutItem;
     workoutItemFieldIsValid: {
         [key: string]: boolean
-    },
-    setWorkoutItemFieldIsValid: any,
-    setWorkoutList: SetWorkoutList,
+    };
+    setWorkoutItemFieldIsValid: React.Dispatch<React.SetStateAction<PrevStateBooleanObj>>;
+    setWorkoutList: SetWorkoutList;
 }
 
 export interface NavBarProps {
@@ -162,14 +145,14 @@ export type AuthenticationValidationProps = {
     isFirstRender?: boolean;
 }
 
-// export type WorkoutItemValidationProps = {
-//     workoutItem: WorkoutItem;
-//     setWorkoutItem: SetWorkoutItem;
-//     setWorkoutItemFieldIsValid: React.Dispatch<React.SetStateAction<PrevStateBooleanObj>>;
-//     setWorkoutList: SetWorkoutList;
-//     pressedAdd: boolean;
-//     setPressedAdd: SetBoolean;
-//     isEditMode: boolean;
-//     setIsEditMode: (data: boolean) => void;
-//     username: string | null;
-// }
+export type WorkoutItemValidationProps = {
+    workoutItem: WorkoutItem;
+    setWorkoutItem: SetWorkoutItem;
+    setWorkoutItemFieldIsValid: React.Dispatch<React.SetStateAction<PrevStateBooleanObj>>;
+    setWorkoutList: SetWorkoutList;
+    pressedAdd: boolean;
+    setPressedAdd: SetBoolean;
+    isEditMode: boolean;
+    setIsEditMode: (data: boolean) => void;
+    userToken: string | null;
+}
