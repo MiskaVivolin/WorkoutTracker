@@ -60,6 +60,13 @@ export interface PrevStateBooleanObj {
     result: boolean;
 }
 
+// export interface PrevStateUndefinedObj {
+//     name: undefined;
+//     date: undefined;
+//     exercise: undefined;
+//     result: undefined;
+// }
+
 export type User = {
     username: string;
 }
@@ -78,16 +85,16 @@ export type AddWorkoutScreenProps = {
     navigation: StackNavigationProp<RootStackParamList, 'AddWorkoutScreen'>;
 };
 
-export type WorkoutListScreenProps = {
-    navigation: StackNavigationProp<RootStackParamList, 'WorkoutListScreen'>;
-};
-
 export type LoginScreenProps = {
     navigation: StackNavigationProp<RootStackParamList, 'LoginScreen'>;
 };
 
 export type SignupScreenProps = {
     navigation: StackNavigationProp<RootStackParamList, 'SignupScreen'>;
+};
+
+export type WorkoutListScreenProps = {
+    navigation: StackNavigationProp<RootStackParamList, 'WorkoutListScreen'>;
 };
 
 // component props
@@ -104,7 +111,7 @@ export interface FormContainerProps {
     workoutItem: WorkoutItem;
     setWorkoutItem: SetWorkoutItem;
     workoutItemFieldIsValid: {
-        [key: string]: boolean
+        [key: string]: boolean | undefined;
     };
     setWorkoutItemFieldIsValid: React.Dispatch<React.SetStateAction<PrevStateBooleanObj>>;
     setWorkoutList: SetWorkoutList;
@@ -119,8 +126,8 @@ export interface NavBarProps {
 export interface PopUpProps {
     setValidationInit: SetBoolean;
     setPressedAdd: SetBoolean;
-    workoutItemIsValid: {
-        [key: string]: boolean;
+    workoutItemFieldIsValid: {
+        [key: string]: boolean | undefined;
     }
 }
 

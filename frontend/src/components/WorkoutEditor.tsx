@@ -47,6 +47,7 @@ const WorkoutEditor = ({ workoutItem, setWorkoutItem, setIsEditMode, isEditMode,
             {!workoutItemFieldIsValid['date'] && <Text style={styles.labelError}>Date must not be empty</Text>}
           </View>
         </View>
+        
         <View style={{flexDirection: 'row', marginTop: 1, marginBottom: 5}}>
           <View style={{flexDirection: 'column'}}>
             <Text style={styles.label}>Exercise</Text>
@@ -184,8 +185,7 @@ const styles = StyleSheet.create({
     fontFamily: 'MerriweatherSans',
     color: 'red',
     paddingVertical: 5,
-    paddingRight: 15,
-    marginHorizontal: 20
+    marginLeft: 10
   },
   buttonContainer: {
     flexDirection: 'row', 

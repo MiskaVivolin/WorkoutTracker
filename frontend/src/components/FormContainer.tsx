@@ -56,7 +56,7 @@ const FormContainer = ({ workoutItem, setWorkoutItem, workoutItemFieldIsValid, s
         <Text style={styles.labelError}>Result must not be empty</Text>}
       </View>
       <View style={{marginTop: 30, marginBottom: 30}}>
-        <PopUp setValidationInit={setValidationInit} setPressedAdd={setPressedAdd} workoutItemIsValid={workoutItemFieldIsValid}/>
+        <PopUp setValidationInit={setValidationInit} setPressedAdd={setPressedAdd} workoutItemFieldIsValid={workoutItemFieldIsValid}/>
       </View>
     </View>
   )
@@ -106,9 +106,9 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width < 370 ? 270 : 350,
     borderColor: '#A9A9A9',
     borderWidth: 1,
+    borderRadius: 3,
     marginBottom: 12,
-    paddingHorizontal: 8,
-    borderRadius: 3
+    paddingHorizontal: 8
   },
   errorText: {
     color: 'red'

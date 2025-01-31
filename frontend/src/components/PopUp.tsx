@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, Animated, StyleSheet, Dimensions, Pressable } from 'react-native';
 import { PopUpProps } from '../types/Types';
 
-const PopUp = ({setValidationInit, setPressedAdd, workoutItemIsValid}: PopUpProps) => {
+const PopUp = ({setValidationInit, setPressedAdd, workoutItemFieldIsValid}: PopUpProps) => {
   const [visible, setVisible] = useState(false); // Controls visibility of the popup
   const fadeAnim = new Animated.Value(0); // Initial opacity value for animation
 
@@ -17,7 +17,7 @@ const PopUp = ({setValidationInit, setPressedAdd, workoutItemIsValid}: PopUpProp
 
   useEffect(() => {
     if (visible) {
-      console.log("visible")
+      console.log("workoutItemIsValid, ", workoutItemFieldIsValid)
       fadeIn(); // Start the fade-in animation when popup becomes visible
       const fadeTimeout = setTimeout(() => {
         fadeOut(); // After 1.5 seconds, fade out
@@ -30,7 +30,6 @@ const PopUp = ({setValidationInit, setPressedAdd, workoutItemIsValid}: PopUpProp
 
   // Fade-in animation
   const fadeIn = () => {
-    console.log("workoutItemIsValid, ", workoutItemIsValid)
     Animated.timing(fadeAnim, {
       toValue: 1, // Full opacity
       useNativeDriver: true,
@@ -56,7 +55,7 @@ const PopUp = ({setValidationInit, setPressedAdd, workoutItemIsValid}: PopUpProp
       </Pressable>
 
       {/* Conditionally render the popup only if it's visible */}
-      {visible && workoutItemIsValid && (
+      {visible && workoutItemFieldIsValid && (
         <View
           style={[
             styles.popup,

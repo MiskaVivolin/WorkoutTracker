@@ -2,7 +2,6 @@
   // dokumentaatio, päivitä kuvat
   // Results/Add nappi paremmaksi
   // PopUp paremmaksi
-  // korjaa bugi: kun editoi tulosta, jos joku kenttä jää tyhjäksi ja validaatio valittaa, se työntää textinputit formcontainerin yli.
   // korjaa bugi: consoli printtaa kaksi kertaa POST errorin
   // tarkista voiko propseja vähentää
   // kun vaihtaa sivua, validaation pitäisi restartata (ei enää valita tyhjistä fieldeistä)
