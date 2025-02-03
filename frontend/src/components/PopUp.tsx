@@ -1,69 +1,52 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Animated, StyleSheet, Dimensions, Pressable } from 'react-native';
+import { View, Text, Animated, StyleSheet, Dimensions } from 'react-native';
 import { PopUpProps } from '../types/Types';
 
-const PopUp: React.FC<PopUpProps> = ({setValidationInit, setPressedAdd, prObjectIsValid}) => {
-  const [visible, setVisible] = useState(false); // Controls visibility of the popup
-  const fadeAnim = new Animated.Value(0); // Initial opacity value for animation
+const PopUp = ({setValidationInit, setPressedAdd, workoutItemFieldIsValid, setWorkoutItemFieldIsValid}: PopUpProps) => {
+  const [visible, setVisible] = useState(true);
+  const fadeAnim = new Animated.Value(0);
 
-  const handleClick = () => {
-    setVisible(true); // Make the popup visible immediately
-    console.log("sss")
-    setValidationInit(true)
-    setPressedAdd(true)
-  };
-
-  // ei toimi vielä
 
   useEffect(() => {
     if (visible) {
-      console.log("visible")
-      fadeIn(); // Start the fade-in animation when popup becomes visible
+      console.log("workoutItemIsValid, ", workoutItemFieldIsValid)
+      fadeIn();
       const fadeTimeout = setTimeout(() => {
-        fadeOut(); // After 1.5 seconds, fade out
-      }, 1500);
-
-      // Clean up the timeout if the component unmounts
+        fadeOut(); 
+      }, 1000);
       return () => clearTimeout(fadeTimeout);
     }
-  }, [visible]); // Trigger useEffect whenever `visible` changes
+  }, [visible]); 
 
-  // Fade-in animation
   const fadeIn = () => {
-    console.log("prObjectisvalid, ", prObjectIsValid)
     Animated.timing(fadeAnim, {
-      toValue: 1, // Full opacity
+      toValue: 1,
       useNativeDriver: true,
     }).start();
   };
 
-  // Fade-out animation
   const fadeOut = () => {
     Animated.timing(fadeAnim, {
-      toValue: 0, // Fade out to opacity 0
+      toValue: 0,
       useNativeDriver: true,
     }).start(() => {
-      setVisible(false); // Hide the popup after fading out
+      setVisible(false);
+      setPressedAdd(false)
+      setWorkoutItemFieldIsValid({ name: false, date: false, exercise: false, result: false })
+      setValidationInit(false)
     });
   };
 
   return (
     <View style={styles.container}>
-      <Pressable style={styles.button}
-        onPress={
-            handleClick}>
-        <Text style={styles.labelButton}>Add</Text>  
-      </Pressable>
-
-      {/* Conditionally render the popup only if it's visible */}
-      {visible && prObjectIsValid && (
+      {visible && workoutItemFieldIsValid && (
         <View
           style={[
             styles.popup,
-            { opacity: fadeAnim }, // Bind the opacity to the fadeAnim value
+            { opacity: fadeAnim }, 
           ]}
         >
-          <Text style={styles.popupText}>Object Added</Text>
+          <Text style={styles.popupText}>Exercise result Added!</Text>
         </View>
       )}
     </View>
@@ -82,7 +65,7 @@ const styles = StyleSheet.create({
     padding: 50,
     bottom: 400,
     
-    transform: [{ translateX: -75 }], // Center horizontally
+    transform: [{ translateX: -75 }],
     backgroundColor: 'rgba(0, 0, 0, 0.7)',
     paddingVertical: 10,
     paddingHorizontal: 20,

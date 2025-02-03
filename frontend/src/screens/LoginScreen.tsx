@@ -1,14 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { View, Text, TextInput, StyleSheet, Pressable, Dimensions } from 'react-native';
-import useAuthenticationValidation from '../hooks/useAuthenticationValidation';
+import AuthenticationValidation from '../functions/AuthenticationValidation';
 import { LoginScreenProps } from '../types/Types';
 import { useUserToken } from '../context/UserTokenContext';
-import Navbar from '../components/NavBar';
+import Navbar from '../components/Navbar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
   
-  const { userToken, setToken } = useUserToken()
+  const { setToken } = useUserToken();
   const isFirstRender = useRef(true);
   const [validationInit, setValidationInit] = useState(false)
   const [validationFields, setValidationFields] = useState({
@@ -27,7 +27,6 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
   useEffect(() => {
     AsyncStorage.getItem('userInputFields')
       .then((storedUserJSON) => {
-        console.log("this userToken: ", userToken)
         if(storedUserJSON) {
           storedUser = JSON.parse(storedUserJSON);
           if(storedUser) {
@@ -54,7 +53,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
         setToken(validationFields.username);
       }
     }
-    useAuthenticationValidation({
+    AuthenticationValidation({
       navigation,
       mode: 'login',
       setValidationInit,

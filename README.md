@@ -4,19 +4,7 @@ Fully responsive mobile and web application to track personal gym workout result
 
 ## Installation
 
-Install with opening two terminals, one in the backend folder and one in the frontend folder and entering "npm i" in both. Then to start the application enter "npm start". 
-
-frontend/node_modules/expo/AppEntry.js might need to be changed to:
-Install with opening two terminals, one in the backend folder and one in the frontend folder and entering "npm i" in both. Then to start the application enter "npm start".
-
-frontend/node_modules/expo/AppEntry.js might need to be changed to:
-```
-import registerRootComponent from 'expo/build/launch/registerRootComponent';
-
-import Index from '../../src/Index';
-
-registerRootComponent(Index);
-```
+Install with opening two terminals, one in the backend folder and one in the frontend folder. With both enter "npm i" to install and "npm start" to start the backend and frontend. When both are running, scan the QR code in the frontend terminal to open the app in your mobile device. Alternatively type "w" in the frontend terminal to open the app in your web browser.
 
 ## Using Workout Tracker
 
@@ -24,9 +12,13 @@ First time users must create an account before logging in, which is quick and ea
 
 ![LoginImg](/frontend/assets/images/login.png)
 
-Once logged in, users can start adding their exercise results which display on the same page. With future updates the list of results will display on a different page.
+Once logged in, users can start adding their exercise results, which display on the "workoutlist" page (navigate with "Your list" button).
 
-![HomepageImg](/frontend/assets/images/homepage.png)
+![addworkoutImg](/frontend/assets/images/addworkout.png)
+
+In future updates sorting and searching will be implemented to this page.
+
+![workoutlist](/frontend/assets/images/workoutlist.png)
 
 Exercise results can be easily edited and removed from the database.
 
@@ -34,7 +26,7 @@ Exercise results can be easily edited and removed from the database.
 
 ## Future updates
 
-Separate pages for adding and viewing exercises. Searches and filters for exercises and dates. Charts to visually track progress.
+Searches and sorting for exercises. Charts to visually track progress.
 
 ## Tech stack
 
