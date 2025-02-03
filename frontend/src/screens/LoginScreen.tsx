@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, Text, TextInput, StyleSheet, Pressable, Platform } from 'react-native';
-import useAuthenticationValidation from '../hooks/useAuthenticationValidation';
+import { View, Text, TextInput, StyleSheet, Pressable, Dimensions } from 'react-native';
+import AuthenticationValidation from '../functions/AuthenticationValidation';
 import { LoginScreenProps } from '../types/Types';
 import { useUserToken } from '../context/UserTokenContext';
 import Navbar from '../components/Navbar';
@@ -8,7 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
   
-  const { setToken } = useUserToken()
+  const { setToken } = useUserToken();
   const isFirstRender = useRef(true);
   const [validationInit, setValidationInit] = useState(false)
   const [validationFields, setValidationFields] = useState({
@@ -53,49 +53,49 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
         setToken(validationFields.username);
       }
     }
-    useAuthenticationValidation(
+    AuthenticationValidation({
       navigation,
-      'login',
+      mode: 'login',
       setValidationInit,
       validationFields,
       setValidationErrors,
       setValidationFields,
-      undefined,
-      undefined,
-      isFirstRender.current,
-    );
+      isFirstRender: isFirstRender.current,
+    });
   };
   
   return (
     <View style={{flex: 1}}>
-      <Navbar navigation={navigation} showButton={false}/>
+      <Navbar navigation={navigation} showButtons={false}/>
       <View style={styles.container}>
         <Text style={styles.labelHeader}>Log in to your account</Text>
-        <Text style={styles.label}>Username</Text>
-        <TextInput
-          style={styles.input}
-          value={validationFields.username}
-          onChangeText={(text) => {
-            isFirstRender.current = false
-            setValidationFields((prev) => ({ ...prev, username: text }))}
-          } 
-        />
-        <Text style={styles.label2}>Password</Text>
-        <TextInput
-          style={styles.input}
-          secureTextEntry
-          value={validationFields.password}
-          onChangeText={(text) => {
-            isFirstRender.current = false;
-            setValidationFields((prev) => ({ ...prev, password: text }))}
-          }
-           />
-          {validationInit && (
-            <Text style={styles.labelError}>{validationErrors.username}</Text>
-          )}
+        <View style={styles.fieldContainer}>
+          <Text style={styles.label}>Username</Text>
+          <TextInput
+            style={styles.input}
+            value={validationFields.username}
+            onChangeText={(text) => {
+              isFirstRender.current = false
+              setValidationFields((prev) => ({ ...prev, username: text }))}
+            } 
+          />
+          <Text style={styles.label}>Password</Text>
+          <TextInput
+            style={styles.input}
+            secureTextEntry
+            value={validationFields.password}
+            onChangeText={(text) => {
+              isFirstRender.current = false;
+              setValidationFields((prev) => ({ ...prev, password: text }))}
+            }
+            />
+            {validationInit && (
+              <Text style={styles.labelError}>{validationErrors.username}</Text>
+            )}
+        </View>
         <View style={{flexDirection: 'row'}}>
           <Pressable
-            style={styles.button2}
+            style={styles.button}
             onPress={() => {
               setValidationFields({
                 username: '',
@@ -109,7 +109,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
               <Text style={styles.labelLink}>Create an account</Text>
             </Pressable>
             <Pressable
-              style={styles.button} 
+              style={styles.buttonNext} 
               onPress={() => handleLogin()}>
                 <Text style={styles.labelButton}>Log in</Text>
             </Pressable>
@@ -126,19 +126,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'white'
   },
+  fieldContainer: {
+    justifyContent: 'center',
+    maxWidth: Dimensions.get('window').width < 370 ? 270 : 350,
+  },
   label: {
     fontSize: 13,
     fontFamily: 'MerriweatherSans',
     color: '#606060',
     marginBottom: 2,
-    paddingRight: 280,
-  },
-  label2: {
-    fontSize: 13,
-    fontFamily: 'MerriweatherSans',
-    color: '#606060',
-    marginBottom: 2,
-    paddingRight: 284,
   },
   labelHeader: {
     fontSize: 24, 
@@ -170,7 +166,7 @@ const styles = StyleSheet.create({
     color: '#606060',
     height: 35,
     backgroundColor: '#F8F8F8',
-    width: 350,
+    width: Dimensions.get('window').width < 370 ? 270 : 350,
     borderColor: '#A9A9A9',
     borderWidth: 1,
     marginBottom: 15,
@@ -178,7 +174,15 @@ const styles = StyleSheet.create({
     borderRadius: 3
   },
   button: {
-    marginLeft: 95,
+    width: 155,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    marginTop: 70,
+    textAlign: 'center',
+    fontSize: 16
+  },
+  buttonNext: {
+    marginLeft: Dimensions.get('window').width < 370 ? 15 : 95,
     width: 95,
     padding: 7,
     marginTop: 70,
@@ -189,29 +193,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 16,
     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)', 
-    ...Platform.select({
-      ios: {
-        shadowColor: '#696969',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.4,
-        shadowRadius: 2,
-      },
-      android: {
-        elevation: 2,
-        shadowColor: '#696969',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.4,
-        shadowRadius: 2,
-      }
-    })
-  },
-  button2: {
-    width: 155,
-    paddingVertical: 5,
-    paddingHorizontal: 10,
-    marginTop: 70,
-    textAlign: 'center',
-    fontSize: 16
   },
 });
 
