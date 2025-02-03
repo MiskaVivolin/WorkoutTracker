@@ -60,13 +60,6 @@ export interface PrevStateBooleanObj {
     result: boolean;
 }
 
-// export interface PrevStateUndefinedObj {
-//     name: undefined;
-//     date: undefined;
-//     exercise: undefined;
-//     result: undefined;
-// }
-
 export type User = {
     username: string;
 }
@@ -111,7 +104,7 @@ export interface FormContainerProps {
     workoutItem: WorkoutItem;
     setWorkoutItem: SetWorkoutItem;
     workoutItemFieldIsValid: {
-        [key: string]: boolean | undefined;
+        [key: string]: boolean
     };
     setWorkoutItemFieldIsValid: React.Dispatch<React.SetStateAction<PrevStateBooleanObj>>;
     setWorkoutList: SetWorkoutList;
@@ -127,8 +120,10 @@ export interface PopUpProps {
     setValidationInit: SetBoolean;
     setPressedAdd: SetBoolean;
     workoutItemFieldIsValid: {
-        [key: string]: boolean | undefined;
+        [key: string]: boolean;
     }
+    setWorkoutItemFieldIsValid: React.Dispatch<React.SetStateAction<PrevStateBooleanObj>>;
+
 }
 
 export interface WorkoutListProps {
@@ -161,5 +156,7 @@ export type WorkoutItemValidationProps = {
     setPressedAdd: SetBoolean;
     isEditMode: boolean;
     setIsEditMode: (data: boolean) => void;
+    setValidationInit?: (data: boolean) => void;
+    setConfirmFalseValidation?: (data: boolean) => void;
     userToken: string | null;
 }

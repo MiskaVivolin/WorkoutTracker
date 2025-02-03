@@ -12,16 +12,15 @@ const WorkoutEditor = ({ workoutItem, setWorkoutItem, setIsEditMode, isEditMode,
   const [pressedAdd, setPressedAdd] = useState(false);
   const { userToken } = useUserToken();
   const [workoutItemFieldIsValid, setWorkoutItemFieldIsValid] = useState({
-    name: true,
-    date: true,
-    exercise: true,
-    result: true,
+    name: false,
+    date: false,
+    exercise: false,
+    result: false,
   })
 
   useEffect(() => {
     if(validationInit) {
       WorkoutItemValidation({workoutItem, setWorkoutItem, setWorkoutItemFieldIsValid, setWorkoutList, pressedAdd, setPressedAdd, isEditMode, setIsEditMode, userToken})
-      setValidationInit(false)
     }
   }, [workoutItem, pressedAdd])
 
@@ -36,7 +35,8 @@ const WorkoutEditor = ({ workoutItem, setWorkoutItem, setIsEditMode, isEditMode,
               onChangeText={name => setWorkoutItem({ ...workoutItem, name })}
               value={workoutItem.name}
               />
-            {!workoutItemFieldIsValid['name'] && <Text style={styles.labelError}>Name must not be empty</Text>}
+            {!workoutItemFieldIsValid['name'] && validationInit &&
+            <Text style={styles.labelError}>Name must not be empty</Text>}
           </View>
           <View style={{flexDirection: 'column'}}>
             <Text style={styles.label}>Date</Text>
@@ -44,7 +44,8 @@ const WorkoutEditor = ({ workoutItem, setWorkoutItem, setIsEditMode, isEditMode,
               onChangeText={date => setWorkoutItem({ ...workoutItem, date })}
               value={workoutItem.date}
               />
-            {!workoutItemFieldIsValid['date'] && <Text style={styles.labelError}>Date must not be empty</Text>}
+            {!workoutItemFieldIsValid['date'] && validationInit &&
+            <Text style={styles.labelError}>Date must not be empty</Text>}
           </View>
         </View>
         
@@ -55,7 +56,8 @@ const WorkoutEditor = ({ workoutItem, setWorkoutItem, setIsEditMode, isEditMode,
               onChangeText={exercise => setWorkoutItem({ ...workoutItem, exercise })}
               value={workoutItem.exercise}
               />
-            {!workoutItemFieldIsValid['exercise'] && <Text style={styles.labelError}>Exercise must not be empty</Text>}
+            {!workoutItemFieldIsValid['exercise'] && validationInit &&
+            <Text style={styles.labelError}>Exercise must not be empty</Text>}
           </View>
           <View style={{flexDirection: 'column'}}>
             <Text style={styles.label}>Result</Text>
@@ -63,7 +65,8 @@ const WorkoutEditor = ({ workoutItem, setWorkoutItem, setIsEditMode, isEditMode,
               onChangeText={result => setWorkoutItem({ ...workoutItem, result })}
               value={workoutItem.result}
               />
-            {!workoutItemFieldIsValid['result'] && <Text style={styles.labelError}>Result must not be empty</Text>}  
+            {!workoutItemFieldIsValid['result'] && validationInit &&
+            <Text style={styles.labelError}>Result must not be empty</Text>}  
             </View>
           </View>
         {Dimensions.get('window').width < 420 

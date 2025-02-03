@@ -3,7 +3,7 @@
   // Results/Add nappi paremmaksi
   // PopUp paremmaksi
   // korjaa bugi: consoli printtaa kaksi kertaa POST errorin
-  // tarkista voiko propseja vähentää
+  // tarkista onko "turhia" propseja
   // kun vaihtaa sivua, validaation pitäisi restartata (ei enää valita tyhjistä fieldeistä)
   // jos listassa ei ole itemeitä, näytä teksti ja kuva.
   // mahdollisuus lisätä settien määrä. (numero field jonka default on 1? + ja - napit?)
