@@ -1,6 +1,5 @@
   // TODO: 
   // dokumentaatio, päivitä kuvat
-  // Results/Add nappi paremmaksi
   // PopUp paremmaksi
   // korjaa bugi: consoli printtaa kaksi kertaa POST errorin
   // tarkista onko "turhia" propseja
@@ -10,6 +9,7 @@
   // name fieldin default on username
   // any typet kuntoon backendissä
   // bugi: jos login ohjaa workoutList sivulle, lista ei päivity kunnolla
+  // bugi: editoidessa, validaatio työntää inputcontainerit pois. editointi boxin koko myös väärä kun ruudun leveys noin 1000. laatikon paikkaa voisi myös siirtää.
   // muuta värejä paremmaksi ja muutenkin yleisilmettä
   // funktion typet hookeille ja constien nimitys kuntoon, tarkista statet
   // sen jälkeen mietitään laajennusta esim. search, filter, kaaviot, emojit/kuvat, profiilitiedot jne.

@@ -12,7 +12,7 @@ const WorkoutList = ({ workoutList, setWorkoutList, setIsEditMode, setWorkoutIte
 
   return (
     <View style={styles.listcontainer}>
-      <Text style={styles.labelHeader}>Your workout list</Text>
+      <Text style={styles.labelHeader}>Exercise results</Text>
       <FlatList
         data={workoutList}
         keyExtractor={(item, index) => index.toString()}

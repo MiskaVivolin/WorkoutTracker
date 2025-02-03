@@ -46,7 +46,7 @@ const PopUp = ({setValidationInit, setPressedAdd, workoutItemFieldIsValid, setWo
             { opacity: fadeAnim }, 
           ]}
         >
-          <Text style={styles.popupText}>Object Added</Text>
+          <Text style={styles.popupText}>Exercise result Added!</Text>
         </View>
       )}
     </View>

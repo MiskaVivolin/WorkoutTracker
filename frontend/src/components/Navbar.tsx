@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Pressable, Dimensions } from 'react-native';
 import { NavBarProps } from '../types/Types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const Navbar = ({ navigation, showButtons, addButtonToggle}: NavBarProps) => {
+const Navbar = ({ navigation, showButtons, addButtonToggle }: NavBarProps) => {
   
 
   return (
@@ -11,6 +11,20 @@ const Navbar = ({ navigation, showButtons, addButtonToggle}: NavBarProps) => {
       <View style={styles.headerContainer}>
         <Text style={styles.labelHeader}>Workout Tracker</Text>
       </View>
+
+      {showButtons ? (
+        <View style={styles.logoutButtonContainer}>
+          <Pressable
+            style={styles.button}
+            onPress={() => {
+              AsyncStorage.removeItem('userInputFields');
+              navigation.navigate('LoginScreen');
+            }}>
+            <Text style={styles.labelButton}>Log out</Text>
+          </Pressable>
+        </View>
+      ) : null}
+
       {showButtons ? (
       <View style={styles.listButtonContainer}>
           
@@ -21,41 +35,27 @@ const Navbar = ({ navigation, showButtons, addButtonToggle}: NavBarProps) => {
               navigation.navigate('AddWorkoutScreen')
             }}
           >
-            <Text style={styles.labelButton}>Add</Text>
+            <Text style={styles.labelButton}>Add new</Text>
           </Pressable>
           :
           <Pressable
             style={styles.button}
             onPress={() => {
               navigation.navigate('WorkoutListScreen')
-            }}
-          >
-            <Text style={styles.labelButton}>Workout list</Text>
+            }}>
+            <Text style={styles.labelButton}>Your list</Text>
           </Pressable>
           }
 
         </View>
         ) : null}
-      {showButtons ? (
-        <View style={styles.logoutButtonContainer}>
-          <Pressable
-            style={styles.button}
-            onPress={() => {
-              AsyncStorage.removeItem('userInputFields');
-              navigation.navigate('LoginScreen');
-            }}
-          >
-            <Text style={styles.labelButton}>Log out</Text>
-          </Pressable>
-        </View>
-      ) : null}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   divContainer: {
-    flexDirection: 'column',
+    flexDirection: Dimensions.get('window').width < 550 ? 'column' : 'row',
     position: 'relative',
   },
   headerContainer: {
@@ -67,7 +67,6 @@ const styles = StyleSheet.create({
     maxHeight: Dimensions.get('window').width < 330 ? 54 : 58,
   },
   logoutButtonContainer: {
-    flex: 1,
     flexDirection: 'row',
     width: '100%',
     justifyContent: 'flex-end',
@@ -75,12 +74,11 @@ const styles = StyleSheet.create({
     position: Dimensions.get('window').width < 550 ? 'relative' : 'absolute',
   },
   listButtonContainer: {
-    flex: 1,
     flexDirection: 'row',
-    width: '100%',
-    justifyContent: 'flex-start',
+    width: Dimensions.get('window').width < 550 ? '100%' : '50%',
+    justifyContent: Dimensions.get('window').width < 550 ? 'flex-end' : 'flex-start',
     backgroundColor: 'transparent',
-    position: 'relative',
+    position: Dimensions.get('window').width < 550 ? 'relative' : 'absolute',
   },
   labelHeader: {
     fontSize: Dimensions.get('window').width < 330 ? 28 : 32,
@@ -98,7 +96,7 @@ const styles = StyleSheet.create({
     width: 95,
     padding: 7,
     paddingBottom: 7,
-    margin: 12,
+    margin: Dimensions.get('window').width < 550 ? 8 : 12,
     marginHorizontal: 25,
     backgroundColor: '#6aa9a9',
     borderRadius: 10, 

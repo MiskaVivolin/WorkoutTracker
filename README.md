@@ -12,9 +12,13 @@ First time users must create an account before logging in, which is quick and ea
 
 ![LoginImg](/frontend/assets/images/login.png)
 
-Once logged in, users can start adding their exercise results, which display on the "Results" page.
+Once logged in, users can start adding their exercise results, which display on the "workoutlist" page (navigate with "Your list" button).
 
-![HomepageImg](/frontend/assets/images/homepage.png)
+![addworkoutImg](/frontend/assets/images/addworkout.png)
+
+In future updates sorting and searching will be implemented to this page.
+
+![workoutlist](/frontend/assets/images/workoutlist.png)
 
 Exercise results can be easily edited and removed from the database.
 
@@ -22,7 +26,7 @@ Exercise results can be easily edited and removed from the database.
 
 ## Future updates
 
-Searches and filters for exercises and dates. Charts to visually track progress.
+Searches and sorting for exercises. Charts to visually track progress.
 
 ## Tech stack
 
