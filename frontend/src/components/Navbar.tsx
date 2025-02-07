@@ -2,6 +2,8 @@ import React from 'react';
 import { View, Text, StyleSheet, Pressable, Dimensions } from 'react-native';
 import { NavBarProps } from '../types/Types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Colors } from '../../assets/styles/Colors';
+import Button from './Button';
 
 const Navbar = ({ navigation, showButtons, addButtonToggle }: NavBarProps) => {
   
@@ -14,14 +16,12 @@ const Navbar = ({ navigation, showButtons, addButtonToggle }: NavBarProps) => {
 
       {showButtons ? (
         <View style={styles.logoutButtonContainer}>
-          <Pressable
-            style={styles.button}
+          <Button
+            title='Log out'
             onPress={() => {
               AsyncStorage.removeItem('userInputFields');
               navigation.navigate('LoginScreen');
-            }}>
-            <Text style={styles.labelButton}>Log out</Text>
-          </Pressable>
+            }}/>
         </View>
       ) : null}
 
@@ -29,22 +29,17 @@ const Navbar = ({ navigation, showButtons, addButtonToggle }: NavBarProps) => {
       <View style={styles.listButtonContainer}>
           
           {addButtonToggle ?
-          <Pressable
-            style={styles.button}
+          <Button
+            title='Add new'
             onPress={() => {
               navigation.navigate('AddWorkoutScreen')
-            }}
-          >
-            <Text style={styles.labelButton}>Add new</Text>
-          </Pressable>
+            }}/>
           :
-          <Pressable
-            style={styles.button}
+          <Button
+            title='Your list'
             onPress={() => {
               navigation.navigate('WorkoutListScreen')
-            }}>
-            <Text style={styles.labelButton}>Your list</Text>
-          </Pressable>
+            }}/>
           }
 
         </View>
@@ -57,13 +52,14 @@ const styles = StyleSheet.create({
   divContainer: {
     flexDirection: Dimensions.get('window').width < 550 ? 'column' : 'row',
     position: 'relative',
+    backgroundColor: Colors.background
   },
   headerContainer: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
     padding: 10,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: Colors.background,
     maxHeight: Dimensions.get('window').width < 330 ? 54 : 58,
   },
   logoutButtonContainer: {
@@ -83,28 +79,7 @@ const styles = StyleSheet.create({
   labelHeader: {
     fontSize: Dimensions.get('window').width < 330 ? 28 : 32,
     fontFamily: 'BlackOpsOne-Regular',
-    color: '#303030',
-  },
-  labelButton: {
-    fontSize: 15,
-    fontFamily: 'MerriweatherSans',
-    fontWeight: '500',
-    color: 'white',
-    alignSelf: 'center',
-  },
-  button: {
-    width: 95,
-    padding: 7,
-    paddingBottom: 7,
-    margin: Dimensions.get('window').width < 550 ? 8 : 12,
-    marginHorizontal: 25,
-    backgroundColor: '#6aa9a9',
-    borderRadius: 10, 
-    borderWidth: 1, 
-    borderColor: '#678e8e',
-    textAlign: 'center',
-    fontSize: 16,
-    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)',
+    color: Colors.primary,
   }
 });
 

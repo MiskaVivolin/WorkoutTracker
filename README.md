@@ -4,7 +4,7 @@ Fully responsive mobile and web application to track personal gym workout result
 
 ## Installation
 
-Install with opening two terminals, one in the backend folder and one in the frontend folder. With both enter "npm i" to install and "npm start" to start the backend and frontend. When both are running, scan the QR code in the frontend terminal to open the app in your mobile device. Alternatively type "w" in the frontend terminal to open the app in your web browser.
+Install with opening two terminals, one in the backend folder and one in the frontend folder. With both enter "npm i" to install and "npm start" to start the backend and frontend. When both are running, scan the QR code in the frontend terminal to open the app in your mobile device. Alternatively type "w" in the frontend terminal to open the app in your web browser. Note: You may need to correct the path of App.tsx in AppEntry.js. It can be found in "\WorkoutTracker\frontend\node_modules\expo\AppEntry.js".
 
 ## Using Workout Tracker
 

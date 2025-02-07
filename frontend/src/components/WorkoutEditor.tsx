@@ -5,6 +5,7 @@ import WorkoutItemValidation from '../functions/WorkoutItemValidation'
 import { WorkoutEditorProps } from '../types/Types'
 import DeleteWorkoutItem from '../functions/DeleteWorkoutItem'
 import { useUserToken } from '../context/UserTokenContext'
+import Button from './Button'
 
 const WorkoutEditor = ({ workoutItem, setWorkoutItem, setIsEditMode, isEditMode, setWorkoutList }: WorkoutEditorProps) => {
 
@@ -69,47 +70,13 @@ const WorkoutEditor = ({ workoutItem, setWorkoutItem, setIsEditMode, isEditMode,
             <Text style={styles.labelError}>Result must not be empty</Text>}  
             </View>
           </View>
-        {Dimensions.get('window').width < 420 
-        ?
-        <View style={{alignItems: 'center'}}>
-          <View style={styles.buttonContainer}>
-            <Pressable
-              style={styles.button}
-              onPress={() => {
-                setValidationInit(true)
-                setPressedAdd(true)
-                }}
-              >
-              <Text style={styles.labelButton}>Save</Text>
-            </Pressable>
-            <Pressable
-              style={styles.button}
-              onPress={() => setIsEditMode(false)}
-              >
-              <Text style={styles.labelButton}>Cancel</Text>
-            </Pressable>
-          </View>
-          <Pressable
-            style={styles.buttonDelete}
-            onPress={() => {
-              setIsEditMode(false)
-              DeleteWorkoutItem(workoutItem, setWorkoutList)
-              }}
-            >
-            <Text style={styles.labelButton}>Delete</Text>
-          </Pressable>
-        </View>
-        :
         <View style={styles.buttonContainer}>
-          <Pressable
-            style={styles.button}
-            onPress={() => {
+          <Button
+              title='Save'
+              onPress={() => {
               setValidationInit(true)
               setPressedAdd(true)
-              }}
-            >
-            <Text style={styles.labelButton}>Save</Text>
-          </Pressable>
+              }}/>
           <Pressable
             style={styles.buttonDelete}
             onPress={() => {
@@ -119,14 +86,11 @@ const WorkoutEditor = ({ workoutItem, setWorkoutItem, setIsEditMode, isEditMode,
             >
             <Text style={styles.labelButton}>Delete</Text>
           </Pressable>
-          <Pressable
-            style={styles.button}
+          <Button 
+            title='Cancel'
             onPress={() => setIsEditMode(false)}
-            >
-            <Text style={styles.labelButton}>Cancel</Text>
-          </Pressable>
+            />
         </View>
-        }
       </View>
     </View>
   )

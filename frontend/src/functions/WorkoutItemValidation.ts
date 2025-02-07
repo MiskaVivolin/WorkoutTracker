@@ -1,4 +1,4 @@
-import { PrevStateBooleanObj, SetBoolean, SetWorkoutItem, SetWorkoutList, WorkoutItem, WorkoutItemValidationProps } from '../types/Types'
+import { PrevStateBooleanObj, WorkoutItemValidationProps } from '../types/Types'
 import CreateWorkoutItem from './CreateWorkoutItem'
 import EditWorkoutItem from './EditWorkoutItem'
 

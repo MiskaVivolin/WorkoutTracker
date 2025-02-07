@@ -4,6 +4,7 @@ import { FormContainerProps } from '../types/Types';
 import WorkoutItemValidation from '../functions/WorkoutItemValidation';
 import { useUserToken } from '../context/UserTokenContext';
 import PopUp from './PopUp';
+import Button from './Button';
 
 const FormContainer = ({ workoutItem, setWorkoutItem, workoutItemFieldIsValid, setWorkoutItemFieldIsValid, setWorkoutList }: FormContainerProps) => {
 
@@ -56,13 +57,12 @@ const FormContainer = ({ workoutItem, setWorkoutItem, workoutItemFieldIsValid, s
         <Text style={styles.labelError}>Result must not be empty</Text>}
       </View>
       <View style={{marginTop: 30, marginBottom: 30}}>
-        <Pressable style={styles.button}
-                onPress={() => {
-                  setValidationInit(true)
-                  setPressedAdd(true)
-                }}>
-                <Text style={styles.labelButton}>Add</Text>  
-              </Pressable>
+        <Button 
+          title='Add'
+          onPress={() => {
+            setValidationInit(true)
+            setPressedAdd(true)
+          }}/>
         {workoutItemFieldIsValid['name'] && workoutItemFieldIsValid['date'] && workoutItemFieldIsValid['exercise'] && workoutItemFieldIsValid['result'] && pressedAdd &&
         <PopUp setValidationInit={setValidationInit} setPressedAdd={setPressedAdd} workoutItemFieldIsValid={workoutItemFieldIsValid} setWorkoutItemFieldIsValid={setWorkoutItemFieldIsValid}/>
         }

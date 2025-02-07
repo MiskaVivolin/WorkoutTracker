@@ -1,6 +1,6 @@
   // TODO: 
-  // dokumentaatio, päivitä kuvat
   // PopUp paremmaksi
+  // erillinen button component
   // korjaa bugi: consoli printtaa kaksi kertaa POST errorin
   // tarkista onko "turhia" propseja
   // kun vaihtaa sivua, validaation pitäisi restartata (ei enää valita tyhjistä fieldeistä)

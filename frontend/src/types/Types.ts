@@ -1,5 +1,6 @@
 import { ReactNode } from 'react'
 import { StackNavigationProp } from '@react-navigation/stack';
+import { ViewStyle } from 'react-native';
 
 export interface WorkoutItem {
     readonly _id: number;
@@ -132,6 +133,12 @@ export interface WorkoutListProps {
     setIsEditMode: SetBoolean;
     setWorkoutItem: SetWorkoutItem;
 }
+
+export interface ButtonProps {
+    title: string;
+    onPress: () => void;
+    style?: ViewStyle;
+  };
 
 // function props
 
