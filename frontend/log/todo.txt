@@ -8,9 +8,10 @@
   // mahdollisuus lisätä settien määrä. (numero field jonka default on 1? + ja - napit?)
   // name fieldin default on username
   // any typet kuntoon backendissä
+  // siirrä contextien typet types tiedostoon
   // bugi: jos login ohjaa workoutList sivulle, lista ei päivity kunnolla
   // bugi: editoidessa, validaatio työntää inputcontainerit pois. editointi boxin koko myös väärä kun ruudun leveys noin 1000. laatikon paikkaa voisi myös siirtää.
-  // muuta värejä paremmaksi ja muutenkin yleisilmettä
+  // theme selector: 2 dark teemaa ja light teemaa
   // funktion typet hookeille ja constien nimitys kuntoon, tarkista statet
   // sen jälkeen mietitään laajennusta esim. search, filter, kaaviot, emojit/kuvat, profiilitiedot jne.
   // docker, testing

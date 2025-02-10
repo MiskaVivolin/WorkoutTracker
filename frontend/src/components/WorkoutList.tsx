@@ -4,7 +4,7 @@ import { FlatList } from 'react-native'
 import useGetWorkoutList from '../hooks/useGetWorkoutList'
 import { WorkoutItem, WorkoutListProps } from '../types/Types'
 import GetWorkoutItem from '../functions/GetWorkoutItem'
-import { Colors } from "../../assets/styles/Colors"
+import { Themes } from "../../assets/styles/Themes"
 import Button from './Button'
 
 
@@ -44,21 +44,21 @@ const WorkoutList = ({ workoutList, setWorkoutList, setIsEditMode, setWorkoutIte
 const styles = StyleSheet.create({
   listContainer: {
     flex: 1,
-    backgroundColor: Colors.background,
+    backgroundColor: Themes.dark.background,
     alignItems: 'center',
     justifyContent: 'center',
   },
   text: {
     fontSize: 16,
     fontFamily: 'MerriweatherSans',
-    color: Colors.secondary,
+    color: Themes.dark.secondary,
     marginVertical: 4,
     marginHorizontal: 20
   },
   header: {
     fontSize: Dimensions.get('window').width < 320 ? 22 : 24, 
     fontFamily: 'MerriweatherSans', 
-    color: Colors.secondary,
+    color: Themes.dark.secondary,
     marginTop: Dimensions.get('window').height < 1000 ? 30 : 50,
     marginBottom: Dimensions.get('window').height < 1000 ? 30 : 50, 
   },
@@ -68,9 +68,9 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     borderWidth: 1,
     borderRadius: 8,
-    borderColor: Colors.buttonText,
+    borderColor: Themes.dark.buttonText,
     paddingTop: 8,
-    backgroundColor: Colors.primary,
+    backgroundColor: Themes.dark.primary,
     minWidth: Dimensions.get('window').width < 320 ? 270 : 300,
     maxWidth: Dimensions.get('window').width < 360 ? 270 : 340,
   }

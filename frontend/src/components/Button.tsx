@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, StyleSheet, Pressable } from 'react-native';
-import { Colors } from "../../assets/styles/Colors"
+import { Themes } from "../../assets/styles/Themes"
 import { ButtonProps } from 'types/Types';
 
 const Button = ({ title, onPress, style }: ButtonProps) => (
@@ -17,10 +17,10 @@ const styles = StyleSheet.create({
     marginTop: 6,
     marginBottom: 10,
     marginHorizontal: 25,
-    backgroundColor: Colors.secondary,
+    backgroundColor: Themes.dark.secondary,
     borderRadius: 10, 
     borderWidth: 1, 
-    borderColor: Colors.buttonText,
+    borderColor: Themes.dark.buttonText,
     textAlign: 'center',
     fontSize: 16,
     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)', 
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     fontSize: 15, 
     fontFamily: 'MerriweatherSans',
     fontWeight: '500', 
-    color: Colors.buttonText, 
+    color: Themes.dark.buttonText, 
     alignSelf: 'center', 
   },
 });

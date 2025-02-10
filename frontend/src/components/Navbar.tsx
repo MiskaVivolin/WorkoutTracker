@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, Pressable, Dimensions } from 'react-native';
 import { NavBarProps } from '../types/Types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Colors } from '../../assets/styles/Colors';
+import { Themes } from '../../assets/styles/Themes';
 import Button from './Button';
 
 const Navbar = ({ navigation, showButtons, addButtonToggle }: NavBarProps) => {
@@ -52,14 +52,14 @@ const styles = StyleSheet.create({
   divContainer: {
     flexDirection: Dimensions.get('window').width < 550 ? 'column' : 'row',
     position: 'relative',
-    backgroundColor: Colors.background
+    backgroundColor: Themes.dark.background
   },
   headerContainer: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
     padding: 10,
-    backgroundColor: Colors.background,
+    backgroundColor: Themes.dark.background,
     maxHeight: Dimensions.get('window').width < 330 ? 54 : 58,
   },
   logoutButtonContainer: {
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
   labelHeader: {
     fontSize: Dimensions.get('window').width < 330 ? 28 : 32,
     fontFamily: 'BlackOpsOne-Regular',
-    color: Colors.primary,
+    color: Themes.dark.primary,
   }
 });
 

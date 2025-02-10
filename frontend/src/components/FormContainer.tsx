@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, Text, TextInput, View, Dimensions, Pressable } from 'react-native'
+import { StyleSheet, Text, TextInput, View, Dimensions } from 'react-native'
+import { Themes } from '../../assets/styles/Themes';
 import { FormContainerProps } from '../types/Types';
 import WorkoutItemValidation from '../functions/WorkoutItemValidation';
 import { useUserToken } from '../context/UserTokenContext';
+import { useTheme } from '../context/ThemeContext';
 import PopUp from './PopUp';
 import Button from './Button';
+import ThemeSwitcher from './ThemeSwitcher';
 
 const FormContainer = ({ workoutItem, setWorkoutItem, workoutItemFieldIsValid, setWorkoutItemFieldIsValid, setWorkoutList }: FormContainerProps) => {
 
@@ -13,6 +16,7 @@ const FormContainer = ({ workoutItem, setWorkoutItem, workoutItemFieldIsValid, s
   const [isEditMode, setIsEditMode] = useState(false);
   const [confirmFalseValidation, setConfirmFalseValidation] = useState(false);
   const { userToken } = useUserToken();
+  const { theme } = useTheme();
 
   useEffect(() => {
     if(validationInit) {
@@ -21,7 +25,8 @@ const FormContainer = ({ workoutItem, setWorkoutItem, workoutItemFieldIsValid, s
   }, [workoutItem, pressedAdd])
 
   return (
-    <View style={styles.container}>
+    <View style={{alignItems: 'center', backgroundColor: Themes[theme].background}}>
+      <ThemeSwitcher />
       <Text style={styles.labelHeader}>Add a new exercise result</Text>
       <View style={styles.fieldContainer}>
         <Text style={styles.label}>Name</Text>
@@ -72,10 +77,7 @@ const FormContainer = ({ workoutItem, setWorkoutItem, workoutItemFieldIsValid, s
 }
 
 const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center', 
-    backgroundColor: 'white'
-  },
+
   fieldContainer: {
     justifyContent: 'center',
     maxWidth: Dimensions.get('window').width < 370 ? 270 : 350,
@@ -99,13 +101,6 @@ const styles = StyleSheet.create({
     fontFamily: 'MerriweatherSans', 
     color: 'red',
   },
-  labelButton: {
-    fontSize: 15, 
-    fontFamily: 'MerriweatherSans',
-    fontWeight: '500', 
-    color: 'white', 
-    alignSelf: 'center', 
-  },
   input: {
     fontFamily: 'MerriweatherSans',
     fontSize: 12,
@@ -118,22 +113,6 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     marginBottom: 12,
     paddingHorizontal: 8
-  },
-  errorText: {
-    color: 'red'
-  },
-  button: {
-    alignSelf: 'center',
-    width: 95,
-    padding: 7,
-    marginTop: Dimensions.get('window').height < 1000 ? 30 : 70,
-    backgroundColor: '#6aa9a9',
-    borderRadius: 10, 
-    borderWidth: 1, 
-    borderColor: '#678e8e',
-    textAlign: 'center',
-    fontSize: 16,
-    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)',
   },
 });
 
