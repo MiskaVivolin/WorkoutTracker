@@ -6,14 +6,17 @@ import { WorkoutItem, WorkoutListProps } from '../types/Types'
 import GetWorkoutItem from '../functions/GetWorkoutItem'
 import { Themes } from "../../assets/styles/Themes"
 import Button from './Button'
+import { useTheme } from '../context/ThemeContext'
 
 
 const WorkoutList = ({ workoutList, setWorkoutList, setIsEditMode, setWorkoutItem }: WorkoutListProps) => {
 
+  const { theme } = useTheme();
+  
   useGetWorkoutList(setWorkoutList);
-
+  
   return (
-    <View style={styles.listContainer}>
+  <View style={styles.listContainer}>
       <Text style={styles.header}>Exercise results</Text>
       <FlatList
         data={workoutList}

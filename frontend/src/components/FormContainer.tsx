@@ -27,39 +27,39 @@ const FormContainer = ({ workoutItem, setWorkoutItem, workoutItemFieldIsValid, s
   return (
     <View style={{alignItems: 'center', backgroundColor: Themes[theme].background}}>
       <ThemeSwitcher />
-      <Text style={styles.labelHeader}>Add a new exercise result</Text>
+      <Text style={[styles.header, {color: Themes[theme].defaultText}]}>Add a new exercise result</Text>
       <View style={styles.fieldContainer}>
-        <Text style={styles.label}>Name</Text>
-        <TextInput style={styles.input}
+        <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Name</Text>
+        <TextInput style={[styles.inputField, {color: Themes[theme].defaultText, borderColor: Themes[theme].primary}]}
           onChangeText={name => {setWorkoutItem({ ...workoutItem, name })}}
           value={workoutItem.name}
           />
         {!workoutItemFieldIsValid['name'] && validationInit && confirmFalseValidation &&
-        <Text style={styles.labelError}>Name must not be empty</Text>}
+        <Text style={[styles.inputFieldError, {color: Themes[theme].errorText}]}>Name must not be empty</Text>}
       
-        <Text style={styles.label}>Date</Text>
-        <TextInput style={styles.input}
+        <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Date</Text>
+        <TextInput style={[styles.inputField, {color: Themes[theme].defaultText, borderColor: Themes[theme].primary}]}
           onChangeText={date => {setWorkoutItem({ ...workoutItem, date })}}
           value={workoutItem.date}
           />
         {!workoutItemFieldIsValid['date'] && validationInit && confirmFalseValidation &&
-        <Text style={styles.labelError}>Date must not be empty</Text>}
+        <Text style={[styles.inputFieldError, {color: Themes[theme].errorText}]}>Date must not be empty</Text>}
         
-        <Text style={styles.label}>Exercise</Text>
-        <TextInput style={styles.input}
+        <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Exercise</Text>
+        <TextInput style={[styles.inputField, {color: Themes[theme].defaultText, borderColor: Themes[theme].primary}]}
           onChangeText={exercise => {setWorkoutItem({ ...workoutItem, exercise })}}
           value={workoutItem.exercise}
           />
         {!workoutItemFieldIsValid['exercise'] && validationInit && confirmFalseValidation &&
-        <Text style={styles.labelError}>Exercise must not be empty</Text>}
+        <Text style={[styles.inputFieldError, {color: Themes[theme].errorText}]}>Exercise must not be empty</Text>}
       
-        <Text style={styles.label}>Result</Text>
-        <TextInput style={styles.input}
+        <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Result</Text>
+        <TextInput style={[styles.inputField, {color: Themes[theme].defaultText, borderColor: Themes[theme].primary}]}
           onChangeText={result => {setWorkoutItem({ ...workoutItem, result })}}
           value={workoutItem.result}
           />
         {!workoutItemFieldIsValid['result'] && validationInit && confirmFalseValidation &&
-        <Text style={styles.labelError}>Result must not be empty</Text>}
+        <Text style={[styles.inputFieldError, {color: Themes[theme].errorText}]}>Result must not be empty</Text>}
       </View>
       <View style={{marginTop: 30, marginBottom: 30}}>
         <Button 
@@ -85,26 +85,22 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 13,
     fontFamily: 'MerriweatherSans',
-    color: '#606060',
     marginBottom: 2,
     marginTop: 12
   },
-  labelHeader: {
+  header: {
     fontSize: Dimensions.get('window').width < 320 ? 22 : 24, 
     fontFamily: 'MerriweatherSans', 
-    color: '#505050',
     marginTop: Dimensions.get('window').height < 1000 ? 75 : 150,
     marginBottom: Dimensions.get('window').height < 1000 ? 30 : 50, 
   },
-  labelError: {
+  inputFieldError: {
     fontSize: 13,
     fontFamily: 'MerriweatherSans', 
-    color: 'red',
   },
-  input: {
+  inputField: {
     fontFamily: 'MerriweatherSans',
     fontSize: 12,
-    color: '#606060',
     height: 35,
     backgroundColor: '#F8F8F8',
     width: Dimensions.get('window').width < 370 ? 270 : 350,

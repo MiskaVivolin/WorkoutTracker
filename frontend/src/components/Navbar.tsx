@@ -4,14 +4,16 @@ import { NavBarProps } from '../types/Types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Themes } from '../../assets/styles/Themes';
 import Button from './Button';
+import { useTheme } from '../context/ThemeContext';
 
 const Navbar = ({ navigation, showButtons, addButtonToggle }: NavBarProps) => {
   
+    const { theme } = useTheme();
 
   return (
-    <View style={styles.divContainer}>
-      <View style={styles.headerContainer}>
-        <Text style={styles.labelHeader}>Workout Tracker</Text>
+    <View style={[styles.divContainer, {backgroundColor: Themes[theme].background}]}>
+      <View style={[styles.headerContainer , {backgroundColor: Themes[theme].primary}]}>
+        <Text style={[styles.header, {color: Themes.dark.secondaryText}]}>Workout Tracker</Text>
       </View>
 
       {showButtons ? (
@@ -52,14 +54,12 @@ const styles = StyleSheet.create({
   divContainer: {
     flexDirection: Dimensions.get('window').width < 550 ? 'column' : 'row',
     position: 'relative',
-    backgroundColor: Themes.dark.background
   },
   headerContainer: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
     padding: 10,
-    backgroundColor: Themes.dark.background,
     maxHeight: Dimensions.get('window').width < 330 ? 54 : 58,
   },
   logoutButtonContainer: {
@@ -76,10 +76,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     position: Dimensions.get('window').width < 550 ? 'relative' : 'absolute',
   },
-  labelHeader: {
+  header: {
     fontSize: Dimensions.get('window').width < 330 ? 28 : 32,
     fontFamily: 'BlackOpsOne-Regular',
-    color: Themes.dark.primary,
   }
 });
 
