@@ -30,7 +30,7 @@ const FormContainer = ({ workoutItem, setWorkoutItem, workoutItemFieldIsValid, s
       <Text style={[styles.header, {color: Themes[theme].defaultText}]}>Add a new exercise result</Text>
       <View style={styles.fieldContainer}>
         <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Name</Text>
-        <TextInput style={[styles.inputField, {color: Themes[theme].defaultText, borderColor: Themes[theme].primary}]}
+        <TextInput style={[styles.inputField, {color: Themes[theme].defaultText, borderColor: Themes[theme].border, backgroundColor: Themes[theme].inputField}]}
           onChangeText={name => {setWorkoutItem({ ...workoutItem, name })}}
           value={workoutItem.name}
           />
@@ -38,7 +38,7 @@ const FormContainer = ({ workoutItem, setWorkoutItem, workoutItemFieldIsValid, s
         <Text style={[styles.inputFieldError, {color: Themes[theme].errorText}]}>Name must not be empty</Text>}
       
         <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Date</Text>
-        <TextInput style={[styles.inputField, {color: Themes[theme].defaultText, borderColor: Themes[theme].primary}]}
+        <TextInput style={[styles.inputField, {color: Themes[theme].defaultText, borderColor: Themes[theme].border, backgroundColor: Themes[theme].inputField}]}
           onChangeText={date => {setWorkoutItem({ ...workoutItem, date })}}
           value={workoutItem.date}
           />
@@ -46,7 +46,7 @@ const FormContainer = ({ workoutItem, setWorkoutItem, workoutItemFieldIsValid, s
         <Text style={[styles.inputFieldError, {color: Themes[theme].errorText}]}>Date must not be empty</Text>}
         
         <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Exercise</Text>
-        <TextInput style={[styles.inputField, {color: Themes[theme].defaultText, borderColor: Themes[theme].primary}]}
+        <TextInput style={[styles.inputField, {color: Themes[theme].defaultText, borderColor: Themes[theme].border, backgroundColor: Themes[theme].inputField}]}
           onChangeText={exercise => {setWorkoutItem({ ...workoutItem, exercise })}}
           value={workoutItem.exercise}
           />
@@ -54,7 +54,7 @@ const FormContainer = ({ workoutItem, setWorkoutItem, workoutItemFieldIsValid, s
         <Text style={[styles.inputFieldError, {color: Themes[theme].errorText}]}>Exercise must not be empty</Text>}
       
         <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Result</Text>
-        <TextInput style={[styles.inputField, {color: Themes[theme].defaultText, borderColor: Themes[theme].primary}]}
+        <TextInput style={[styles.inputField, {color: Themes[theme].defaultText, borderColor: Themes[theme].border, backgroundColor: Themes[theme].inputField}]}
           onChangeText={result => {setWorkoutItem({ ...workoutItem, result })}}
           value={workoutItem.result}
           />
@@ -102,9 +102,7 @@ const styles = StyleSheet.create({
     fontFamily: 'MerriweatherSans',
     fontSize: 12,
     height: 35,
-    backgroundColor: '#F8F8F8',
     width: Dimensions.get('window').width < 370 ? 270 : 350,
-    borderColor: '#A9A9A9',
     borderWidth: 1,
     borderRadius: 3,
     marginBottom: 12,

@@ -31,11 +31,11 @@ const WorkoutEditor = ({ workoutItem, setWorkoutItem, setIsEditMode, isEditMode,
   return (
     <View style={[styles.container, {backgroundColor: Themes[theme].background}]}>
       <View style={[styles.listItem, {backgroundColor: Themes[theme].primary, borderColor: Themes[theme].border}]}>
-        <Text style={[styles.header, {color: Themes[theme].defaultText}]}>Edit your workout</Text>
+        <Text style={[styles.header, {color: Themes[theme].secondaryText}]}>Edit your workout</Text>
         <View style={{flexDirection: 'row', marginTop: 1, marginBottom: 5}}>
           <View style={{flexDirection: 'column'}}>
-            <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Name</Text>
-            <TextInput style={[styles.inputField, {color: Themes[theme].defaultText, backgroundColor: Themes[theme].inputField, borderColor: Themes[theme].border}]}
+            <Text style={[styles.label, {color: Themes[theme].secondaryText}]}>Name</Text>
+            <TextInput style={[styles.inputField, {color: Themes[theme].secondaryText, backgroundColor: Themes[theme].inputField, borderColor: Themes[theme].border}]}
               onChangeText={name => setWorkoutItem({ ...workoutItem, name })}
               value={workoutItem.name}
               />
@@ -43,8 +43,8 @@ const WorkoutEditor = ({ workoutItem, setWorkoutItem, setIsEditMode, isEditMode,
             <Text style={[styles.inputFieldError, {color: Themes[theme].errorText}]}>Name must not be empty</Text>}
           </View>
           <View style={{flexDirection: 'column'}}>
-            <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Date</Text>
-            <TextInput style={[styles.inputField, {color: Themes[theme].defaultText, backgroundColor: Themes[theme].inputField, borderColor: Themes[theme].border}]}
+            <Text style={[styles.label, {color: Themes[theme].secondaryText}]}>Date</Text>
+            <TextInput style={[styles.inputField, {color: Themes[theme].secondaryText, backgroundColor: Themes[theme].inputField, borderColor: Themes[theme].border}]}
               onChangeText={date => setWorkoutItem({ ...workoutItem, date })}
               value={workoutItem.date}
               />
@@ -55,8 +55,8 @@ const WorkoutEditor = ({ workoutItem, setWorkoutItem, setIsEditMode, isEditMode,
         
         <View style={{flexDirection: 'row', marginTop: 1, marginBottom: 5}}>
           <View style={{flexDirection: 'column'}}>
-            <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Exercise</Text>
-            <TextInput style={[styles.inputField, {color: Themes[theme].defaultText, backgroundColor: Themes[theme].inputField, borderColor: Themes[theme].border}]}
+            <Text style={[styles.label, {color: Themes[theme].secondaryText}]}>Exercise</Text>
+            <TextInput style={[styles.inputField, {color: Themes[theme].secondaryText, backgroundColor: Themes[theme].inputField, borderColor: Themes[theme].border}]}
               onChangeText={exercise => setWorkoutItem({ ...workoutItem, exercise })}
               value={workoutItem.exercise}
               />
@@ -64,8 +64,8 @@ const WorkoutEditor = ({ workoutItem, setWorkoutItem, setIsEditMode, isEditMode,
             <Text style={[styles.inputFieldError, {color: Themes[theme].errorText}]}>Exercise must not be empty</Text>}
           </View>
           <View style={{flexDirection: 'column'}}>
-            <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Result</Text>
-            <TextInput style={[styles.inputField, {color: Themes[theme].defaultText, backgroundColor: Themes[theme].inputField, borderColor: Themes[theme].border}]}
+            <Text style={[styles.label, {color: Themes[theme].secondaryText}]}>Result</Text>
+            <TextInput style={[styles.inputField, {color: Themes[theme].secondaryText, backgroundColor: Themes[theme].inputField, borderColor: Themes[theme].border}]}
               onChangeText={result => setWorkoutItem({ ...workoutItem, result })}
               value={workoutItem.result}
               />

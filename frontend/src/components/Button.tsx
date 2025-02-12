@@ -10,9 +10,9 @@ const Button = ({ title, onPress, style }: ButtonProps) => {
   
   return (
     <Pressable style={[styles.button, style, {
-      backgroundColor: style?.backgroundColor || Themes[theme].secondary, borderColor: Themes[theme].defaultText}]} 
+      backgroundColor: style?.backgroundColor || Themes[theme].secondary, borderColor: Themes[theme].border}]} 
       onPress={onPress}>
-    <Text style={[styles.buttonText, { color: Themes[theme].defaultText }]}>{title}</Text>
+    <Text style={[styles.buttonText, { color: Themes[theme].secondaryText }]}>{title}</Text>
   </Pressable>
 );
 }

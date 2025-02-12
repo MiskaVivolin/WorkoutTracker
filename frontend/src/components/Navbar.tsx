@@ -13,7 +13,7 @@ const Navbar = ({ navigation, showButtons, addButtonToggle }: NavBarProps) => {
   return (
     <View style={[styles.divContainer, {backgroundColor: Themes[theme].background}]}>
       <View style={[styles.headerContainer , {backgroundColor: Themes[theme].primary}]}>
-        <Text style={[styles.header, {color: Themes.dark.secondaryText}]}>Workout Tracker</Text>
+        <Text style={[styles.header, {color: Themes[theme].secondaryText}]}>Workout Tracker</Text>
       </View>
 
       {showButtons ? (
