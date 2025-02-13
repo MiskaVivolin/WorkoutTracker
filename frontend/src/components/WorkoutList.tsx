@@ -17,19 +17,19 @@ const WorkoutList = ({ workoutList, setWorkoutList, setIsEditMode, setWorkoutIte
   
   return (
   <View style={[styles.listContainer, {backgroundColor: Themes[theme].background}]}>
-      <Text style={[styles.header, {color: Themes[theme].secondaryText}]}>Exercise results</Text>
+      <Text style={[styles.header, {color: Themes[theme].defaultText}]}>Exercise results</Text>
       <FlatList
         data={workoutList}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }: {item: WorkoutItem}) =>
-          <View style={[styles.listItem, {backgroundColor: Themes[theme].primary, borderColor: Themes[theme].border}]}>
+          <View style={[styles.listItem, {backgroundColor: Themes[theme].primary}]}>
           <View style={{flexDirection: 'row'}}>
-            <Text style={[styles.text, {color: Themes[theme].secondaryText}]}>{item.name}</Text>
-            <Text style={[styles.text, {color: Themes[theme].secondaryText}]}>{item.date}</Text>
+            <Text style={[styles.text, {color: Themes[theme].defaultText}]}>{item.name}</Text>
+            <Text style={[styles.text, {color: Themes[theme].defaultText}]}>{item.date}</Text>
           </View>
           <View style={{flexDirection: 'row'}}>
-            <Text style={[styles.text, {color: Themes[theme].secondaryText}]}>{item.exercise}</Text>
-            <Text style={[styles.text, {color: Themes[theme].secondaryText}]}>{item.result}</Text>
+            <Text style={[styles.text, {color: Themes[theme].defaultText}]}>{item.exercise}</Text>
+            <Text style={[styles.text, {color: Themes[theme].defaultText}]}>{item.result}</Text>
           </View>
           <Button 
           title='Edit'
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   text: {
-    fontSize: 16,
+    fontSize: 15,
     fontFamily: 'MerriweatherSans',
     marginVertical: 4,
     marginHorizontal: 20
@@ -66,11 +66,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginVertical: 5,
-    borderWidth: 1,
     borderRadius: 8,
     paddingTop: 8,
-    minWidth: Dimensions.get('window').width < 320 ? 270 : 300,
-    maxWidth: Dimensions.get('window').width < 360 ? 270 : 340,
+    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)', 
+    minWidth: Dimensions.get('window').width < 320 ? 270 : 280,
+    maxWidth: Dimensions.get('window').width < 360 ? 270 : 320,
   }
 });
 

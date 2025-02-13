@@ -1,6 +1,5 @@
   // TODO: 
   // PopUp paremmaksi
-  // erillinen button component
   // korjaa bugi: consoli printtaa kaksi kertaa POST errorin
   // tarkista onko "turhia" propseja
   // kun vaihtaa sivua, validaation pitäisi restartata (ei enää valita tyhjistä fieldeistä)
@@ -11,6 +10,7 @@
   // siirrä contextien typet types tiedostoon
   // bugi: jos login ohjaa workoutList sivulle, lista ei päivity kunnolla
   // bugi: editoidessa, validaatio työntää inputcontainerit pois. editointi boxin koko myös väärä kun ruudun leveys noin 1000. laatikon paikkaa voisi myös siirtää.
+  // muuta delete napin paikkaa, ainakin puhelin näkymässä
   // theme selector: 2 dark teemaa ja light teemaa
   // funktion typet hookeille ja constien nimitys kuntoon, tarkista statet
   // sen jälkeen mietitään laajennusta esim. search, filter, kaaviot, emojit/kuvat, profiilitiedot jne.

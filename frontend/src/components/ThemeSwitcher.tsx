@@ -10,8 +10,8 @@ const ThemeSwitcher = () => {
     return (
     <View>
         <Text>Current Theme: {theme}</Text>
-        <Button title="Light theme" onPress={() => setTheme('light')} />
-        <Button title="Dark theme" onPress={() => setTheme('dark')} />
+        <Button title="Light" onPress={() => setTheme('light')} />
+        <Button title="Dark" onPress={() => setTheme('dark')} />
     </View>
   )
 }

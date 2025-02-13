@@ -68,6 +68,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     backgroundColor: 'transparent',
     position: Dimensions.get('window').width < 550 ? 'relative' : 'absolute',
+    marginTop: 5,
   },
   listButtonContainer: {
     flexDirection: 'row',
@@ -75,6 +76,7 @@ const styles = StyleSheet.create({
     justifyContent: Dimensions.get('window').width < 550 ? 'flex-end' : 'flex-start',
     backgroundColor: 'transparent',
     position: Dimensions.get('window').width < 550 ? 'relative' : 'absolute',
+    marginTop: 5,
   },
   header: {
     fontSize: Dimensions.get('window').width < 330 ? 28 : 32,

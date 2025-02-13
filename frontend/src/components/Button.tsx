@@ -10,7 +10,7 @@ const Button = ({ title, onPress, style }: ButtonProps) => {
   
   return (
     <Pressable style={[styles.button, style, {
-      backgroundColor: style?.backgroundColor || Themes[theme].secondary, borderColor: Themes[theme].border}]} 
+      backgroundColor: style?.backgroundColor || Themes[theme].secondary}]} 
       onPress={onPress}>
     <Text style={[styles.buttonText, { color: Themes[theme].secondaryText }]}>{title}</Text>
   </Pressable>
@@ -24,9 +24,8 @@ const styles = StyleSheet.create({
     padding: 7,
     marginTop: 6,
     marginBottom: 10,
-    marginHorizontal: 25,
+    marginHorizontal: 19,
     borderRadius: 10, 
-    borderWidth: 1, 
     textAlign: 'center',
     fontSize: 16,
     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)', 
