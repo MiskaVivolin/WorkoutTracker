@@ -1,5 +1,5 @@
 export interface DataItem {
-    id: number;
+    user_id: number;
     user: string;
     name: string;
     date: string;

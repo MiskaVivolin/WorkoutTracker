@@ -1,12 +1,13 @@
 const express = require("express")
 const app = express()
 const cors = require("cors")
-const mongoose = require("mongoose")
+const usePool = require("./db");
+// const mongoose = require("mongoose")
 
 app.use(cors())
 app.use(express.json())
 
-mongoose.connect("mongodb+srv://miskavivolin:paviaanihuutaa123@cluster0.fpqvj.mongodb.net/mytrainingDB")
+// mongoose.connect("mongodb+srv://miskavivolin:paviaanihuutaa123@cluster0.fpqvj.mongodb.net/mytrainingDB")
 
 app.use("/", require("./router"))
 
