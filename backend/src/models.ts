@@ -1,11 +1,10 @@
-import { DataItem } from "./types/types";
+import { WorkoutData } from "./types/types";
+import { pool } from "./db"
 
-const usePool = require("./db");
 
-
-const createTrainingData = async ({user_id, name, exercise, date, result}: DataItem) => {
+export const createTrainingData = async ({user_id, name, exercise, date, result}: WorkoutData) => {
     try {
-        const res = await usePool.query(
+        const res = await pool.query(
             "INSERT INTO user_records (user_id, name, exercise, date, result) VALUES ($1, $2, $3, $4, $5) RETURNING *",
             [user_id, name, exercise, date, result]
         )
@@ -15,19 +14,16 @@ const createTrainingData = async ({user_id, name, exercise, date, result}: DataI
     }
 }
 
-const getTrainingData = async () => {
+export const getTrainingData = async () => {
     try {
-        const res = await usePool.query('SELECT * FROM user_records')
+        const res = await pool.query('SELECT * FROM user_records')
         return res.rows
     } catch (error) {
         console.error("Error retrieving user records:", error)
+        return []
     }
 }
 
-module.exports = {
-    createTrainingData,
-    getTrainingData
-}
 
 
 // const modelMongoose = require("mongoose")

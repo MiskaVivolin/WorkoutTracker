@@ -1,8 +1,10 @@
-const routerExpress = require("express")
-const router = routerExpress.Router()
-const { createTrainingData, getTrainingData } = require('./models')
+import express from "express";
+import { createTrainingData, getTrainingData } from "./models"
+import { PostReq, PostRes, GetRes } from "./types/types";
 
-router.post("/create", async (req: any, res: any) => {
+const router = express.Router()
+
+router.post("/create", async (req: PostReq, res: PostRes) => {
   try {
     console.log("Incoming request body:", req.body);
     const { user_id, name, exercise, date, result } = req.body
@@ -12,24 +14,24 @@ router.post("/create", async (req: any, res: any) => {
     }
     
     const newWorkoutData = await createTrainingData({ user_id, name, exercise, date, result })
-    res.json(newWorkoutData)
+    res.status(200).json(newWorkoutData)
   } catch (error) {
     console.error("Error creating workout data", error)
     res.status(500).json({ error: "Internal server error" })
   }
 })
 
-router.get("/get", async (req: any, res: any) => {
+router.get("/get", async (_req: any, res: GetRes) => {
   try {
     const workoutData = await getTrainingData()
-    res.json(workoutData)
+    res.status(200).json(workoutData)
   } catch (error) {
-    console.error("Error retrieving workout data")
+    console.error("Error retrieving workout data", error)
     res.status(500).json({ error: "Internal server error" })
   }
 })
 
-module.exports = router;
+export default router;
 
 // OLD MONGO ROUTER
 
