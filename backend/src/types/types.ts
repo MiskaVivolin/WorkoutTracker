@@ -26,7 +26,7 @@ export interface PostRes {
 
 export interface GetRes {
     status(arg0: number): GetRes;
-    json: (args: string | { error: string } ) => void;
+    json: (args: WorkoutData[] | { error: string } ) => void;
 }
 
 export interface GetItemReq {

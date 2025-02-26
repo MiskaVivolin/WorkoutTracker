@@ -13,30 +13,63 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const bcrypt_1 = __importDefault(require("bcrypt"));
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const db_1 = require("./db");
 const models_1 = require("./models");
 const router = express_1.default.Router();
+router.post("/signup", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { username, password } = req.body.validationFields;
+        const signUp = yield (0, models_1.userSignup)(username, password);
+        if (!signUp) {
+            res.status(409).json({ isTaken: true });
+        }
+        else {
+            res.status(201).json({ isTaken: false });
+        }
+    }
+    catch (error) {
+        res.status(500).json({ error: "Internal server error" });
+    }
+}));
+router.post("/login", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { username, password } = req.body.validationFields;
+    try {
+        const user = yield db_1.pool.query("SELECT id FROM users WHERE username = $1", [username]);
+        if (user.rows.length === 0) {
+            return res.status(401).json({ message: "Invalid username" });
+        }
+        const isPasswordValid = yield bcrypt_1.default.compare(password, user.rows[0].password);
+        if (!isPasswordValid) {
+            return res.status(403).json({ message: "Invalid password" });
+        }
+        const token = jsonwebtoken_1.default.sign({ userId: user.rows[0].id }, "your_secret_key", { expiresIn: "1h" });
+        return res.json({ token });
+    }
+    catch (error) {
+        res.status(500).json({ error: "internal server error" });
+    }
+}));
 router.post("/create", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        console.log("Incoming request body:", req.body);
         const { user_id, name, exercise, date, result } = req.body;
         if (!user_id || !name || !exercise || !date || !result) {
-            return res.status(400).json({ error: "Missing required fields" });
+            return res.status(422).json({ error: "Missing required fields" });
         }
         const newWorkoutData = yield (0, models_1.createTrainingData)({ user_id, name, exercise, date, result });
         res.status(200).json(newWorkoutData);
     }
     catch (error) {
-        console.error("Error creating workout data", error);
         res.status(500).json({ error: "Internal server error" });
     }
 }));
-router.get("/get", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get("/get", (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const workoutData = yield (0, models_1.getTrainingData)();
         res.status(200).json(workoutData);
     }
     catch (error) {
-        console.error("Error retrieving workout data");
         res.status(500).json({ error: "Internal server error" });
     }
 }));
