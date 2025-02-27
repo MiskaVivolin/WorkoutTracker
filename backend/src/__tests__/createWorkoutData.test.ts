@@ -32,4 +32,14 @@ describe("API Routes", () => {
         expect(res.body).toEqual(expect.objectContaining(mockData));
         expect(querySpy).toHaveBeenCalledTimes(1)
     })
+
+    test("POST /create - should handle failure when unable to create a workout record", async () => {
+        const querySpy = jest.spyOn(pool, "query").mockRejectedValueOnce(new Error("Internal server error"));
+    
+        const res = await request(app).post("/create").send(mockData);
+        expect(res.status).toBe(500);
+        expect(res.body).toEqual({ error: "Internal server error" })
+        expect(querySpy).toHaveBeenCalledTimes(1);
+    });
+
 })

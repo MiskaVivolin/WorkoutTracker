@@ -2,13 +2,14 @@ import express from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken"
 import { pool } from "./db";
+import { Request } from 'express';
 import { createTrainingData, getTrainingData, userSignup } from "./models";
-import { PostReq, PostRes, GetRes } from "./types/types";
+import { PostReq, PostRes, GetRes, UserData, SignupRes, LoginRes } from "./types/types";
 
 const router = express.Router()
 
 
-router.post("/signup", async (req: any, res: any) => {
+router.post("/signup", async (req: UserData, res: SignupRes) => {
   try {
     const { username, password } = req.body.validationFields;
 
@@ -24,10 +25,10 @@ router.post("/signup", async (req: any, res: any) => {
 })
 
 
-router.post("/login", async (req: any, res: any) => {
-  const { username, password } = req.body.validationFields;
-
+router.post("/login", async (req: UserData, res: LoginRes) => {
   try {
+    const { username, password } = req.body.validationFields;
+    
     const user = await pool.query("SELECT id FROM users WHERE username = $1", [username]);
     if (user.rows.length === 0) {
       return res.status(401).json({ message: "Invalid username" })
@@ -61,7 +62,7 @@ router.post("/create", async (req: PostReq, res: PostRes) => {
 })
 
 
-router.get("/get", async (_req: any, res: GetRes) => {
+router.get("/get", async (_req: Request, res: GetRes) => {
   try {
     const workoutData = await getTrainingData()
     res.status(200).json(workoutData)

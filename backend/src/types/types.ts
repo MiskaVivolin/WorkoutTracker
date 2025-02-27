@@ -6,6 +6,15 @@ export interface WorkoutData {
     result: string;
 }
 
+export interface UserData {
+    body: {
+        validationFields: {
+            username: string;
+            password: Buffer;
+        }
+    }
+}
+
 // export interface DataItem {
 //     user_id: number;
 //     user: string;
@@ -22,6 +31,16 @@ export interface PostReq {
 export interface PostRes {
     status(arg0: number): PostRes;
     json: (args: string | { error: string }) => void;
+}
+
+export interface SignupRes {
+    status(arg0: number): SignupRes;
+    json: (args: {isTaken: boolean} | { error: string }) => void;
+}
+
+export interface LoginRes {
+    status(arg0: number): LoginRes;
+    json: (args: {token: string} | { message: string } | { error: string }) => void;
 }
 
 export interface GetRes {

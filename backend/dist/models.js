@@ -26,8 +26,7 @@ const userSignup = (username, password) => __awaiter(void 0, void 0, void 0, fun
         return true;
     }
     catch (error) {
-        console.error("Error signing up:", error);
-        throw new Error("Database error");
+        throw new Error("Error signing up");
     }
 });
 exports.userSignup = userSignup;
@@ -40,7 +39,7 @@ const createTrainingData = (_a) => __awaiter(void 0, [_a], void 0, function* ({ 
         return res.rows[0];
     }
     catch (error) {
-        console.error("Error creating user record:", error);
+        throw new Error("Unable to create new workout data to the database");
     }
 });
 exports.createTrainingData = createTrainingData;
@@ -50,8 +49,7 @@ const getTrainingData = () => __awaiter(void 0, void 0, void 0, function* () {
         return res.rows;
     }
     catch (error) {
-        console.error("Error retrieving user records:", error);
-        return [];
+        throw new Error("Unable to retrieve workout data from the database");
     }
 });
 exports.getTrainingData = getTrainingData;

@@ -16,8 +16,7 @@ export const userSignup = async (username: String, password: Buffer) => {
     )
       return true
     } catch (error) {
-        console.error("Error signing up:", error);
-        throw new Error("Database error");
+        throw new Error("Error signing up");
     }
 }
 
@@ -33,7 +32,7 @@ export const createTrainingData = async ({user_id, name, exercise, date, result}
       )
       return res.rows[0]
     } catch (error) {
-      console.error("Error creating user record:", error)
+      throw new Error("Unable to create new workout data to the database");
     }
 }
 
@@ -42,8 +41,7 @@ export const getTrainingData = async () => {
         const res = await pool.query('SELECT * FROM user_records')
         return res.rows
     } catch (error) {
-        console.error("Error retrieving user records:", error)
-        return []
+        throw new Error("Unable to retrieve workout data from the database");
     }
 }
 

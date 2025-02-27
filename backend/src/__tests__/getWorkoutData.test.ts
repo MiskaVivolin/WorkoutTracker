@@ -25,7 +25,7 @@ describe("API Routes", () => {
 
     test("GET /get - should retrieve all workout data", async () => {
 
-        const querySpy = jest.spyOn(pool, "query").mockResolvedValueOnce({ rows: mockData })
+        const querySpy = jest.spyOn(pool, "query").mockResolvedValueOnce({ rows: [mockData] })
 
         const res = await request(app).get("/get")
         expect(res.status).toBe(200);
@@ -34,11 +34,11 @@ describe("API Routes", () => {
 
     test("GET /get - should return an empty array on failure", async () => {
         
-        const querySpy = jest.spyOn(pool, "query").mockRejectedValueOnce(new Error("Database error"));
+        jest.spyOn(pool, "query").mockRejectedValueOnce(new Error("Database error"));
     
-        const res = await request(app).get("/get")    
-        expect(res).toEqual([]);
-        expect(querySpy).toHaveBeenCalledTimes(1)
+        const res = await request(app).get("/get")
+        expect(res.status).toBe(500);
+        expect(res.body).toEqual({ error: "Internal server error" }); 
 
     });
 })

@@ -34,8 +34,8 @@ router.post("/signup", (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
 }));
 router.post("/login", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { username, password } = req.body.validationFields;
     try {
+        const { username, password } = req.body.validationFields;
         const user = yield db_1.pool.query("SELECT id FROM users WHERE username = $1", [username]);
         if (user.rows.length === 0) {
             return res.status(401).json({ message: "Invalid username" });
