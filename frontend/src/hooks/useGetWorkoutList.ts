@@ -10,7 +10,7 @@ const useGetWorkoutList = (setResultList: SetWorkoutList): void => {
   useEffect(() => {
     console.log("usertoken: ", userToken)
     const fetchData = async () => {
-      axios.get('http://127.0.0.1:3001/get')
+      axios.get('http://127.0.0.1:3001/get', { params: { token: userToken } })
         .then((response: AxiosResponse<ResponseData>) => {
           const { data } = response;
           const dataItems: WorkoutItem[] = data.map((item) => ({

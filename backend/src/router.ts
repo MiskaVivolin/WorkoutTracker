@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken"
 import { pool } from "./db";
 import { Request } from 'express';
 import { createTrainingData, getTrainingData, userSignup } from "./models";
-import { PostReq, PostRes, GetRes, UserData, SignupRes, LoginRes } from "./types/types";
+import { PostReq, PostRes, GetRes, UserData, SignupRes, LoginRes, GetReq } from "./types/types";
 
 const router = express.Router()
 
@@ -29,7 +29,7 @@ router.post("/login", async (req: UserData, res: LoginRes) => {
   try {
     const { username, password } = req.body.validationFields;
     
-    const user = await pool.query("SELECT id FROM users WHERE username = $1", [username]);
+    const user = await pool.query("SELECT username, password FROM users WHERE username = $1", [username]);
     if (user.rows.length === 0) {
       return res.status(401).json({ message: "Invalid username" })
     }
@@ -48,13 +48,13 @@ router.post("/login", async (req: UserData, res: LoginRes) => {
 
 router.post("/create", async (req: PostReq, res: PostRes) => {
   try {
-    const { user_id, name, exercise, date, result } = req.body
+    const { name, exercise, date, result, username } = req.body
 
-    if (!user_id || !name || !exercise || !date || !result) {
+    if (!username || !name || !exercise || !date || !result) {
       return res.status(422).json({ error: "Missing required fields" });
     }
     
-    const newWorkoutData = await createTrainingData({ user_id, name, exercise, date, result })
+    const newWorkoutData = await createTrainingData({ username, name, exercise, date, result })
     res.status(200).json(newWorkoutData)
   } catch (error) {
     res.status(500).json({ error: "Internal server error" })
@@ -62,9 +62,10 @@ router.post("/create", async (req: PostReq, res: PostRes) => {
 })
 
 
-router.get("/get", async (_req: Request, res: GetRes) => {
+router.get("/get", async (req: GetReq, res: GetRes) => {
   try {
-    const workoutData = await getTrainingData()
+    const username = req.query
+    const workoutData = await getTrainingData(username)
     res.status(200).json(workoutData)
   } catch (error) {
     res.status(500).json({ error: "Internal server error" })

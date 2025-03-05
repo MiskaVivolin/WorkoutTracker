@@ -24,11 +24,17 @@ export const userLogin = async (username: String, password: Buffer) => {
 
 }
 
-export const createTrainingData = async ({user_id, name, exercise, date, result}: WorkoutData) => {
+export const createTrainingData = async ({username, name, exercise, date, result}: WorkoutData) => {
     try {
+      const userRes = await pool.query(
+        "SELECT id FROM users WHERE username = $1",
+        [username]
+      )
+      const user_id = userRes.rows[0].id
+
       const res = await pool.query(
-        "INSERT INTO user_records (user_id, name, exercise, date, result) VALUES ($1, $2, $3, $4, $5) RETURNING *",
-        [user_id, name, exercise, date, result]
+        "INSERT INTO user_records (name, exercise, date, result, user_id) VALUES ($1, $2, $3, $4, $5) RETURNING *",
+        [name, exercise, date, result, user_id]
       )
       return res.rows[0]
     } catch (error) {
@@ -36,12 +42,20 @@ export const createTrainingData = async ({user_id, name, exercise, date, result}
     }
 }
 
-export const getTrainingData = async () => {
+export const getTrainingData = async (username: string) => {
     try {
-        const res = await pool.query('SELECT * FROM user_records')
-        return res.rows
+      const userRes = await pool.query(
+        "SELECT id FROM users WHERE username = $1",
+        [username]
+      )
+      const user_id = userRes.rows[0].id
+
+      const res = await pool.query(
+        'SELECT * FROM user_records WHERE user_id = $1', 
+        [user_id])
+      return res.rows
     } catch (error) {
-        throw new Error("Unable to retrieve workout data from the database");
+      throw new Error("Unable to retrieve workout data from the database");
     }
 }
 

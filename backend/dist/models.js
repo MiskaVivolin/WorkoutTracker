@@ -33,9 +33,11 @@ exports.userSignup = userSignup;
 const userLogin = (username, password) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.userLogin = userLogin;
-const createTrainingData = (_a) => __awaiter(void 0, [_a], void 0, function* ({ user_id, name, exercise, date, result }) {
+const createTrainingData = (_a) => __awaiter(void 0, [_a], void 0, function* ({ username, name, exercise, date, result }) {
     try {
-        const res = yield db_1.pool.query("INSERT INTO user_records (user_id, name, exercise, date, result) VALUES ($1, $2, $3, $4, $5) RETURNING *", [user_id, name, exercise, date, result]);
+        const userRes = yield db_1.pool.query("SELECT id FROM users WHERE username = $1", [username]);
+        const user_id = userRes.rows[0].id;
+        const res = yield db_1.pool.query("INSERT INTO user_records (name, exercise, date, result, user_id) VALUES ($1, $2, $3, $4, $5) RETURNING *", [name, exercise, date, result, user_id]);
         return res.rows[0];
     }
     catch (error) {
@@ -43,9 +45,11 @@ const createTrainingData = (_a) => __awaiter(void 0, [_a], void 0, function* ({ 
     }
 });
 exports.createTrainingData = createTrainingData;
-const getTrainingData = () => __awaiter(void 0, void 0, void 0, function* () {
+const getTrainingData = (username) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const res = yield db_1.pool.query('SELECT * FROM user_records');
+        const userRes = yield db_1.pool.query("SELECT id FROM users WHERE username = $1", [username]);
+        const user_id = userRes.rows[0].id;
+        const res = yield db_1.pool.query('SELECT * FROM user_records WHERE user_id = $1', [user_id]);
         return res.rows;
     }
     catch (error) {

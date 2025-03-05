@@ -7,7 +7,7 @@
   // mahdollisuus lisätä settien määrä. (numero field jonka default on 1? + ja - napit?)
   // name fieldin default on username
   // camelCase for regular function with no tsx
-  // any typet kuntoon backendissä
+  // typet kuntoon: create funktiossa username voi olla null
   // siirrä contextien typet types tiedostoon
   // bugi: jos login ohjaa workoutList sivulle, lista ei päivity kunnolla
   // bugi: editoidessa, validaatio työntää inputcontainerit pois. editointi boxin koko myös väärä kun ruudun leveys noin 1000. laatikon paikkaa voisi myös siirtää.

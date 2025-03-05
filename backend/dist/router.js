@@ -36,7 +36,7 @@ router.post("/signup", (req, res) => __awaiter(void 0, void 0, void 0, function*
 router.post("/login", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { username, password } = req.body.validationFields;
-        const user = yield db_1.pool.query("SELECT id FROM users WHERE username = $1", [username]);
+        const user = yield db_1.pool.query("SELECT username, password FROM users WHERE username = $1", [username]);
         if (user.rows.length === 0) {
             return res.status(401).json({ message: "Invalid username" });
         }
@@ -53,20 +53,21 @@ router.post("/login", (req, res) => __awaiter(void 0, void 0, void 0, function* 
 }));
 router.post("/create", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { user_id, name, exercise, date, result } = req.body;
-        if (!user_id || !name || !exercise || !date || !result) {
+        const { name, exercise, date, result, username } = req.body;
+        if (!username || !name || !exercise || !date || !result) {
             return res.status(422).json({ error: "Missing required fields" });
         }
-        const newWorkoutData = yield (0, models_1.createTrainingData)({ user_id, name, exercise, date, result });
+        const newWorkoutData = yield (0, models_1.createTrainingData)({ username, name, exercise, date, result });
         res.status(200).json(newWorkoutData);
     }
     catch (error) {
         res.status(500).json({ error: "Internal server error" });
     }
 }));
-router.get("/get", (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get("/get", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const workoutData = yield (0, models_1.getTrainingData)();
+        const username = req.query;
+        const workoutData = yield (0, models_1.getTrainingData)(username);
         res.status(200).json(workoutData);
     }
     catch (error) {

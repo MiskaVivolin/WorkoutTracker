@@ -32,14 +32,16 @@ globals_1.jest.mock("../db");
         result: "100kg"
     };
     (0, globals_1.test)("GET /get - should retrieve all workout data", () => __awaiter(void 0, void 0, void 0, function* () {
-        const querySpy = globals_1.jest.spyOn(db_1.pool, "query").mockResolvedValueOnce({ rows: [mockData] });
-        const res = yield (0, supertest_1.default)(server_1.app).get("/get");
+        const querySpy = globals_1.jest.spyOn(db_1.pool, "query")
+            .mockResolvedValueOnce({ rows: [{ id: 1 }] })
+            .mockResolvedValueOnce({ rows: [mockData] });
+        const res = yield (0, supertest_1.default)(server_1.app).get("/get").query({ token: "John123" });
         (0, globals_1.expect)(res.status).toBe(200);
-        (0, globals_1.expect)(querySpy).toHaveBeenCalledTimes(1);
+        (0, globals_1.expect)(querySpy).toHaveBeenCalledTimes(2);
     }));
     (0, globals_1.test)("GET /get - should return an empty array on failure", () => __awaiter(void 0, void 0, void 0, function* () {
         globals_1.jest.spyOn(db_1.pool, "query").mockRejectedValueOnce(new Error("Database error"));
-        const res = yield (0, supertest_1.default)(server_1.app).get("/get");
+        const res = yield (0, supertest_1.default)(server_1.app).get("/get").query({ token: "John123" });
         (0, globals_1.expect)(res.status).toBe(500);
         (0, globals_1.expect)(res.body).toEqual({ error: "Internal server error" });
     }));

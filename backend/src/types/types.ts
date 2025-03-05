@@ -1,9 +1,19 @@
+// export interface WorkoutData {
+//     probject: {
+//         name: string;
+//         date: string;
+//         exercise: string;
+//         result: string;
+//     },
+//     username: string
+// }
+
 export interface WorkoutData {
-    user_id: number;
     name: string;
     date: string;
     exercise: string;
     result: string;
+    username: string
 }
 
 export interface UserData {
@@ -46,6 +56,10 @@ export interface LoginRes {
 export interface GetRes {
     status(arg0: number): GetRes;
     json: (args: WorkoutData[] | { error: string } ) => void;
+}
+
+export interface GetReq {
+    query: string
 }
 
 export interface GetItemReq {
