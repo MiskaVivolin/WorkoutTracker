@@ -24,15 +24,16 @@ globals_1.jest.mock("../db");
     (0, globals_1.afterAll)(() => __awaiter(void 0, void 0, void 0, function* () {
         yield db_1.pool.end();
     }));
+    const mockUser = {
+        validationFields: {
+            username: "user123",
+            password: "securepassword",
+        },
+    };
     (0, globals_1.test)("POST /signup - should create a new account", () => __awaiter(void 0, void 0, void 0, function* () {
-        const mockUser = {
-            validationFields: {
-                username: "user123",
-                password: "securepassword",
-            },
-        };
-        const querySpy = globals_1.jest.spyOn(db_1.pool, "query").mockResolvedValueOnce({ rows: [] });
-        querySpy.mockResolvedValueOnce({ rows: [{ id: 1 }] });
+        const querySpy = globals_1.jest.spyOn(db_1.pool, "query")
+            .mockResolvedValueOnce({ rows: [] })
+            .mockResolvedValueOnce({ rows: [] });
         const res = yield (0, supertest_1.default)(server_1.app).post("/signup").send(mockUser);
         (0, globals_1.expect)(res.status).toBe(201);
         (0, globals_1.expect)(res.body).toEqual({
@@ -40,21 +41,19 @@ globals_1.jest.mock("../db");
         });
         (0, globals_1.expect)(querySpy).toHaveBeenCalledTimes(2);
     }));
-    (0, globals_1.test)("POST /signup - should return 409 if username is taken", () => __awaiter(void 0, void 0, void 0, function* () {
-        const mockUser = {
-            validationFields: {
-                username: "existingUser",
-                password: "password123",
-            },
-        };
-        const querySpy = globals_1.jest.spyOn(db_1.pool, "query").mockResolvedValueOnce({
-            rows: [{ username: "existingUser" }],
-        });
+    (0, globals_1.test)("POST /signup - should return status 409 and a boolean value if username is taken", () => __awaiter(void 0, void 0, void 0, function* () {
+        const querySpy = globals_1.jest.spyOn(db_1.pool, "query")
+            .mockResolvedValueOnce({ rows: [{ username: "existingUser" }] });
         const res = yield (0, supertest_1.default)(server_1.app).post("/signup").send(mockUser);
         (0, globals_1.expect)(res.status).toBe(409);
-        (0, globals_1.expect)(res.body).toEqual({
-            isTaken: true,
-        });
+        (0, globals_1.expect)(res.body).toEqual({ isTaken: true });
         (0, globals_1.expect)(querySpy).toHaveBeenCalledTimes(1);
+    }));
+    (0, globals_1.test)("POST /signup - should return status 500 on invalid data", () => __awaiter(void 0, void 0, void 0, function* () {
+        const mockInvalidData = {};
+        const querySpy = globals_1.jest.spyOn(db_1.pool, "query");
+        const res = yield (0, supertest_1.default)(server_1.app).post("/signup").send(mockInvalidData);
+        (0, globals_1.expect)(res.status).toBe(500);
+        (0, globals_1.expect)(querySpy).toHaveBeenCalledTimes(0);
     }));
 });

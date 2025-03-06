@@ -40,7 +40,6 @@ describe("API Routes", () => {
     };
 
     test("POST /create - should create a workout record", async () => {
-        
         const querySpy = jest.spyOn(pool, "query")
         .mockResolvedValueOnce({ rows: [{ id: 1 }] })
         .mockResolvedValueOnce({ rows: [mockResData] })
@@ -51,8 +50,17 @@ describe("API Routes", () => {
         expect(querySpy).toHaveBeenCalledTimes(2)
     })
 
-    test("POST /create - should handle failure when unable to create a workout record", async () => {
-        const querySpy = jest.spyOn(pool, "query").mockRejectedValueOnce({ rows: [mockFalseData] });
+    test("POST /create - should return status 422 when data is invalid", async () => {
+        const querySpy = jest.spyOn(pool, "query")
+    
+        const res = await request(app).post("/create").send(mockFalseData);
+        expect(res.status).toBe(422);
+        expect(querySpy).toHaveBeenCalledTimes(0);
+    });
+
+    test("POST /create - should return status 500 on database error", async () => {
+        const querySpy = jest.spyOn(pool, "query")
+        .mockRejectedValueOnce(new Error("Database error"));
     
         const res = await request(app).post("/create").send(mockData);
         expect(res.status).toBe(500);

@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getTrainingData = exports.createTrainingData = exports.userLogin = exports.userSignup = void 0;
+exports.getTrainingData = exports.createTrainingData = exports.retrieveUser = exports.userSignup = void 0;
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const db_1 = require("./db");
 const userSignup = (username, password) => __awaiter(void 0, void 0, void 0, function* () {
@@ -30,9 +30,16 @@ const userSignup = (username, password) => __awaiter(void 0, void 0, void 0, fun
     }
 });
 exports.userSignup = userSignup;
-const userLogin = (username, password) => __awaiter(void 0, void 0, void 0, function* () {
+const retrieveUser = (username) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const user = yield db_1.pool.query("SELECT username, password FROM users WHERE username = $1", [username]);
+        return user;
+    }
+    catch (error) {
+        throw new Error("Error logging in");
+    }
 });
-exports.userLogin = userLogin;
+exports.retrieveUser = retrieveUser;
 const createTrainingData = (_a) => __awaiter(void 0, [_a], void 0, function* ({ username, name, exercise, date, result }) {
     try {
         const userRes = yield db_1.pool.query("SELECT id FROM users WHERE username = $1", [username]);
@@ -57,13 +64,3 @@ const getTrainingData = (username) => __awaiter(void 0, void 0, void 0, function
     }
 });
 exports.getTrainingData = getTrainingData;
-// const modelMongoose = require("mongoose")
-// const prSchema = {
-//     user: String,
-//     name: String,
-//     exercise: String,
-//     date: String,
-//     result: String
-// }
-// const userPrModels = modelMongoose.model("userprs", prSchema)
-// module.exports = userPrModels;

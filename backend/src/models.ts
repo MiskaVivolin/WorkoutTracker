@@ -20,8 +20,13 @@ export const userSignup = async (username: String, password: Buffer) => {
     }
 }
 
-export const userLogin = async (username: String, password: Buffer) => {
-
+export const retrieveUser = async (username: String) => {
+  try {
+    const user = await pool.query("SELECT username, password FROM users WHERE username = $1", [username])
+    return user
+  } catch (error) {
+    throw new Error("Error logging in")
+  }
 }
 
 export const createTrainingData = async ({username, name, exercise, date, result}: WorkoutData) => {
@@ -58,20 +63,3 @@ export const getTrainingData = async (username: string) => {
       throw new Error("Unable to retrieve workout data from the database");
     }
 }
-
-
-
-// const modelMongoose = require("mongoose")
-
-// const prSchema = {
-    
-//     user: String,
-//     name: String,
-//     exercise: String,
-//     date: String,
-//     result: String
-// }
-
-// const userPrModels = modelMongoose.model("userprs", prSchema)
-
-// module.exports = userPrModels;

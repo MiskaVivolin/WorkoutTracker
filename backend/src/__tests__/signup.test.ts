@@ -15,15 +15,17 @@ describe("User signup", () => {
         await pool.end();
     })
 
+    const mockUser = {
+      validationFields: {
+        username: "user123",
+        password: "securepassword",
+      },
+    }
+
     test("POST /signup - should create a new account", async () => {
-        const mockUser = {
-          validationFields: {
-            username: "user123",
-            password: "securepassword",
-          },
-        }
-        const querySpy = jest.spyOn(pool, "query").mockResolvedValueOnce({ rows: [] })
-        querySpy.mockResolvedValueOnce({ rows: [{ id: 1 }] })
+        const querySpy = jest.spyOn(pool, "query")
+        .mockResolvedValueOnce({ rows: [] })
+        .mockResolvedValueOnce({ rows: [] })
 
         const res = await request(app).post("/signup").send(mockUser)
 
@@ -34,24 +36,26 @@ describe("User signup", () => {
         expect(querySpy).toHaveBeenCalledTimes(2);
     })
 
-    test("POST /signup - should return 409 if username is taken", async () => {
-        const mockUser = {
-          validationFields: {
-            username: "existingUser",
-            password: "password123",
-          },
-        }
+    test("POST /signup - should return status 409 and a boolean value if username is taken", async () => {
+        const querySpy = jest.spyOn(pool, "query")
+        .mockResolvedValueOnce({ rows: [{ username: "existingUser" }] })
     
-        const querySpy = jest.spyOn(pool, "query").mockResolvedValueOnce({
-          rows: [{ username: "existingUser" }],
-        })
-    
-        const res = await request(app).post("/signup").send(mockUser);
+        const res = await request(app).post("/signup").send(mockUser)
     
         expect(res.status).toBe(409);
-        expect(res.body).toEqual({
-          isTaken: true,
-        });
+        expect(res.body).toEqual({ isTaken: true })
         expect(querySpy).toHaveBeenCalledTimes(1)
+      });
+
+// improve
+
+    test("POST /signup - should return status 500 on invalid data", async () => {
+        const mockInvalidData = {}
+    
+        const querySpy = jest.spyOn(pool, "query")
+    
+        const res = await request(app).post("/signup").send(mockInvalidData);
+        expect(res.status).toBe(500);
+        expect(querySpy).toHaveBeenCalledTimes(0)
       });
 })

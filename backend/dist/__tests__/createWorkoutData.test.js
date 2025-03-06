@@ -53,8 +53,15 @@ globals_1.jest.mock("../db");
         (0, globals_1.expect)(res.body).toEqual(globals_1.expect.objectContaining(mockResData));
         (0, globals_1.expect)(querySpy).toHaveBeenCalledTimes(2);
     }));
-    (0, globals_1.test)("POST /create - should handle failure when unable to create a workout record", () => __awaiter(void 0, void 0, void 0, function* () {
-        const querySpy = globals_1.jest.spyOn(db_1.pool, "query").mockRejectedValueOnce({ rows: [mockFalseData] });
+    (0, globals_1.test)("POST /create - should return status 422 when data is invalid", () => __awaiter(void 0, void 0, void 0, function* () {
+        const querySpy = globals_1.jest.spyOn(db_1.pool, "query");
+        const res = yield (0, supertest_1.default)(server_1.app).post("/create").send(mockFalseData);
+        (0, globals_1.expect)(res.status).toBe(422);
+        (0, globals_1.expect)(querySpy).toHaveBeenCalledTimes(0);
+    }));
+    (0, globals_1.test)("POST /create - should return status 500 on database error", () => __awaiter(void 0, void 0, void 0, function* () {
+        const querySpy = globals_1.jest.spyOn(db_1.pool, "query")
+            .mockRejectedValueOnce(new Error("Database error"));
         const res = yield (0, supertest_1.default)(server_1.app).post("/create").send(mockData);
         (0, globals_1.expect)(res.status).toBe(500);
         (0, globals_1.expect)(res.body).toEqual({ error: "Internal server error" });

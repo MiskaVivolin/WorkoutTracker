@@ -1,9 +1,7 @@
 import express from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken"
-import { pool } from "./db";
-import { Request } from 'express';
-import { createTrainingData, getTrainingData, userSignup } from "./models";
+import { createTrainingData, getTrainingData, retrieveUser, userSignup } from "./models";
 import { PostReq, PostRes, GetRes, UserData, SignupRes, LoginRes, GetReq } from "./types/types";
 
 const router = express.Router()
@@ -29,17 +27,16 @@ router.post("/login", async (req: UserData, res: LoginRes) => {
   try {
     const { username, password } = req.body.validationFields;
     
-    const user = await pool.query("SELECT username, password FROM users WHERE username = $1", [username]);
+    const user = await retrieveUser(username)
     if (user.rows.length === 0) {
       return res.status(401).json({ message: "Invalid username" })
     }
-
     const isPasswordValid = await bcrypt.compare(password, user.rows[0].password);
     if (!isPasswordValid) {
       return res.status(403).json({ message: "Invalid password" })
     }
     const token = jwt.sign({ userId: user.rows[0].id }, "your_secret_key", { expiresIn: "1h" });
-    return res.json({ token })
+    res.status(200).json({ token })
   } catch (error) {
     res.status(500).json({ error: "internal server error" })
   }

@@ -15,7 +15,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const db_1 = require("./db");
 const models_1 = require("./models");
 const router = express_1.default.Router();
 router.post("/signup", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -36,7 +35,7 @@ router.post("/signup", (req, res) => __awaiter(void 0, void 0, void 0, function*
 router.post("/login", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { username, password } = req.body.validationFields;
-        const user = yield db_1.pool.query("SELECT username, password FROM users WHERE username = $1", [username]);
+        const user = yield (0, models_1.retrieveUser)(username);
         if (user.rows.length === 0) {
             return res.status(401).json({ message: "Invalid username" });
         }
@@ -45,7 +44,7 @@ router.post("/login", (req, res) => __awaiter(void 0, void 0, void 0, function* 
             return res.status(403).json({ message: "Invalid password" });
         }
         const token = jsonwebtoken_1.default.sign({ userId: user.rows[0].id }, "your_secret_key", { expiresIn: "1h" });
-        return res.json({ token });
+        res.status(200).json({ token });
     }
     catch (error) {
         res.status(500).json({ error: "internal server error" });
