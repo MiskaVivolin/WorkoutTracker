@@ -25,24 +25,28 @@ globals_1.jest.mock("../db");
         yield db_1.pool.end();
     }));
     const mockData = {
-        name: "John Doe",
-        exercise: "Bench Press",
-        date: "2025-02-20",
-        result: "100kg",
-        username: "matti123",
+        workoutItem: {
+            name: "John Doe",
+            date: "1.3.2025",
+            exercise: "Bench Press",
+            result: "100kg"
+        },
+        username: "user123",
     };
     const mockResData = {
-        id: 5,
         name: "John Doe",
+        date: "1.3.2025",
         exercise: "Bench Press",
-        date: "2025-02-20",
         result: "100kg",
         user_id: 1
     };
     const mockFalseData = {
-        exercise: "Bench Press",
-        date: "2025-02-20",
-        result: "100kg",
+        workoutItem: {
+            date: "1.3.2025",
+            exercise: "Bench Press",
+            result: "100kg",
+        },
+        username: "user123",
     };
     (0, globals_1.test)("POST /create - should create a workout record", () => __awaiter(void 0, void 0, void 0, function* () {
         const querySpy = globals_1.jest.spyOn(db_1.pool, "query")

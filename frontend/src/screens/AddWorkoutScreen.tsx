@@ -3,14 +3,14 @@ import { View } from 'react-native';
 import { WorkoutItem, AddWorkoutScreenProps, } from '../types/Types';
 import FormContainer from '../components/FormContainer';
 import Navbar from '../components/Navbar';
-import { Themes } from "../../assets/styles/Themes"
+import { Themes } from '../../assets/styles/Themes'
 import { useTheme } from '../context/ThemeContext';
 
 
 const AddWorkoutScreen: React.FC<AddWorkoutScreenProps> = ({ navigation }) => {
   
   const [workoutList, setWorkoutList] = useState<WorkoutItem[]>([])
-  const [workoutItem, setWorkoutItem] = useState({ _id: 0, user: '', name: '', date: '', exercise: '', result: '' })
+  const [workoutItem, setWorkoutItem] = useState({ _id: 0, username: '', name: '', date: '', exercise: '', result: '' })
   const [workoutItemIsValid, setWorkoutItemIsValid] = useState({ name: true, date: true, exercise: true, result: true })
   const { theme } = useTheme();
 

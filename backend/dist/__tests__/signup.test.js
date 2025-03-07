@@ -49,11 +49,11 @@ globals_1.jest.mock("../db");
         (0, globals_1.expect)(res.body).toEqual({ isTaken: true });
         (0, globals_1.expect)(querySpy).toHaveBeenCalledTimes(1);
     }));
-    (0, globals_1.test)("POST /signup - should return status 500 on invalid data", () => __awaiter(void 0, void 0, void 0, function* () {
-        const mockInvalidData = {};
-        const querySpy = globals_1.jest.spyOn(db_1.pool, "query");
-        const res = yield (0, supertest_1.default)(server_1.app).post("/signup").send(mockInvalidData);
+    (0, globals_1.test)("POST /signup - should return status 500 on Database error", () => __awaiter(void 0, void 0, void 0, function* () {
+        const querySpy = globals_1.jest.spyOn(db_1.pool, "query")
+            .mockRejectedValueOnce(new Error("Database error"));
+        const res = yield (0, supertest_1.default)(server_1.app).post("/signup").send(mockUser);
         (0, globals_1.expect)(res.status).toBe(500);
-        (0, globals_1.expect)(querySpy).toHaveBeenCalledTimes(0);
+        (0, globals_1.expect)(querySpy).toHaveBeenCalledTimes(1);
     }));
 });

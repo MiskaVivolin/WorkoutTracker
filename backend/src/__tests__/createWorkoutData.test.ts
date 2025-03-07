@@ -17,26 +17,30 @@ describe("API Routes", () => {
     })
     
     const mockData = {
-        name: "John Doe",
-        exercise: "Bench Press",
-        date: "2025-02-20",
-        result: "100kg",
-        username: "matti123",
+        workoutItem: {
+            name: "John Doe",
+            date: "1.3.2025",
+            exercise: "Bench Press",
+            result: "100kg"
+        },
+        username: "user123",
     };
 
     const mockResData = {
-        id: 5,
         name: "John Doe",
+        date: "1.3.2025",
         exercise: "Bench Press",
-        date: "2025-02-20",
         result: "100kg",
         user_id: 1
     };
 
     const mockFalseData = {
-        exercise: "Bench Press",
-        date: "2025-02-20",
-        result: "100kg",
+        workoutItem: {
+            date: "1.3.2025",
+            exercise: "Bench Press",
+            result: "100kg",
+        },
+        username: "user123",
     };
 
     test("POST /create - should create a workout record", async () => {

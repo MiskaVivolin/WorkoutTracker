@@ -47,15 +47,12 @@ describe("User signup", () => {
         expect(querySpy).toHaveBeenCalledTimes(1)
       });
 
-// improve
-
-    test("POST /signup - should return status 500 on invalid data", async () => {
-        const mockInvalidData = {}
-    
+    test("POST /signup - should return status 500 on Database error", async () => {    
         const querySpy = jest.spyOn(pool, "query")
+        .mockRejectedValueOnce(new Error("Database error"));
     
-        const res = await request(app).post("/signup").send(mockInvalidData);
+        const res = await request(app).post("/signup").send(mockUser);
         expect(res.status).toBe(500);
-        expect(querySpy).toHaveBeenCalledTimes(0)
+        expect(querySpy).toHaveBeenCalledTimes(1)
       });
 })

@@ -4,7 +4,7 @@ import { ViewStyle } from 'react-native';
 
 export interface WorkoutItem {
     readonly _id: number;
-    readonly user: string;
+    readonly username: string;
     name: string;
     date: string;
     exercise: string;

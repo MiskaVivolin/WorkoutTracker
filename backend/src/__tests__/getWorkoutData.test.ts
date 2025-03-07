@@ -18,8 +18,8 @@ describe("API Routes", () => {
     const mockData = {
         user_id: 1,
         name: "John Doe",
+        date: "1.3.2025",
         exercise: "Bench Press",
-        date: "2025-02-20",
         result: "100kg"
     };
 

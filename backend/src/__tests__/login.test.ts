@@ -36,21 +36,6 @@ describe("User login", () => {
       expect(querySpy).toHaveBeenCalledTimes(1);
     })
 
-    // test("POST /login - should return status 401 if username is invalid", async () => {
-
-    //   const mockHashedUser = {
-    //     username: "user123", password: await bcrypt.hash("securepassword", 10)
-    //   }
-    //     const querySpy = jest.spyOn(pool, "query")
-    //     .mockResolvedValueOnce({ rows: [mockHashedUser] })
-    
-    //     const res = await request(app).post("/login").send(mockUser);
-    
-    //     expect(res.status).toBe(401);
-    //     expect(res.body).toEqual({ isTaken: true })
-    //     expect(querySpy).toHaveBeenCalledTimes(1)
-    // })
-
     test("POST /login - should return status 500 on database error", async () => {
         const querySpy = jest.spyOn(pool, "query")
         .mockResolvedValueOnce(new Error("Database error"))

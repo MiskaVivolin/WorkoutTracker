@@ -9,11 +9,21 @@
 // }
 
 export interface WorkoutData {
+    workoutItem: {
+        name: string;
+        date: string;
+        exercise: string;
+        result: string;
+    }
+    username: string
+}
+
+export interface CreateWorkoutData {
+    username: string
     name: string;
     date: string;
     exercise: string;
     result: string;
-    username: string
 }
 
 export interface UserData {
@@ -59,7 +69,9 @@ export interface GetRes {
 }
 
 export interface GetReq {
-    query: string
+    query: {
+        token: string
+    }
 }
 
 export interface GetItemReq {

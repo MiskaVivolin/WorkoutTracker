@@ -37,7 +37,7 @@ const WorkoutItemValidation = ({workoutItem, setWorkoutItem, setWorkoutItemField
             CreateWorkoutItem(workoutItem, setWorkoutList, userToken)
             setWorkoutItem({
                 _id: 0,
-                user: '',
+                username: '',
                 name: '',
                 date: '',
                 exercise: '',

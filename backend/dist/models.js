@@ -12,8 +12,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getTrainingData = exports.createTrainingData = exports.retrieveUser = exports.userSignup = void 0;
+exports.getTrainingData = exports.createTrainingData = exports.userLogin = exports.userSignup = void 0;
 const bcrypt_1 = __importDefault(require("bcrypt"));
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const db_1 = require("./db");
 const userSignup = (username, password) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -30,21 +31,29 @@ const userSignup = (username, password) => __awaiter(void 0, void 0, void 0, fun
     }
 });
 exports.userSignup = userSignup;
-const retrieveUser = (username) => __awaiter(void 0, void 0, void 0, function* () {
+const userLogin = (username, password) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const user = yield db_1.pool.query("SELECT username, password FROM users WHERE username = $1", [username]);
-        return user;
+        if (user.rows.length === 0) {
+            return "Invalid username";
+        }
+        const isPasswordValid = yield bcrypt_1.default.compare(password, user.rows[0].password);
+        if (!isPasswordValid) {
+            return "Invalid password";
+        }
+        const token = jsonwebtoken_1.default.sign({ userId: user.rows[0].id }, "your_secret_key", { expiresIn: "1h" });
+        return token;
     }
     catch (error) {
         throw new Error("Error logging in");
     }
 });
-exports.retrieveUser = retrieveUser;
-const createTrainingData = (_a) => __awaiter(void 0, [_a], void 0, function* ({ username, name, exercise, date, result }) {
+exports.userLogin = userLogin;
+const createTrainingData = (_a) => __awaiter(void 0, [_a], void 0, function* ({ username, name, date, exercise, result }) {
     try {
         const userRes = yield db_1.pool.query("SELECT id FROM users WHERE username = $1", [username]);
         const user_id = userRes.rows[0].id;
-        const res = yield db_1.pool.query("INSERT INTO user_records (name, exercise, date, result, user_id) VALUES ($1, $2, $3, $4, $5) RETURNING *", [name, exercise, date, result, user_id]);
+        const res = yield db_1.pool.query("INSERT INTO user_records (name, date, exercise, result, user_id) VALUES ($1, $2, $3, $4, $5) RETURNING *", [name, date, exercise, result, user_id]);
         return res.rows[0];
     }
     catch (error) {
@@ -54,9 +63,10 @@ const createTrainingData = (_a) => __awaiter(void 0, [_a], void 0, function* ({ 
 exports.createTrainingData = createTrainingData;
 const getTrainingData = (username) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const userRes = yield db_1.pool.query("SELECT id FROM users WHERE username = $1", [username]);
-        const user_id = userRes.rows[0].id;
-        const res = yield db_1.pool.query('SELECT * FROM user_records WHERE user_id = $1', [user_id]);
+        const res = yield db_1.pool.query(`SELECT user_records.*, users.username 
+       FROM user_records 
+       JOIN users ON user_records.user_id = users.id 
+       WHERE users.username = $1`, [username]);
         return res.rows;
     }
     catch (error) {

@@ -13,8 +13,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const bcrypt_1 = __importDefault(require("bcrypt"));
-const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const models_1 = require("./models");
 const router = express_1.default.Router();
 router.post("/signup", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -35,16 +33,14 @@ router.post("/signup", (req, res) => __awaiter(void 0, void 0, void 0, function*
 router.post("/login", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { username, password } = req.body.validationFields;
-        const user = yield (0, models_1.retrieveUser)(username);
-        if (user.rows.length === 0) {
-            return res.status(401).json({ message: "Invalid username" });
+        const user = yield (0, models_1.userLogin)(username, password);
+        if (user === "Invalid username") {
+            return res.status(401).json({ message: user });
         }
-        const isPasswordValid = yield bcrypt_1.default.compare(password, user.rows[0].password);
-        if (!isPasswordValid) {
-            return res.status(403).json({ message: "Invalid password" });
+        if (user === "Invalid password") {
+            return res.status(403).json({ message: user });
         }
-        const token = jsonwebtoken_1.default.sign({ userId: user.rows[0].id }, "your_secret_key", { expiresIn: "1h" });
-        res.status(200).json({ token });
+        res.status(200).json({ token: user });
     }
     catch (error) {
         res.status(500).json({ error: "internal server error" });
@@ -52,11 +48,12 @@ router.post("/login", (req, res) => __awaiter(void 0, void 0, void 0, function* 
 }));
 router.post("/create", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { name, exercise, date, result, username } = req.body;
-        if (!username || !name || !exercise || !date || !result) {
+        const { name, date, exercise, result } = req.body.workoutItem;
+        const { username } = req.body;
+        if (!username || !name || !date || !exercise || !result) {
             return res.status(422).json({ error: "Missing required fields" });
         }
-        const newWorkoutData = yield (0, models_1.createTrainingData)({ username, name, exercise, date, result });
+        const newWorkoutData = yield (0, models_1.createTrainingData)({ username, name, date, exercise, result });
         res.status(200).json(newWorkoutData);
     }
     catch (error) {
@@ -65,8 +62,10 @@ router.post("/create", (req, res) => __awaiter(void 0, void 0, void 0, function*
 }));
 router.get("/get", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const username = req.query;
+        console.log("get query: ", req.query);
+        const username = req.query.token;
         const workoutData = yield (0, models_1.getTrainingData)(username);
+        console.log("workoutdata: ", workoutData);
         res.status(200).json(workoutData);
     }
     catch (error) {

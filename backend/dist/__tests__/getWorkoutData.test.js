@@ -27,8 +27,8 @@ globals_1.jest.mock("../db");
     const mockData = {
         user_id: 1,
         name: "John Doe",
+        date: "1.3.2025",
         exercise: "Bench Press",
-        date: "2025-02-20",
         result: "100kg"
     };
     (0, globals_1.test)("GET /get - should retrieve all workout data", () => __awaiter(void 0, void 0, void 0, function* () {

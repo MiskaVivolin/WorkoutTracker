@@ -1,7 +1,5 @@
 import express from "express";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken"
-import { createTrainingData, getTrainingData, retrieveUser, userSignup } from "./models";
+import { createTrainingData, getTrainingData, userLogin, userSignup } from "./models";
 import { PostReq, PostRes, GetRes, UserData, SignupRes, LoginRes, GetReq } from "./types/types";
 
 const router = express.Router()
@@ -27,16 +25,14 @@ router.post("/login", async (req: UserData, res: LoginRes) => {
   try {
     const { username, password } = req.body.validationFields;
     
-    const user = await retrieveUser(username)
-    if (user.rows.length === 0) {
-      return res.status(401).json({ message: "Invalid username" })
+    const user = await userLogin(username, password)
+    if (user === "Invalid username" ) {
+      return res.status(401).json({ message: user })
+    }    
+    if (user === "Invalid password") {
+      return res.status(403).json({ message: user })
     }
-    const isPasswordValid = await bcrypt.compare(password, user.rows[0].password);
-    if (!isPasswordValid) {
-      return res.status(403).json({ message: "Invalid password" })
-    }
-    const token = jwt.sign({ userId: user.rows[0].id }, "your_secret_key", { expiresIn: "1h" });
-    res.status(200).json({ token })
+    res.status(200).json({ token: user })
   } catch (error) {
     res.status(500).json({ error: "internal server error" })
   }
@@ -45,13 +41,14 @@ router.post("/login", async (req: UserData, res: LoginRes) => {
 
 router.post("/create", async (req: PostReq, res: PostRes) => {
   try {
-    const { name, exercise, date, result, username } = req.body
+    const { name, date, exercise, result } = req.body.workoutItem
+    const { username } = req.body
 
-    if (!username || !name || !exercise || !date || !result) {
+    if (!username || !name || !date || !exercise || !result) {
       return res.status(422).json({ error: "Missing required fields" });
     }
     
-    const newWorkoutData = await createTrainingData({ username, name, exercise, date, result })
+    const newWorkoutData = await createTrainingData({ username, name, date, exercise, result })
     res.status(200).json(newWorkoutData)
   } catch (error) {
     res.status(500).json({ error: "Internal server error" })
@@ -61,8 +58,10 @@ router.post("/create", async (req: PostReq, res: PostRes) => {
 
 router.get("/get", async (req: GetReq, res: GetRes) => {
   try {
-    const username = req.query
+    console.log("get query: ", req.query)
+    const username = req.query.token
     const workoutData = await getTrainingData(username)
+    console.log("workoutdata: ", workoutData)
     res.status(200).json(workoutData)
   } catch (error) {
     res.status(500).json({ error: "Internal server error" })
