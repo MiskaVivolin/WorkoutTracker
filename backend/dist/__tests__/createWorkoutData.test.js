@@ -24,7 +24,7 @@ globals_1.jest.mock("../db");
     (0, globals_1.afterAll)(() => __awaiter(void 0, void 0, void 0, function* () {
         yield db_1.pool.end();
     }));
-    const mockData = {
+    const mockReqData = {
         workoutItem: {
             name: "John Doe",
             date: "1.3.2025",
@@ -34,17 +34,18 @@ globals_1.jest.mock("../db");
         username: "user123",
     };
     const mockResData = {
+        id: 1,
         name: "John Doe",
         date: "1.3.2025",
         exercise: "Bench Press",
-        result: "100kg",
+        result: "80kg x 5",
         user_id: 1
     };
-    const mockFalseData = {
+    const mockFalseReqData = {
         workoutItem: {
             date: "1.3.2025",
             exercise: "Bench Press",
-            result: "100kg",
+            result: "80kg x 5",
         },
         username: "user123",
     };
@@ -52,21 +53,21 @@ globals_1.jest.mock("../db");
         const querySpy = globals_1.jest.spyOn(db_1.pool, "query")
             .mockResolvedValueOnce({ rows: [{ id: 1 }] })
             .mockResolvedValueOnce({ rows: [mockResData] });
-        const res = yield (0, supertest_1.default)(server_1.app).post("/create").send(mockData);
+        const res = yield (0, supertest_1.default)(server_1.app).post("/create").send(mockReqData);
         (0, globals_1.expect)(res.status).toBe(200);
         (0, globals_1.expect)(res.body).toEqual(globals_1.expect.objectContaining(mockResData));
         (0, globals_1.expect)(querySpy).toHaveBeenCalledTimes(2);
     }));
     (0, globals_1.test)("POST /create - should return status 422 when data is invalid", () => __awaiter(void 0, void 0, void 0, function* () {
         const querySpy = globals_1.jest.spyOn(db_1.pool, "query");
-        const res = yield (0, supertest_1.default)(server_1.app).post("/create").send(mockFalseData);
+        const res = yield (0, supertest_1.default)(server_1.app).post("/create").send(mockFalseReqData);
         (0, globals_1.expect)(res.status).toBe(422);
         (0, globals_1.expect)(querySpy).toHaveBeenCalledTimes(0);
     }));
     (0, globals_1.test)("POST /create - should return status 500 on database error", () => __awaiter(void 0, void 0, void 0, function* () {
         const querySpy = globals_1.jest.spyOn(db_1.pool, "query")
             .mockRejectedValueOnce(new Error("Database error"));
-        const res = yield (0, supertest_1.default)(server_1.app).post("/create").send(mockData);
+        const res = yield (0, supertest_1.default)(server_1.app).post("/create").send(mockReqData);
         (0, globals_1.expect)(res.status).toBe(500);
         (0, globals_1.expect)(res.body).toEqual({ error: "Internal server error" });
         (0, globals_1.expect)(querySpy).toHaveBeenCalledTimes(1);

@@ -59,7 +59,7 @@ export const createTrainingData = async ({username, name, date, exercise, result
 export const getTrainingData = async (username: string) => {
   try {
     const res = await pool.query(
-      `SELECT user_records.*, users.username 
+      `SELECT user_records.*
        FROM user_records 
        JOIN users ON user_records.user_id = users.id 
        WHERE users.username = $1`, 
@@ -68,5 +68,14 @@ export const getTrainingData = async (username: string) => {
     return res.rows
   } catch (error) {
     throw new Error("Unable to retrieve workout data from the database");
+  }
+}
+
+export const getTrainingItem = async (itemId: number) => {
+  try {
+    const res = await pool.query("SELECT * FROM user_records WHERE id = $1", [itemId])
+    return res.rows[0]
+  } catch (error) {
+    throw new Error("Unable to retrieve workout Item from the database");
   }
 }

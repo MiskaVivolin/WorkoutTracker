@@ -62,16 +62,38 @@ router.post("/create", (req, res) => __awaiter(void 0, void 0, void 0, function*
 }));
 router.get("/get", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        console.log("get query: ", req.query);
         const username = req.query.token;
         const workoutData = yield (0, models_1.getTrainingData)(username);
-        console.log("workoutdata: ", workoutData);
+        console.log("wrokoutdata: ", workoutData);
         res.status(200).json(workoutData);
     }
     catch (error) {
         res.status(500).json({ error: "Internal server error" });
     }
 }));
+router.get("/get/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const itemId = req.params.id;
+        console.log("item id: ", itemId);
+        const workoutItem = yield (0, models_1.getTrainingItem)(itemId);
+        console.log("workout item: ", workoutItem);
+        res.status(200).json(workoutItem);
+    }
+    catch (error) {
+        res.status(500).json({ error: "Internal server error" });
+    }
+}));
+// router.route("/get/:id").get((req: GetItemReq, res: any) => {
+//     userPrs.findById(req.params.id)
+//     .then((data: string) => {
+//         res.json(data)
+//         console.log(`Object ${data} acquired\n`)
+//     })
+//     .catch((err: string) => {
+//         res.json({ message: 'Error retrieving specific object' })
+//         console.log(err)
+//     })
+// })
 exports.default = router;
 // OLD MONGO ROUTER
 // const userPrs = require("./models")

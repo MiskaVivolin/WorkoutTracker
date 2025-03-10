@@ -34,7 +34,7 @@ const WorkoutList = ({ workoutList, setWorkoutList, setIsEditMode, setWorkoutIte
           <Button 
           title='Edit'
           onPress={() => {
-            GetWorkoutItem(item._id, setWorkoutItem)
+            GetWorkoutItem(item.id, setWorkoutItem)
             setIsEditMode(true)
           }}
           />

@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getTrainingData = exports.createTrainingData = exports.userLogin = exports.userSignup = void 0;
+exports.getTrainingItem = exports.getTrainingData = exports.createTrainingData = exports.userLogin = exports.userSignup = void 0;
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const db_1 = require("./db");
@@ -63,7 +63,7 @@ const createTrainingData = (_a) => __awaiter(void 0, [_a], void 0, function* ({ 
 exports.createTrainingData = createTrainingData;
 const getTrainingData = (username) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const res = yield db_1.pool.query(`SELECT user_records.*, users.username 
+        const res = yield db_1.pool.query(`SELECT user_records.*
        FROM user_records 
        JOIN users ON user_records.user_id = users.id 
        WHERE users.username = $1`, [username]);
@@ -74,3 +74,13 @@ const getTrainingData = (username) => __awaiter(void 0, void 0, void 0, function
     }
 });
 exports.getTrainingData = getTrainingData;
+const getTrainingItem = (itemId) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const res = yield db_1.pool.query("SELECT * FROM user_records WHERE id = $1", [itemId]);
+        return res.rows[0];
+    }
+    catch (error) {
+        throw new Error("Unable to retrieve workout Item from the database");
+    }
+});
+exports.getTrainingItem = getTrainingItem;

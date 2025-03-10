@@ -24,43 +24,25 @@ globals_1.jest.mock("../db");
     (0, globals_1.afterAll)(() => __awaiter(void 0, void 0, void 0, function* () {
         yield db_1.pool.end();
     }));
-    const mockResData = [
-        {
-            id: 1,
-            name: "John Doe",
-            date: "1.3.2025",
-            exercise: "Bench Press",
-            result: "80kg x 5",
-            user_id: 1,
-        },
-        {
-            id: 2,
-            name: "John Doe",
-            date: "4.3.2025",
-            exercise: "Bench Press",
-            result: "80kg x 5",
-            user_id: 1,
-        },
-        {
-            id: 3,
-            name: "John Doe",
-            date: "10.3.2025",
-            exercise: "Bench Press",
-            result: "80kg x 6",
-            user_id: 1,
-        }
-    ];
-    (0, globals_1.test)("GET /get - should retrieve all workout data", () => __awaiter(void 0, void 0, void 0, function* () {
+    const mockResData = {
+        id: 3,
+        name: "John Doe",
+        date: "10.3.2025",
+        exercise: "Bench Press",
+        result: "80kg x 6",
+        user_id: 1,
+    };
+    (0, globals_1.test)("GET /get - should retrieve a workout item", () => __awaiter(void 0, void 0, void 0, function* () {
         const querySpy = globals_1.jest.spyOn(db_1.pool, "query")
             .mockResolvedValueOnce({ rows: [mockResData] });
-        const res = yield (0, supertest_1.default)(server_1.app).get("/get").query({ token: "John123" });
+        const res = yield (0, supertest_1.default)(server_1.app).get("/get/:id").query({ id: 1 });
         (0, globals_1.expect)(res.status).toBe(200);
         (0, globals_1.expect)(querySpy).toHaveBeenCalledTimes(1);
     }));
     (0, globals_1.test)("GET /get - should return status 500 on database error", () => __awaiter(void 0, void 0, void 0, function* () {
         const querySpy = globals_1.jest.spyOn(db_1.pool, "query")
             .mockRejectedValueOnce(new Error("Database error"));
-        const res = yield (0, supertest_1.default)(server_1.app).get("/get").query({ token: "John123" });
+        const res = yield (0, supertest_1.default)(server_1.app).get("/get/:id").query({ id: 1 });
         (0, globals_1.expect)(res.status).toBe(500);
         (0, globals_1.expect)(res.body).toEqual({ error: "Internal server error" });
         (0, globals_1.expect)(querySpy).toHaveBeenCalledTimes(1);

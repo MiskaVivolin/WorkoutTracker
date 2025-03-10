@@ -1,6 +1,6 @@
 import express from "express";
-import { createTrainingData, getTrainingData, userLogin, userSignup } from "./models";
-import { PostReq, PostRes, GetRes, UserData, SignupRes, LoginRes, GetReq } from "./types/types";
+import { createTrainingData, getTrainingData, getTrainingItem, userLogin, userSignup } from "./models";
+import { PostReq, PostRes, GetRes, UserData, SignupRes, LoginRes, GetReq, GetItemReq } from "./types/types";
 
 const router = express.Router()
 
@@ -58,15 +58,39 @@ router.post("/create", async (req: PostReq, res: PostRes) => {
 
 router.get("/get", async (req: GetReq, res: GetRes) => {
   try {
-    console.log("get query: ", req.query)
     const username = req.query.token
     const workoutData = await getTrainingData(username)
-    console.log("workoutdata: ", workoutData)
+    console.log("wrokoutdata: ", workoutData)
     res.status(200).json(workoutData)
   } catch (error) {
     res.status(500).json({ error: "Internal server error" })
   }
 })
+
+router.get("/get/:id", async (req: GetItemReq, res: GetRes) => {
+  try {
+    const itemId = req.params.id
+    console.log("item id: ", itemId)
+    const workoutItem = await getTrainingItem(itemId)
+    console.log("workout item: ", workoutItem)
+    res.status(200).json(workoutItem)
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" })
+  }
+})
+
+// router.route("/get/:id").get((req: GetItemReq, res: any) => {
+
+//     userPrs.findById(req.params.id)
+//     .then((data: string) => {
+//         res.json(data)
+//         console.log(`Object ${data} acquired\n`)
+//     })
+//     .catch((err: string) => {
+//         res.json({ message: 'Error retrieving specific object' })
+//         console.log(err)
+//     })
+// })
 
 export default router;
 

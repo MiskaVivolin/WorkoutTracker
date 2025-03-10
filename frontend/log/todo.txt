@@ -9,6 +9,7 @@
   // camelCase for regular function with no tsx
   // typet kuntoon: create funktiossa username voi olla null
   // siirrä contextien typet types tiedostoon
+  // jotkut funktiot lähettää backendiin dataa querynä kun taas toiset paramsina
   // bugi: jos login ohjaa workoutList sivulle, lista ei päivity kunnolla
   // bugi: editoidessa, validaatio työntää inputcontainerit pois. editointi boxin koko myös väärä kun ruudun leveys noin 1000. laatikon paikkaa voisi myös siirtää.
   // muuta delete napin paikkaa, ainakin puhelin näkymässä

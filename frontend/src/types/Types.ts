@@ -3,8 +3,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { ViewStyle } from 'react-native';
 
 export interface WorkoutItem {
-    readonly _id: number;
-    readonly username: string;
+    readonly id: number;
     name: string;
     date: string;
     exercise: string;
