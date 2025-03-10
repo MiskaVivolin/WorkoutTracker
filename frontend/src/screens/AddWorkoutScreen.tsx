@@ -10,7 +10,7 @@ import { useTheme } from '../context/ThemeContext';
 const AddWorkoutScreen: React.FC<AddWorkoutScreenProps> = ({ navigation }) => {
   
   const [workoutList, setWorkoutList] = useState<WorkoutItem[]>([])
-  const [workoutItem, setWorkoutItem] = useState({ _id: 0, username: '', name: '', date: '', exercise: '', result: '' })
+  const [workoutItem, setWorkoutItem] = useState({ id: 0, name: '', date: '', exercise: '', result: '' })
   const [workoutItemIsValid, setWorkoutItemIsValid] = useState({ name: true, date: true, exercise: true, result: true })
   const { theme } = useTheme();
 

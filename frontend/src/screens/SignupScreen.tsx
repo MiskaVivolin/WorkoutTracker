@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { SignupScreenProps } from '../types/Types';
 import { View, Text, TextInput, StyleSheet, Pressable, Dimensions } from 'react-native';
-import AuthenticationValidation from '../functions/authenticationValidation';
+import authenticationValidation from '../functions/authenticationValidation';
 import { useTheme } from '../context/ThemeContext';
 import { Themes } from '../../assets/styles/Themes';
 import Navbar from '../components/Navbar';
@@ -53,7 +53,7 @@ const SignupScreen: React.FC<SignupScreenProps> = ({ navigation }) => {
             ><Text style={[styles.labelLink, {color: Themes[theme].defaultText}]}>Back</Text></Pressable>
           <Button
             title='Sign up'
-            onPress={() => AuthenticationValidation({navigation, mode: 'signup', setValidationInit, validationFields, setValidationErrors, setValidationFields, setValidUsername, setValidPassword})}
+            onPress={() => authenticationValidation({navigation, mode: 'signup', setValidationInit, validationFields, setValidationErrors, setValidationFields, setValidUsername, setValidPassword})}
             />
           </View>
       </View>

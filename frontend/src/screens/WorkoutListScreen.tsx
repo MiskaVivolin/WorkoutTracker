@@ -11,7 +11,7 @@ const WorkoutListScreen: React.FC<WorkoutListScreenProps> = ({ navigation }) => 
   
   const [workoutList, setWorkoutList] = useState<WorkoutItem[]>([])
   const [isEditMode, setIsEditMode] = useState(false)
-  const [workoutItem, setWorkoutItem] = useState<WorkoutItem>({ _id: 0, username: '', name: '', date: '', exercise: '', result: '' })
+  const [workoutItem, setWorkoutItem] = useState<WorkoutItem>({ id: 0, name: '', date: '', exercise: '', result: '' })
   const { theme } = useTheme();
   
   return (

@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { SetWorkoutList, WorkoutItemFields, ResponseData, WorkoutItem } from "../types/Types";
 
-const CreateWorkoutItem = (workoutItem: WorkoutItemFields, setWorkoutList: SetWorkoutList, username: string | null): void => {
+const createWorkoutItem = (workoutItem: WorkoutItemFields, setWorkoutList: SetWorkoutList, username: string | null): void => {
 
   axios.post<ResponseData>('http://127.0.0.1:3001/create', { workoutItem, username })
   .then((response: AxiosResponse<ResponseData>) => {
@@ -25,4 +25,4 @@ const CreateWorkoutItem = (workoutItem: WorkoutItemFields, setWorkoutList: SetWo
   });
 }
 
-export default CreateWorkoutItem;
+export default createWorkoutItem;

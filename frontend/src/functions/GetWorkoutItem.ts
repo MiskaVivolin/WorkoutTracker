@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios'
 import { ResponseData, SetWorkoutItem } from '../types/Types'
 
-const GetWorkoutItem = (id: number, setWorkoutItem: SetWorkoutItem): void => {
+const getWorkoutItem = (id: number, setWorkoutItem: SetWorkoutItem): void => {
 
   axios.get<ResponseData>(`http://127.0.0.1:3001/get/${id}`)
   .then((response: AxiosResponse<ResponseData>) => {
@@ -16,4 +16,4 @@ const GetWorkoutItem = (id: number, setWorkoutItem: SetWorkoutItem): void => {
   });
 }
 
-export default GetWorkoutItem;
+export default getWorkoutItem;

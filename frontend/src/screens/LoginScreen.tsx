@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { View, Text, TextInput, StyleSheet, Pressable, Dimensions } from 'react-native';
-import AuthenticationValidation from '../functions/AuthenticationValidation';
+import authenticationValidation from '../functions/authenticationValidation';
 import { LoginScreenProps } from '../types/Types';
 import { useUserToken } from '../context/UserTokenContext';
 import Navbar from '../components/Navbar';
@@ -57,7 +57,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
         setToken(validationFields.username);
       }
     }
-    AuthenticationValidation({
+    authenticationValidation({
       navigation,
       mode: 'login',
       setValidationInit,

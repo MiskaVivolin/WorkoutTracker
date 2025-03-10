@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Pressable, Dimensions } from 'react-native'
 import { FlatList } from 'react-native'
 import useGetWorkoutList from '../hooks/useGetWorkoutList'
 import { WorkoutItem, WorkoutListProps } from '../types/Types'
-import GetWorkoutItem from '../functions/GetWorkoutItem'
+import getWorkoutItem from '../functions/getWorkoutItem'
 import { Themes } from "../../assets/styles/Themes"
 import { useTheme } from '../context/ThemeContext'
 import Button from './Button'
@@ -34,7 +34,7 @@ const WorkoutList = ({ workoutList, setWorkoutList, setIsEditMode, setWorkoutIte
           <Button 
           title='Edit'
           onPress={() => {
-            GetWorkoutItem(item.id, setWorkoutItem)
+            getWorkoutItem(item.id, setWorkoutItem)
             setIsEditMode(true)
           }}
           />

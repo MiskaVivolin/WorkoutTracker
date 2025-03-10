@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, TextInput, View, Dimensions } from 'react-native'
 import { Themes } from '../../assets/styles/Themes';
 import { FormContainerProps } from '../types/Types';
-import WorkoutItemValidation from '../functions/WorkoutItemValidation';
+import workoutItemValidation from '../functions/workoutItemValidation';
 import { useUserToken } from '../context/UserTokenContext';
 import { useTheme } from '../context/ThemeContext';
 import PopUp from './PopUp';
@@ -20,7 +20,7 @@ const FormContainer = ({ workoutItem, setWorkoutItem, workoutItemFieldIsValid, s
 
   useEffect(() => {
     if(validationInit) {
-      WorkoutItemValidation({workoutItem, setWorkoutItem, setWorkoutItemFieldIsValid, setWorkoutList, pressedAdd, setPressedAdd, isEditMode, setIsEditMode, setValidationInit, setConfirmFalseValidation, userToken})
+      workoutItemValidation({workoutItem, setWorkoutItem, setWorkoutItemFieldIsValid, setWorkoutList, pressedAdd, setPressedAdd, isEditMode, setIsEditMode, setValidationInit, setConfirmFalseValidation, userToken})
     }
   }, [workoutItem, pressedAdd])
 
