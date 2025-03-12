@@ -12,7 +12,6 @@ const useGetWorkoutList = (setWorkoutList: SetWorkoutList): void => {
       axios.get('http://127.0.0.1:3001/get', { params: { token: userToken } })
         .then((response: AxiosResponse<ResponseData>) => {
           const { data } = response;
-          console.log("data: ", data)
           const dataItems: WorkoutItem[] = data.map((item) => ({
             id: item.id,
             name: item.name,

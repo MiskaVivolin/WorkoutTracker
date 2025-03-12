@@ -53,7 +53,7 @@ router.post("/create", (req, res) => __awaiter(void 0, void 0, void 0, function*
         if (!username || !name || !date || !exercise || !result) {
             return res.status(422).json({ error: "Missing required fields" });
         }
-        const newWorkoutData = yield (0, models_1.createTrainingData)({ username, name, date, exercise, result });
+        const newWorkoutData = yield (0, models_1.createWorkoutItem)({ username, name, date, exercise, result });
         res.status(200).json(newWorkoutData);
     }
     catch (error) {
@@ -63,8 +63,7 @@ router.post("/create", (req, res) => __awaiter(void 0, void 0, void 0, function*
 router.get("/get", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const username = req.query.token;
-        const workoutData = yield (0, models_1.getTrainingData)(username);
-        console.log("wrokoutdata: ", workoutData);
+        const workoutData = yield (0, models_1.getWorkoutData)(username);
         res.status(200).json(workoutData);
     }
     catch (error) {
@@ -74,24 +73,42 @@ router.get("/get", (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 router.get("/get/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const itemId = req.params.id;
-        console.log("item id: ", itemId);
-        const workoutItem = yield (0, models_1.getTrainingItem)(itemId);
-        console.log("workout item: ", workoutItem);
+        const workoutItem = yield (0, models_1.getWorkoutItem)(itemId);
         res.status(200).json(workoutItem);
     }
     catch (error) {
         res.status(500).json({ error: "Internal server error" });
     }
 }));
-// router.route("/get/:id").get((req: GetItemReq, res: any) => {
-//     userPrs.findById(req.params.id)
+router.put("/put", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const workoutItem = req.body;
+        const editedWorkoutItem = yield (0, models_1.editWorkoutItem)(workoutItem);
+        res.status(200).json(editedWorkoutItem);
+    }
+    catch (error) {
+        res.status(500).json({ message: "Internal server error" });
+    }
+}));
+router.delete("/delete/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const itemId = req.params.id;
+        const deletedWorkoutItem = yield (0, models_1.deleteWorkoutItem)(itemId);
+        res.status(200).json(deletedWorkoutItem);
+    }
+    catch (error) {
+        res.status(500).json({ message: "Internal server error" });
+    }
+}));
+// router.route("/delete").delete((req: DeleteReq, res: DeleteRes) => {
+//     userPrs.findByIdAndDelete(req.query.id)
 //     .then((data: string) => {
-//         res.json(data)
-//         console.log(`Object ${data} acquired\n`)
+//         res.json({ message: `Object: ${data} deleted`})
+//         console.log(`Object: ${data} deleted\n`)
 //     })
 //     .catch((err: string) => {
-//         res.json({ message: 'Error retrieving specific object' })
-//         console.log(err)
+//         res.json({ message: "Error deleting object" })
+//         console.log("Error deleting object", err)
 //     })
 // })
 exports.default = router;

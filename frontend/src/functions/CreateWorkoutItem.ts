@@ -6,10 +6,6 @@ const createWorkoutItem = (workoutItem: WorkoutItemFields, setWorkoutList: SetWo
   axios.post<ResponseData>('http://127.0.0.1:3001/create', { workoutItem, username })
   .then((response: AxiosResponse<ResponseData>) => {
     const { data } = response;
-    console.log("created data: ", data)
-    if (data.message){
-      alert(data.message)
-  } else {
     const newObj = {
       id: data.id,
       name: data.name,
@@ -18,7 +14,6 @@ const createWorkoutItem = (workoutItem: WorkoutItemFields, setWorkoutList: SetWo
       result: data.result,
     }
     setWorkoutList((prevList: WorkoutItem[]) => [...prevList, newObj]);
-  }
   })
   .catch((error) => {
     console.error('Error creating item:', error);

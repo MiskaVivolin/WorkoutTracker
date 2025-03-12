@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View, TextInput, Pressable, Dimensions, } from 'react-native'
+import { StyleSheet, Text, View, TextInput, Dimensions, } from 'react-native'
 import { useEffect, useState } from 'react'
 import workoutItemValidation from '../functions/workoutItemValidation'
 import { WorkoutEditorProps } from '../types/Types'
@@ -85,7 +85,7 @@ const WorkoutEditor = ({ workoutItem, setWorkoutItem, setIsEditMode, isEditMode,
             style={{backgroundColor: Themes[theme].deleteButton}}
             onPress={() => {
               setIsEditMode(false)
-              deleteWorkoutItem(workoutItem, setWorkoutList)
+              deleteWorkoutItem(workoutItem.id, setWorkoutList)
               }}/>
           <Button 
             title='Cancel'

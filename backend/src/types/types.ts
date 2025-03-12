@@ -1,21 +1,10 @@
-// export interface WorkoutData {
-//     probject: {
-//         name: string;
-//         date: string;
-//         exercise: string;
-//         result: string;
-//     },
-//     username: string
-// }
-
 export interface WorkoutData {
-    workoutItem: {
-        name: string;
-        date: string;
-        exercise: string;
-        result: string;
-    }
-    username: string
+    id: number;
+    name: string;
+    date: string;
+    exercise: string;
+    result: string;
+    user_id: number;
 }
 
 export interface CreateWorkoutData {
@@ -35,22 +24,27 @@ export interface UserData {
     }
 }
 
-// export interface DataItem {
-//     user_id: number;
-//     user: string;
-//     name: string;
-//     date: string;
-//     exercise: string;
-//     result: string;
-// }
-
 export interface PostReq {
-    body: WorkoutData
+    body: { 
+        workoutItem: WorkoutData
+        username: string
+    }
 }
 
-export interface PostRes {
-    status(arg0: number): PostRes;
-    json: (args: string | { error: string }) => void;
+export interface GetReq {
+    query: { token: string }
+}
+
+export interface GetItemReq {
+    params: { id: number };
+}
+
+export interface EditReq {
+    body: WorkoutData;
+}
+
+export interface DeleteReq {
+    params: { id: number };
 }
 
 export interface SignupRes {
@@ -63,25 +57,22 @@ export interface LoginRes {
     json: (args: {token: string} | { message: string } | { error: string }) => void;
 }
 
+export interface PostRes {
+    status(arg0: number): PostRes;
+    json: (args: string | { error: string }) => void;
+}
+
 export interface GetRes {
     status(arg0: number): GetRes;
-    json: (args: WorkoutData[] | { error: string } ) => void;
+    json: (args: WorkoutData[] | { error: string }) => void;
 }
 
-export interface GetReq {
-    query: {
-        token: string
-    }
-}
-
-export interface GetItemReq {
-    query: { id: number };
-    params: { id: number };
-}
-export interface DeleteReq {
-    query: { id: number };
+export interface EditRes {
+    status(arg0: number): EditRes;
+    json: (args: WorkoutData[] | { message: string }) => void;
 }
 
 export interface DeleteRes {
-    json: (args: { message: string }) => void;
+    status(arg0: number): DeleteRes;
+    json: (args: WorkoutData[] | { message: string }) => void;
 }

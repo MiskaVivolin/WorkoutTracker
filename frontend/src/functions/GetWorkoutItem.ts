@@ -1,9 +1,9 @@
 import axios, { AxiosResponse } from 'axios'
 import { ResponseData, SetWorkoutItem } from '../types/Types'
 
-const getWorkoutItem = (id: number, setWorkoutItem: SetWorkoutItem): void => {
+const getWorkoutItem = (itemId: number, setWorkoutItem: SetWorkoutItem): void => {
 
-  axios.get<ResponseData>(`http://127.0.0.1:3001/get/${id}`)
+  axios.get<ResponseData>(`http://127.0.0.1:3001/get/${itemId}`)
   .then((response: AxiosResponse<ResponseData>) => {
     if(response.data.message) {
       alert(response.data.message)

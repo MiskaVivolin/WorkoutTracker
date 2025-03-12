@@ -3,12 +3,9 @@ import cors from "cors";
 import router from "./router";
 
 export const app = express();
-// const mongoose = require("mongoose")
 
 app.use(cors())
 app.use(express.json())
-
-// mongoose.connect("mongodb+srv://miskavivolin:paviaanihuutaa123@cluster0.fpqvj.mongodb.net/mytrainingDB")
 
 app.use("/", router)
 

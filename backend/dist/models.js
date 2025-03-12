@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getTrainingItem = exports.getTrainingData = exports.createTrainingData = exports.userLogin = exports.userSignup = void 0;
+exports.deleteWorkoutItem = exports.editWorkoutItem = exports.getWorkoutItem = exports.getWorkoutData = exports.createWorkoutItem = exports.userLogin = exports.userSignup = void 0;
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const db_1 = require("./db");
@@ -33,7 +33,9 @@ const userSignup = (username, password) => __awaiter(void 0, void 0, void 0, fun
 exports.userSignup = userSignup;
 const userLogin = (username, password) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const user = yield db_1.pool.query("SELECT username, password FROM users WHERE username = $1", [username]);
+        const user = yield db_1.pool.query(`SELECT username, password 
+      FROM users 
+      WHERE username = $1`, [username]);
         if (user.rows.length === 0) {
             return "Invalid username";
         }
@@ -49,19 +51,23 @@ const userLogin = (username, password) => __awaiter(void 0, void 0, void 0, func
     }
 });
 exports.userLogin = userLogin;
-const createTrainingData = (_a) => __awaiter(void 0, [_a], void 0, function* ({ username, name, date, exercise, result }) {
+const createWorkoutItem = (_a) => __awaiter(void 0, [_a], void 0, function* ({ username, name, date, exercise, result }) {
     try {
-        const userRes = yield db_1.pool.query("SELECT id FROM users WHERE username = $1", [username]);
+        const userRes = yield db_1.pool.query(`SELECT id 
+      FROM users 
+      WHERE username = $1`, [username]);
         const user_id = userRes.rows[0].id;
-        const res = yield db_1.pool.query("INSERT INTO user_records (name, date, exercise, result, user_id) VALUES ($1, $2, $3, $4, $5) RETURNING *", [name, date, exercise, result, user_id]);
+        const res = yield db_1.pool.query(`INSERT INTO user_records (name, date, exercise, result, user_id) 
+      VALUES ($1, $2, $3, $4, $5) 
+      RETURNING *`, [name, date, exercise, result, user_id]);
         return res.rows[0];
     }
     catch (error) {
         throw new Error("Unable to create new workout data to the database");
     }
 });
-exports.createTrainingData = createTrainingData;
-const getTrainingData = (username) => __awaiter(void 0, void 0, void 0, function* () {
+exports.createWorkoutItem = createWorkoutItem;
+const getWorkoutData = (username) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const res = yield db_1.pool.query(`SELECT user_records.*
        FROM user_records 
@@ -73,14 +79,41 @@ const getTrainingData = (username) => __awaiter(void 0, void 0, void 0, function
         throw new Error("Unable to retrieve workout data from the database");
     }
 });
-exports.getTrainingData = getTrainingData;
-const getTrainingItem = (itemId) => __awaiter(void 0, void 0, void 0, function* () {
+exports.getWorkoutData = getWorkoutData;
+const getWorkoutItem = (itemId) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const res = yield db_1.pool.query("SELECT * FROM user_records WHERE id = $1", [itemId]);
+        const res = yield db_1.pool.query(`SELECT * FROM user_records 
+      WHERE id = $1`, [itemId]);
         return res.rows[0];
     }
     catch (error) {
         throw new Error("Unable to retrieve workout Item from the database");
     }
 });
-exports.getTrainingItem = getTrainingItem;
+exports.getWorkoutItem = getWorkoutItem;
+const editWorkoutItem = (workoutData) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { name, date, exercise, result, id } = workoutData;
+        const res = yield db_1.pool.query(`UPDATE user_records 
+      SET name = $1, date = $2, exercise = $3, result = $4 
+      WHERE id = $5
+      RETURNING *`, [name, date, exercise, result, id]);
+        return res.rows;
+    }
+    catch (error) {
+        throw new Error("Unable to edit a workout item in the database");
+    }
+});
+exports.editWorkoutItem = editWorkoutItem;
+const deleteWorkoutItem = (itemId) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const res = yield db_1.pool.query(`DELETE FROM user_records
+      WHERE id = $1
+      RETURNING *`, [itemId]);
+        return res.rows;
+    }
+    catch (error) {
+        throw new Error("Unable to delete a workout item from the database");
+    }
+});
+exports.deleteWorkoutItem = deleteWorkoutItem;
