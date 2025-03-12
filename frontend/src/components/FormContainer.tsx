@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, Text, TextInput, View, Dimensions, Pressable } from 'react-native'
+import { StyleSheet, Text, TextInput, View, Dimensions } from 'react-native'
+import { Themes } from '../../assets/styles/Themes';
 import { FormContainerProps } from '../types/Types';
-import WorkoutItemValidation from '../functions/WorkoutItemValidation';
+import workoutItemValidation from '../functions/workoutItemValidation';
 import { useUserToken } from '../context/UserTokenContext';
+import { useTheme } from '../context/ThemeContext';
 import PopUp from './PopUp';
+import Button from './Button';
+import ThemeSwitcher from './ThemeSwitcher';
 
 const FormContainer = ({ workoutItem, setWorkoutItem, workoutItemFieldIsValid, setWorkoutItemFieldIsValid, setWorkoutList }: FormContainerProps) => {
 
@@ -12,57 +16,58 @@ const FormContainer = ({ workoutItem, setWorkoutItem, workoutItemFieldIsValid, s
   const [isEditMode, setIsEditMode] = useState(false);
   const [confirmFalseValidation, setConfirmFalseValidation] = useState(false);
   const { userToken } = useUserToken();
+  const { theme } = useTheme();
 
   useEffect(() => {
     if(validationInit) {
-      WorkoutItemValidation({workoutItem, setWorkoutItem, setWorkoutItemFieldIsValid, setWorkoutList, pressedAdd, setPressedAdd, isEditMode, setIsEditMode, setValidationInit, setConfirmFalseValidation, userToken})
+      workoutItemValidation({workoutItem, setWorkoutItem, setWorkoutItemFieldIsValid, setWorkoutList, pressedAdd, setPressedAdd, isEditMode, setIsEditMode, setValidationInit, setConfirmFalseValidation, userToken})
     }
   }, [workoutItem, pressedAdd])
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.labelHeader}>Add a new exercise result</Text>
+    <View style={{alignItems: 'center', backgroundColor: Themes[theme].background}}>
+      <ThemeSwitcher />
+      <Text style={[styles.header, {color: Themes[theme].defaultText}]}>Add a new exercise result</Text>
       <View style={styles.fieldContainer}>
-        <Text style={styles.label}>Name</Text>
-        <TextInput style={styles.input}
+        <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Name</Text>
+        <TextInput style={[styles.inputField, {color: Themes[theme].defaultText, borderColor: Themes[theme].border, backgroundColor: Themes[theme].inputField}]}
           onChangeText={name => {setWorkoutItem({ ...workoutItem, name })}}
           value={workoutItem.name}
           />
         {!workoutItemFieldIsValid['name'] && validationInit && confirmFalseValidation &&
-        <Text style={styles.labelError}>Name must not be empty</Text>}
+        <Text style={[styles.inputFieldError, {color: Themes[theme].errorText}]}>Name must not be empty</Text>}
       
-        <Text style={styles.label}>Date</Text>
-        <TextInput style={styles.input}
+        <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Date</Text>
+        <TextInput style={[styles.inputField, {color: Themes[theme].defaultText, borderColor: Themes[theme].border, backgroundColor: Themes[theme].inputField}]}
           onChangeText={date => {setWorkoutItem({ ...workoutItem, date })}}
           value={workoutItem.date}
           />
         {!workoutItemFieldIsValid['date'] && validationInit && confirmFalseValidation &&
-        <Text style={styles.labelError}>Date must not be empty</Text>}
+        <Text style={[styles.inputFieldError, {color: Themes[theme].errorText}]}>Date must not be empty</Text>}
         
-        <Text style={styles.label}>Exercise</Text>
-        <TextInput style={styles.input}
+        <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Exercise</Text>
+        <TextInput style={[styles.inputField, {color: Themes[theme].defaultText, borderColor: Themes[theme].border, backgroundColor: Themes[theme].inputField}]}
           onChangeText={exercise => {setWorkoutItem({ ...workoutItem, exercise })}}
           value={workoutItem.exercise}
           />
         {!workoutItemFieldIsValid['exercise'] && validationInit && confirmFalseValidation &&
-        <Text style={styles.labelError}>Exercise must not be empty</Text>}
+        <Text style={[styles.inputFieldError, {color: Themes[theme].errorText}]}>Exercise must not be empty</Text>}
       
-        <Text style={styles.label}>Result</Text>
-        <TextInput style={styles.input}
+        <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Result</Text>
+        <TextInput style={[styles.inputField, {color: Themes[theme].defaultText, borderColor: Themes[theme].border, backgroundColor: Themes[theme].inputField}]}
           onChangeText={result => {setWorkoutItem({ ...workoutItem, result })}}
           value={workoutItem.result}
           />
         {!workoutItemFieldIsValid['result'] && validationInit && confirmFalseValidation &&
-        <Text style={styles.labelError}>Result must not be empty</Text>}
+        <Text style={[styles.inputFieldError, {color: Themes[theme].errorText}]}>Result must not be empty</Text>}
       </View>
       <View style={{marginTop: 30, marginBottom: 30}}>
-        <Pressable style={styles.button}
-                onPress={() => {
-                  setValidationInit(true)
-                  setPressedAdd(true)
-                }}>
-                <Text style={styles.labelButton}>Add</Text>  
-              </Pressable>
+        <Button 
+          title='Add'
+          onPress={() => {
+            setValidationInit(true)
+            setPressedAdd(true)
+          }}/>
         {workoutItemFieldIsValid['name'] && workoutItemFieldIsValid['date'] && workoutItemFieldIsValid['exercise'] && workoutItemFieldIsValid['result'] && pressedAdd &&
         <PopUp setValidationInit={setValidationInit} setPressedAdd={setPressedAdd} workoutItemFieldIsValid={workoutItemFieldIsValid} setWorkoutItemFieldIsValid={setWorkoutItemFieldIsValid}/>
         }
@@ -72,10 +77,7 @@ const FormContainer = ({ workoutItem, setWorkoutItem, workoutItemFieldIsValid, s
 }
 
 const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center', 
-    backgroundColor: 'white'
-  },
+
   fieldContainer: {
     justifyContent: 'center',
     maxWidth: Dimensions.get('window').width < 370 ? 270 : 350,
@@ -83,57 +85,28 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 13,
     fontFamily: 'MerriweatherSans',
-    color: '#606060',
     marginBottom: 2,
     marginTop: 12
   },
-  labelHeader: {
+  header: {
     fontSize: Dimensions.get('window').width < 320 ? 22 : 24, 
     fontFamily: 'MerriweatherSans', 
-    color: '#505050',
     marginTop: Dimensions.get('window').height < 1000 ? 75 : 150,
     marginBottom: Dimensions.get('window').height < 1000 ? 30 : 50, 
   },
-  labelError: {
+  inputFieldError: {
     fontSize: 13,
     fontFamily: 'MerriweatherSans', 
-    color: 'red',
   },
-  labelButton: {
-    fontSize: 15, 
-    fontFamily: 'MerriweatherSans',
-    fontWeight: '500', 
-    color: 'white', 
-    alignSelf: 'center', 
-  },
-  input: {
+  inputField: {
     fontFamily: 'MerriweatherSans',
     fontSize: 12,
-    color: '#606060',
     height: 35,
-    backgroundColor: '#F8F8F8',
     width: Dimensions.get('window').width < 370 ? 270 : 350,
-    borderColor: '#A9A9A9',
     borderWidth: 1,
     borderRadius: 3,
     marginBottom: 12,
     paddingHorizontal: 8
-  },
-  errorText: {
-    color: 'red'
-  },
-  button: {
-    alignSelf: 'center',
-    width: 95,
-    padding: 7,
-    marginTop: Dimensions.get('window').height < 1000 ? 30 : 70,
-    backgroundColor: '#6aa9a9',
-    borderRadius: 10, 
-    borderWidth: 1, 
-    borderColor: '#678e8e',
-    textAlign: 'center',
-    fontSize: 16,
-    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)',
   },
 });
 

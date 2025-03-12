@@ -1,5 +1,4 @@
   // TODO: 
-  // dokumentaatio, päivitä kuvat
   // PopUp paremmaksi
   // korjaa bugi: consoli printtaa kaksi kertaa POST errorin
   // tarkista onko "turhia" propseja
@@ -7,10 +6,13 @@
   // jos listassa ei ole itemeitä, näytä teksti ja kuva.
   // mahdollisuus lisätä settien määrä. (numero field jonka default on 1? + ja - napit?)
   // name fieldin default on username
-  // any typet kuntoon backendissä
+  // typet kuntoon: create funktiossa username voi olla null
+  // siirrä contextien typet types tiedostoon
+  // mahdollisuus poistaa käyttäjä ja kaikki sen tiedot
   // bugi: jos login ohjaa workoutList sivulle, lista ei päivity kunnolla
   // bugi: editoidessa, validaatio työntää inputcontainerit pois. editointi boxin koko myös väärä kun ruudun leveys noin 1000. laatikon paikkaa voisi myös siirtää.
-  // muuta värejä paremmaksi ja muutenkin yleisilmettä
+  // muuta delete napin paikkaa, ainakin puhelin näkymässä
+  // theme selector: 2 dark teemaa ja light teemaa
   // funktion typet hookeille ja constien nimitys kuntoon, tarkista statet
   // sen jälkeen mietitään laajennusta esim. search, filter, kaaviot, emojit/kuvat, profiilitiedot jne.
   // docker, testing

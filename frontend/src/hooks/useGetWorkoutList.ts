@@ -3,34 +3,30 @@ import { SetWorkoutList, ResponseData, WorkoutItem } from '../types/Types'
 import { useUserToken } from '../context/UserTokenContext'
 import { useEffect } from 'react'
 
-const useGetWorkoutList = (setResultList: SetWorkoutList): void => {
+const useGetWorkoutList = (setWorkoutList: SetWorkoutList): void => {
   
   const { userToken } = useUserToken();
 
   useEffect(() => {
-    console.log("usertoken: ", userToken)
     const fetchData = async () => {
-      axios.get('http://127.0.0.1:3001/get')
+      axios.get('http://127.0.0.1:3001/get', { params: { token: userToken } })
         .then((response: AxiosResponse<ResponseData>) => {
           const { data } = response;
           const dataItems: WorkoutItem[] = data.map((item) => ({
-            _id: item._id,
-            user: item.user,
+            id: item.id,
             name: item.name,
             date: item.date,
             exercise: item.exercise,
-            result: item.result
+            result: item.result,
           }))
-          if(response.data.message) {
-            alert(response.data.message)
+          if(data.message) {
+            alert(data.message)
           }
-          const resultList: WorkoutItem[] = []
+          const responseList: WorkoutItem[] = []
           dataItems.forEach(item => {
-            if(item.user === userToken) {
-              resultList.push(item)
-            }  
+            responseList.push(item)
           })
-          setResultList(resultList)
+          setWorkoutList(responseList)
         })
         .catch((error) => {
           console.error("Error sending get request:", error)
@@ -38,7 +34,7 @@ const useGetWorkoutList = (setResultList: SetWorkoutList): void => {
       }
 
     fetchData();
-  }, [setResultList, userToken])
+  }, [setWorkoutList, userToken])
 }
 
 export default useGetWorkoutList;

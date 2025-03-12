@@ -64,7 +64,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     padding: 50,
     bottom: 400,
-    
     transform: [{ translateX: -75 }],
     backgroundColor: 'rgba(0, 0, 0, 0.7)',
     paddingVertical: 10,
@@ -74,27 +73,7 @@ const styles = StyleSheet.create({
   popupText: {
     color: '#fff',
     fontSize: 16,
-  },
-  labelButton: {
-    fontSize: 15, 
-    fontFamily: 'MerriweatherSans',
-    fontWeight: '500', 
-    color: 'white', 
-    alignSelf: 'center', 
-  },
-    button: {
-      alignSelf: 'center',
-      width: 95,
-      padding: 7,
-      marginTop: Dimensions.get('window').height < 1000 ? 30 : 70,
-      backgroundColor: '#6aa9a9',
-      borderRadius: 10, 
-      borderWidth: 1, 
-      borderColor: '#678e8e',
-      textAlign: 'center',
-      fontSize: 16,
-      boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)',
-    },
+  }
 });
 
 export default PopUp;
