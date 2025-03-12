@@ -30,4 +30,4 @@ Searches and sorting for exercises. Charts to visually track progress.
 
 ## Tech stack
 
-React Native, TypeScript, Nodejs, MongoDB.
+React Native, TypeScript, Nodejs, Express, PostgreSQL, Jest.
