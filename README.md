@@ -26,7 +26,7 @@ Exercise results can be easily edited and removed from the database.
 
 Theme switcher now available with light and dark themes. Working on styling improvements.
 
-![image](https://github.com/user-attachments/assets/e9994ea0-06c0-4ef9-84cc-451f4952cdeb)
+![image](https://github.com/user-attachments/assets/58cf68bb-7a9f-42be-8431-af6aa32490cf)
 
 
 ## Future updates
