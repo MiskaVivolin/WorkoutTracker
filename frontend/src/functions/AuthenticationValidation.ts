@@ -1,14 +1,18 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios, { AxiosError } from 'axios';
 import { ApiResponse, AuthenticationValidationProps, ValidationFields } from '../types/Types';
+import { Platform } from 'react-native';
 
 
 const authenticationValidation = async ({ navigation, mode, setValidationInit, validationFields, setValidationErrors, setValidationFields, setValidUsername, setValidPassword, isFirstRender }: AuthenticationValidationProps): Promise<void> => {
 
+  const apiUrl = Platform.OS === 'android' ? 'http://192.168.1.119:3001/login' : 'http://127.0.0.1:3001/login';
+
+
   if (mode === 'login') {
     setValidationInit(true)
     try {
-      const response = await axios.post('http://localhost:3001/login', { validationFields });
+      const response = await axios.post(apiUrl, { validationFields });
       await AsyncStorage.setItem('userToken', response.data.token);
       await AsyncStorage.setItem('userInputFields', JSON.stringify(validationFields))
       navigation.navigate('AddWorkoutScreen');
@@ -62,7 +66,7 @@ const authenticationValidation = async ({ navigation, mode, setValidationInit, v
     setValidationInit(true)
     if (validationFields.username.length > 3 && validationFields.password.length > 9) {
       try {  
-        const response = await axios.post('http://localhost:3001/signup', { validationFields });
+        const response = await axios.post(apiUrl, { validationFields });
         if (response.data.isTaken) {
           setValidUsername(false);
           setValidationErrors(() => ({

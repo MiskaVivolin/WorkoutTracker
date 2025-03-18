@@ -7,7 +7,6 @@ import { useUserToken } from '../context/UserTokenContext';
 import { useTheme } from '../context/ThemeContext';
 import PopUp from './PopUp';
 import Button from './Button';
-import ThemeSwitcher from './ThemeSwitcher';
 
 const FormContainer = ({ workoutItem, setWorkoutItem, workoutItemFieldIsValid, setWorkoutItemFieldIsValid, setWorkoutList }: FormContainerProps) => {
 
@@ -26,7 +25,6 @@ const FormContainer = ({ workoutItem, setWorkoutItem, workoutItemFieldIsValid, s
 
   return (
     <View style={{alignItems: 'center', backgroundColor: Themes[theme].background}}>
-      <ThemeSwitcher />
       <Text style={[styles.header, {color: Themes[theme].defaultText}]}>Add a new exercise result</Text>
       <View style={styles.fieldContainer}>
         <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Name</Text>
@@ -67,7 +65,8 @@ const FormContainer = ({ workoutItem, setWorkoutItem, workoutItemFieldIsValid, s
           onPress={() => {
             setValidationInit(true)
             setPressedAdd(true)
-          }}/>
+          }}
+          />
         {workoutItemFieldIsValid['name'] && workoutItemFieldIsValid['date'] && workoutItemFieldIsValid['exercise'] && workoutItemFieldIsValid['result'] && pressedAdd &&
         <PopUp setValidationInit={setValidationInit} setPressedAdd={setPressedAdd} workoutItemFieldIsValid={workoutItemFieldIsValid} setWorkoutItemFieldIsValid={setWorkoutItemFieldIsValid}/>
         }
@@ -104,7 +103,7 @@ const styles = StyleSheet.create({
     height: 35,
     width: Dimensions.get('window').width < 370 ? 270 : 350,
     borderWidth: 1,
-    borderRadius: 3,
+    borderRadius: 4,
     marginBottom: 12,
     paddingHorizontal: 8
   },

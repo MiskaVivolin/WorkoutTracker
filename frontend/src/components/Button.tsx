@@ -25,10 +25,9 @@ const styles = StyleSheet.create({
     marginTop: 6,
     marginBottom: 10,
     marginHorizontal: 19,
-    borderRadius: 10, 
+    borderRadius: 20, 
     textAlign: 'center',
     fontSize: 16,
-    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)', 
   },
   buttonText: {
     fontSize: 15, 

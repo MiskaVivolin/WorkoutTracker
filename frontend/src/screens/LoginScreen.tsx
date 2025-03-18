@@ -114,7 +114,8 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
             </Pressable>
             <Button
               title='Log in'
-              onPress={() => handleLogin()}/>
+              onPress={() => handleLogin()}
+              />
           </View>
       </View>
     </View>

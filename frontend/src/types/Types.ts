@@ -47,6 +47,7 @@ export type RootStackParamList = {
     LoginScreen: undefined;
     SignupScreen: undefined;
     WorkoutListScreen: undefined;
+    SettingScreen: undefined;
 };
 
 export interface ApiResponse {
@@ -114,6 +115,7 @@ export interface NavBarProps {
     showButtons: boolean;
     addButtonToggle?: boolean;
     navigation: StackNavigationProp<RootStackParamList>;
+    currentScreen?: string;
 }
 
 export interface PopUpProps {
@@ -137,6 +139,13 @@ export interface ButtonProps {
     title: string;
     onPress: () => void;
     style?: ViewStyle;
+  };
+
+export interface NavButtonProps {
+    title: string;
+    onPress: () => void;
+    style?: ViewStyle;
+    isActive?: boolean;
   };
 
 // function props

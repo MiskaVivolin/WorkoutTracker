@@ -79,14 +79,16 @@ const WorkoutEditor = ({ workoutItem, setWorkoutItem, setIsEditMode, isEditMode,
               onPress={() => {
               setValidationInit(true)
               setPressedAdd(true)
-              }}/>
+              }}
+              />
           <Button
             title='Delete'
             style={{backgroundColor: Themes[theme].deleteButton}}
             onPress={() => {
               setIsEditMode(false)
               deleteWorkoutItem(workoutItem.id, setWorkoutList)
-              }}/>
+              }}
+              />
           <Button 
             title='Cancel'
             onPress={() => setIsEditMode(false)}
@@ -121,7 +123,6 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     borderRadius: 8,
     padding: 6,
-    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)', 
   },
   label: {
     fontSize: 13,

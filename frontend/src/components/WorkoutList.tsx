@@ -68,7 +68,6 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     borderRadius: 8,
     paddingTop: 8,
-    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)', 
     minWidth: Dimensions.get('window').width < 320 ? 270 : 280,
     maxWidth: Dimensions.get('window').width < 360 ? 270 : 320,
   }
