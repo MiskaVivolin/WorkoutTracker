@@ -3,7 +3,7 @@ import { SetWorkoutList, WorkoutItemFields, ResponseData, WorkoutItem } from "..
 import { Platform } from 'react-native';
 
 
-const createWorkoutItem = (workoutItem: WorkoutItemFields, setWorkoutList: SetWorkoutList, username: string | null): void => {
+const createWorkoutItem = (workoutItem: WorkoutItemFields, username: string | null): void => {
 
   const apiUrl = Platform.OS === 'android' ? 'http://192.168.1.119:3001/create' : 'http://127.0.0.1:3001/create';
 
@@ -17,7 +17,6 @@ const createWorkoutItem = (workoutItem: WorkoutItemFields, setWorkoutList: SetWo
       exercise: data.exercise,
       result: data.result,
     }
-    setWorkoutList((prevList: WorkoutItem[]) => [...prevList, newObj]);
   })
   .catch((error) => {
     console.error('Error creating item:', error);

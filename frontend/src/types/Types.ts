@@ -17,6 +17,7 @@ export interface WorkoutItemFields {
     result: string;
 }
 
+
 export interface ResponseData extends WorkoutItem {
     map(arg0: (item: WorkoutItem) => { name: string; date: string; exercise: string; result: string; }): WorkoutItem[];
     message: string;
@@ -109,6 +110,11 @@ export interface FormContainerProps {
     };
     setWorkoutItemFieldIsValid: React.Dispatch<React.SetStateAction<PrevStateBooleanObj>>;
     setWorkoutList: SetWorkoutList;
+}
+
+export interface FormContainerBetaProps {
+    workoutItem: WorkoutItem; 
+    setWorkoutItem: SetWorkoutItem;
 }
 
 export interface NavBarProps {
