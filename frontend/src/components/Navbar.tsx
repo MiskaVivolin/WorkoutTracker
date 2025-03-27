@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
-import { NavBarProps } from '../types/Types';
+import { NavBarProps } from '../types/componentProps';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Themes } from '../../assets/styles/Themes';
 import NavButton from './NavButton';

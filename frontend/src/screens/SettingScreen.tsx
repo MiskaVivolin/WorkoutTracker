@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
-import { WorkoutListScreenProps } from '../types/Types';
+import React from 'react';
+import { View } from 'react-native';
+import { WorkoutListScreenProps } from '../types/screenProps';
 import Navbar from '../components/Navbar';
 import { Themes } from '../../assets/styles/Themes'
 import { useTheme } from '../context/ThemeContext';

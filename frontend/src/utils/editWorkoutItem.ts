@@ -1,5 +1,6 @@
 import axios, { AxiosResponse } from 'axios'
-import { WorkoutItem, ResponseData, SetBoolean } from '../types/Types'
+import { WorkoutItem, ResponseData } from '../types/workoutItemTypes'
+import { SetBoolean } from '../types/utilTypes'
 import { Platform } from 'react-native';
 
 

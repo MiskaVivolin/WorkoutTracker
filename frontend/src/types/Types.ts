@@ -1,6 +1,8 @@
 import { ReactNode } from 'react'
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ViewStyle } from 'react-native';
+import workoutSchema from '../components/FormContainerBeta';
+import { z } from 'zod';
 
 export interface WorkoutItem {
     readonly id: number;
@@ -73,6 +75,8 @@ export type AddExerciseScreenParams = {
 export type WorkoutListScreenParams = {
     username: string;
 }
+
+export type WorkoutFormData = z.infer<typeof workoutSchema>
 
 // screen props
 

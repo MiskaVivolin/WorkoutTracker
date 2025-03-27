@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, StyleSheet, Pressable } from 'react-native';
 import { Themes } from "../../assets/styles/Themes"
-import { NavButtonProps } from '../types/Types';
+import { NavButtonProps } from '../types/componentProps';
 import { useTheme } from '../context/ThemeContext';
 
 const NavButton = ({ title, onPress, style, isActive = false }: NavButtonProps) => {

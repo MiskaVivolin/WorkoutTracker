@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
-import { WorkoutItem, WorkoutListScreenProps } from '../types/Types';
+import { WorkoutListScreenProps } from '../types/screenProps';
+import { WorkoutItem } from '../types/workoutItemTypes';
 import WorkoutList from '../components/WorkoutList';
 import Navbar from '../components/Navbar';
 import WorkoutEditor from '../components/WorkoutEditor';

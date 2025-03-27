@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Animated, StyleSheet, Dimensions } from 'react-native';
-import { PopUpProps } from '../types/Types';
+import { View, Text, Animated, StyleSheet } from 'react-native';
+import { PopUpProps } from '../types/componentProps';
 
 const PopUp = ({setValidationInit, setPressedAdd, workoutItemFieldIsValid, setWorkoutItemFieldIsValid}: PopUpProps) => {
   const [visible, setVisible] = useState(true);

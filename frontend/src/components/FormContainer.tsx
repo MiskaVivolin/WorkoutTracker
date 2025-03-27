@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, TextInput, View, Dimensions } from 'react-native'
 import { Themes } from '../../assets/styles/Themes';
-import { FormContainerProps } from '../types/Types';
-import workoutItemValidation from '../functions/workoutItemValidation';
+import { FormContainerProps } from '../types/componentProps';
+import workoutItemValidation from '../utils/workoutItemValidation';
 import { useUserToken } from '../context/UserTokenContext';
 import { useTheme } from '../context/ThemeContext';
 import PopUp from './PopUp';

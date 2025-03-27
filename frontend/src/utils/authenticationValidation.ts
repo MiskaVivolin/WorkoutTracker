@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios, { AxiosError } from 'axios';
-import { ApiResponse, AuthenticationValidationProps, ValidationFields } from '../types/Types';
+import { ApiResponse, ValidationFields } from '../types/utilTypes';
+import { AuthenticationValidationProps } from '../types/Types';
 import { Platform } from 'react-native';
 
 

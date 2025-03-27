@@ -2,22 +2,14 @@ import React, { useEffect } from "react";
 import { View, Text, TextInput, StyleSheet, Dimensions } from "react-native";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import Button from "../components/Button";
-import createWorkoutItem from "../functions/createWorkoutItem";
+import createWorkoutItem from "../utils/createWorkoutItem";
 import { useUserToken } from "../context/UserTokenContext";
-import { FormContainerBetaProps, SetWorkoutList, WorkoutItem } from "../types/Types";
+import { FormContainerBetaProps } from "../types/componentProps";
+import { WorkoutFormData } from "../types/workoutItemTypes";
 import { Themes } from "../../assets/styles/Themes";
 import { useTheme } from "../context/ThemeContext";
-
-const workoutSchema = z.object({
-    name: z.string().min(1, "Name must not be empty"),
-    date: z.string().min(1, "Date must not be empty"),
-    exercise: z.string().min(1, "Exercise must not be empty"),
-    result: z.string().min(1, "Result must not be empty"),
-})
-
-type WorkoutFormData = z.infer<typeof workoutSchema>
+import { workoutSchema } from "../schemas/workoutSchema";
 
 
 const FormContainerBeta = ({workoutItem, setWorkoutItem}: FormContainerBetaProps) => {

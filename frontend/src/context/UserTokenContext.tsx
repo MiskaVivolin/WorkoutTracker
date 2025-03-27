@@ -1,13 +1,9 @@
-import React, { createContext, useContext, useState } from 'react';
-
-type UserTokenContextType = {
-  userToken: string | null;
-  setToken: (token: string | null) => void;
-};
+import React, { createContext, useContext, useState, ReactNode } from 'react';
+import { UserTokenContextType } from '../types/utilTypes';
 
 const UserTokenContext = createContext<UserTokenContextType | undefined>(undefined);
 
-export const UserTokenProvider = ({children}: {children: React.ReactNode}) => {
+export const UserTokenProvider = ({children}: {children: ReactNode}) => {
   const [userToken, setUserToken] = useState<string | null>(null);
 
   const setToken = (token: string | null) => {

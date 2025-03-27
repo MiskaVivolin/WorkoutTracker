@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { View, Text, TextInput, StyleSheet, Pressable, Dimensions } from 'react-native';
-import authenticationValidation from '../functions/authenticationValidation';
-import { LoginScreenProps } from '../types/Types';
+import authenticationValidation from '../utils/authenticationValidation';
+import { LoginScreenProps } from '../types/screenProps';
 import { useUserToken } from '../context/UserTokenContext';
 import Navbar from '../components/Navbar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
