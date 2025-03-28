@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { View } from 'react-native';
 import { AddWorkoutScreenProps } from '../types/screenProps';
 import FormContainer from '../components/FormContainer';
-import FormContainerBeta from '../components/FormContainerBeta';
 import Navbar from '../components/Navbar';
 import { Themes } from '../../assets/styles/Themes'
 import { useTheme } from '../context/ThemeContext';
@@ -18,8 +17,7 @@ const AddWorkoutScreen: React.FC<AddWorkoutScreenProps> = ({ navigation }) => {
         <View>
         <Navbar navigation={navigation} showButtons={true} addButtonToggle={false}/>
         <View>
-          <FormContainerBeta workoutItem={workoutItem} setWorkoutItem={setWorkoutItem}/>
-          {/* <FormContainer workoutItem={workoutItem} setWorkoutItem={setWorkoutItem} workoutItemFieldIsValid={workoutItemIsValid} setWorkoutItemFieldIsValid={setWorkoutItemIsValid} setWorkoutList={setWorkoutList}/> */}
+          <FormContainer workoutItem={workoutItem} setWorkoutItem={setWorkoutItem}/>
         </View>
       </View>
     </View>

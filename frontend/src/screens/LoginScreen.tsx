@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { View, Text, TextInput, StyleSheet, Pressable, Dimensions } from 'react-native';
-import authenticationValidation from '../utils/authenticationValidation';
+import authenticationValidation from '../services/authenticationValidation';
 import { LoginScreenProps } from '../types/screenProps';
 import { useUserToken } from '../context/UserTokenContext';
 import Navbar from '../components/Navbar';

@@ -1,6 +1,3 @@
-import { workoutSchema } from "../schemas/workoutSchema";
-import { z } from "zod";
-
 export interface WorkoutItem {
     readonly id: number;
     name: string;
@@ -24,10 +21,3 @@ export interface ResponseData extends WorkoutItem {
 export type SetWorkoutList = React.Dispatch<React.SetStateAction<WorkoutItem[]>>;
 
 export type SetWorkoutItem = (data: WorkoutItem) => void;
-
-export interface WorkoutListState {
-    workoutList: WorkoutItem[];
-    setWorkoutList: SetWorkoutList;
-}
-
-export type WorkoutFormData = z.infer<typeof workoutSchema>

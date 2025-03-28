@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { SignupScreenProps } from '../types/screenProps';
 import { View, Text, TextInput, StyleSheet, Pressable, Dimensions } from 'react-native';
-import authenticationValidation from '../utils/authenticationValidation';
+import authenticationValidation from '../services/authenticationValidation';
 import { useTheme } from '../context/ThemeContext';
 import { Themes } from '../../assets/styles/Themes';
 import Navbar from '../components/Navbar';

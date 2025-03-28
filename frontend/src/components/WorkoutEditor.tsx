@@ -1,103 +1,127 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { StyleSheet, Text, View, TextInput, Dimensions, } from 'react-native'
-import { useEffect, useState } from 'react'
-import workoutItemValidation from '../utils/workoutItemValidation'
-import { WorkoutEditorProps } from '../types/Types'
-import deleteWorkoutItem from '../utils/deleteWorkoutItem'
-import { useUserToken } from '../context/UserTokenContext'
+import { WorkoutEditorProps } from '../types/componentProps'
+import deleteWorkoutItem from '../services/deleteWorkoutItem'
+import editWorkoutItem from '../services/editWorkoutItem'
 import Button from './Button'
 import { Themes } from '../../assets/styles/Themes'
 import { useTheme } from '../context/ThemeContext'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
 
-const WorkoutEditor = ({ workoutItem, setWorkoutItem, setIsEditMode, isEditMode, setWorkoutList }: WorkoutEditorProps) => {
 
-  const [validationInit, setValidationInit] = useState(false)
-  const [pressedAdd, setPressedAdd] = useState(false);
-  const { userToken } = useUserToken();
+const WorkoutEditor = ({ workoutItem, setIsEditMode, setWorkoutList }: WorkoutEditorProps) => {
+  
+  type WorkoutFormData = z.infer<typeof workoutSchema>
+  const workoutSchema = z.object({
+    name: z.string().min(1, "Name must not be empty"),
+    date: z.string().min(1, "Date must not be empty"),
+    exercise: z.string().min(1, "Exercise must not be empty"),
+    result: z.string().min(1, "Result must not be empty")})
+
   const { theme } = useTheme();
-  const [workoutItemFieldIsValid, setWorkoutItemFieldIsValid] = useState({
-    name: false,
-    date: false,
-    exercise: false,
-    result: false,
+  const { register, handleSubmit, setValue, watch, formState: { errors }, reset } = useForm<WorkoutFormData>({
+      resolver: zodResolver(workoutSchema),
+      defaultValues: {
+          name: workoutItem.name,
+          date: workoutItem.date,
+          exercise: workoutItem.exercise,
+          result: workoutItem.result
+      }
   })
 
   useEffect(() => {
-    if(validationInit) {
-      workoutItemValidation({workoutItem, setWorkoutItem, setWorkoutItemFieldIsValid, setWorkoutList, pressedAdd, setPressedAdd, isEditMode, setIsEditMode, userToken})
-    }
-  }, [workoutItem, pressedAdd])
+    reset({
+      name: workoutItem.name,
+      date: workoutItem.date,
+      exercise: workoutItem.exercise,
+      result: workoutItem.result,
+    });
+    console.log(workoutItem.name)
+  }, [workoutItem, reset]);
+
+  const onSubmit = (data: WorkoutFormData) => {
+
+    const updatedWorkoutItem = {
+      ...workoutItem,
+      name: data.name,
+      date: data.date,
+      exercise: data.exercise,
+      result: data.result
+    };
+
+    setIsEditMode(false);
+    editWorkoutItem(updatedWorkoutItem)
+  };
 
   return (
-    <View style={[styles.container, {backgroundColor: Themes[theme].background}]}>
-      <View style={[styles.listItem, {backgroundColor: Themes[theme].primary}]}>
-        <Text style={[styles.header, {color: Themes[theme].defaultText}]}>Edit your workout</Text>
-        <View style={{flexDirection: 'row', marginTop: 1, marginBottom: 5}}>
-          <View style={{flexDirection: 'column'}}>
-            <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Name</Text>
-            <TextInput style={[styles.inputField, {color: Themes[theme].defaultText, backgroundColor: Themes[theme].inputField, borderColor: Themes[theme].border}]}
-              onChangeText={name => setWorkoutItem({ ...workoutItem, name })}
-              value={workoutItem.name}
-              />
-            {!workoutItemFieldIsValid['name'] && validationInit &&
-            <Text style={[styles.inputFieldError, {color: Themes[theme].errorText}]}>Name must not be empty</Text>}
+    <View style={[styles.container, { backgroundColor: Themes[theme].background }]}>      
+      <View style={[styles.listItem, { backgroundColor: Themes[theme].primary }]}>      
+        <Text style={[styles.header, { color: Themes[theme].defaultText }]}>Edit your workout</Text>
+        <View style={{ flexDirection: 'row', marginTop: 1, marginBottom: 5 }}>
+          <View style={{ flexDirection: 'column' }}>
+            <Text style={[styles.label, { color: Themes[theme].defaultText }]}>Name</Text>
+            <TextInput
+              style={[styles.inputField, { color: Themes[theme].defaultText, backgroundColor: Themes[theme].inputField, borderColor: Themes[theme].border }]}
+              {...register("name")}
+              onChangeText={name => setValue("name", name)}
+              value={watch("name")}
+            />
+            {errors.name && <Text style={[styles.inputFieldError, { color: Themes[theme].errorText }]}>{errors.name.message}</Text>}
           </View>
-          <View style={{flexDirection: 'column'}}>
-            <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Date</Text>
-            <TextInput style={[styles.inputField, {color: Themes[theme].defaultText, backgroundColor: Themes[theme].inputField, borderColor: Themes[theme].border}]}
-              onChangeText={date => setWorkoutItem({ ...workoutItem, date })}
-              value={workoutItem.date}
-              />
-            {!workoutItemFieldIsValid['date'] && validationInit &&
-            <Text style={[styles.inputFieldError, {color: Themes[theme].errorText}]}>Date must not be empty</Text>}
+          <View style={{ flexDirection: 'column' }}>
+            <Text style={[styles.label, { color: Themes[theme].defaultText }]}>Date</Text>
+            <TextInput
+              style={[styles.inputField, { color: Themes[theme].defaultText, backgroundColor: Themes[theme].inputField, borderColor: Themes[theme].border }]}
+              {...register("date")}
+              onChangeText={date => setValue("date", date)}
+              value={watch("date")}
+            />
+            {errors.date && <Text style={[styles.inputFieldError, { color: Themes[theme].errorText }]}>{errors.date.message}</Text>}
           </View>
         </View>
-        
-        <View style={{flexDirection: 'row', marginTop: 1, marginBottom: 5}}>
-          <View style={{flexDirection: 'column'}}>
-            <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Exercise</Text>
-            <TextInput style={[styles.inputField, {color: Themes[theme].defaultText, backgroundColor: Themes[theme].inputField, borderColor: Themes[theme].border}]}
-              onChangeText={exercise => setWorkoutItem({ ...workoutItem, exercise })}
-              value={workoutItem.exercise}
-              />
-            {!workoutItemFieldIsValid['exercise'] && validationInit &&
-            <Text style={[styles.inputFieldError, {color: Themes[theme].errorText}]}>Exercise must not be empty</Text>}
-          </View>
-          <View style={{flexDirection: 'column'}}>
-            <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Result</Text>
-            <TextInput style={[styles.inputField, {color: Themes[theme].defaultText, backgroundColor: Themes[theme].inputField, borderColor: Themes[theme].border}]}
-              onChangeText={result => setWorkoutItem({ ...workoutItem, result })}
-              value={workoutItem.result}
-              />
-            {!workoutItemFieldIsValid['result'] && validationInit &&
-            <Text style={[styles.inputFieldError, {color: Themes[theme].errorText}]}>Result must not be empty</Text>}  
-            </View>
-          </View>
-        <View style={styles.buttonContainer}>
-          <Button
-              title='Save'
-              onPress={() => {
-              setValidationInit(true)
-              setPressedAdd(true)
-              }}
-              />
-          <Button
-            title='Delete'
-            style={{backgroundColor: Themes[theme].deleteButton}}
-            onPress={() => {
-              setIsEditMode(false)
-              deleteWorkoutItem(workoutItem.id, setWorkoutList)
-              }}
-              />
-          <Button 
-            title='Cancel'
-            onPress={() => setIsEditMode(false)}
+        <View style={{ flexDirection: 'row', marginTop: 1, marginBottom: 5 }}>
+          <View style={{ flexDirection: 'column' }}>
+            <Text style={[styles.label, { color: Themes[theme].defaultText }]}>Exercise</Text>
+            <TextInput
+              style={[styles.inputField, { color: Themes[theme].defaultText, backgroundColor: Themes[theme].inputField, borderColor: Themes[theme].border }]}
+              {...register("exercise")}
+              onChangeText={exercise => setValue("exercise", exercise)}
+              value={watch("exercise")}
             />
+            {errors.exercise && <Text style={[styles.inputFieldError, { color: Themes[theme].errorText }]}>{errors.exercise.message}</Text>}
+          </View>
+          <View style={{ flexDirection: 'column' }}>
+            <Text style={[styles.label, { color: Themes[theme].defaultText }]}>Result</Text>
+            <TextInput
+              style={[styles.inputField, { color: Themes[theme].defaultText, backgroundColor: Themes[theme].inputField, borderColor: Themes[theme].border }]}
+              {...register("result")}
+              onChangeText={result => setValue("result", result)}
+              value={watch("result")}
+            />
+            {errors.result && <Text style={[styles.inputFieldError, { color: Themes[theme].errorText }]}>{errors.result.message}</Text>}
+          </View>
+        </View>
+        <View style={styles.buttonContainer}>
+          <Button 
+            title='Save' 
+            onPress={handleSubmit(onSubmit)} />
+          <Button 
+            title='Delete' 
+            style={{ backgroundColor: Themes[theme].deleteButton }} 
+            onPress={() => {
+              deleteWorkoutItem(workoutItem.id, setWorkoutList)
+              setIsEditMode(false) 
+            }} />
+          <Button 
+            title='Cancel' 
+            onPress={() => setIsEditMode(false)} />
         </View>
       </View>
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {

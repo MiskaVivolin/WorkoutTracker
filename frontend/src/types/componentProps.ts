@@ -1,23 +1,11 @@
 import { StackNavigationProp } from "@react-navigation/stack";
-import { PrevStateBooleanObj, RootStackParamList, SetBoolean } from "./utilTypes";
+import { RootStackParamList, SetBoolean } from "./utilTypes";
 import { SetWorkoutItem, SetWorkoutList, WorkoutItem } from "./workoutItemTypes";
 import { ViewStyle } from "react-native";
 
 export interface WorkoutEditorProps { 
     workoutItem: WorkoutItem;
-    setWorkoutItem: SetWorkoutItem;
     setIsEditMode: SetBoolean;
-    isEditMode: boolean;
-    setWorkoutList: SetWorkoutList;
-}
-
-export interface FormContainerProps {
-    workoutItem: WorkoutItem;
-    setWorkoutItem: SetWorkoutItem;
-    workoutItemFieldIsValid: {
-        [key: string]: boolean
-    };
-    setWorkoutItemFieldIsValid: React.Dispatch<React.SetStateAction<PrevStateBooleanObj>>;
     setWorkoutList: SetWorkoutList;
 }
 
@@ -33,15 +21,14 @@ export interface NavBarProps {
     currentScreen?: string;
 }
 
-export interface PopUpProps {
-    setValidationInit: SetBoolean;
-    setPressedAdd: SetBoolean;
-    workoutItemFieldIsValid: {
-        [key: string]: boolean;
-    }
-    setWorkoutItemFieldIsValid: React.Dispatch<React.SetStateAction<PrevStateBooleanObj>>;
-
-}
+// export interface PopUpProps {
+//     setValidationInit: SetBoolean;
+//     setPressedAdd: SetBoolean;
+//     workoutItemFieldIsValid: {
+//         [key: string]: boolean;
+//     }
+//     setWorkoutItemFieldIsValid: React.Dispatch<React.SetStateAction<PrevStateBooleanObj>>;
+// }
 
 export interface WorkoutListProps {
     workoutList: WorkoutItem[];
