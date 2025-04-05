@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import AddWorkoutScreen from './src/screens/AddWorkoutScreen';
 import LoginScreen from './src/screens/LoginScreen';
+import LoginScreenBeta from './src/screens/LoginScreenBeta';
 import SignupScreen from './src/screens/SignupScreen';
 import WorkoutListScreen from './src/screens/WorkoutListScreen';
 import SettingScreen from './src/screens/SettingScreen';
@@ -45,7 +46,7 @@ export default function App() {
         <UserTokenProvider>
           <Stack.Navigator initialRouteName="LoginScreen">
             <Stack.Screen name="AddWorkoutScreen" component={AddWorkoutScreen} options={{ headerShown: false }}/>
-            <Stack.Screen name="LoginScreen" component={LoginScreen} options={{ headerShown: false }}/>
+            <Stack.Screen name="LoginScreen" component={LoginScreenBeta} options={{ headerShown: false }}/>
             <Stack.Screen name="SignupScreen" component={SignupScreen} options={{ headerShown: false }}/>
             <Stack.Screen name="WorkoutListScreen" component={WorkoutListScreen} options={{ headerShown: false }}/>
             <Stack.Screen name="SettingScreen" component={SettingScreen} options={{ headerShown: false }}/>

@@ -7,7 +7,7 @@ const router = express.Router()
 
 router.post("/signup", async (req: UserData, res: SignupRes) => {
   try {
-    const { username, password } = req.body.validationFields;
+    const { username, password } = req.body
 
     const signUp = await userSignup(username, password)
     if (!signUp) {
@@ -23,8 +23,8 @@ router.post("/signup", async (req: UserData, res: SignupRes) => {
 
 router.post("/login", async (req: UserData, res: LoginRes) => {
   try {
-    const { username, password } = req.body.validationFields;
-    
+    const { username, password } = req.body;
+    console.log(req.body)
     const user = await userLogin(username, password)
     if (user === "Invalid username" ) {
       return res.status(401).json({ message: user })
