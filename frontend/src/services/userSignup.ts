@@ -11,9 +11,8 @@ export const userSignup = async ( navigation: StackNavigationProp<RootStackParam
     if (username.length < 4) {
       throw new Error('Username must be at least 4 characters');
     }
-  
-    if (password.length < 10) {
-      throw new Error('Password must be at least 10 characters');
+    if (password.length < 8) {
+      throw new Error('Password must be at least 8 characters');
     }
   
     try {

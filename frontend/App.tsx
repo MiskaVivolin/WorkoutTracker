@@ -5,6 +5,7 @@ import AddWorkoutScreen from './src/screens/AddWorkoutScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import LoginScreenBeta from './src/screens/LoginScreenBeta';
 import SignupScreen from './src/screens/SignupScreen';
+import SignupScreenBeta from './src/screens/SignupScreenBeta';
 import WorkoutListScreen from './src/screens/WorkoutListScreen';
 import SettingScreen from './src/screens/SettingScreen';
 import { UserTokenProvider } from './src/context/UserTokenContext';
@@ -47,7 +48,7 @@ export default function App() {
           <Stack.Navigator initialRouteName="LoginScreen">
             <Stack.Screen name="AddWorkoutScreen" component={AddWorkoutScreen} options={{ headerShown: false }}/>
             <Stack.Screen name="LoginScreen" component={LoginScreenBeta} options={{ headerShown: false }}/>
-            <Stack.Screen name="SignupScreen" component={SignupScreen} options={{ headerShown: false }}/>
+            <Stack.Screen name="SignupScreen" component={SignupScreenBeta} options={{ headerShown: false }}/>
             <Stack.Screen name="WorkoutListScreen" component={WorkoutListScreen} options={{ headerShown: false }}/>
             <Stack.Screen name="SettingScreen" component={SettingScreen} options={{ headerShown: false }}/>
           </Stack.Navigator>

@@ -18,8 +18,8 @@ const FormContainer = ({workoutItem, setWorkoutItem}: FormContainerBetaProps) =>
     name: z.string().min(1, "Name must not be empty"),
     date: z.string().min(1, "Date must not be empty"),
     exercise: z.string().min(1, "Exercise must not be empty"),
-    result: z.string().min(1, "Result must not be empty")})
-
+    result: z.string().min(1, "Result must not be empty")
+  })
   const { theme } = useTheme()
   const { userToken } = useUserToken();
   const { register, handleSubmit, setValue, watch, formState: { errors }, reset } = useForm<WorkoutFormData>({

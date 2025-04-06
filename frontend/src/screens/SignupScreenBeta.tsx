@@ -1,84 +1,55 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { View, Text, TextInput, StyleSheet, Pressable, Dimensions } from 'react-native';
 import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useUserToken } from '../context/UserTokenContext';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { userSignup } from '../services/userSignup';
+import { SignupScreenProps } from '../types/screenProps';
 import { useTheme } from '../context/ThemeContext';
+import { Themes } from '../../assets/styles/Themes';
 import Navbar from '../components/Navbar';
 import Button from '../components/Button';
-import { LoginScreenProps } from '../types/screenProps';
-import { Themes } from '../../assets/styles/Themes';
-import { userLogin } from '../services/userLogin';
-import { ApiResponse } from '../types/utilTypes';
 
 
-const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
-  
-  type LoginFormData = z.infer<typeof loginSchema>;
-  const loginSchema = z.object({
-    username: z.string().min(1, 'Username is required'),
-    password: z.string().min(1, 'Password is required'),
+const SignupScreenBeta: React.FC<SignupScreenProps> = ({ navigation }) => {
+    
+  type SignupFormData = z.infer<typeof signupSchema>;
+  const signupSchema = z.object({
+    username: z.string().min(4, 'Username must be at least 4 characters'),
+    password: z.string().min(8, 'Password must be at least 8 characters'),
   });
-  const { setToken } = useUserToken();
-  const { theme } = useTheme();
-  const { register, handleSubmit, setValue, watch, formState: { errors } } = useForm<LoginFormData>({
-    resolver: zodResolver(loginSchema),
+  const { theme } = useTheme()
+  const { register, handleSubmit, setValue, watch, formState: { errors } } = useForm<SignupFormData>({
+    resolver: zodResolver(signupSchema),
     defaultValues: { username: '', password: '' }
   });
-  const [loginError, setLoginError] = useState<string | null>(null);
 
-  const onSubmit = (data: LoginFormData) => {
-    setToken(data.username);
-    const response = userLogin(navigation, data.username, data.password)
-    if(response !== null) {
-      setLoginError('Invalid username or password')
-    }
+  const onSubmit = (data: SignupFormData) => {
+    console.log("submitting...")
+    userSignup(navigation, data.username, data.password)
   };
-
-  useEffect(() => {
-    AsyncStorage.getItem('userInputFields').then((storedUserJSON) => {
-      if (storedUserJSON) {
-        const storedUser = JSON.parse(storedUserJSON);
-        if (storedUser) {
-          setValue('username', storedUser.username);
-          setValue('password', storedUser.password);
-          onSubmit(storedUser)
-        }
-      }
-    });
-  }, []);
 
   return (
     <View style={{ flex: 1 }}>
       <Navbar navigation={navigation} showButtons={false} />
       <View style={[styles.container, { backgroundColor: Themes[theme].background }]}>
-        <Text style={[styles.labelHeader, { color: Themes[theme].defaultText }]}>
-          Log in to your account
-        </Text>
-
-
+        <Text style={[styles.labelHeader, { color: Themes[theme].defaultText }]}>Create a new account</Text>
         <View style={styles.fieldContainer}>
           <Text style={[styles.label, { color: Themes[theme].defaultText }]}>Username</Text>
           <TextInput
             style={[
               styles.inputField,
               {
-                backgroundColor: Themes[theme].inputField,
                 color: Themes[theme].defaultText,
+                backgroundColor: Themes[theme].inputField,
                 borderColor: Themes[theme].border,
               },
+              errors.username && { borderColor: Themes[theme].errorText },
             ]}
             {...register('username')}
-            onChangeText={(text) => setValue('username', text)}
             value={watch('username')}
-            />
-          {loginError && (
-            <Text style={[styles.inputFieldError, { color: Themes[theme].errorText }]}>
-              {loginError}
-            </Text>
-          )}
+            onChangeText={(text) => setValue('username', text)}
+          />
           {errors.username && (
             <Text style={[styles.inputFieldError, { color: Themes[theme].errorText }]}>
               {errors.username.message}
@@ -87,18 +58,19 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
 
           <Text style={[styles.label, { color: Themes[theme].defaultText }]}>Password</Text>
           <TextInput
+            secureTextEntry
             style={[
               styles.inputField,
               {
-                backgroundColor: Themes[theme].inputField,
                 color: Themes[theme].defaultText,
+                backgroundColor: Themes[theme].inputField,
                 borderColor: Themes[theme].border,
               },
+              errors.password && { borderColor: Themes[theme].errorText },
             ]}
-            secureTextEntry
             {...register('password')}
-            onChangeText={(text) => setValue('password', text)}
             value={watch('password')}
+            onChangeText={(text) => setValue('password', text)}
           />
           {errors.password && (
             <Text style={[styles.inputFieldError, { color: Themes[theme].errorText }]}>
@@ -108,12 +80,10 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
         </View>
 
         <View style={{ flexDirection: 'row' }}>
-          <Pressable style={styles.accountButton} onPress={() => navigation.navigate('SignupScreen')}>
-            <Text style={[styles.labelLink, { color: Themes[theme].defaultText }]}>
-              Create an account
-            </Text>
+          <Pressable style={styles.backButton} onPress={() => navigation.navigate('LoginScreen')}>
+            <Text style={[styles.labelLink, { color: Themes[theme].defaultText }]}>Back</Text>
           </Pressable>
-          <Button title="Log in" onPress={handleSubmit(onSubmit)} />
+          <Button title="Sign up" onPress={handleSubmit(onSubmit)} />
         </View>
       </View>
     </View>
@@ -125,7 +95,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'white',
   },
   fieldContainer: {
     justifyContent: 'center',
@@ -145,6 +114,7 @@ const styles = StyleSheet.create({
   inputFieldError: {
     fontSize: 13,
     fontFamily: 'MerriweatherSans',
+    marginBottom: 10,
   },
   labelLink: {
     fontSize: 15,
@@ -161,7 +131,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     borderRadius: 3,
   },
-  accountButton: {
+  backButton: {
     width: 155,
     paddingVertical: 15,
     paddingLeft: 25,
@@ -171,4 +141,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginScreen;
+export default SignupScreenBeta;

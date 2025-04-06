@@ -5,7 +5,7 @@ import { ApiResponse, RootStackParamList } from "../types/utilTypes";
 import axios, { AxiosError } from "axios";
 
 
-export const userLogin = async (navigation: StackNavigationProp<RootStackParamList>, username: string, password: string): Promise<void> => {
+export const userLogin = async (navigation: StackNavigationProp<RootStackParamList>, username: string, password: string): Promise<boolean | undefined> => {
 
       const apiUrl = Platform.OS === 'android' ? 'http://192.168.1.119:3001/login' : 'http://127.0.0.1:3001/login';
     
@@ -20,12 +20,13 @@ export const userLogin = async (navigation: StackNavigationProp<RootStackParamLi
         const axiosError = error as AxiosError;
         const responseData = axiosError.response?.data as ApiResponse;
   
-        if (axiosError.response?.status === 401) {
-          throw new Error('Invalid username or password');
+        // if (axiosError.response?.status === 401) {
+        //   throw new Error('Invalid username or password');
+        // }
+        if (responseData?.message) {
+          return true
         }
-  
-        console.error('Login error:', responseData?.message || error);
-      } else {
+        } else {
         console.error('Unexpected error:', error);
       }
     }
