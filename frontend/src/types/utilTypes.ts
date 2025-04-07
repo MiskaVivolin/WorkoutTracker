@@ -24,3 +24,7 @@ export interface ApiResponse {
     message: string;
 }
 
+export interface UserLogin {
+    Promise: any
+}
+

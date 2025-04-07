@@ -21,13 +21,13 @@ const WorkoutEditor = ({ workoutItem, setIsEditMode, setWorkoutList }: WorkoutEd
     result: z.string().min(1, "Result must not be empty")})
 
   const { theme } = useTheme();
-  const { register, handleSubmit, setValue, watch, formState: { errors }, reset } = useForm<WorkoutFormData>({
+  const { register, handleSubmit, setValue, watch, clearErrors, formState: { errors }, reset } = useForm<WorkoutFormData>({
       resolver: zodResolver(workoutSchema),
       defaultValues: {
-          name: workoutItem.name,
-          date: workoutItem.date,
-          exercise: workoutItem.exercise,
-          result: workoutItem.result
+        name: workoutItem.name,
+        date: workoutItem.date,
+        exercise: workoutItem.exercise,
+        result: workoutItem.result
       }
   })
 
@@ -65,7 +65,10 @@ const WorkoutEditor = ({ workoutItem, setIsEditMode, setWorkoutList }: WorkoutEd
             <TextInput
               style={[styles.inputField, { color: Themes[theme].defaultText, backgroundColor: Themes[theme].inputField, borderColor: Themes[theme].border }]}
               {...register("name")}
-              onChangeText={name => setValue("name", name)}
+              onChangeText={name => {
+                setValue("name", name)
+                clearErrors('name')
+              }}
               value={watch("name")}
             />
             {errors.name && <Text style={[styles.inputFieldError, { color: Themes[theme].errorText }]}>{errors.name.message}</Text>}
@@ -75,7 +78,10 @@ const WorkoutEditor = ({ workoutItem, setIsEditMode, setWorkoutList }: WorkoutEd
             <TextInput
               style={[styles.inputField, { color: Themes[theme].defaultText, backgroundColor: Themes[theme].inputField, borderColor: Themes[theme].border }]}
               {...register("date")}
-              onChangeText={date => setValue("date", date)}
+              onChangeText={date => {
+                setValue("date", date)
+                clearErrors('date')
+              }}
               value={watch("date")}
             />
             {errors.date && <Text style={[styles.inputFieldError, { color: Themes[theme].errorText }]}>{errors.date.message}</Text>}
@@ -87,7 +93,10 @@ const WorkoutEditor = ({ workoutItem, setIsEditMode, setWorkoutList }: WorkoutEd
             <TextInput
               style={[styles.inputField, { color: Themes[theme].defaultText, backgroundColor: Themes[theme].inputField, borderColor: Themes[theme].border }]}
               {...register("exercise")}
-              onChangeText={exercise => setValue("exercise", exercise)}
+              onChangeText={exercise => {
+                setValue("exercise", exercise)
+                clearErrors('exercise')
+              }}
               value={watch("exercise")}
             />
             {errors.exercise && <Text style={[styles.inputFieldError, { color: Themes[theme].errorText }]}>{errors.exercise.message}</Text>}
@@ -97,7 +106,10 @@ const WorkoutEditor = ({ workoutItem, setIsEditMode, setWorkoutList }: WorkoutEd
             <TextInput
               style={[styles.inputField, { color: Themes[theme].defaultText, backgroundColor: Themes[theme].inputField, borderColor: Themes[theme].border }]}
               {...register("result")}
-              onChangeText={result => setValue("result", result)}
+              onChangeText={result => {
+                setValue("result", result)
+                clearErrors('result')
+              }}
               value={watch("result")}
             />
             {errors.result && <Text style={[styles.inputFieldError, { color: Themes[theme].errorText }]}>{errors.result.message}</Text>}
