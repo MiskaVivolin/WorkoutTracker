@@ -1,51 +1,73 @@
 import React from 'react';
-import { View, Text, StyleSheet, Pressable, Dimensions } from 'react-native';
-import { NavBarProps } from '../types/Types';
+import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { NavBarProps } from '../types/componentProps';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Themes } from '../../assets/styles/Themes';
-import Button from './Button';
+import NavButton from './NavButton';
 import { useTheme } from '../context/ThemeContext';
+import { useNavigationState } from '@react-navigation/native';
 
 const Navbar = ({ navigation, showButtons, addButtonToggle }: NavBarProps) => {
   
     const { theme } = useTheme();
+  
+    const currentRoute = useNavigationState(
+      state => state.routes[state.index].name
+    );
+
+    const handleHighlight = (screen: string) => {
+      if (screen === currentRoute) {
+        return true
+      } else {
+        return false
+      }
+    }
 
   return (
     <View style={[styles.divContainer, {backgroundColor: Themes[theme].background}]}>
-      <View style={[styles.headerContainer , {backgroundColor: Themes[theme].primary}]}>
+      <View style={[styles.headerContainer, {backgroundColor: Themes[theme].primary}]}>
         <Text style={[styles.header, {color: Themes[theme].secondaryText}]}>Workout Tracker</Text>
       </View>
-
       {showButtons ? (
-        <View style={styles.logoutButtonContainer}>
-          <Button
-            title='Log out'
-            onPress={() => {
-              AsyncStorage.removeItem('userInputFields');
-              navigation.navigate('LoginScreen');
-            }}/>
-        </View>
-      ) : null}
-
-      {showButtons ? (
-      <View style={styles.listButtonContainer}>
+      <View style={styles.logoutButtonContainer}>
+        
+        
+        <NavButton
+          title='Add new'
+          onPress={() => {
+            navigation.navigate('AddWorkoutScreen')
+          }}
+          isActive={handleHighlight('AddWorkoutScreen')}
+          />
           
-          {addButtonToggle ?
-          <Button
-            title='Add new'
-            onPress={() => {
-              navigation.navigate('AddWorkoutScreen')
-            }}/>
-          :
-          <Button
-            title='Your list'
-            onPress={() => {
-              navigation.navigate('WorkoutListScreen')
-            }}/>
-          }
+        
+        <NavButton
+          title='Your list'
+          onPress={() => {
+            navigation.navigate('WorkoutListScreen')
+          }}
+          isActive={handleHighlight('WorkoutListScreen')}
+          />
+        
 
-        </View>
-        ) : null}
+        <NavButton
+          title='Settings'
+          onPress={() => {
+            navigation.navigate('SettingScreen')
+          }}
+          isActive={handleHighlight('SettingScreen')}
+          />
+
+        <NavButton
+          title='Log out'
+          onPress={() => {
+            AsyncStorage.removeItem('userInputFields');
+            navigation.navigate('LoginScreen');
+          }}
+          isActive={handleHighlight('LoginScreen')}
+          />
+      </View>
+      ) : null}
     </View>
   );
 };
@@ -58,8 +80,9 @@ const styles = StyleSheet.create({
   headerContainer: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'center',
-    padding: 10,
+    justifyContent: 'flex-start',
+    paddingVertical: 10,
+    paddingHorizontal: 25,
     maxHeight: Dimensions.get('window').width < 330 ? 54 : 58,
   },
   logoutButtonContainer: {
@@ -69,14 +92,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     position: Dimensions.get('window').width < 550 ? 'relative' : 'absolute',
     marginTop: 5,
-  },
-  listButtonContainer: {
-    flexDirection: 'row',
-    width: Dimensions.get('window').width < 550 ? '100%' : '50%',
-    justifyContent: Dimensions.get('window').width < 550 ? 'flex-end' : 'flex-start',
-    backgroundColor: 'transparent',
-    position: Dimensions.get('window').width < 550 ? 'relative' : 'absolute',
-    marginTop: 5,
+    paddingRight: 15
   },
   header: {
     fontSize: Dimensions.get('window').width < 330 ? 28 : 32,

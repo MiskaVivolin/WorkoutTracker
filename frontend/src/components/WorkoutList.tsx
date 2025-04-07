@@ -2,8 +2,9 @@ import React from 'react'
 import { StyleSheet, Text, View, Pressable, Dimensions } from 'react-native'
 import { FlatList } from 'react-native'
 import useGetWorkoutList from '../hooks/useGetWorkoutList'
-import { WorkoutItem, WorkoutListProps } from '../types/Types'
-import getWorkoutItem from '../functions/getWorkoutItem'
+import { WorkoutListProps } from '../types/componentProps'
+import { WorkoutItem } from '../types/workoutItemTypes'
+import getWorkoutItem from '../services/getWorkoutItem'
 import { Themes } from "../../assets/styles/Themes"
 import { useTheme } from '../context/ThemeContext'
 import Button from './Button'
@@ -68,7 +69,6 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     borderRadius: 8,
     paddingTop: 8,
-    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)', 
     minWidth: Dimensions.get('window').width < 320 ? 270 : 280,
     maxWidth: Dimensions.get('window').width < 360 ? 270 : 320,
   }

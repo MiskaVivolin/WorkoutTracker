@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
-import { WorkoutItem, WorkoutListScreenProps } from '../types/Types';
+import { WorkoutListScreenProps } from '../types/screenProps';
+import { WorkoutItem } from '../types/workoutItemTypes';
 import WorkoutList from '../components/WorkoutList';
 import Navbar from '../components/Navbar';
 import WorkoutEditor from '../components/WorkoutEditor';
@@ -18,7 +19,7 @@ const WorkoutListScreen: React.FC<WorkoutListScreenProps> = ({ navigation }) => 
     <View style={{flex: 1, backgroundColor: Themes[theme].background}}>
       <Navbar navigation={navigation} showButtons={true} addButtonToggle={true}/>
       {isEditMode ? 
-        <WorkoutEditor workoutItem={workoutItem} setWorkoutItem={setWorkoutItem} setIsEditMode={setIsEditMode} isEditMode={isEditMode} setWorkoutList={setWorkoutList}/>
+        <WorkoutEditor workoutItem={workoutItem} setIsEditMode={setIsEditMode} setWorkoutList={setWorkoutList}/>
         :
         <WorkoutList workoutList={workoutList} setWorkoutList={setWorkoutList} setIsEditMode={setIsEditMode} setWorkoutItem={setWorkoutItem}/>
       }

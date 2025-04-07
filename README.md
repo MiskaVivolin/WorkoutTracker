@@ -24,9 +24,14 @@ Exercise results can be easily edited and removed from the database.
 
 ![EditImg](/frontend/assets/images/edit.png)
 
+Theme switcher now available with light and dark themes. Working on styling improvements.
+
+![image](https://github.com/user-attachments/assets/58cf68bb-7a9f-42be-8431-af6aa32490cf)
+
+
 ## Future updates
 
-Searches and sorting for exercises. Charts to visually track progress.
+UI/UX improvements, Searches and sorting for exercises. Charts to visually track progress.
 
 ## Tech stack
 

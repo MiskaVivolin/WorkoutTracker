@@ -5,6 +5,7 @@ import AddWorkoutScreen from './src/screens/AddWorkoutScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import SignupScreen from './src/screens/SignupScreen';
 import WorkoutListScreen from './src/screens/WorkoutListScreen';
+import SettingScreen from './src/screens/SettingScreen';
 import { UserTokenProvider } from './src/context/UserTokenContext';
 import { ThemeProvider } from './src/context/ThemeContext';
 import * as SplashScreen from 'expo-splash-screen'
@@ -47,6 +48,7 @@ export default function App() {
             <Stack.Screen name="LoginScreen" component={LoginScreen} options={{ headerShown: false }}/>
             <Stack.Screen name="SignupScreen" component={SignupScreen} options={{ headerShown: false }}/>
             <Stack.Screen name="WorkoutListScreen" component={WorkoutListScreen} options={{ headerShown: false }}/>
+            <Stack.Screen name="SettingScreen" component={SettingScreen} options={{ headerShown: false }}/>
           </Stack.Navigator>
         </UserTokenProvider>
       </ThemeProvider>

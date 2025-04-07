@@ -17,10 +17,8 @@ export interface CreateWorkoutData {
 
 export interface UserData {
     body: {
-        validationFields: {
-            username: string;
-            password: Buffer;
-        }
+        username: string;
+        password: Buffer;
     }
 }
 

@@ -8,20 +8,19 @@ export const Themes = {
     errorText: 'rgb(255, 0, 0)',
     deleteButton: 'rgb(255, 77, 77)',
     border: 'rgb(135, 135, 135)',
-    inputField: 'rgb(248, 248, 248)'
-  },
-  light2: {
-    background: 'rgb(222, 228, 231)'
+    inputField: 'rgb(248, 248, 248)',
+    secondaryButton: 'rgb(65, 65, 65)'
   },
   dark: {
-    primary: 'rgb(84, 92, 81)',
-    secondary: 'rgb(216, 203, 184)',
-    background: 'rgb(60, 61, 55)',
-    defaultText: 'rgb(215, 215, 210)',
-    secondaryText: 'rgb(30, 30, 30)',
+    primary: 'rgb(50, 50, 50)',
+    secondary: '#bb86fc',
+    background: 'rgb(35, 35, 35)',
+    defaultText: '#D4D4D4',
+    secondaryText: 'rgb(20, 20, 20)',
     errorText: 'rgb(225, 40, 40)',
     deleteButton: 'rgb(255, 77, 77)',
     border: 'rgb(60, 60, 60)',
-    inputField: 'rgb(108, 109, 104)'
+    inputField: 'rgb(80, 80, 80)',
+    secondaryButton: 'rgb(65, 65, 65)'
   }
 }

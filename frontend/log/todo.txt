@@ -14,5 +14,7 @@
   // muuta delete napin paikkaa, ainakin puhelin näkymässä
   // theme selector: 2 dark teemaa ja light teemaa
   // funktion typet hookeille ja constien nimitys kuntoon, tarkista statet
+  // vaihda axios fetchiin ja integroi react query
+  // app shoud fully handle three most common states of a network request – loading, success, and error
   // sen jälkeen mietitään laajennusta esim. search, filter, kaaviot, emojit/kuvat, profiilitiedot jne.
   // docker, testing
