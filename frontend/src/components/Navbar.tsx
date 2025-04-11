@@ -7,7 +7,7 @@ import NavButton from './NavButton';
 import { useTheme } from '../context/ThemeContext';
 import { useNavigationState } from '@react-navigation/native';
 
-const Navbar = ({ navigation, showButtons, addButtonToggle }: NavBarProps) => {
+const Navbar = ({ navigation, showButtons }: NavBarProps) => {
   
     const { theme } = useTheme();
   

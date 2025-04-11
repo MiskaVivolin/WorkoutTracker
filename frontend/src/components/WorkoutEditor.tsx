@@ -38,10 +38,9 @@ const WorkoutEditor = ({ workoutItem, setIsEditMode, setWorkoutList }: WorkoutEd
       exercise: workoutItem.exercise,
       result: workoutItem.result,
     });
-    console.log(workoutItem.name)
   }, [workoutItem, reset]);
 
-  const onSubmit = (data: WorkoutFormData) => {
+  const onSubmit = async (data: WorkoutFormData) => {
 
     const updatedWorkoutItem = {
       ...workoutItem,
@@ -51,8 +50,8 @@ const WorkoutEditor = ({ workoutItem, setIsEditMode, setWorkoutList }: WorkoutEd
       result: data.result
     };
 
+    await editWorkoutItem(updatedWorkoutItem)
     setIsEditMode(false);
-    editWorkoutItem(updatedWorkoutItem)
   };
 
   return (
@@ -122,8 +121,8 @@ const WorkoutEditor = ({ workoutItem, setIsEditMode, setWorkoutList }: WorkoutEd
           <Button 
             title='Delete' 
             style={{ backgroundColor: Themes[theme].deleteButton }} 
-            onPress={() => {
-              deleteWorkoutItem(workoutItem.id, setWorkoutList)
+            onPress={async () => {
+              await deleteWorkoutItem(workoutItem.id, setWorkoutList)
               setIsEditMode(false) 
             }} />
           <Button 

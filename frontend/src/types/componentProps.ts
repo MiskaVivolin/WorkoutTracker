@@ -49,3 +49,11 @@ export interface NavButtonProps {
     style?: ViewStyle;
     isActive?: boolean;
   };
+
+export interface LoginContainerProps {
+    navigation: StackNavigationProp<RootStackParamList>;
+}
+
+export interface SignupContainerProps {
+    navigation: StackNavigationProp<RootStackParamList>;
+}

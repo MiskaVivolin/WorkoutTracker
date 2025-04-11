@@ -36,9 +36,7 @@ globals_1.jest.mock("../db");
             .mockResolvedValueOnce({ rows: [] });
         const res = yield (0, supertest_1.default)(server_1.app).post("/signup").send(mockUser);
         (0, globals_1.expect)(res.status).toBe(201);
-        (0, globals_1.expect)(res.body).toEqual({
-            isTaken: false,
-        });
+        (0, globals_1.expect)(res.body).toEqual({ message: "Signup successful" });
         (0, globals_1.expect)(querySpy).toHaveBeenCalledTimes(2);
     }));
     (0, globals_1.test)("POST /signup - should return status 409 and a boolean value if username is taken", () => __awaiter(void 0, void 0, void 0, function* () {
@@ -46,7 +44,7 @@ globals_1.jest.mock("../db");
             .mockResolvedValueOnce({ rows: [{ username: "existingUser" }] });
         const res = yield (0, supertest_1.default)(server_1.app).post("/signup").send(mockUser);
         (0, globals_1.expect)(res.status).toBe(409);
-        (0, globals_1.expect)(res.body).toEqual({ isTaken: true });
+        (0, globals_1.expect)(res.body).toEqual({ message: "Username already taken" });
         (0, globals_1.expect)(querySpy).toHaveBeenCalledTimes(1);
     }));
     (0, globals_1.test)("POST /signup - should return status 500 on Database error", () => __awaiter(void 0, void 0, void 0, function* () {

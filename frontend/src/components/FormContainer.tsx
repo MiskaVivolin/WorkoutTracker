@@ -36,10 +36,9 @@ const FormContainer = ({workoutItem, setWorkoutItem}: FormContainerBetaProps) =>
     console.log(workoutItem.name)
   }, [workoutItem.name])
 
-  const onSubmit = (data: WorkoutFormData) => {
-      createWorkoutItem(workoutItem, userToken)
-      console.log("Workout Submitted:", data)
-      reset()
+  const onSubmit = async () => {
+    await createWorkoutItem(workoutItem, userToken)
+    reset()
   }
 
   return (

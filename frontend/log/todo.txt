@@ -1,7 +1,6 @@
   // TODO: 
   // PopUp paremmaksi
   // korjaa bugi: consoli printtaa kaksi kertaa POST errorin
-  // tarkista onko "turhia" propseja
   // kun vaihtaa sivua, validaation pitäisi restartata (ei enää valita tyhjistä fieldeistä)
   // jos listassa ei ole itemeitä, näytä teksti ja kuva.
   // mahdollisuus lisätä settien määrä. (numero field jonka default on 1? + ja - napit?)
@@ -10,11 +9,12 @@
   // siirrä contextien typet types tiedostoon
   // mahdollisuus poistaa käyttäjä ja kaikki sen tiedot
   // bugi: jos login ohjaa workoutList sivulle, lista ei päivity kunnolla
+  // bugi: jos painaa log out, username ja password fieldit ovat täytetty valmiiksi
   // bugi: editoidessa, validaatio työntää inputcontainerit pois. editointi boxin koko myös väärä kun ruudun leveys noin 1000. laatikon paikkaa voisi myös siirtää.
   // muuta delete napin paikkaa, ainakin puhelin näkymässä
-  // theme selector: 2 dark teemaa ja light teemaa
+  // teemat paremmiksi
   // funktion typet hookeille ja constien nimitys kuntoon, tarkista statet
-  // vaihda axios fetchiin ja integroi react query
+  // integroi react query
   // app shoud fully handle three most common states of a network request – loading, success, and error
   // sen jälkeen mietitään laajennusta esim. search, filter, kaaviot, emojit/kuvat, profiilitiedot jne.
   // docker, testing

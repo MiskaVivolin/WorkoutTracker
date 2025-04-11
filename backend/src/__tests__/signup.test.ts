@@ -30,9 +30,7 @@ describe("User signup", () => {
         const res = await request(app).post("/signup").send(mockUser)
 
         expect(res.status).toBe(201)
-        expect(res.body).toEqual({
-            isTaken: false,
-          })
+        expect(res.body).toEqual({ message: "Signup successful"})
         expect(querySpy).toHaveBeenCalledTimes(2);
     })
 
@@ -43,7 +41,7 @@ describe("User signup", () => {
         const res = await request(app).post("/signup").send(mockUser)
     
         expect(res.status).toBe(409);
-        expect(res.body).toEqual({ isTaken: true })
+        expect(res.body).toEqual({ message: "Username already taken"})
         expect(querySpy).toHaveBeenCalledTimes(1)
       });
 

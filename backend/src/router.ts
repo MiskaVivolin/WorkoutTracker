@@ -10,13 +10,14 @@ router.post("/signup", async (req: UserData, res: SignupRes) => {
     const { username, password } = req.body
 
     const signUp = await userSignup(username, password)
+
     if (!signUp) {
-      res.status(409).json({ isTaken: true })
+      return res.status(409).json({ message: "Username already taken"})
     } else {
-      res.status(201).json({ isTaken: false })
+      return res.status(201).json({ message: "Signup successful"})
     }
   } catch (error) {
-    res.status(500).json({ error: "Internal server error" })
+    return res.status(500).json({ error: "Internal server error" })
   }
 })
 
@@ -24,7 +25,6 @@ router.post("/signup", async (req: UserData, res: SignupRes) => {
 router.post("/login", async (req: UserData, res: LoginRes) => {
   try {
     const { username, password } = req.body;
-    console.log(req.body)
     const user = await userLogin(username, password)
     if (user === "Invalid username" ) {
       return res.status(401).json({ message: user })
@@ -32,9 +32,9 @@ router.post("/login", async (req: UserData, res: LoginRes) => {
     if (user === "Invalid password") {
       return res.status(403).json({ message: user })
     }
-    res.status(200).json({ token: user })
+    return res.status(200).json({ token: user })
   } catch (error) {
-    res.status(500).json({ error: "internal server error" })
+    return res.status(500).json({ error: "internal server error" })
   }
 })
 
@@ -49,9 +49,9 @@ router.post("/create", async (req: PostReq, res: PostRes) => {
     }
     
     const newWorkoutData = await createWorkoutItem({ username, name, date, exercise, result })
-    res.status(200).json(newWorkoutData)
+    return res.status(200).json(newWorkoutData)
   } catch (error) {
-    res.status(500).json({ error: "Internal server error" })
+    return res.status(500).json({ error: "Internal server error" })
   }
 })
 
@@ -61,9 +61,9 @@ router.get("/get", async (req: GetReq, res: GetRes) => {
     const username = req.query.token
 
     const workoutData = await getWorkoutData(username)
-    res.status(200).json(workoutData)
+    return res.status(200).json(workoutData)
   } catch (error) {
-    res.status(500).json({ error: "Internal server error" })
+    return res.status(500).json({ error: "Internal server error" })
   }
 })
 
@@ -72,9 +72,9 @@ router.get("/get/:id", async (req: GetItemReq, res: GetRes) => {
     const itemId = req.params.id
 
     const workoutItem = await getWorkoutItem(itemId)
-    res.status(200).json(workoutItem)
+    return res.status(200).json(workoutItem)
   } catch (error) {
-    res.status(500).json({ error: "Internal server error" })
+    return res.status(500).json({ error: "Internal server error" })
   }
 })
 
@@ -83,9 +83,9 @@ router.put("/put", async (req: EditReq, res: EditRes) => {
     const workoutItem = req.body
 
     const editedWorkoutItem = await editWorkoutItem(workoutItem)
-    res.status(200).json(editedWorkoutItem)
+    return res.status(200).json(editedWorkoutItem)
   } catch (error) {
-    res.status(500).json({ message: "Internal server error" })
+    return res.status(500).json({ message: "Internal server error" })
   }
 })
 
@@ -94,9 +94,9 @@ router.delete("/delete/:id", async (req: DeleteReq, res: DeleteRes) => {
     const itemId = req.params.id
 
     const deletedWorkoutItem = await deleteWorkoutItem(itemId)
-    res.status(200).json(deletedWorkoutItem)
+    return res.status(200).json(deletedWorkoutItem)
   } catch (error) {
-    res.status(500).json({ message: "Internal server error" })
+    return res.status(500).json({ message: "Internal server error" })
   }
 })
 
