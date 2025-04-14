@@ -2,12 +2,12 @@ import { Platform } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../types/utilTypes";
-
+import { API_BASE_URL } from "../../config";
 
 
 export const userLogin = async (navigation: StackNavigationProp<RootStackParamList>, username: string, password: string): Promise<string | undefined> => {
 
-      const apiUrl = Platform.OS === 'android' ? 'http://192.168.1.119:3001/login' : 'http://127.0.0.1:3001/login';
+      const apiUrl = Platform.OS === 'android' ? `${API_BASE_URL}/login` : 'http://127.0.0.1:3001/login';
     
       try {
       const response = await fetch(apiUrl, {

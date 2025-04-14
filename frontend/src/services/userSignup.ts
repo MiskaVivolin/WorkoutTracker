@@ -1,11 +1,12 @@
 import { Platform } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "types/utilTypes";
+import { API_BASE_URL } from "../../config";
 
 
 export const userSignup = async ( navigation: StackNavigationProp<RootStackParamList>, username: string, password: string ): Promise<void | string> => {
     
-    const apiUrl = Platform.OS === 'android' ? 'http://192.168.1.119:3001/signup' : 'http://127.0.0.1:3001/signup';
+    const apiUrl = Platform.OS === 'android' ? `${API_BASE_URL}/signup` : 'http://127.0.0.1:3001/signup';
   
     try {
       const response = await fetch(apiUrl, {

@@ -16,5 +16,5 @@
   // funktion typet hookeille ja constien nimitys kuntoon, tarkista statet
   // integroi react query
   // app shoud fully handle three most common states of a network request – loading, success, and error
-  // sen jälkeen mietitään laajennusta esim. search, filter, kaaviot, emojit/kuvat, profiilitiedot jne.
+  // sen jälkeen mietitään laajennusta esim. search, filter, kaaviot, cardio/kalorit/paino, emojit/kuvat, profiilitiedot jne.
   // docker, testing

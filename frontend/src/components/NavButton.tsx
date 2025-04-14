@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, StyleSheet, Pressable } from 'react-native';
+import { Text, StyleSheet, Pressable, Platform } from 'react-native';
 import { Themes } from "../../assets/styles/Themes"
 import { NavButtonProps } from '../types/componentProps';
 import { useTheme } from '../context/ThemeContext';
@@ -35,24 +35,21 @@ const NavButton = ({ title, onPress, style, isActive = false }: NavButtonProps) 
 
 const styles = StyleSheet.create({
   button: {
-    height: 35,
-    width: 95,
-    padding: 7,
+    height: Platform.OS === 'android' ? 30 : 33,
+    width: Platform.OS === 'android' ? 80 : 90,
+    padding: Platform.OS === 'android' ? 5 : 8,
     marginTop: 6,
     marginBottom: 10,
-    marginHorizontal: 10,
+    marginHorizontal: Platform.OS === 'android' ? 0 : 10,
     borderRadius: 20, 
     textAlign: 'center',
     fontSize: 16,
   },
   buttonText: {
-    fontSize: 15, 
+    fontSize: Platform.OS === 'android' ? 13 : 14, 
     fontFamily: 'MerriweatherSans',
-    fontWeight: '500', 
+    fontWeight: Platform.OS === 'android' ? '700' : '500',
     alignSelf: 'center', 
-  },
-  activeButtonText: {
-    fontWeight: '700',
   }
 });
 

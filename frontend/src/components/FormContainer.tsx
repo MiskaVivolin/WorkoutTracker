@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { View, Text, TextInput, StyleSheet, Dimensions } from "react-native";
+import { View, Text, TextInput, StyleSheet, Dimensions, Platform } from "react-native";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Button from "./Button";
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
     container: {
       alignItems: 'center',
       justifyContent: 'center',
-      maxWidth: Dimensions.get('window').width < 370 ? 270 : 350,
+      maxWidth: Platform.OS === 'android' ? '80%' : 350,
     },
     label: {
       fontSize: 13,
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
       marginTop: 12
     },
     header: {
-      fontSize: Dimensions.get('window').width < 320 ? 22 : 24, 
+      fontSize: Platform.OS === 'android' ? 20 : 24, 
       fontFamily: 'MerriweatherSans', 
       marginTop: Dimensions.get('window').height < 1000 ? 75 : 150,
       marginBottom: Dimensions.get('window').height < 1000 ? 30 : 50, 
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
       fontFamily: 'MerriweatherSans',
       fontSize: 12,
       height: 35,
-      width: Dimensions.get('window').width < 370 ? 270 : 350,
+      minWidth: Platform.OS === 'android' ? '100%' : 350,
       borderWidth: 1,
       borderRadius: 4,
       marginBottom: 12,

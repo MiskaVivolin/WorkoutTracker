@@ -28,7 +28,7 @@ router.post("/login", async (req: UserData, res: LoginRes) => {
     const user = await userLogin(username, password)
     if (user === "Invalid username" ) {
       return res.status(401).json({ message: user })
-    }    
+    }
     if (user === "Invalid password") {
       return res.status(403).json({ message: user })
     }

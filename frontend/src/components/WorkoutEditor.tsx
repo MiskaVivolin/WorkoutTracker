@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { StyleSheet, Text, View, TextInput, Dimensions, } from 'react-native'
+import { StyleSheet, Text, View, TextInput, Dimensions, Platform, } from 'react-native'
 import { WorkoutEditorProps } from '../types/componentProps'
 import deleteWorkoutItem from '../services/deleteWorkoutItem'
 import editWorkoutItem from '../services/editWorkoutItem'
@@ -56,9 +56,17 @@ const WorkoutEditor = ({ workoutItem, setIsEditMode, setWorkoutList }: WorkoutEd
 
   return (
     <View style={[styles.container, { backgroundColor: Themes[theme].background }]}>      
-      <View style={[styles.listItem, { backgroundColor: Themes[theme].primary }]}>      
-        <Text style={[styles.header, { color: Themes[theme].defaultText }]}>Edit your workout</Text>
-        <View style={{ flexDirection: 'row', marginTop: 1, marginBottom: 5 }}>
+      <View style={[styles.listItem, { backgroundColor: Themes[theme].primary }]}>  
+        <Button 
+          title='Delete' 
+          style={{ backgroundColor: Themes[theme].deleteButton, alignSelf: 'flex-end' }} 
+          onPress={async () => {
+            await deleteWorkoutItem(workoutItem.id, setWorkoutList)
+            setIsEditMode(false)
+          }}
+        />
+        <Text style={[styles.header, { color: Themes[theme].defaultText }]}>Edit Training Data</Text>
+        <View style={styles.inputRow}>
           <View style={{ flexDirection: 'column' }}>
             <Text style={[styles.label, { color: Themes[theme].defaultText }]}>Name</Text>
             <TextInput
@@ -86,7 +94,7 @@ const WorkoutEditor = ({ workoutItem, setIsEditMode, setWorkoutList }: WorkoutEd
             {errors.date && <Text style={[styles.inputFieldError, { color: Themes[theme].errorText }]}>{errors.date.message}</Text>}
           </View>
         </View>
-        <View style={{ flexDirection: 'row', marginTop: 1, marginBottom: 5 }}>
+        <View style={styles.inputRow}>
           <View style={{ flexDirection: 'column' }}>
             <Text style={[styles.label, { color: Themes[theme].defaultText }]}>Exercise</Text>
             <TextInput
@@ -117,17 +125,12 @@ const WorkoutEditor = ({ workoutItem, setIsEditMode, setWorkoutList }: WorkoutEd
         <View style={styles.buttonContainer}>
           <Button 
             title='Save' 
-            onPress={handleSubmit(onSubmit)} />
-          <Button 
-            title='Delete' 
-            style={{ backgroundColor: Themes[theme].deleteButton }} 
-            onPress={async () => {
-              await deleteWorkoutItem(workoutItem.id, setWorkoutList)
-              setIsEditMode(false) 
-            }} />
+            onPress={handleSubmit(onSubmit)} 
+          />
           <Button 
             title='Cancel' 
-            onPress={() => setIsEditMode(false)} />
+            onPress={() => setIsEditMode(false)} 
+          />
         </View>
       </View>
     </View>
@@ -140,12 +143,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  inputRow: {
+    width: '100%', 
+    flexDirection: 'row', 
+    justifyContent: 'space-evenly', 
+    marginBottom: 5
+  },
   inputField: {
     fontSize: 12,
     fontFamily: 'MerriweatherSans',
-    marginHorizontal: 10,
-    width: Dimensions.get('window').width < 420 ? 130 : 180,
-    height: 30, 
+    minWidth: Platform.OS === 'android' ? '45%' : 180,
+    height: 30,
     borderWidth: 1, 
     borderRadius: 3,
     paddingHorizontal: 8,
@@ -153,7 +161,7 @@ const styles = StyleSheet.create({
   listItem: {
     alignItems: 'center',
     justifyContent: 'center',
-    width: Dimensions.get('window').width < 420 ? 300 : 400,
+    width: Platform.OS === 'android' ? '90%' : 400,
     marginTop: 5,
     marginBottom: 5,
     borderRadius: 8,
@@ -163,13 +171,12 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontFamily: 'MerriweatherSans',
     marginBottom: 2,
-    marginHorizontal: 10,
     marginTop: 5
   },
   header: {
     fontSize: 18, 
     fontFamily: 'MerriweatherSans', 
-    marginVertical: 12 
+    marginVertical: 12
   },
   inputFieldError: {
     fontSize: 13,
@@ -178,9 +185,9 @@ const styles = StyleSheet.create({
     marginLeft: 10
   },
   buttonContainer: {
-    flexDirection: 'row', 
+    flexDirection: 'row',
     paddingTop: 3, 
-    width: Dimensions.get('window').width < 420 ? 300 : 400,
+    width: Dimensions.get('window').width < 420 ? '100%' : 400,
     justifyContent: 'space-between',
   }
 })

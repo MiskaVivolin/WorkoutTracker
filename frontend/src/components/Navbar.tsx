@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, Platform } from 'react-native';
 import { NavBarProps } from '../types/componentProps';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Themes } from '../../assets/styles/Themes';
@@ -29,27 +29,21 @@ const Navbar = ({ navigation, showButtons }: NavBarProps) => {
         <Text style={[styles.header, {color: Themes[theme].secondaryText}]}>Workout Tracker</Text>
       </View>
       {showButtons ? (
-      <View style={styles.logoutButtonContainer}>
-        
-        
+      <View style={styles.buttonContainer}> 
         <NavButton
           title='Add new'
           onPress={() => {
             navigation.navigate('AddWorkoutScreen')
           }}
           isActive={handleHighlight('AddWorkoutScreen')}
-          />
-          
-        
+          /> 
         <NavButton
           title='Your list'
           onPress={() => {
             navigation.navigate('WorkoutListScreen')
           }}
           isActive={handleHighlight('WorkoutListScreen')}
-          />
-        
-
+          />   
         <NavButton
           title='Settings'
           onPress={() => {
@@ -57,7 +51,6 @@ const Navbar = ({ navigation, showButtons }: NavBarProps) => {
           }}
           isActive={handleHighlight('SettingScreen')}
           />
-
         <NavButton
           title='Log out'
           onPress={() => {
@@ -85,14 +78,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 25,
     maxHeight: Dimensions.get('window').width < 330 ? 54 : 58,
   },
-  logoutButtonContainer: {
+  buttonContainer: {
     flexDirection: 'row',
     width: '100%',
-    justifyContent: 'flex-end',
+    justifyContent: Platform.OS === 'android' ? 'space-evenly' : 'flex-end',
     backgroundColor: 'transparent',
     position: Dimensions.get('window').width < 550 ? 'relative' : 'absolute',
     marginTop: 5,
-    paddingRight: 15
   },
   header: {
     fontSize: Dimensions.get('window').width < 330 ? 28 : 32,
