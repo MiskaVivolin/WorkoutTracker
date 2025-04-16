@@ -3,7 +3,7 @@ import { Platform } from 'react-native';
 import { API_BASE_URL } from "../../config";
 
 
-const createWorkoutItem = async (workoutItem: WorkoutItemFields, username: string | null): Promise<void> => {
+const createWorkoutItem = async (workoutItem: WorkoutItemFields, username: string): Promise<void> => {
 
   const apiUrl = Platform.OS === 'android' ? `${API_BASE_URL}/create` : 'http://127.0.0.1:3001/create';
 

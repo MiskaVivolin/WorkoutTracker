@@ -37,8 +37,15 @@ const FormContainer = ({workoutItem, setWorkoutItem}: FormContainerBetaProps) =>
   }, [workoutItem.name])
 
   const onSubmit = async () => {
-    await createWorkoutItem(workoutItem, userToken)
-    reset()
+    try {
+      if (!userToken){
+        throw new Error("User token is undefined")
+      } 
+      await createWorkoutItem(workoutItem, userToken)
+      reset()
+    } catch (err) {
+      console.error("Failed to submit workout item: ", err)
+    }
   }
 
   return (

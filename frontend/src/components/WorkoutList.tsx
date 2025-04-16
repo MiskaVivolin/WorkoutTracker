@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View, Pressable, Dimensions, Platform } from 'react-native'
+import { StyleSheet, Text, View, Dimensions, } from 'react-native'
 import { FlatList } from 'react-native'
 import useGetWorkoutList from '../hooks/useGetWorkoutList'
 import { WorkoutListProps } from '../types/componentProps'
@@ -23,21 +23,29 @@ const WorkoutList = ({ workoutList, setWorkoutList, setIsEditMode, setWorkoutIte
         data={workoutList}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }: {item: WorkoutItem}) =>
-          <View style={[styles.listItem, {backgroundColor: Themes[theme].primary}]}>
+        <View style={[styles.listItem, {backgroundColor: Themes[theme].primary}]}>
           <View style={styles.labelContainer}>
-            <Text style={[styles.label, {color: Themes[theme].defaultText}]}>{item.name}</Text>
-            <Text style={[styles.label, {color: Themes[theme].defaultText}]}>{item.date}</Text>
+            <Text style={[styles.label, {color: Themes[theme].greyText}]}>Name</Text>
+            <Text style={[styles.label, {color: Themes[theme].greyText}]}>Date</Text>
           </View>
           <View style={styles.labelContainer}>
-            <Text style={[styles.label, {color: Themes[theme].defaultText}]}>{item.exercise}</Text>
-            <Text style={[styles.label, {color: Themes[theme].defaultText}]}>{item.result}</Text>
+            <Text style={[styles.labelData, {color: Themes[theme].defaultText}]}>{item.name}</Text>
+            <Text style={[styles.labelData, {color: Themes[theme].defaultText}]}>{item.date}</Text>
+          </View>
+          <View style={styles.labelContainer}>
+            <Text style={[styles.label, {color: Themes[theme].greyText}]}>Exercise</Text>
+            <Text style={[styles.label, {color: Themes[theme].greyText}]}>Result</Text>
+          </View>
+          <View style={styles.labelContainer}>
+            <Text style={[styles.labelData, {color: Themes[theme].defaultText}]}>{item.exercise}</Text>
+            <Text style={[styles.labelData, {color: Themes[theme].defaultText}]}>{item.result}</Text>
           </View>
           <Button 
-          title='Edit'
-          onPress={async () => {
-            await getWorkoutItem(item.id, setWorkoutItem)
-            setIsEditMode(true)
-          }}
+            title='Edit'
+            onPress={async () => {
+              await getWorkoutItem(item.id, setWorkoutItem)
+              setIsEditMode(true)
+            }}
           />
         </View>}
       />
@@ -52,20 +60,29 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   label: {
-    fontSize: 15,
+    width: '50%',
+    fontWeight: '100',
+    fontSize: 12,
     fontFamily: 'MerriweatherSans',
-    marginVertical: 4,
+    marginBottom: 2
+  },
+  labelData: {
+    width: '50%',
+    fontSize: 15,
+    fontWeight: '700',
+    fontFamily: 'MerriweatherSans',
+    marginBottom: 8,
   },
   labelContainer: {
-    width: '70%',
+    width: '90%',
     flexDirection: 'row',
     justifyContent: 'space-between'
   },
   header: {
-    fontSize:  Platform.OS === 'android' ? 20 : 24, 
+    fontSize: Dimensions.get('window').width < 440 ? 20 : 24, 
     fontFamily: 'MerriweatherSans', 
-    marginTop: Platform.OS === 'android' ? 30 : 50,
-    marginBottom: Platform.OS === 'android' ? 30 : 50, 
+    marginTop: Dimensions.get('window').height < 1000 ? 30 : 50,
+    marginBottom: Dimensions.get('window').height < 1000 ? 30 : 50, 
   },
   listItem: {
     alignItems: 'center',
@@ -73,7 +90,7 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     borderRadius: 8,
     paddingTop: 8,
-    minWidth: Platform.OS === 'android' ? '90%' : 320,
+    minWidth: Dimensions.get('window').width < 440 ? '90%' : 345,
   }
 });
 

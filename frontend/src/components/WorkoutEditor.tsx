@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
   container: {
     marginTop: 100,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   inputRow: {
     width: '100%', 
@@ -152,16 +152,19 @@ const styles = StyleSheet.create({
   inputField: {
     fontSize: 12,
     fontFamily: 'MerriweatherSans',
-    minWidth: Platform.OS === 'android' ? '45%' : 180,
+    minWidth: Dimensions.get('window').width < 440 ? '45%' : 180,
     height: 30,
     borderWidth: 1, 
     borderRadius: 3,
     paddingHorizontal: 8,
+    lineHeight: 12,
+    paddingVertical: Dimensions.get('window').width < 440 ? 6 : 0,
+    textAlignVertical: 'center' //continue fix
   },
   listItem: {
     alignItems: 'center',
     justifyContent: 'center',
-    width: Platform.OS === 'android' ? '90%' : 400,
+    width: Dimensions.get('window').width < 440 ? '90%' : 400,
     marginTop: 5,
     marginBottom: 5,
     borderRadius: 8,
@@ -179,15 +182,16 @@ const styles = StyleSheet.create({
     marginVertical: 12
   },
   inputFieldError: {
-    fontSize: 13,
+    alignSelf: 'flex-start',
+    width: '100%',
+    fontSize: Dimensions.get('window').width < 440 ? 10 : 13,
     fontFamily: 'MerriweatherSans',
     paddingVertical: 5,
-    marginLeft: 10
   },
   buttonContainer: {
     flexDirection: 'row',
     paddingTop: 3, 
-    width: Dimensions.get('window').width < 420 ? '100%' : 400,
+    width: Dimensions.get('window').width < 440 ? '100%' : 400,
     justifyContent: 'space-between',
   }
 })

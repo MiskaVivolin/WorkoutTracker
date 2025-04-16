@@ -1,6 +1,11 @@
-import { ReactNode } from 'react'
-
 export type SetBoolean = (data: boolean) => void;
+
+export type Theme = 'light' | 'dark'
+
+export interface ThemeContextType {
+    theme: Theme;
+    setTheme: (theme: Theme) => void;
+}
 
 export type UserTokenContextType = {
   userToken: string | null;

@@ -1,20 +1,22 @@
   // TODO: 
   // PopUp paremmaksi
-  // korjaa bugi: consoli printtaa kaksi kertaa POST errorin
+  // android inputfield temppuilee
+  // webselaimessa kapealla näkymällä workoutlist temppuilee
+  // navbar responsiivisuus
+  // konsoliin tuleva uncaught (in promise) error
+  // kaikki testit ei toimi
   // kun vaihtaa sivua, validaation pitäisi restartata (ei enää valita tyhjistä fieldeistä)
   // jos listassa ei ole itemeitä, näytä teksti ja kuva.
   // mahdollisuus lisätä settien määrä. (numero field jonka default on 1? + ja - napit?)
-  // name fieldin default on username
-  // typet kuntoon: create funktiossa username voi olla null
-  // siirrä contextien typet types tiedostoon
   // mahdollisuus poistaa käyttäjä ja kaikki sen tiedot
+  // navigaatio mobiili näkymässä alhaalla
   // bugi: jos login ohjaa workoutList sivulle, lista ei päivity kunnolla
   // bugi: jos painaa log out, username ja password fieldit ovat täytetty valmiiksi
-  // bugi: editoidessa, validaatio työntää inputcontainerit pois. editointi boxin koko myös väärä kun ruudun leveys noin 1000. laatikon paikkaa voisi myös siirtää.
-  // muuta delete napin paikkaa, ainakin puhelin näkymässä
+  // settingscreen: mahdollisuus lisätä oma nimi jonka user voisi asettaa default nimeksi kun tekee uusia tuloksia
+  // kun lisää uusia tuloksia tämän hetkinen päivä olisi Date fieldissä valmiiksi. Mahdollisuus toggleta tämä pois päältä asetuksista. ehkä myös kalenteri
   // teemat paremmiksi
-  // funktion typet hookeille ja constien nimitys kuntoon, tarkista statet
+  // tarkista voiko funktioiden typetystä parantaa
   // integroi react query
-  // app shoud fully handle three most common states of a network request – loading, success, and error
-  // sen jälkeen mietitään laajennusta esim. search, filter, kaaviot, cardio/kalorit/paino, emojit/kuvat, profiilitiedot jne.
-  // docker, testing
+  // app should fully handle three most common states of a network request – loading, success, and error
+  // search, filter, kaaviot, cardio/kalorit/paino, emojit/kuvat, profiilitiedot jne.
+  // docker, cloud

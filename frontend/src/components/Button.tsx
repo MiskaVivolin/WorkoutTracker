@@ -19,9 +19,9 @@ const Button = ({ title, onPress, style }: ButtonProps) => {
 
 const styles = StyleSheet.create({
   button: {
-    height: Platform.OS === 'android' ? 30 : 33,
-    width: Platform.OS === 'android' ? 80 : 90,
-    padding: Platform.OS === 'android' ? 5 : 7,
+    height: Platform.OS === 'android' ? 30 : 32,
+    width: Platform.OS === 'android' ? 80 : 80,
+    padding: Platform.OS === 'android' ? 5 : 6,
     marginTop: 6,
     marginBottom: 10,
     marginHorizontal: 19,
