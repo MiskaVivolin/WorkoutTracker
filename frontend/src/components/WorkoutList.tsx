@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View, Dimensions, } from 'react-native'
+import { StyleSheet, Text, View, Dimensions, useWindowDimensions, } from 'react-native'
 import { FlatList } from 'react-native'
 import useGetWorkoutList from '../hooks/useGetWorkoutList'
 import { WorkoutListProps } from '../types/componentProps'
@@ -11,7 +11,8 @@ import Button from './Button'
 
 
 const WorkoutList = ({ workoutList, setWorkoutList, setIsEditMode, setWorkoutItem }: WorkoutListProps) => {
-
+  
+  const { width } = useWindowDimensions();
   const { theme } = useTheme();
   
   useGetWorkoutList(setWorkoutList);
@@ -56,6 +57,7 @@ const WorkoutList = ({ workoutList, setWorkoutList, setIsEditMode, setWorkoutIte
 const styles = StyleSheet.create({
   listContainer: {
     flex: 1,
+    width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -90,8 +92,7 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     borderRadius: 8,
     paddingTop: 8,
-    minWidth: Dimensions.get('window').width < 440 ? '90%' : 345,
-  }
+    }
 });
 
 export default WorkoutList;

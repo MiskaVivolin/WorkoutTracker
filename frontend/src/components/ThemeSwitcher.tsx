@@ -9,8 +9,8 @@ const ThemeSwitcher = () => {
     const { theme, setTheme } = useTheme();
     
     return (
-    <View>
-        <Text style={{ fontFamily: 'MerriweatherSans', color: Themes[theme].defaultText}}>Current Theme: {theme}</Text>
+    <View style={{ alignItems: 'center' }}>
+        <Text style={{ marginBottom: 20, fontFamily: 'MerriweatherSans', color: Themes[theme].defaultText}}>Current Theme: {theme}</Text>
         <Button title="Light" onPress={() => setTheme('light')} />
         <Button title="Dark" onPress={() => setTheme('dark')} />
     </View>

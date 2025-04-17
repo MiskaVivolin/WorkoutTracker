@@ -1,11 +1,11 @@
 export const Themes = {
   light: {
-    primary: 'rgb(205, 211, 200)',
-    secondary: 'rgb(240, 231, 216)',
-    background: 'rgb(255, 255, 255)',
+    primary: 'rgb(255, 255, 255)',
+    secondary: '#f2b096',
+    background: 'rgb(243, 241, 235)',
     defaultText: 'rgb(30, 30, 30)',
     secondaryText: 'rgb(60, 60, 60)',
-    greyText: '#C0C0C0',
+    greyText: '#5A5A5A',
     errorText: 'rgb(255, 0, 0)',
     deleteButton: 'rgb(255, 77, 77)',
     border: 'rgb(135, 135, 135)',
