@@ -59,7 +59,7 @@ const WorkoutEditor = ({ workoutItem, setIsEditMode, setWorkoutList }: WorkoutEd
       <View style={[styles.listItem, { backgroundColor: Themes[theme].primary }]}>  
         <Button 
           title='Delete' 
-          style={{ backgroundColor: Themes[theme].deleteButton, alignSelf: 'flex-end' }} 
+          style={{ backgroundColor: Themes[theme].deleteButton, alignSelf: 'flex-end', marginTop: 10, marginBottom: 6, marginHorizontal: 15 }} 
           onPress={async () => {
             await deleteWorkoutItem(workoutItem.id, setWorkoutList)
             setIsEditMode(false)
@@ -123,11 +123,13 @@ const WorkoutEditor = ({ workoutItem, setIsEditMode, setWorkoutList }: WorkoutEd
           </View>
         </View>
         <View style={styles.buttonContainer}>
-          <Button 
+          <Button
+            style={{marginTop: 6, marginBottom: 10, marginHorizontal: 15}}
             title='Save' 
             onPress={handleSubmit(onSubmit)} 
           />
-          <Button 
+          <Button
+            style={{marginTop: 6, marginBottom: 10, marginHorizontal: 15}}
             title='Cancel' 
             onPress={() => setIsEditMode(false)} 
           />
@@ -153,13 +155,19 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontFamily: 'MerriweatherSans',
     minWidth: Dimensions.get('window').width < 440 ? '45%' : 180,
-    height: 30,
     borderWidth: 1, 
     borderRadius: 3,
     paddingHorizontal: 8,
-    lineHeight: 12,
     paddingVertical: Dimensions.get('window').width < 440 ? 6 : 0,
-    textAlignVertical: 'center' //continue fix
+    ...Platform.select({
+      android: {
+        lineHeight: 15,
+        textAlignVertical: 'center',
+      },
+      default: {
+        height: 30,
+      },
+    }),
   },
   listItem: {
     alignItems: 'center',
@@ -177,7 +185,8 @@ const styles = StyleSheet.create({
     marginTop: 5
   },
   header: {
-    fontSize: 18, 
+    fontSize: 18,
+    fontWeight: Platform.OS === 'android' || Platform.OS === 'ios' ? '700' : '500',
     fontFamily: 'MerriweatherSans', 
     marginVertical: 12
   },

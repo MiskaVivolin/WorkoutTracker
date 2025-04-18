@@ -1,7 +1,6 @@
   // TODO: 
   // PopUp paremmaksi
-  // android inputfield temppuilee
-  // webselaimessa kapealla näkymällä workoutlist temppuilee
+  // dimensions/platform poikkeavuukset
   // navbar responsiivisuus
   // konsoliin tuleva uncaught (in promise) error
   // kaikki testit ei toimi

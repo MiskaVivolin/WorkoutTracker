@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { View, Text, TextInput, StyleSheet, Dimensions, Platform } from "react-native";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -32,10 +32,6 @@ const FormContainer = ({workoutItem, setWorkoutItem}: FormContainerBetaProps) =>
       }
   })
 
-  useEffect(() => {
-    console.log(workoutItem.name)
-  }, [workoutItem.name])
-
   const onSubmit = async () => {
     try {
       if (!userToken){
@@ -56,7 +52,7 @@ const FormContainer = ({workoutItem, setWorkoutItem}: FormContainerBetaProps) =>
           <View>
           <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Name</Text>
           <TextInput
-            style={[styles.input, {color: Themes[theme].defaultText, borderColor: Themes[theme].border, backgroundColor: Themes[theme].inputField}]}
+            style={[styles.inputField, {color: Themes[theme].defaultText, borderColor: Themes[theme].border, backgroundColor: Themes[theme].inputField}]}
             {...register("name")}
             onChangeText={(name) => {
               setValue("name", name)
@@ -69,7 +65,7 @@ const FormContainer = ({workoutItem, setWorkoutItem}: FormContainerBetaProps) =>
 
           <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Date</Text>
           <TextInput
-            style={[styles.input, {color: Themes[theme].defaultText, borderColor: Themes[theme].border, backgroundColor: Themes[theme].inputField}]}
+            style={[styles.inputField, {color: Themes[theme].defaultText, borderColor: Themes[theme].border, backgroundColor: Themes[theme].inputField}]}
             {...register("date")}
             onChangeText={(date) => {
               setValue("date", date)
@@ -82,7 +78,7 @@ const FormContainer = ({workoutItem, setWorkoutItem}: FormContainerBetaProps) =>
 
           <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Exercise</Text>
           <TextInput
-            style={[styles.input, {color: Themes[theme].defaultText, borderColor: Themes[theme].border, backgroundColor: Themes[theme].inputField}]}
+            style={[styles.inputField, {color: Themes[theme].defaultText, borderColor: Themes[theme].border, backgroundColor: Themes[theme].inputField}]}
             {...register("exercise")}
             onChangeText={(exercise) => {
               setValue("exercise", exercise)
@@ -95,7 +91,7 @@ const FormContainer = ({workoutItem, setWorkoutItem}: FormContainerBetaProps) =>
 
           <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Result</Text>
           <TextInput
-            style={[styles.input, {color: Themes[theme].defaultText, borderColor: Themes[theme].border, backgroundColor: Themes[theme].inputField}]}
+            style={[styles.inputField, {color: Themes[theme].defaultText, borderColor: Themes[theme].border, backgroundColor: Themes[theme].inputField}]}
             {...register("result")}
             onChangeText={(result) => {
               setValue("result", result)
@@ -128,18 +124,26 @@ const styles = StyleSheet.create({
     header: {
       fontSize: Platform.OS === 'android' ? 20 : 24, 
       fontFamily: 'MerriweatherSans', 
-      marginTop: Dimensions.get('window').height < 1000 ? 75 : 150,
+      marginTop: Dimensions.get('window').height < 1000 ? 50 : 140,
       marginBottom: Dimensions.get('window').height < 1000 ? 30 : 50, 
     },
-    input: {
+    inputField: {
       fontFamily: 'MerriweatherSans',
-      fontSize: 12,
-      height: 35,
+      fontSize: 13,
       minWidth: Platform.OS === 'android' ? '100%' : 350,
       borderWidth: 1,
       borderRadius: 4,
-      marginBottom: 12,
-      paddingHorizontal: 8
+      marginBottom: Dimensions.get('window').height < 1000 ? 8 : 12,
+      paddingHorizontal: 8,
+      ...Platform.select({
+        android: {
+          paddingBottom: 8,
+          lineHeight: 15,
+        },
+        default: {
+          height: 35,
+        },
+      }),
     },
     errorText: {
       fontSize: 13,

@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View, Dimensions, useWindowDimensions, } from 'react-native'
+import { StyleSheet, Text, View, Dimensions, Platform, } from 'react-native'
 import { FlatList } from 'react-native'
 import useGetWorkoutList from '../hooks/useGetWorkoutList'
 import { WorkoutListProps } from '../types/componentProps'
@@ -12,7 +12,6 @@ import Button from './Button'
 
 const WorkoutList = ({ workoutList, setWorkoutList, setIsEditMode, setWorkoutItem }: WorkoutListProps) => {
   
-  const { width } = useWindowDimensions();
   const { theme } = useTheme();
   
   useGetWorkoutList(setWorkoutList);
@@ -41,7 +40,8 @@ const WorkoutList = ({ workoutList, setWorkoutList, setIsEditMode, setWorkoutIte
             <Text style={[styles.labelData, {color: Themes[theme].defaultText}]}>{item.exercise}</Text>
             <Text style={[styles.labelData, {color: Themes[theme].defaultText}]}>{item.result}</Text>
           </View>
-          <Button 
+          <Button
+            style={{marginTop: 6, marginBottom: 10}}
             title='Edit'
             onPress={async () => {
               await getWorkoutItem(item.id, setWorkoutItem)
@@ -89,6 +89,7 @@ const styles = StyleSheet.create({
   listItem: {
     alignItems: 'center',
     justifyContent: 'center',
+    minWidth: Platform.OS === 'android' || Platform.OS === 'ios' ? '90%' : 345,
     marginVertical: 8,
     borderRadius: 8,
     paddingTop: 8,
