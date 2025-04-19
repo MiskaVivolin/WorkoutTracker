@@ -41,7 +41,7 @@ const WorkoutList = ({ workoutList, setWorkoutList, setIsEditMode, setWorkoutIte
             <Text style={[styles.labelData, {color: Themes[theme].defaultText}]}>{item.result}</Text>
           </View>
           <Button
-            style={{marginTop: 6, marginBottom: 10}}
+            buttonStyle={{marginTop: 6, marginBottom: 10}}
             title='Edit'
             onPress={async () => {
               await getWorkoutItem(item.id, setWorkoutItem)
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   header: {
-    fontSize: Dimensions.get('window').width < 440 ? 20 : 24, 
+    fontSize: Platform.OS === 'android' || Platform.OS === 'ios' ? 20 : 24, 
     fontFamily: 'MerriweatherSans', 
     marginTop: Dimensions.get('window').height < 1000 ? 30 : 50,
     marginBottom: Dimensions.get('window').height < 1000 ? 30 : 50, 

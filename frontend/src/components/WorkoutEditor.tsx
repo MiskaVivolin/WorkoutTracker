@@ -59,7 +59,8 @@ const WorkoutEditor = ({ workoutItem, setIsEditMode, setWorkoutList }: WorkoutEd
       <View style={[styles.listItem, { backgroundColor: Themes[theme].primary }]}>  
         <Button 
           title='Delete' 
-          style={{ backgroundColor: Themes[theme].deleteButton, alignSelf: 'flex-end', marginTop: 10, marginBottom: 6, marginHorizontal: 15 }} 
+          buttonStyle={{ backgroundColor: Themes[theme].deleteButton, alignSelf: 'flex-end', marginTop: 10, marginBottom: 6, marginHorizontal: 15 }}
+          textStyle={{ color: '#FFFFFF' }}
           onPress={async () => {
             await deleteWorkoutItem(workoutItem.id, setWorkoutList)
             setIsEditMode(false)
@@ -124,12 +125,12 @@ const WorkoutEditor = ({ workoutItem, setIsEditMode, setWorkoutList }: WorkoutEd
         </View>
         <View style={styles.buttonContainer}>
           <Button
-            style={{marginTop: 6, marginBottom: 10, marginHorizontal: 15}}
+            buttonStyle={{marginTop: 6, marginBottom: 10, marginHorizontal: 15}}
             title='Save' 
             onPress={handleSubmit(onSubmit)} 
           />
           <Button
-            style={{marginTop: 6, marginBottom: 10, marginHorizontal: 15}}
+            buttonStyle={{marginTop: 6, marginBottom: 10, marginHorizontal: 15}}
             title='Cancel' 
             onPress={() => setIsEditMode(false)} 
           />

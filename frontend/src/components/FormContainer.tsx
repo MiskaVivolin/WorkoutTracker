@@ -102,7 +102,7 @@ const FormContainer = ({workoutItem, setWorkoutItem}: FormContainerBetaProps) =>
           />
           {errors.result && <Text style={[styles.errorText, {color: Themes[theme].errorText}]}>{errors.result.message}</Text>}
           </View>
-          <Button title="Add" onPress={handleSubmit(onSubmit)} style={{marginTop: 60}} />
+          <Button title="Add" onPress={handleSubmit(onSubmit)} buttonStyle={{marginTop: 60}} />
 
       </View>
     </View>
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
     container: {
       alignItems: 'center',
       justifyContent: 'center',
-      maxWidth: Platform.OS === 'android' ? '80%' : 350,
+      maxWidth: Platform.OS === 'android' || Platform.OS === 'ios' ? '80%' : 350,
     },
     label: {
       fontSize: 13,
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
       marginTop: 12
     },
     header: {
-      fontSize: Platform.OS === 'android' ? 20 : 24, 
+      fontSize: Platform.OS === 'android' || Platform.OS === 'ios' ? 20 : 24, 
       fontFamily: 'MerriweatherSans', 
       marginTop: Dimensions.get('window').height < 1000 ? 50 : 140,
       marginBottom: Dimensions.get('window').height < 1000 ? 30 : 50, 
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
     inputField: {
       fontFamily: 'MerriweatherSans',
       fontSize: 13,
-      minWidth: Platform.OS === 'android' ? '100%' : 350,
+      minWidth: Platform.OS === 'android' || Platform.OS === 'ios' ? '100%' : 350,
       borderWidth: 1,
       borderRadius: 4,
       marginBottom: Dimensions.get('window').height < 1000 ? 8 : 12,

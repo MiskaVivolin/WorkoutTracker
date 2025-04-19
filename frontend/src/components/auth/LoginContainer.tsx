@@ -108,7 +108,10 @@ const LoginContainer = ({navigation}: LoginContainerProps) => {
             Sign up
           </Text>
         </Pressable>
-        <Button title="Log in" onPress={handleSubmit(onSubmit)} />
+        <Button 
+          title="Log in" 
+          onPress={handleSubmit(onSubmit)} 
+          />
       </View>
     </View>
   )
@@ -157,7 +160,7 @@ const styles = StyleSheet.create({
   inputField: {
     fontFamily: 'MerriweatherSans',
     fontSize: 13,
-    minWidth: Platform.OS === 'android' ? '80%' : 350,
+    minWidth: Platform.OS === 'android' || Platform.OS === 'ios' ? '80%' : 350,
     borderWidth: 1,
     borderRadius: 4,
     marginBottom: Dimensions.get('window').height < 1000 ? 8 : 12,

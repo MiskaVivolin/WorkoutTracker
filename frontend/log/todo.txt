@@ -17,5 +17,5 @@
   // tarkista voiko funktioiden typetystä parantaa
   // integroi react query
   // app should fully handle three most common states of a network request – loading, success, and error
-  // search, filter, kaaviot, cardio/kalorit/paino, emojit/kuvat, profiilitiedot jne.
+  // search, filter, kaaviot, cardio/kalorit/paino, emojit/kuvat, profiilitiedot, kieliasetukset jne.
   // docker, cloud

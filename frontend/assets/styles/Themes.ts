@@ -6,8 +6,9 @@ export const Themes = {
     defaultText: 'rgb(30, 30, 30)',
     secondaryText: 'rgb(60, 60, 60)',
     greyText: '#5A5A5A',
+    whiteText: 'FFFFFF',
     errorText: 'rgb(255, 0, 0)',
-    deleteButton: 'rgb(255, 77, 77)',
+    deleteButton: '#ff3232',
     border: 'rgb(135, 135, 135)',
     inputField: 'rgb(248, 248, 248)',
     secondaryButton: 'rgb(65, 65, 65)'
@@ -19,8 +20,9 @@ export const Themes = {
     defaultText: '#D4D4D4',
     secondaryText: 'rgb(20, 20, 20)',
     greyText: '#999999',
+    whiteText: 'FFFFFF',
     errorText: 'rgb(225, 40, 40)',
-    deleteButton: 'rgb(255, 77, 77)',
+    deleteButton: '#ff3232',
     border: 'rgb(60, 60, 60)',
     inputField: 'rgb(80, 80, 80)',
     secondaryButton: 'rgb(65, 65, 65)'

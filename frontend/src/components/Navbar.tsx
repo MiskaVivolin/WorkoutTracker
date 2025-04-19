@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     width: '100%',
-    justifyContent: Platform.OS === 'android' ? 'space-evenly' : 'flex-end',
+    justifyContent: Platform.OS === 'android' || Platform.OS === 'ios' ? 'space-evenly' : 'flex-end',
     backgroundColor: 'transparent',
     position: Dimensions.get('window').width < 550 ? 'relative' : 'absolute',
     marginTop: 5,

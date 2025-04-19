@@ -4,32 +4,35 @@ import { Themes } from "../../assets/styles/Themes"
 import { ButtonProps } from '../types/componentProps';
 import { useTheme } from '../context/ThemeContext';
 
-const Button = ({ title, onPress, style }: ButtonProps) => {
+const Button = ({ title, onPress, buttonStyle, textStyle }: ButtonProps) => {
   
   const { theme } = useTheme();
   
   return (
-    <Pressable style={[styles.button, style, {
-      backgroundColor: style?.backgroundColor || Themes[theme].secondary}]} 
+    <Pressable style={[styles.button, buttonStyle, {
+      backgroundColor: buttonStyle?.backgroundColor || Themes[theme].secondary}]} 
       onPress={onPress}>
-    <Text style={[styles.buttonText, { color: Themes[theme].secondaryText }]}>{title}</Text>
+    <Text style={[styles.buttonText, textStyle, { 
+      color: textStyle?.color || Themes[theme].secondaryText }]}>
+      {title}
+    </Text>
   </Pressable>
-);
+  )
 }
 
 const styles = StyleSheet.create({
   button: {
-    height: Platform.OS === 'android' ? 30 : 32,
-    width: Platform.OS === 'android' ? 80 : 80,
-    padding: Platform.OS === 'android' ? 5 : 6,
+    height: Platform.OS === 'android' || Platform.OS === 'ios' ? 30 : 32,
+    width: Platform.OS === 'android' || Platform.OS === 'ios' ? 80 : 80,
+    padding: Platform.OS === 'android' || Platform.OS === 'ios' ? 5 : 6,
     borderRadius: 20, 
     textAlign: 'center',
     fontSize: 16,
   },
   buttonText: {
-    fontSize: Platform.OS === 'android' ? 13 : 15, 
+    fontSize: Platform.OS === 'android' || Platform.OS === 'ios' ? 13 : 15, 
     fontFamily: 'MerriweatherSans',
-    fontWeight: Platform.OS === 'android' ? '700' : '500',
+    fontWeight: Platform.OS === 'android' || Platform.OS === 'ios' ? '700' : '500',
     alignSelf: 'center', 
   },
 });

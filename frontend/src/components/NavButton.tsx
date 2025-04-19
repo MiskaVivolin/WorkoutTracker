@@ -35,20 +35,20 @@ const NavButton = ({ title, onPress, style, isActive = false }: NavButtonProps) 
 
 const styles = StyleSheet.create({
   button: {
-    height: Platform.OS === 'android' ? 30 : 33,
-    width: Platform.OS === 'android' ? 80 : 90,
-    padding: Platform.OS === 'android' ? 5 : 8,
+    height: Platform.OS === 'android' || Platform.OS === 'ios' ? 30 : 33,
+    width: Platform.OS === 'android' || Platform.OS === 'ios' ? 80 : 90,
+    padding: Platform.OS === 'android' || Platform.OS === 'ios' ? 5 : 8,
     marginTop: 6,
     marginBottom: 10,
-    marginHorizontal: Platform.OS === 'android' ? 0 : 10,
+    marginHorizontal: Platform.OS === 'android' || Platform.OS === 'ios' ? 0 : 10,
     borderRadius: 20, 
     textAlign: 'center',
     fontSize: 16,
   },
   buttonText: {
-    fontSize: Platform.OS === 'android' ? 13 : 14, 
+    fontSize: Platform.OS === 'android' || Platform.OS === 'ios' ? 13 : 14, 
     fontFamily: 'MerriweatherSans',
-    fontWeight: Platform.OS === 'android' ? '700' : '500',
+    fontWeight: Platform.OS === 'android' || Platform.OS === 'ios' ? '700' : '500',
     alignSelf: 'center', 
   }
 });

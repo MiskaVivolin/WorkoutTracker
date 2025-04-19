@@ -1,7 +1,7 @@
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList, SetBoolean } from "./utilTypes";
 import { SetWorkoutItem, SetWorkoutList, WorkoutItem } from "./workoutItemTypes";
-import { ViewStyle } from "react-native";
+import { TextStyle, ViewStyle } from "react-native";
 
 export interface WorkoutEditorProps { 
     workoutItem: WorkoutItem;
@@ -40,7 +40,8 @@ export interface WorkoutListProps {
 export interface ButtonProps {
     title: string;
     onPress: () => void;
-    style?: ViewStyle;
+    buttonStyle?: ViewStyle;
+    textStyle?: TextStyle;
   };
 
 export interface NavButtonProps {
