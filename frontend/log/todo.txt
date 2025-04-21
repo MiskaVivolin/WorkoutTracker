@@ -1,6 +1,7 @@
   // TODO: 
   // PopUp paremmaksi
-  // dimensions/platform poikkeavuukset
+  // minheight ja minwidth
+  // tabbar margin
   // navbar responsiivisuus
   // konsoliin tuleva uncaught (in promise) error
   // kaikki testit ei toimi

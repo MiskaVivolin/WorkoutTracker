@@ -17,7 +17,7 @@ const WorkoutList = ({ workoutList, setWorkoutList, setIsEditMode, setWorkoutIte
   useGetWorkoutList(setWorkoutList);
   
   return (
-  <View style={[styles.listContainer, {backgroundColor: Themes[theme].background}]}>
+    <View style={[styles.listContainer, {backgroundColor: Themes[theme].background}]}>
       <Text style={[styles.header, {color: Themes[theme].defaultText}]}>Exercise results</Text>
       <FlatList
         data={workoutList}

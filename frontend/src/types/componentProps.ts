@@ -15,10 +15,11 @@ export interface FormContainerBetaProps {
 }
 
 export interface NavBarProps {
-    showButtons: boolean;
-    addButtonToggle?: boolean;
     navigation: StackNavigationProp<RootStackParamList>;
-    currentScreen?: string;
+}
+
+export interface TabBarProps {
+    navigation: StackNavigationProp<RootStackParamList>;
 }
 
 // export interface PopUpProps {

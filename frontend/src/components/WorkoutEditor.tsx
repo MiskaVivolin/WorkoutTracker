@@ -125,12 +125,12 @@ const WorkoutEditor = ({ workoutItem, setIsEditMode, setWorkoutList }: WorkoutEd
         </View>
         <View style={styles.buttonContainer}>
           <Button
-            buttonStyle={{marginTop: 6, marginBottom: 10, marginHorizontal: 15}}
+            buttonStyle={styles.button}
             title='Save' 
             onPress={handleSubmit(onSubmit)} 
           />
           <Button
-            buttonStyle={{marginTop: 6, marginBottom: 10, marginHorizontal: 15}}
+            buttonStyle={styles.button}
             title='Cancel' 
             onPress={() => setIsEditMode(false)} 
           />
@@ -203,7 +203,12 @@ const styles = StyleSheet.create({
     paddingTop: 3, 
     width: Dimensions.get('window').width < 440 ? '100%' : 400,
     justifyContent: 'space-between',
-  }
+  },
+  button: {
+    marginTop: 6, 
+    marginBottom: 10, 
+    marginHorizontal: 15
+  },
 })
 
 export default WorkoutEditor;

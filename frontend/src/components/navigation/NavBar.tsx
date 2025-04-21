@@ -1,13 +1,13 @@
 import React from 'react';
 import { View, Text, StyleSheet, Dimensions, Platform } from 'react-native';
-import { NavBarProps } from '../types/componentProps';
+import { NavBarProps } from '../../types/componentProps';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Themes } from '../../assets/styles/Themes';
+import { Themes } from '../../../assets/styles/Themes';
 import NavButton from './NavButton';
-import { useTheme } from '../context/ThemeContext';
+import { useTheme } from '../../context/ThemeContext';
 import { useNavigationState } from '@react-navigation/native';
 
-const Navbar = ({ navigation, showButtons }: NavBarProps) => {
+const NavBar = ({ navigation }: NavBarProps) => {
   
     const { theme } = useTheme();
   
@@ -25,10 +25,6 @@ const Navbar = ({ navigation, showButtons }: NavBarProps) => {
 
   return (
     <View style={[styles.divContainer, {backgroundColor: Themes[theme].background}]}>
-      <View style={[styles.headerContainer, {backgroundColor: Themes[theme].primary}]}>
-        <Text style={[styles.header, {color: Themes[theme].secondaryText}]}>Workout Tracker</Text>
-      </View>
-      {showButtons ? (
       <View style={styles.buttonContainer}> 
         <NavButton
           title='Add new'
@@ -60,23 +56,15 @@ const Navbar = ({ navigation, showButtons }: NavBarProps) => {
           isActive={handleHighlight('LoginScreen')}
           />
       </View>
-      ) : null}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   divContainer: {
+    flex: 1,
     flexDirection: Dimensions.get('window').width < 550 ? 'column' : 'row',
     position: 'relative',
-  },
-  headerContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    paddingVertical: 10,
-    paddingHorizontal: 25,
-    maxHeight: Dimensions.get('window').width < 330 ? 54 : 58,
   },
   buttonContainer: {
     flexDirection: 'row',
@@ -86,10 +74,6 @@ const styles = StyleSheet.create({
     position: Dimensions.get('window').width < 550 ? 'relative' : 'absolute',
     marginTop: 5,
   },
-  header: {
-    fontSize: Dimensions.get('window').width < 330 ? 28 : 32,
-    fontFamily: 'BlackOpsOne-Regular',
-  }
 });
 
-export default Navbar;
+export default NavBar;
