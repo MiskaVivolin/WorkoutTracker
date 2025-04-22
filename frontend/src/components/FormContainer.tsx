@@ -45,77 +45,75 @@ const FormContainer = ({workoutItem, setWorkoutItem}: FormContainerBetaProps) =>
   }
 
   return (
-    <View style={{alignItems: 'center'}}>
-      <View style={styles.container}>
-        <Text style={[styles.header, {color: Themes[theme].defaultText}]}>Add a new exercise result</Text>
-          
-          <View>
-          <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Name</Text>
-          <TextInput
-            style={[styles.inputField, {color: Themes[theme].defaultText, borderColor: Themes[theme].border, backgroundColor: Themes[theme].inputField}]}
-            {...register("name")}
-            onChangeText={(name) => {
-              setValue("name", name)
-              setWorkoutItem({ ...workoutItem, name })
-              clearErrors('name')
-            }}
-            value={watch("name")}
-            />
-          {errors.name && <Text style={[styles.errorText, {color: Themes[theme].errorText}]}>{errors.name.message}</Text>}
+    <View style={styles.container}>
+      <Text style={[styles.header, {color: Themes[theme].defaultText}]}>Add a new exercise result</Text>
+        
+      <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Name</Text>
+      <TextInput
+        style={[styles.inputField, {color: Themes[theme].defaultText, borderColor: Themes[theme].border, backgroundColor: Themes[theme].inputField}]}
+        {...register("name")}
+        onChangeText={(name) => {
+          setValue("name", name)
+          setWorkoutItem({ ...workoutItem, name })
+          clearErrors('name')
+        }}
+        value={watch("name")}
+        />
+      {errors.name && <Text style={[styles.errorText, {color: Themes[theme].errorText}]}>{errors.name.message}</Text>}
 
-          <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Date</Text>
-          <TextInput
-            style={[styles.inputField, {color: Themes[theme].defaultText, borderColor: Themes[theme].border, backgroundColor: Themes[theme].inputField}]}
-            {...register("date")}
-            onChangeText={(date) => {
-              setValue("date", date)
-              setWorkoutItem({ ...workoutItem, date })
-              clearErrors('date')
-            }}
-            value={watch("date")}
-          />
-          {errors.date && <Text style={[styles.errorText, {color: Themes[theme].errorText}]}>{errors.date.message}</Text>}
+      <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Date</Text>
+      <TextInput
+        style={[styles.inputField, {color: Themes[theme].defaultText, borderColor: Themes[theme].border, backgroundColor: Themes[theme].inputField}]}
+        {...register("date")}
+        onChangeText={(date) => {
+          setValue("date", date)
+          setWorkoutItem({ ...workoutItem, date })
+          clearErrors('date')
+        }}
+        value={watch("date")}
+      />
+      {errors.date && <Text style={[styles.errorText, {color: Themes[theme].errorText}]}>{errors.date.message}</Text>}
 
-          <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Exercise</Text>
-          <TextInput
-            style={[styles.inputField, {color: Themes[theme].defaultText, borderColor: Themes[theme].border, backgroundColor: Themes[theme].inputField}]}
-            {...register("exercise")}
-            onChangeText={(exercise) => {
-              setValue("exercise", exercise)
-              setWorkoutItem({ ...workoutItem, exercise })
-              clearErrors('exercise')
-            }}
-            value={watch("exercise")}
-          />
-          {errors.exercise && <Text style={[styles.errorText, {color: Themes[theme].errorText}]}>{errors.exercise.message}</Text>}
+      <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Exercise</Text>
+      <TextInput
+        style={[styles.inputField, {color: Themes[theme].defaultText, borderColor: Themes[theme].border, backgroundColor: Themes[theme].inputField}]}
+        {...register("exercise")}
+        onChangeText={(exercise) => {
+          setValue("exercise", exercise)
+          setWorkoutItem({ ...workoutItem, exercise })
+          clearErrors('exercise')
+        }}
+        value={watch("exercise")}
+      />
+      {errors.exercise && <Text style={[styles.errorText, {color: Themes[theme].errorText}]}>{errors.exercise.message}</Text>}
 
-          <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Result</Text>
-          <TextInput
-            style={[styles.inputField, {color: Themes[theme].defaultText, borderColor: Themes[theme].border, backgroundColor: Themes[theme].inputField}]}
-            {...register("result")}
-            onChangeText={(result) => {
-              setValue("result", result)
-              setWorkoutItem({ ...workoutItem, result })
-              clearErrors('result')
-            }}
-            value={watch("result")}
-          />
-          {errors.result && <Text style={[styles.errorText, {color: Themes[theme].errorText}]}>{errors.result.message}</Text>}
-          </View>
-          <Button title="Add" onPress={handleSubmit(onSubmit)} buttonStyle={{marginTop: 60}} />
-
-      </View>
+      <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Result</Text>
+      <TextInput
+        style={[styles.inputField, {color: Themes[theme].defaultText, borderColor: Themes[theme].border, backgroundColor: Themes[theme].inputField}]}
+        {...register("result")}
+        onChangeText={(result) => {
+          setValue("result", result)
+          setWorkoutItem({ ...workoutItem, result })
+          clearErrors('result')
+        }}
+        value={watch("result")}
+      />
+      {errors.result && <Text style={[styles.errorText, {color: Themes[theme].errorText}]}>{errors.result.message}</Text>}
+      <Button title="Add" onPress={handleSubmit(onSubmit)} buttonStyle={{marginTop: 60}} />
     </View>
   )
 }
 
 const styles = StyleSheet.create({
     container: {
+      flex: 1,
       alignItems: 'center',
       justifyContent: 'center',
-      maxWidth: Platform.OS === 'android' || Platform.OS === 'ios' ? '80%' : 350,
+      width: Platform.OS === 'android' || Platform.OS === 'ios' ? '100%' : 350,
     },
     label: {
+      alignSelf: "flex-start",
+      marginHorizontal: "10%",
       fontSize: 13,
       fontFamily: 'MerriweatherSans',
       marginBottom: 2,
@@ -130,7 +128,7 @@ const styles = StyleSheet.create({
     inputField: {
       fontFamily: 'MerriweatherSans',
       fontSize: 13,
-      minWidth: Platform.OS === 'android' || Platform.OS === 'ios' ? '100%' : 350,
+      width: Platform.OS === 'android' || Platform.OS === 'ios' ? '80%' : 350,
       borderWidth: 1,
       borderRadius: 4,
       marginBottom: Dimensions.get('window').height < 1000 ? 8 : 12,

@@ -68,7 +68,7 @@ const WorkoutEditor = ({ workoutItem, setIsEditMode, setWorkoutList }: WorkoutEd
         />
         <Text style={[styles.header, { color: Themes[theme].defaultText }]}>Edit Training Data</Text>
         <View style={styles.inputRow}>
-          <View style={{ flexDirection: 'column' }}>
+          <View style={styles.columnRow}>
             <Text style={[styles.label, { color: Themes[theme].defaultText }]}>Name</Text>
             <TextInput
               style={[styles.inputField, { color: Themes[theme].defaultText, backgroundColor: Themes[theme].inputField, borderColor: Themes[theme].border }]}
@@ -81,7 +81,7 @@ const WorkoutEditor = ({ workoutItem, setIsEditMode, setWorkoutList }: WorkoutEd
             />
             {errors.name && <Text style={[styles.inputFieldError, { color: Themes[theme].errorText }]}>{errors.name.message}</Text>}
           </View>
-          <View style={{ flexDirection: 'column' }}>
+          <View style={styles.columnRow}>
             <Text style={[styles.label, { color: Themes[theme].defaultText }]}>Date</Text>
             <TextInput
               style={[styles.inputField, { color: Themes[theme].defaultText, backgroundColor: Themes[theme].inputField, borderColor: Themes[theme].border }]}
@@ -96,7 +96,7 @@ const WorkoutEditor = ({ workoutItem, setIsEditMode, setWorkoutList }: WorkoutEd
           </View>
         </View>
         <View style={styles.inputRow}>
-          <View style={{ flexDirection: 'column' }}>
+          <View style={styles.columnRow}>
             <Text style={[styles.label, { color: Themes[theme].defaultText }]}>Exercise</Text>
             <TextInput
               style={[styles.inputField, { color: Themes[theme].defaultText, backgroundColor: Themes[theme].inputField, borderColor: Themes[theme].border }]}
@@ -109,7 +109,7 @@ const WorkoutEditor = ({ workoutItem, setIsEditMode, setWorkoutList }: WorkoutEd
             />
             {errors.exercise && <Text style={[styles.inputFieldError, { color: Themes[theme].errorText }]}>{errors.exercise.message}</Text>}
           </View>
-          <View style={{ flexDirection: 'column' }}>
+          <View style={styles.columnRow}>
             <Text style={[styles.label, { color: Themes[theme].defaultText }]}>Result</Text>
             <TextInput
               style={[styles.inputField, { color: Themes[theme].defaultText, backgroundColor: Themes[theme].inputField, borderColor: Themes[theme].border }]}
@@ -142,7 +142,7 @@ const WorkoutEditor = ({ workoutItem, setIsEditMode, setWorkoutList }: WorkoutEd
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 100,
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center'
   },
@@ -152,10 +152,15 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly', 
     marginBottom: 5
   },
+  columnRow: {
+    backgroundColor: "orange",
+    flexDirection: "column",
+    width: "50%"
+  },
   inputField: {
     fontSize: 12,
     fontFamily: 'MerriweatherSans',
-    minWidth: Dimensions.get('window').width < 440 ? '45%' : 180,
+    width: Dimensions.get('window').width < 440 ? '90%' : 180,
     borderWidth: 1, 
     borderRadius: 3,
     paddingHorizontal: 8,

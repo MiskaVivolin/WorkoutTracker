@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
   },
   fieldContainer: {
     justifyContent: 'center',
-    minWidth: Dimensions.get('window').width < 440 ? '80%' : 350,
+    width: Dimensions.get('window').width < 440 ? '80%' : 350,
     marginBottom: 50,
   },
   buttonContainer: { 
@@ -114,7 +114,6 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: Platform.OS === 'android' || Platform.OS === 'ios' ? '700' : '500',
     fontFamily: 'MerriweatherSans',
-    marginTop: Dimensions.get('window').width < 440 ? 60 : 0,
     marginBottom: Dimensions.get('window').width < 440 ? 60 : 100,
   },
   inputFieldError: {
@@ -130,7 +129,6 @@ const styles = StyleSheet.create({
   inputField: {
     fontFamily: 'MerriweatherSans',
     fontSize: 13,
-    minWidth: Platform.OS === 'android' || Platform.OS === 'ios' ? '80%' : 350,
     borderWidth: 1,
     borderRadius: 4,
     marginBottom: Dimensions.get('window').height < 1000 ? 8 : 12,
@@ -146,7 +144,7 @@ const styles = StyleSheet.create({
     }),
   },
   backButton: {
-    minWidth: 155,
+    width: 155,
     textAlign: 'center',
     fontSize: 16,
   },

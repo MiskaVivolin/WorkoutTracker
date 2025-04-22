@@ -24,7 +24,7 @@ const TabBar = ({ navigation }: TabBarProps) => {
     }
 
   return (
-    <View style={[styles.container, {backgroundColor: "skyblue"}]}>
+    <View style={[styles.container]}>
       <NavButton
         title='Add new'
         onPress={() => {
@@ -61,12 +61,10 @@ const TabBar = ({ navigation }: TabBarProps) => {
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    position: 'absolute',
-    bottom: 0,
-    paddingVertical: 10,
     flexDirection: 'row',
-    backgroundColor: "skyblue",
     justifyContent: 'space-evenly',
+    alignItems: "flex-end",
+    paddingVertical: 15,
   }
 });
 
