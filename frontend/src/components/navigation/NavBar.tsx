@@ -1,11 +1,12 @@
 import React from 'react';
-import { View, Text, StyleSheet, Dimensions, Platform } from 'react-native';
+import { View, StyleSheet, Platform } from 'react-native';
 import { NavBarProps } from '../../types/componentProps';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Themes } from '../../../assets/styles/Themes';
 import NavButton from './NavButton';
 import { useTheme } from '../../context/ThemeContext';
 import { useNavigationState } from '@react-navigation/native';
+import Logo from '../Logo';
 
 const NavBar = ({ navigation }: NavBarProps) => {
   
@@ -24,8 +25,9 @@ const NavBar = ({ navigation }: NavBarProps) => {
     }
 
   return (
-    <View style={[styles.divContainer, {backgroundColor: Themes[theme].background}]}>
-      <View style={styles.buttonContainer}> 
+    <View style={[styles.navContainer, {backgroundColor: Themes[theme].primary}]}>
+      <Logo viewStyle={{marginLeft: 20}}/>
+      <View style={styles.buttonContainer}>
         <NavButton
           title='Add new'
           onPress={() => {
@@ -54,26 +56,25 @@ const NavBar = ({ navigation }: NavBarProps) => {
             navigation.navigate('LoginScreen');
           }}
           isActive={handleHighlight('LoginScreen')}
-          />
+        />
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  divContainer: {
-    flex: 1,
-    flexDirection: Dimensions.get('window').width < 550 ? 'column' : 'row',
-    position: 'relative',
-  },
-  buttonContainer: {
+  navContainer: {
     flexDirection: 'row',
     width: '100%',
-    justifyContent: Platform.OS === 'android' || Platform.OS === 'ios' ? 'space-evenly' : 'flex-end',
+    justifyContent: "space-between",
     backgroundColor: 'transparent',
-    position: Dimensions.get('window').width < 550 ? 'relative' : 'absolute',
-    marginTop: 5,
+    position: 'relative',
+    paddingVertical: 10,
   },
+  buttonContainer: {
+    flexDirection: "row", 
+    alignItems: "center"
+  }
 });
 
 export default NavBar;

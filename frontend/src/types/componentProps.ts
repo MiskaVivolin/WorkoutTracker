@@ -9,7 +9,7 @@ export interface WorkoutEditorProps {
     setWorkoutList: SetWorkoutList;
 }
 
-export interface FormContainerBetaProps {
+export interface AddWorkoutFormProps {
     workoutItem: WorkoutItem; 
     setWorkoutItem: SetWorkoutItem;
 }
@@ -51,6 +51,11 @@ export interface NavButtonProps {
     style?: ViewStyle;
     isActive?: boolean;
   };
+
+export interface LogoProps {
+    viewStyle?: ViewStyle;
+    textStyle?: TextStyle;
+} 
 
 export interface LoginContainerProps {
     navigation: StackNavigationProp<RootStackParamList>;

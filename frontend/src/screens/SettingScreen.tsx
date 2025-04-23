@@ -16,14 +16,14 @@ const WorkoutListScreen: React.FC<WorkoutListScreenProps> = ({ navigation }) => 
     <View style={[styles.container, { backgroundColor: Themes[theme].background }]}>
       {mobileView ? (
         <View style={{ flex: 1 }}>
-          <Logo />
+          <Logo textStyle={{marginBottom: 5}}/>
           <ThemeSwitcher />
-          <TabBar navigation={navigation} />
+          <TabBar navigation={navigation}/>
         </View>
       ) : (
         <View style={{ flex: 1 }}>
-          <NavBar navigation={navigation} />
-          <ThemeSwitcher />
+          <NavBar navigation={navigation}/>
+          <ThemeSwitcher/>
         </View>
       )}
     </View>

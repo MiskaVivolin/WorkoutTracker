@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Platform, View, StyleSheet } from 'react-native';
 import { AddWorkoutScreenProps } from '../types/screenProps';
-import FormContainer from '../components/FormContainer';
+import AddWorkoutForm from '../components/AddWorkoutForm';
 import TabBar from '../components/navigation/TabBar';
 import NavBar from '../components/navigation/NavBar';
 import Logo from '../components/Logo';
-import { Themes } from '../../assets/styles/Themes'
+import { Themes } from '../../assets/styles/Themes';
 import { useTheme } from '../context/ThemeContext';
 
 
@@ -18,18 +18,16 @@ const AddWorkoutScreen: React.FC<AddWorkoutScreenProps> = ({ navigation }) => {
 
   return (
     <View style={[styles.container,{ backgroundColor: Themes[theme].background}]}>
-
       {mobileView ?
         <View style={{flex: 1}}>
-          <Logo />
-          <FormContainer workoutItem={workoutItem} setWorkoutItem={setWorkoutItem}/>
+          <Logo textStyle={{marginBottom: 5}}/>
+           <AddWorkoutForm workoutItem={workoutItem} setWorkoutItem={setWorkoutItem}/>
           <TabBar navigation={navigation}/>
         </View>
       :
-
         <View style={{flex: 1}}>
           <NavBar navigation={navigation} />
-          <FormContainer workoutItem={workoutItem} setWorkoutItem={setWorkoutItem}/>
+          <AddWorkoutForm workoutItem={workoutItem} setWorkoutItem={setWorkoutItem}/>
         </View>
       }
     </View>

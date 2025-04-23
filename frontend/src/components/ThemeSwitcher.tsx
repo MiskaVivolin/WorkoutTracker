@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, Platform } from 'react-native'
 import React from 'react'
 import { useTheme } from '../context/ThemeContext';
 import Button from './Button';
@@ -9,10 +9,11 @@ const ThemeSwitcher = () => {
     const { theme, setTheme } = useTheme();
     
     return (
-    <View style={styles.container}>
-      <Text style={{ marginBottom: 20, fontFamily: 'MerriweatherSans', color: Themes[theme].defaultText}}>Current Theme: {theme}</Text>
+    <View style={styles.themeContainer}>
+      <Text style={[styles.header, {color: Themes[theme].defaultText}]}>Current theme: {theme}</Text>
       <View style={styles.buttonContainer}>
         <Button
+          buttonStyle={{marginRight: Platform.OS === 'android' || Platform.OS === 'ios' ? 0 : 50}}
           title="Light" 
           onPress={() => setTheme('light')} 
           />
@@ -25,7 +26,7 @@ const ThemeSwitcher = () => {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  themeContainer: {
     flex: 1,
     width: '100%',
     justifyContent: 'flex-start',
@@ -34,8 +35,14 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: 'row', 
-    width: '80%', 
-    justifyContent: 'space-evenly'
+    width: '80%',
+    justifyContent: Platform.OS === 'android' || Platform.OS === 'ios' ? "space-evenly" : "center",
+    
+  }, 
+  header: {
+    marginBottom: Platform.OS === 'android' || Platform.OS === 'ios' ? 20 : 50, 
+    fontFamily: 'MerriweatherSans',
+    fontSize: Platform.OS === 'android' || Platform.OS === 'ios' ? 16 : 20, 
   }
 })
 

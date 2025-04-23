@@ -5,20 +5,20 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Button from "./Button";
 import createWorkoutItem from "../services/createWorkoutItem";
 import { useUserToken } from "../context/UserTokenContext";
-import { FormContainerBetaProps } from "../types/componentProps";
+import { AddWorkoutFormProps } from "../types/componentProps";
 import { Themes } from "../../assets/styles/Themes";
 import { useTheme } from "../context/ThemeContext";
 import { z } from "zod";
 
 
-const FormContainer = ({workoutItem, setWorkoutItem}: FormContainerBetaProps) => {
+const AddWorkoutForm = ({workoutItem, setWorkoutItem}: AddWorkoutFormProps) => {
   
   type WorkoutFormData = z.infer<typeof workoutSchema>
   const workoutSchema = z.object({
-    name: z.string().min(1, "Name must not be empty"),
-    date: z.string().min(1, "Date must not be empty"),
-    exercise: z.string().min(1, "Exercise must not be empty"),
-    result: z.string().min(1, "Result must not be empty")
+    name: z.string().min(1, "Name required"),
+    date: z.string().min(1, "Date required"),
+    exercise: z.string().min(1, "Exercise required"),
+    result: z.string().min(1, "Result required")
   })
   const { theme } = useTheme()
   const { userToken } = useUserToken();
@@ -45,7 +45,7 @@ const FormContainer = ({workoutItem, setWorkoutItem}: FormContainerBetaProps) =>
   }
 
   return (
-    <View style={styles.container}>
+    <View style={styles.addWorkoutContainer}>
       <Text style={[styles.header, {color: Themes[theme].defaultText}]}>Add a new exercise result</Text>
         
       <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Name</Text>
@@ -105,15 +105,17 @@ const FormContainer = ({workoutItem, setWorkoutItem}: FormContainerBetaProps) =>
 }
 
 const styles = StyleSheet.create({
-    container: {
+    addWorkoutContainer: {
       flex: 1,
+      alignSelf: "center",
       alignItems: 'center',
       justifyContent: 'center',
-      width: Platform.OS === 'android' || Platform.OS === 'ios' ? '100%' : 350,
+      width: Platform.OS === 'android' || Platform.OS === 'ios' ? '80%' : 350,
+
     },
     label: {
       alignSelf: "flex-start",
-      marginHorizontal: "10%",
+      width: Platform.OS === 'android' || Platform.OS === 'ios' ? '100%' : 350,
       fontSize: 13,
       fontFamily: 'MerriweatherSans',
       marginBottom: 2,
@@ -122,13 +124,12 @@ const styles = StyleSheet.create({
     header: {
       fontSize: Platform.OS === 'android' || Platform.OS === 'ios' ? 20 : 24, 
       fontFamily: 'MerriweatherSans', 
-      marginTop: Dimensions.get('window').height < 1000 ? 50 : 140,
       marginBottom: Dimensions.get('window').height < 1000 ? 30 : 50, 
     },
     inputField: {
       fontFamily: 'MerriweatherSans',
       fontSize: 13,
-      width: Platform.OS === 'android' || Platform.OS === 'ios' ? '80%' : 350,
+      width: Platform.OS === 'android' || Platform.OS === 'ios' ? '100%' : 350,
       borderWidth: 1,
       borderRadius: 4,
       marginBottom: Dimensions.get('window').height < 1000 ? 8 : 12,
@@ -149,4 +150,4 @@ const styles = StyleSheet.create({
     },
   });
 
-  export default FormContainer
+  export default AddWorkoutForm

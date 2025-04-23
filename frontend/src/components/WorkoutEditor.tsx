@@ -15,10 +15,10 @@ const WorkoutEditor = ({ workoutItem, setIsEditMode, setWorkoutList }: WorkoutEd
   
   type WorkoutFormData = z.infer<typeof workoutSchema>
   const workoutSchema = z.object({
-    name: z.string().min(1, "Name must not be empty"),
-    date: z.string().min(1, "Date must not be empty"),
-    exercise: z.string().min(1, "Exercise must not be empty"),
-    result: z.string().min(1, "Result must not be empty")})
+    name: z.string().min(1, "Name required"),
+    date: z.string().min(1, "Date required"),
+    exercise: z.string().min(1, "Exercise required"),
+    result: z.string().min(1, "Result required")})
 
   const { theme } = useTheme();
   const { register, handleSubmit, setValue, watch, clearErrors, formState: { errors }, reset } = useForm<WorkoutFormData>({
@@ -55,7 +55,7 @@ const WorkoutEditor = ({ workoutItem, setIsEditMode, setWorkoutList }: WorkoutEd
   };
 
   return (
-    <View style={[styles.container, { backgroundColor: Themes[theme].background }]}>      
+    <View style={[styles.editorContainer, { backgroundColor: Themes[theme].background }]}>      
       <View style={[styles.listItem, { backgroundColor: Themes[theme].primary }]}>  
         <Button 
           title='Delete' 
@@ -141,7 +141,7 @@ const WorkoutEditor = ({ workoutItem, setIsEditMode, setWorkoutList }: WorkoutEd
 };
 
 const styles = StyleSheet.create({
-  container: {
+  editorContainer: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center'
@@ -153,14 +153,12 @@ const styles = StyleSheet.create({
     marginBottom: 5
   },
   columnRow: {
-    backgroundColor: "orange",
-    flexDirection: "column",
-    width: "50%"
+    width: "45%"
   },
   inputField: {
     fontSize: 12,
     fontFamily: 'MerriweatherSans',
-    width: Dimensions.get('window').width < 440 ? '90%' : 180,
+    width: Dimensions.get('window').width < 440 ? '100%' : 180,
     borderWidth: 1, 
     borderRadius: 3,
     paddingHorizontal: 8,

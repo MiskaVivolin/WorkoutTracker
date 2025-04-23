@@ -22,7 +22,7 @@ const WorkoutListScreen: React.FC<WorkoutListScreenProps> = ({ navigation }) => 
     <View style={[styles.container, { backgroundColor: Themes[theme].background }]}>
       {mobileView ? (
         <View style={{ flex: 1 }}>
-          <Logo />
+          <Logo textStyle={{marginBottom: 5}}/>
           {isEditMode ? (
             <WorkoutEditor workoutItem={workoutItem} setIsEditMode={setIsEditMode} setWorkoutList={setWorkoutList} />
           ) : (

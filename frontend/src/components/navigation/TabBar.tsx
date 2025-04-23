@@ -1,16 +1,12 @@
 import React from 'react';
-import { View, Text, StyleSheet, Dimensions, Platform } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { TabBarProps } from '../../types/componentProps';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Themes } from '../../../assets/styles/Themes';
 import NavButton from './NavButton';
-import { useTheme } from '../../context/ThemeContext';
 import { useNavigationState } from '@react-navigation/native';
 
 const TabBar = ({ navigation }: TabBarProps) => {
-  
-    const { theme } = useTheme();
-  
+    
     const currentRoute = useNavigationState(
       state => state.routes[state.index].name
     );

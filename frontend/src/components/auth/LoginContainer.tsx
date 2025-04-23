@@ -62,7 +62,7 @@ const LoginContainer = ({navigation}: LoginContainerProps) => {
 
 
   return (
-    <View style={[styles.container, { backgroundColor: Themes[theme].background }]}>
+    <View style={[styles.loginContainer, { backgroundColor: Themes[theme].background }]}>
       <Text style={[styles.header, { color: Themes[theme].defaultText }]}>
         Log in to your account
       </Text>
@@ -118,22 +118,23 @@ const LoginContainer = ({navigation}: LoginContainerProps) => {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  loginContainer: {
     flex: 1,
-    width: '100%',
-    justifyContent: 'center',
+    alignSelf: "center",
     alignItems: 'center',
+    justifyContent: 'center',
+    width: Platform.OS === 'android' || Platform.OS === 'ios' ? '80%' : 350,
   },
   fieldContainer: {
     justifyContent: 'center',
-    width: Dimensions.get('window').width < 440 ? '80%' : 350,
+    width: Platform.OS === 'android' || Platform.OS === 'ios' ? '100%' : 350,
     marginBottom: 50,
   },
   buttonContainer: { 
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    width: '75%'
+    width: '100%'
   },
   label: {
     fontSize: 13,
@@ -144,7 +145,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: Platform.OS === 'android' || Platform.OS === 'ios' ? '700' : '500',
     fontFamily: 'MerriweatherSans',
-    marginBottom: Dimensions.get('window').width < 440 ? 60 : 100,
+    marginBottom: Platform.OS === 'android' || Platform.OS === 'ios' ? 60 : 100,
   },
   inputFieldError: {
     fontSize: 13,

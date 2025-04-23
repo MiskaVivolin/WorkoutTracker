@@ -1,7 +1,6 @@
   // TODO: 
   // PopUp paremmaksi
-  // minheight ja minwidth
-  // tabbar margin
+  // piilota tabbar ja header kun on kirjoittamassa tekstiä
   // navbar responsiivisuus
   // konsoliin tuleva uncaught (in promise) error
   // kaikki testit ei toimi
