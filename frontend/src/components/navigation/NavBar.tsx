@@ -1,13 +1,14 @@
 import React from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
-import { NavBarProps } from '../types/componentProps';
+import { View, StyleSheet, Platform } from 'react-native';
+import { NavBarProps } from '../../types/componentProps';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Themes } from '../../assets/styles/Themes';
+import { Themes } from '../../../assets/styles/Themes';
 import NavButton from './NavButton';
-import { useTheme } from '../context/ThemeContext';
+import { useTheme } from '../../context/ThemeContext';
 import { useNavigationState } from '@react-navigation/native';
+import Logo from '../Logo';
 
-const Navbar = ({ navigation, showButtons, addButtonToggle }: NavBarProps) => {
+const NavBar = ({ navigation }: NavBarProps) => {
   
     const { theme } = useTheme();
   
@@ -24,32 +25,23 @@ const Navbar = ({ navigation, showButtons, addButtonToggle }: NavBarProps) => {
     }
 
   return (
-    <View style={[styles.divContainer, {backgroundColor: Themes[theme].background}]}>
-      <View style={[styles.headerContainer, {backgroundColor: Themes[theme].primary}]}>
-        <Text style={[styles.header, {color: Themes[theme].secondaryText}]}>Workout Tracker</Text>
-      </View>
-      {showButtons ? (
-      <View style={styles.logoutButtonContainer}>
-        
-        
+    <View style={[styles.navContainer, {backgroundColor: Themes[theme].primary}]}>
+      <Logo viewStyle={{marginLeft: 20}}/>
+      <View style={styles.buttonContainer}>
         <NavButton
           title='Add new'
           onPress={() => {
             navigation.navigate('AddWorkoutScreen')
           }}
           isActive={handleHighlight('AddWorkoutScreen')}
-          />
-          
-        
+          /> 
         <NavButton
           title='Your list'
           onPress={() => {
             navigation.navigate('WorkoutListScreen')
           }}
           isActive={handleHighlight('WorkoutListScreen')}
-          />
-        
-
+          />   
         <NavButton
           title='Settings'
           onPress={() => {
@@ -57,7 +49,6 @@ const Navbar = ({ navigation, showButtons, addButtonToggle }: NavBarProps) => {
           }}
           isActive={handleHighlight('SettingScreen')}
           />
-
         <NavButton
           title='Log out'
           onPress={() => {
@@ -65,39 +56,25 @@ const Navbar = ({ navigation, showButtons, addButtonToggle }: NavBarProps) => {
             navigation.navigate('LoginScreen');
           }}
           isActive={handleHighlight('LoginScreen')}
-          />
+        />
       </View>
-      ) : null}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  divContainer: {
-    flexDirection: Dimensions.get('window').width < 550 ? 'column' : 'row',
-    position: 'relative',
-  },
-  headerContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    paddingVertical: 10,
-    paddingHorizontal: 25,
-    maxHeight: Dimensions.get('window').width < 330 ? 54 : 58,
-  },
-  logoutButtonContainer: {
+  navContainer: {
     flexDirection: 'row',
     width: '100%',
-    justifyContent: 'flex-end',
+    justifyContent: "space-between",
     backgroundColor: 'transparent',
-    position: Dimensions.get('window').width < 550 ? 'relative' : 'absolute',
-    marginTop: 5,
-    paddingRight: 15
+    position: 'relative',
+    paddingVertical: 10,
   },
-  header: {
-    fontSize: Dimensions.get('window').width < 330 ? 28 : 32,
-    fontFamily: 'BlackOpsOne-Regular',
+  buttonContainer: {
+    flexDirection: "row", 
+    alignItems: "center"
   }
 });
 
-export default Navbar;
+export default NavBar;

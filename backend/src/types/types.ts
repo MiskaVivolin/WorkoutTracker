@@ -47,7 +47,7 @@ export interface DeleteReq {
 
 export interface SignupRes {
     status(arg0: number): SignupRes;
-    json: (args: {isTaken: boolean} | { error: string }) => void;
+    json: (args: {message: string} | { error: string }) => void;
 }
 
 export interface LoginRes {

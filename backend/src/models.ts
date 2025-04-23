@@ -24,7 +24,7 @@ export const userSignup = async (username: String, password: Buffer) => {
 export const userLogin = async (username: String, password: Buffer) => {
   try {
     const user = await pool.query(
-      `SELECT username, password 
+      `SELECT id, username, password 
       FROM users 
       WHERE username = $1`, 
       [username]

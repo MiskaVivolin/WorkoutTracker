@@ -1,21 +1,23 @@
-import axios, { AxiosResponse } from 'axios'
-import { WorkoutItem, ResponseData } from '../types/workoutItemTypes'
-import { SetBoolean } from '../types/utilTypes'
+import { WorkoutItem } from '../types/workoutItemTypes'
 import { Platform } from 'react-native';
+import { API_BASE_URL } from "../../config";
 
 
-const editWorkoutItem = (workoutItem: WorkoutItem): void => {
+const editWorkoutItem = async (workoutItem: WorkoutItem): Promise<void> => {
 
-  const apiUrl = Platform.OS === 'android' ? 'http://192.168.1.119:3001/put' : 'http://127.0.0.1:3001/put';
+  const apiUrl = Platform.OS === 'android' ? `${API_BASE_URL}/put` : 'http://127.0.0.1:3001/put';
   
-  axios.put<ResponseData>(apiUrl, workoutItem)
-  .then((response: AxiosResponse<ResponseData>) => {
-    if(!response.data.message) {
-      console.log(response.data)    }
-  })
-  .catch((error) => {
-    console.error('Error sending put request:', error);
-  });
+  try {
+    await fetch(apiUrl, {
+      method: 'PUT',
+      headers: { 
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(workoutItem)
+    })
+  } catch (err) {
+    console.error("Error sending PUT request ")
+  }
 }
 
 export default editWorkoutItem;

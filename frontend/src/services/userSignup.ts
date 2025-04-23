@@ -1,28 +1,26 @@
 import { Platform } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "types/utilTypes";
-import axios from "axios";
+import { API_BASE_URL } from "../../config";
 
 
-export const userSignup = async ( navigation: StackNavigationProp<RootStackParamList>, username: string, password: string ): Promise<void> => {
+export const userSignup = async ( navigation: StackNavigationProp<RootStackParamList>, username: string, password: string ): Promise<void | string> => {
     
-    const apiUrl = Platform.OS === 'android' ? 'http://192.168.1.119:3001/signup' : 'http://127.0.0.1:3001/signup';
-    
-    if (username.length < 4) {
-      throw new Error('Username must be at least 4 characters');
-    }
-    if (password.length < 8) {
-      throw new Error('Password must be at least 8 characters');
-    }
+    const apiUrl = Platform.OS === 'android' ? `${API_BASE_URL}/signup` : 'http://127.0.0.1:3001/signup';
   
     try {
-      const response = await axios.post(apiUrl, { username, password });
-  
-      if (response.data.isTaken) {
-        throw new Error('This username is already taken');
+      const response = await fetch(apiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ username, password })
+      })
+      if (response.status === 409) {
+        return "This username is already taken";
       }
   
-      navigation.navigate('LoginScreen');
+      navigation.navigate("LoginScreen");
     } catch (error) {
       console.error('Signup failed:', error);
     }

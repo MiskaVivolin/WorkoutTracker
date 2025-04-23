@@ -16,11 +16,3 @@ export type SignupScreenProps = {
 export type WorkoutListScreenProps = {
     navigation: StackNavigationProp<RootStackParamList, 'WorkoutListScreen'>;
 };
-
-// export type AddExerciseScreenParams = {
-//     username: string;
-// }
-
-// export type WorkoutListScreenParams = {
-//     username: string;
-// }

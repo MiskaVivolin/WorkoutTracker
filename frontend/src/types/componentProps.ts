@@ -1,7 +1,7 @@
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList, SetBoolean } from "./utilTypes";
 import { SetWorkoutItem, SetWorkoutList, WorkoutItem } from "./workoutItemTypes";
-import { ViewStyle } from "react-native";
+import { TextStyle, ViewStyle } from "react-native";
 
 export interface WorkoutEditorProps { 
     workoutItem: WorkoutItem;
@@ -9,16 +9,17 @@ export interface WorkoutEditorProps {
     setWorkoutList: SetWorkoutList;
 }
 
-export interface FormContainerBetaProps {
+export interface AddWorkoutFormProps {
     workoutItem: WorkoutItem; 
     setWorkoutItem: SetWorkoutItem;
 }
 
 export interface NavBarProps {
-    showButtons: boolean;
-    addButtonToggle?: boolean;
     navigation: StackNavigationProp<RootStackParamList>;
-    currentScreen?: string;
+}
+
+export interface TabBarProps {
+    navigation: StackNavigationProp<RootStackParamList>;
 }
 
 // export interface PopUpProps {
@@ -40,7 +41,8 @@ export interface WorkoutListProps {
 export interface ButtonProps {
     title: string;
     onPress: () => void;
-    style?: ViewStyle;
+    buttonStyle?: ViewStyle;
+    textStyle?: TextStyle;
   };
 
 export interface NavButtonProps {
@@ -49,3 +51,16 @@ export interface NavButtonProps {
     style?: ViewStyle;
     isActive?: boolean;
   };
+
+export interface LogoProps {
+    viewStyle?: ViewStyle;
+    textStyle?: TextStyle;
+} 
+
+export interface LoginContainerProps {
+    navigation: StackNavigationProp<RootStackParamList>;
+}
+
+export interface SignupContainerProps {
+    navigation: StackNavigationProp<RootStackParamList>;
+}

@@ -33,7 +33,7 @@ const userSignup = (username, password) => __awaiter(void 0, void 0, void 0, fun
 exports.userSignup = userSignup;
 const userLogin = (username, password) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const user = yield db_1.pool.query(`SELECT username, password 
+        const user = yield db_1.pool.query(`SELECT id, username, password 
       FROM users 
       WHERE username = $1`, [username]);
         if (user.rows.length === 0) {
@@ -43,6 +43,7 @@ const userLogin = (username, password) => __awaiter(void 0, void 0, void 0, func
         if (!isPasswordValid) {
             return "Invalid password";
         }
+        console.log(user.rows[0]);
         const token = jsonwebtoken_1.default.sign({ userId: user.rows[0].id }, "your_secret_key", { expiresIn: "1h" });
         return token;
     }

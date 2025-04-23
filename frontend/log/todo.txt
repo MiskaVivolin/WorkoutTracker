@@ -1,20 +1,21 @@
   // TODO: 
   // PopUp paremmaksi
-  // korjaa bugi: consoli printtaa kaksi kertaa POST errorin
-  // tarkista onko "turhia" propseja
+  // piilota tabbar ja header kun on kirjoittamassa tekstiä
+  // navbar responsiivisuus
+  // konsoliin tuleva uncaught (in promise) error
+  // kaikki testit ei toimi
   // kun vaihtaa sivua, validaation pitäisi restartata (ei enää valita tyhjistä fieldeistä)
   // jos listassa ei ole itemeitä, näytä teksti ja kuva.
   // mahdollisuus lisätä settien määrä. (numero field jonka default on 1? + ja - napit?)
-  // name fieldin default on username
-  // typet kuntoon: create funktiossa username voi olla null
-  // siirrä contextien typet types tiedostoon
   // mahdollisuus poistaa käyttäjä ja kaikki sen tiedot
+  // navigaatio mobiili näkymässä alhaalla
   // bugi: jos login ohjaa workoutList sivulle, lista ei päivity kunnolla
-  // bugi: editoidessa, validaatio työntää inputcontainerit pois. editointi boxin koko myös väärä kun ruudun leveys noin 1000. laatikon paikkaa voisi myös siirtää.
-  // muuta delete napin paikkaa, ainakin puhelin näkymässä
-  // theme selector: 2 dark teemaa ja light teemaa
-  // funktion typet hookeille ja constien nimitys kuntoon, tarkista statet
-  // vaihda axios fetchiin ja integroi react query
-  // app shoud fully handle three most common states of a network request – loading, success, and error
-  // sen jälkeen mietitään laajennusta esim. search, filter, kaaviot, emojit/kuvat, profiilitiedot jne.
-  // docker, testing
+  // bugi: jos painaa log out, username ja password fieldit ovat täytetty valmiiksi
+  // settingscreen: mahdollisuus lisätä oma nimi jonka user voisi asettaa default nimeksi kun tekee uusia tuloksia
+  // kun lisää uusia tuloksia tämän hetkinen päivä olisi Date fieldissä valmiiksi. Mahdollisuus toggleta tämä pois päältä asetuksista. ehkä myös kalenteri
+  // teemat paremmiksi
+  // tarkista voiko funktioiden typetystä parantaa
+  // integroi react query
+  // app should fully handle three most common states of a network request – loading, success, and error
+  // search, filter, kaaviot, cardio/kalorit/paino, emojit/kuvat, profiilitiedot, kieliasetukset jne.
+  // docker, cloud
