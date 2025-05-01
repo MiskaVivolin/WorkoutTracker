@@ -1,5 +1,5 @@
-import React from "react";
-import { View, Text, TextInput, StyleSheet, Dimensions, Platform } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Text, TextInput, StyleSheet, Dimensions, Platform, Keyboard, KeyboardAvoidingView } from "react-native";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Button from "./Button";
@@ -31,6 +31,21 @@ const AddWorkoutForm = ({workoutItem, setWorkoutItem}: AddWorkoutFormProps) => {
           result: workoutItem.result
       }
   })
+  const [keyboardVisible, setKeyboardVisible] = useState(false);
+
+  useEffect(() => {
+    const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
+      setKeyboardVisible(true);
+    });
+    const hideSubscription = Keyboard.addListener('keyboardDidHide', () => {
+      setKeyboardVisible(false);
+    });
+
+    return () => {
+      showSubscription.remove();
+      hideSubscription.remove();
+    };
+  }, []);
 
   const onSubmit = async () => {
     try {
@@ -45,9 +60,13 @@ const AddWorkoutForm = ({workoutItem, setWorkoutItem}: AddWorkoutFormProps) => {
   }
 
   return (
-    <View style={styles.addWorkoutContainer}>
-      <Text style={[styles.header, {color: Themes[theme].defaultText}]}>Add a new exercise result</Text>
-        
+    <KeyboardAvoidingView
+      style={styles.addWorkoutContainer}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      >
+      {!keyboardVisible && (
+      <Text style={[styles.header, { color: Themes[theme].defaultText }]}>Add a new exercise result</Text>
+      )}          
       <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Name</Text>
       <TextInput
         style={[styles.inputField, {color: Themes[theme].defaultText, borderColor: Themes[theme].border, backgroundColor: Themes[theme].inputField}]}
@@ -100,7 +119,7 @@ const AddWorkoutForm = ({workoutItem, setWorkoutItem}: AddWorkoutFormProps) => {
       />
       {errors.result && <Text style={[styles.errorText, {color: Themes[theme].errorText}]}>{errors.result.message}</Text>}
       <Button title="Add" onPress={handleSubmit(onSubmit)} buttonStyle={{marginTop: 60}} />
-    </View>
+    </KeyboardAvoidingView>
   )
 }
 

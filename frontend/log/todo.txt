@@ -1,9 +1,11 @@
   // TODO: 
   // PopUp paremmaksi
+  // readme pienet parantelut
   // piilota tabbar ja header kun on kirjoittamassa tekstiä
   // navbar responsiivisuus
   // konsoliin tuleva uncaught (in promise) error
   // kaikki testit ei toimi
+  // keyboardavoidingview ei hallitse UI elementtien muutosta hyvin
   // kun vaihtaa sivua, validaation pitäisi restartata (ei enää valita tyhjistä fieldeistä)
   // jos listassa ei ole itemeitä, näytä teksti ja kuva.
   // mahdollisuus lisätä settien määrä. (numero field jonka default on 1? + ja - napit?)
