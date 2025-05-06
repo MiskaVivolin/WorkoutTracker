@@ -10,7 +10,7 @@ const ThemeSwitcher = () => {
     
     return (
     <View style={styles.themeContainer}>
-      <Text style={[styles.header, {color: Themes[theme].defaultText}]}>Current theme: {theme}</Text>
+      <Text style={[styles.title, {color: Themes[theme].defaultText}]}>Current theme: {theme}</Text>
       <View style={styles.buttonContainer}>
         <Button
           buttonStyle={{marginRight: Platform.OS === 'android' || Platform.OS === 'ios' ? 0 : 50}}
@@ -39,10 +39,10 @@ const styles = StyleSheet.create({
     justifyContent: Platform.OS === 'android' || Platform.OS === 'ios' ? "space-evenly" : "center",
     
   }, 
-  header: {
+  title: {
     marginBottom: Platform.OS === 'android' || Platform.OS === 'ios' ? 20 : 50, 
     fontFamily: 'MerriweatherSans',
-    fontSize: Platform.OS === 'android' || Platform.OS === 'ios' ? 16 : 20, 
+    fontSize: Platform.OS === 'android' || Platform.OS === 'ios' ? 18 : 20, 
   }
 })
 

@@ -63,7 +63,7 @@ const LoginContainer = ({navigation}: LoginContainerProps) => {
 
   return (
     <View style={[styles.loginContainer, { backgroundColor: Themes[theme].background }]}>
-      <Text style={[styles.header, { color: Themes[theme].defaultText }]}>
+      <Text style={[styles.title, { color: Themes[theme].defaultText }]}>
         Log in to your account
       </Text>
 
@@ -141,8 +141,8 @@ const styles = StyleSheet.create({
     fontFamily: 'MerriweatherSans',
     marginBottom: 2,
   },
-  header: {
-    fontSize: 24,
+  title: {
+    fontSize: 22,
     fontWeight: Platform.OS === 'android' || Platform.OS === 'ios' ? '700' : '500',
     fontFamily: 'MerriweatherSans',
     marginBottom: Platform.OS === 'android' || Platform.OS === 'ios' ? 60 : 100,

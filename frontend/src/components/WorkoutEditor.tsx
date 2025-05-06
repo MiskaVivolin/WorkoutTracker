@@ -66,7 +66,7 @@ const WorkoutEditor = ({ workoutItem, setIsEditMode, setWorkoutList }: WorkoutEd
             setIsEditMode(false)
           }}
         />
-        <Text style={[styles.header, { color: Themes[theme].defaultText }]}>Edit Training Data</Text>
+        <Text style={[styles.title, { color: Themes[theme].defaultText }]}>Edit Training Data</Text>
         <View style={styles.inputRow}>
           <View style={styles.columnRow}>
             <Text style={[styles.label, { color: Themes[theme].defaultText }]}>Name</Text>
@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
     marginBottom: 2,
     marginTop: 5
   },
-  header: {
+  title: {
     fontSize: 18,
     fontWeight: Platform.OS === 'android' || Platform.OS === 'ios' ? '700' : '500',
     fontFamily: 'MerriweatherSans', 

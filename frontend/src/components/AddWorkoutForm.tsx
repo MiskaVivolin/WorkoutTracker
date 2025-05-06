@@ -65,7 +65,7 @@ const AddWorkoutForm = ({workoutItem, setWorkoutItem}: AddWorkoutFormProps) => {
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       >
       {!keyboardVisible && (
-      <Text style={[styles.header, { color: Themes[theme].defaultText }]}>Add a new exercise result</Text>
+      <Text style={[styles.title, { color: Themes[theme].defaultText }]}>Add a new exercise result</Text>
       )}          
       <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Name</Text>
       <TextInput
@@ -140,8 +140,9 @@ const styles = StyleSheet.create({
       marginBottom: 2,
       marginTop: 12
     },
-    header: {
-      fontSize: Platform.OS === 'android' || Platform.OS === 'ios' ? 20 : 24, 
+    title: {
+      fontSize: 22,
+      fontWeight: Platform.OS === 'android' || Platform.OS === 'ios' ? '700' : '500', 
       fontFamily: 'MerriweatherSans', 
       marginBottom: Dimensions.get('window').height < 1000 ? 30 : 50, 
     },

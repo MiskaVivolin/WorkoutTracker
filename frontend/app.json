@@ -26,10 +26,6 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    },
-    "defaultFontFamily": {
-      "regular": "MerriweatherSans",
-      "italic": "MerriweatherSans-Italic"
     }
   }
 }
