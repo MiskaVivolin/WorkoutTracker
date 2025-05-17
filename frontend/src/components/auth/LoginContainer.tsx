@@ -1,5 +1,5 @@
 import { Dimensions, Platform, Pressable, StyleSheet, Text, TextInput, View } from 'react-native'
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { useTheme } from '../../context/ThemeContext';
 import { useUserToken } from '../../context/UserTokenContext';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -10,6 +10,7 @@ import { LoginContainerProps } from 'types/componentProps';
 import { useForm } from 'react-hook-form';
 import Button from "../Button";
 import { Themes } from '../../../assets/styles/Themes';
+import { useFocusEffect } from '@react-navigation/native';
 
 const LoginContainer = ({navigation}: LoginContainerProps) => {
 
@@ -41,7 +42,8 @@ const LoginContainer = ({navigation}: LoginContainerProps) => {
       }
     };
   
-    useEffect(() => {
+  useFocusEffect(
+    useCallback(() => {
       const autoLogin = async () => {
         try {
           const storedUserJSON = await AsyncStorage.getItem("userInputFields")
@@ -52,13 +54,17 @@ const LoginContainer = ({navigation}: LoginContainerProps) => {
               setValue("password", storedUser.password);
               await onSubmit(storedUser)
             }
+          } else {
+            setValue("username", "")
+            setValue("password", "")
           }
         } catch(err) {
           console.error("Auto login error:", err)
         }
       }
       autoLogin()
-    }, []);
+    }, [])
+  )
 
 
   return (

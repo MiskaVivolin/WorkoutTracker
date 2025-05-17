@@ -64,3 +64,9 @@ export interface LoginContainerProps {
 export interface SignupContainerProps {
     navigation: StackNavigationProp<RootStackParamList>;
 }
+
+export interface ConfirmModalProps {
+  setModalVisible: SetBoolean;
+  onCancel: () => void;
+  navigation: StackNavigationProp<RootStackParamList, 'AddWorkoutScreen'>;
+};

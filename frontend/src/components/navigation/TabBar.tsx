@@ -44,8 +44,8 @@ const TabBar = ({ navigation }: TabBarProps) => {
         />
       <NavButton
         title='Log out'
-        onPress={() => {
-          AsyncStorage.removeItem('userInputFields');
+        onPress={async () => {
+          await AsyncStorage.removeItem('userInputFields');
           navigation.navigate('LoginScreen');
         }}
         isActive={handleHighlight('LoginScreen')}

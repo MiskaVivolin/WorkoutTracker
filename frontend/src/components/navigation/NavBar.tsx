@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet, Platform } from 'react-native';
 import { NavBarProps } from '../../types/componentProps';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -7,10 +7,12 @@ import NavButton from './NavButton';
 import { useTheme } from '../../context/ThemeContext';
 import { useNavigationState } from '@react-navigation/native';
 import Logo from '../Logo';
+import ConfirmModal from '../../components/ConfirmModal';
 
 const NavBar = ({ navigation }: NavBarProps) => {
   
     const { theme } = useTheme();
+    const [modalVisible, setModalVisible] = useState(false);
   
     const currentRoute = useNavigationState(
       state => state.routes[state.index].name
@@ -51,13 +53,15 @@ const NavBar = ({ navigation }: NavBarProps) => {
           />
         <NavButton
           title='Log out'
-          onPress={() => {
-            AsyncStorage.removeItem('userInputFields');
-            navigation.navigate('LoginScreen');
-          }}
+          onPress={() => setModalVisible(true)}
           isActive={handleHighlight('LoginScreen')}
         />
       </View>
+      {modalVisible ? 
+    <ConfirmModal navigation={navigation} setModalVisible={setModalVisible}  />
+    :  
+    <></>
+    }
     </View>
   );
 };
