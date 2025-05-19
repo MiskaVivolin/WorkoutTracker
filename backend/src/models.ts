@@ -1,4 +1,4 @@
-import { CreateWorkoutData, WorkoutData } from "./types/types";
+import { CreateWorkoutData, ThemeData, WorkoutData } from "./types/types";
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 import { pool } from "./db"
@@ -122,3 +122,29 @@ export const deleteWorkoutItem = async (itemId: number) => {
     throw new Error("Unable to delete a workout item from the database")
   }
 }
+
+export const setUserTheme = async (themeData: ThemeData) => {
+  try {
+    const { username, theme } = themeData;
+    const userRes = await pool.query(
+      `SELECT id FROM users WHERE username = $1`,
+      [username]
+    );
+
+    const user_id = userRes.rows[0].id;
+
+    const res = await pool.query(
+      `INSERT INTO user_theme (user_id, theme)
+       VALUES ($1, $2)
+       ON CONFLICT (user_id)
+       DO UPDATE SET theme = EXCLUDED.theme
+       RETURNING *`,
+      [user_id, theme]
+    );
+
+    return res.rows[0];
+  } catch (error) {
+    console.error(error);
+    throw new Error("Unable to set user theme in the database");
+  }
+};

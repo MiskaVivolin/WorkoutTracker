@@ -22,10 +22,15 @@ export interface UserData {
     }
 }
 
+export interface ThemeData { 
+    username: string; 
+    theme: 'light' | 'dark';
+}
+
 export interface PostReq {
     body: { 
-        workoutItem: WorkoutData
-        username: string
+        workoutItem: WorkoutData;
+        username: string;
     }
 }
 
@@ -43,6 +48,10 @@ export interface EditReq {
 
 export interface DeleteReq {
     params: { id: number };
+}
+
+export interface PostThemeReq {
+    body: ThemeData;
 }
 
 export interface SignupRes {

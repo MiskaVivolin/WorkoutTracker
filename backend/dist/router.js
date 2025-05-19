@@ -100,4 +100,18 @@ router.delete("/delete/:id", (req, res) => __awaiter(void 0, void 0, void 0, fun
         return res.status(500).json({ message: "Internal server error" });
     }
 }));
+router.post("/set-theme", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { username, theme } = req.body;
+        if (!username || !['light', 'dark'].includes(theme)) {
+            return res.status(422).json({ error: "Missing or invalid fields" });
+        }
+        const updatedTheme = yield (0, models_1.setUserTheme)({ username, theme });
+        return res.status(200).json(updatedTheme);
+    }
+    catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: "Internal server error" });
+    }
+}));
 exports.default = router;

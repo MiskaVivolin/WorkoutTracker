@@ -1,6 +1,6 @@
 import express from "express";
-import { createWorkoutItem, deleteWorkoutItem, editWorkoutItem, getWorkoutData, getWorkoutItem, userLogin, userSignup } from "./models";
-import { PostReq, PostRes, GetRes, UserData, SignupRes, LoginRes, GetReq, GetItemReq, EditReq, EditRes, DeleteReq, DeleteRes } from "./types/types";
+import { createWorkoutItem, deleteWorkoutItem, editWorkoutItem, getWorkoutData, getWorkoutItem, setUserTheme, userLogin, userSignup } from "./models";
+import { PostReq, PostRes, GetRes, UserData, SignupRes, LoginRes, GetReq, GetItemReq, EditReq, EditRes, DeleteReq, DeleteRes, PostThemeReq } from "./types/types";
 
 const router = express.Router()
 
@@ -99,5 +99,22 @@ router.delete("/delete/:id", async (req: DeleteReq, res: DeleteRes) => {
     return res.status(500).json({ message: "Internal server error" })
   }
 })
+
+router.post("/set-theme", async (req: PostThemeReq, res: PostRes) => {
+  try {
+    const { username, theme } = req.body;
+
+    if (!username || !['light', 'dark'].includes(theme)) {
+      return res.status(422).json({ error: "Missing or invalid fields" });
+    }
+
+    const updatedTheme = await setUserTheme({ username, theme });
+    return res.status(200).json(updatedTheme);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 
 export default router;
