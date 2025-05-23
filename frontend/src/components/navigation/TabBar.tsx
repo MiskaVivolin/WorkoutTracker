@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { TabBarProps } from '../../types/componentProps';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import NavButton from './NavButton';
 import { useNavigationState } from '@react-navigation/native';
+import ConfirmModal from '../../components/ConfirmModal';
 
 const TabBar = ({ navigation }: TabBarProps) => {
+    
+    const [modalVisible, setModalVisible] = useState(false);
     
     const currentRoute = useNavigationState(
       state => state.routes[state.index].name
@@ -50,6 +53,11 @@ const TabBar = ({ navigation }: TabBarProps) => {
         }}
         isActive={handleHighlight('LoginScreen')}
         />
+        {modalVisible ? 
+    <ConfirmModal navigation={navigation} setModalVisible={setModalVisible}  />
+    :  
+    <></>
+    }
     </View>
   );
 };

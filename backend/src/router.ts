@@ -1,6 +1,6 @@
 import express from "express";
-import { createWorkoutItem, deleteWorkoutItem, editWorkoutItem, getWorkoutData, getWorkoutItem, setUserTheme, userLogin, userSignup } from "./models";
-import { PostReq, PostRes, GetRes, UserData, SignupRes, LoginRes, GetReq, GetItemReq, EditReq, EditRes, DeleteReq, DeleteRes, PostThemeReq } from "./types/types";
+import { createWorkoutItem, deleteWorkoutItem, editWorkoutItem, getUserTheme, getWorkoutData, getWorkoutItem, setUserTheme, userLogin, userSignup } from "./models";
+import { PostReq, PostRes, GetRes, UserData, SignupRes, LoginRes, GetReq, GetItemReq, EditReq, EditRes, DeleteReq, DeleteRes, PostThemeReq, GetThemeReq } from "./types/types";
 
 const router = express.Router()
 
@@ -85,7 +85,7 @@ router.put("/put", async (req: EditReq, res: EditRes) => {
     const editedWorkoutItem = await editWorkoutItem(workoutItem)
     return res.status(200).json(editedWorkoutItem)
   } catch (error) {
-    return res.status(500).json({ message: "Internal server error" })
+    return res.status(500).json({ error: "Internal server error" })
   }
 })
 
@@ -97,6 +97,17 @@ router.delete("/delete/:id", async (req: DeleteReq, res: DeleteRes) => {
     return res.status(200).json(deletedWorkoutItem)
   } catch (error) {
     return res.status(500).json({ message: "Internal server error" })
+  }
+})
+
+router.get("/get-theme/:username", async (req: GetThemeReq, res: GetRes) => {
+  try {
+    const username = req.params.username
+
+    const getTheme = await getUserTheme(username)
+    return res.status(200).json(getTheme);
+  } catch (error) {
+    return res.status(500).json({ error: "Internal server error" })
   }
 })
 

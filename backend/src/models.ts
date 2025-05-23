@@ -123,16 +123,34 @@ export const deleteWorkoutItem = async (itemId: number) => {
   }
 }
 
+export const getUserTheme = async (username: string) => {
+  try {
+    const userRes = await pool.query(
+      `SELECT id FROM users 
+      WHERE username = $1`, 
+      [username]
+    );
+    const user_id = userRes.rows[0].id;
+    const res = await pool.query(
+      `SELECT theme FROM user_theme 
+      WHERE user_id = $1`, 
+      [user_id]
+    );
+    return res.rows[0];
+  } catch (error) {
+    throw new Error("Unable to retrieve user theme from the database")
+  }
+}
+
 export const setUserTheme = async (themeData: ThemeData) => {
   try {
     const { username, theme } = themeData;
     const userRes = await pool.query(
-      `SELECT id FROM users WHERE username = $1`,
+      `SELECT id FROM users 
+      WHERE username = $1`,
       [username]
     );
-
     const user_id = userRes.rows[0].id;
-
     const res = await pool.query(
       `INSERT INTO user_theme (user_id, theme)
        VALUES ($1, $2)
@@ -141,10 +159,8 @@ export const setUserTheme = async (themeData: ThemeData) => {
        RETURNING *`,
       [user_id, theme]
     );
-
     return res.rows[0];
   } catch (error) {
-    console.error(error);
     throw new Error("Unable to set user theme in the database");
   }
 };
