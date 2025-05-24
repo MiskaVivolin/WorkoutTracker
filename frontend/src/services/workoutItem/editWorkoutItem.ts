@@ -1,6 +1,6 @@
-import { WorkoutItem } from '../types/workoutItemTypes'
+import { WorkoutItem } from '../../types/workoutItemTypes'
 import { Platform } from 'react-native';
-import { API_BASE_URL } from "../../config";
+import { API_BASE_URL } from "../../../config";
 
 
 const editWorkoutItem = async (workoutItem: WorkoutItem): Promise<void> => {

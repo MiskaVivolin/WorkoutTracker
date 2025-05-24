@@ -1,7 +1,7 @@
 import { Platform } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "types/utilTypes";
-import { API_BASE_URL } from "../../config";
+import { API_BASE_URL } from "../../../config";
 
 
 export const userSignup = async ( navigation: StackNavigationProp<RootStackParamList>, username: string, password: string ): Promise<void | string> => {

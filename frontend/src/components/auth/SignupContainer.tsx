@@ -3,7 +3,7 @@ import React from 'react'
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTheme } from '../../context/ThemeContext';
-import { userSignup } from '../../services/userSignup';
+import { userSignup } from '../../services/auth/userSignup';
 import { SignupContainerProps } from '../../types/componentProps';
 import { Themes } from '../../../assets/styles/Themes';
 import { useForm } from 'react-hook-form';

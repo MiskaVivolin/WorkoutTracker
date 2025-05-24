@@ -3,7 +3,7 @@ import React, { useCallback, useEffect } from 'react'
 import { useTheme } from '../../context/ThemeContext';
 import { useUserToken } from '../../context/UserTokenContext';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { userLogin } from "../../services/userLogin";
+import { userLogin } from "../../services/auth/userLogin";
 import { z } from 'zod';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LoginContainerProps } from 'types/componentProps';
@@ -11,6 +11,7 @@ import { useForm } from 'react-hook-form';
 import Button from "../Button";
 import { Themes } from '../../../assets/styles/Themes';
 import { useFocusEffect } from '@react-navigation/native';
+import getUserTheme from '../../services/theme/getUserTheme';
 
 const LoginContainer = ({navigation}: LoginContainerProps) => {
 

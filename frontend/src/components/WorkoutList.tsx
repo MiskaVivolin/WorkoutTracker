@@ -4,7 +4,7 @@ import { FlatList } from 'react-native'
 import useGetWorkoutList from '../hooks/useGetWorkoutList'
 import { WorkoutListProps } from '../types/componentProps'
 import { WorkoutItem } from '../types/workoutItemTypes'
-import getWorkoutItem from '../services/getWorkoutItem'
+import getWorkoutItem from '../services/workoutItem/getWorkoutItem'
 import { Themes } from "../../assets/styles/Themes"
 import { useTheme } from '../context/ThemeContext'
 import Button from './Button'

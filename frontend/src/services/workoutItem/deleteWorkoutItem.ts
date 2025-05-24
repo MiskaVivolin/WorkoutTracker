@@ -1,6 +1,6 @@
-import { SetWorkoutList, ResponseData } from '../types/workoutItemTypes'
+import { SetWorkoutList, ResponseData } from '../../types/workoutItemTypes'
 import { Platform } from 'react-native';
-import { API_BASE_URL } from "../../config";
+import { API_BASE_URL } from "../../../config";
 
 
 const deleteWorkoutItem = async (itemId: number, setWorkoutList: SetWorkoutList): Promise<void> => {

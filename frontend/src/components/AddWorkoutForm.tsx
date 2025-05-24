@@ -3,7 +3,7 @@ import { View, Text, TextInput, StyleSheet, Dimensions, Platform, Keyboard, Keyb
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Button from "./Button";
-import createWorkoutItem from "../services/createWorkoutItem";
+import createWorkoutItem from "../services/workoutItem/createWorkoutItem";
 import { useUserToken } from "../context/UserTokenContext";
 import { AddWorkoutFormProps } from "../types/componentProps";
 import { Themes } from "../../assets/styles/Themes";
