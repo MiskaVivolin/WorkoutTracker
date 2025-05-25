@@ -4,7 +4,6 @@ import { PostReq, PostRes, GetRes, UserData, SignupRes, LoginRes, GetReq, GetIte
 
 const router = express.Router()
 
-
 router.post("/signup", async (req: UserData, res: SignupRes) => {
   try {
     const { username, password } = req.body
@@ -20,7 +19,6 @@ router.post("/signup", async (req: UserData, res: SignupRes) => {
     return res.status(500).json({ error: "Internal server error" })
   }
 })
-
 
 router.post("/login", async (req: UserData, res: LoginRes) => {
   try {
@@ -38,7 +36,6 @@ router.post("/login", async (req: UserData, res: LoginRes) => {
   }
 })
 
-
 router.post("/create", async (req: PostReq, res: PostRes) => {
   try {
     const { name, date, exercise, result } = req.body.workoutItem
@@ -54,7 +51,6 @@ router.post("/create", async (req: PostReq, res: PostRes) => {
     return res.status(500).json({ error: "Internal server error" })
   }
 })
-
 
 router.get("/get", async (req: GetReq, res: GetRes) => {
   try {
@@ -122,10 +118,8 @@ router.post("/set-theme", async (req: PostThemeReq, res: PostRes) => {
     const updatedTheme = await setUserTheme({ username, theme });
     return res.status(200).json(updatedTheme);
   } catch (error) {
-    console.error(error);
     return res.status(500).json({ error: "Internal server error" });
   }
 });
-
 
 export default router;

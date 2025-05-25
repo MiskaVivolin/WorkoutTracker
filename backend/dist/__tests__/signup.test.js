@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const supertest_1 = __importDefault(require("supertest"));
 const globals_1 = require("@jest/globals");
+const bcrypt_1 = __importDefault(require("bcrypt"));
 const server_1 = require("../server");
 const db_1 = require("../db");
 globals_1.jest.mock("../db");
@@ -34,15 +35,16 @@ globals_1.jest.mock("../db");
         const querySpy = globals_1.jest.spyOn(db_1.pool, "query")
             .mockResolvedValueOnce({ rows: [] })
             .mockResolvedValueOnce({ rows: [] });
-        const res = yield (0, supertest_1.default)(server_1.app).post("/signup").send(mockUser);
+        globals_1.jest.spyOn(bcrypt_1.default, "hash").mockResolvedValueOnce("hashedpassword");
+        const res = yield (0, supertest_1.default)(server_1.app).post("/signup").send(mockUser.validationFields);
         (0, globals_1.expect)(res.status).toBe(201);
         (0, globals_1.expect)(res.body).toEqual({ message: "Signup successful" });
         (0, globals_1.expect)(querySpy).toHaveBeenCalledTimes(2);
     }));
-    (0, globals_1.test)("POST /signup - should return status 409 and a boolean value if username is taken", () => __awaiter(void 0, void 0, void 0, function* () {
+    (0, globals_1.test)("POST /signup - should return status 409 if username is taken", () => __awaiter(void 0, void 0, void 0, function* () {
         const querySpy = globals_1.jest.spyOn(db_1.pool, "query")
             .mockResolvedValueOnce({ rows: [{ username: "existingUser" }] });
-        const res = yield (0, supertest_1.default)(server_1.app).post("/signup").send(mockUser);
+        const res = yield (0, supertest_1.default)(server_1.app).post("/signup").send(mockUser.validationFields);
         (0, globals_1.expect)(res.status).toBe(409);
         (0, globals_1.expect)(res.body).toEqual({ message: "Username already taken" });
         (0, globals_1.expect)(querySpy).toHaveBeenCalledTimes(1);
@@ -50,8 +52,9 @@ globals_1.jest.mock("../db");
     (0, globals_1.test)("POST /signup - should return status 500 on Database error", () => __awaiter(void 0, void 0, void 0, function* () {
         const querySpy = globals_1.jest.spyOn(db_1.pool, "query")
             .mockRejectedValueOnce(new Error("Database error"));
-        const res = yield (0, supertest_1.default)(server_1.app).post("/signup").send(mockUser);
+        const res = yield (0, supertest_1.default)(server_1.app).post("/signup").send(mockUser.validationFields);
         (0, globals_1.expect)(res.status).toBe(500);
+        (0, globals_1.expect)(res.body).toEqual({ error: "Internal server error" });
         (0, globals_1.expect)(querySpy).toHaveBeenCalledTimes(1);
     }));
 });

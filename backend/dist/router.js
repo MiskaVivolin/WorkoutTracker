@@ -120,7 +120,6 @@ router.post("/set-theme", (req, res) => __awaiter(void 0, void 0, void 0, functi
         return res.status(200).json(updatedTheme);
     }
     catch (error) {
-        console.error(error);
         return res.status(500).json({ error: "Internal server error" });
     }
 }));

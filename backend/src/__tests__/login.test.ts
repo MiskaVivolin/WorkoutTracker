@@ -31,6 +31,8 @@ describe("User login", () => {
       const querySpy = jest.spyOn(pool, "query")
       .mockResolvedValueOnce({ rows: [mockHashedUser] })
 
+      jest.spyOn(bcrypt, "compare").mockResolvedValueOnce(true as never);
+
       const res = await request(app).post("/login").send(mockUser)
       expect(res.status).toBe(200)
       expect(querySpy).toHaveBeenCalledTimes(1);
@@ -38,7 +40,7 @@ describe("User login", () => {
 
     test("POST /login - should return status 500 on database error", async () => {
         const querySpy = jest.spyOn(pool, "query")
-        .mockResolvedValueOnce(new Error("Database error"))
+        .mockRejectedValueOnce(new Error("Database error"))
     
         const res = await request(app).post("/login").send(mockUser);
     
