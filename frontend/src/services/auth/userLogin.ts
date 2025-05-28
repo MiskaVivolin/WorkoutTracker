@@ -1,8 +1,8 @@
 import { Platform } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../types/utilTypes";
-import { API_BASE_URL } from "../../config";
+import { RootStackParamList } from "../../types/utilTypes";
+import { API_BASE_URL } from "../../../config";
 
 
 export const userLogin = async (navigation: StackNavigationProp<RootStackParamList>, username: string, password: string): Promise<string | undefined> => {
@@ -21,7 +21,7 @@ export const userLogin = async (navigation: StackNavigationProp<RootStackParamLi
         return "Invalid username or password"
       } else {
         await AsyncStorage.setItem('userInputFields', JSON.stringify({ username, password }));
-        navigation.navigate('AddWorkoutScreen');
+        navigation.navigate('WorkoutListScreen');
       }
     } catch (err) {
       console.error("Error sending login API call:", err)

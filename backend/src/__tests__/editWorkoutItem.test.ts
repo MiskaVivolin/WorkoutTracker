@@ -47,7 +47,7 @@ describe("API Routes", () => {
     
         const res = await request(app).put("/put").query(mockReqData)
         expect(res.status).toBe(500);
-        expect(res.body).toEqual({ message: "Internal server error" });
+        expect(res.body).toEqual({ error: "Internal server error" });
         expect(querySpy).toHaveBeenCalledTimes(1)
     });
 })

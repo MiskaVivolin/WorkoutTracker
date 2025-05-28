@@ -22,10 +22,15 @@ export interface UserData {
     }
 }
 
+export interface ThemeData { 
+    username: string; 
+    theme: 'light' | 'dark';
+}
+
 export interface PostReq {
     body: { 
-        workoutItem: WorkoutData
-        username: string
+        workoutItem: WorkoutData;
+        username: string;
     }
 }
 
@@ -43,6 +48,14 @@ export interface EditReq {
 
 export interface DeleteReq {
     params: { id: number };
+}
+
+export interface GetThemeReq {
+    params: { username: string };
+}
+
+export interface PostThemeReq {
+    body: ThemeData;
 }
 
 export interface SignupRes {
@@ -67,7 +80,7 @@ export interface GetRes {
 
 export interface EditRes {
     status(arg0: number): EditRes;
-    json: (args: WorkoutData[] | { message: string }) => void;
+    json: (args: WorkoutData[] | { error: string }) => void;
 }
 
 export interface DeleteRes {

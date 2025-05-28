@@ -26,9 +26,11 @@ const WorkoutListScreen: React.FC<WorkoutListScreenProps> = ({ navigation }) => 
           {isEditMode ? (
             <WorkoutEditor workoutItem={workoutItem} setIsEditMode={setIsEditMode} setWorkoutList={setWorkoutList} />
           ) : (
+            <>
             <WorkoutList workoutList={workoutList} setWorkoutList={setWorkoutList} setIsEditMode={setIsEditMode} setWorkoutItem={setWorkoutItem} />
+            <TabBar navigation={navigation} />
+            </>
           )}
-          <TabBar navigation={navigation} />
         </View>
       ) : (
         <View style={{ flex: 1 }}>

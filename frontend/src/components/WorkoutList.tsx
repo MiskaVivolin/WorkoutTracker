@@ -4,7 +4,7 @@ import { FlatList } from 'react-native'
 import useGetWorkoutList from '../hooks/useGetWorkoutList'
 import { WorkoutListProps } from '../types/componentProps'
 import { WorkoutItem } from '../types/workoutItemTypes'
-import getWorkoutItem from '../services/getWorkoutItem'
+import getWorkoutItem from '../services/workoutItem/getWorkoutItem'
 import { Themes } from "../../assets/styles/Themes"
 import { useTheme } from '../context/ThemeContext'
 import Button from './Button'
@@ -18,7 +18,7 @@ const WorkoutList = ({ workoutList, setWorkoutList, setIsEditMode, setWorkoutIte
   
   return (
     <View style={[styles.listContainer, {backgroundColor: Themes[theme].background}]}>
-      <Text style={[styles.header, {color: Themes[theme].defaultText}]}>Exercise results</Text>
+      <Text style={[styles.title, {color: Themes[theme].defaultText}]}>Exercise results</Text>
       <FlatList
         data={workoutList}
         keyExtractor={(item, index) => index.toString()}
@@ -80,9 +80,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between'
   },
-  header: {
-    fontSize: Platform.OS === 'android' || Platform.OS === 'ios' ? 20 : 24, 
+  title: {
+    fontSize: 22, 
     fontFamily: 'MerriweatherSans', 
+    fontWeight: Platform.OS === 'android' || Platform.OS === 'ios' ? '700' : '500',
     marginTop: Dimensions.get('window').height < 1000 ? 30 : 50,
     marginBottom: Dimensions.get('window').height < 1000 ? 30 : 50, 
   },

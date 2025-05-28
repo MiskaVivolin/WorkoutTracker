@@ -1,9 +1,8 @@
 import express from "express";
-import { createWorkoutItem, deleteWorkoutItem, editWorkoutItem, getWorkoutData, getWorkoutItem, userLogin, userSignup } from "./models";
-import { PostReq, PostRes, GetRes, UserData, SignupRes, LoginRes, GetReq, GetItemReq, EditReq, EditRes, DeleteReq, DeleteRes } from "./types/types";
+import { createWorkoutItem, deleteWorkoutItem, editWorkoutItem, getUserTheme, getWorkoutData, getWorkoutItem, setUserTheme, userLogin, userSignup } from "./models";
+import { PostReq, PostRes, GetRes, UserData, SignupRes, LoginRes, GetReq, GetItemReq, EditReq, EditRes, DeleteReq, DeleteRes, PostThemeReq, GetThemeReq } from "./types/types";
 
 const router = express.Router()
-
 
 router.post("/signup", async (req: UserData, res: SignupRes) => {
   try {
@@ -21,7 +20,6 @@ router.post("/signup", async (req: UserData, res: SignupRes) => {
   }
 })
 
-
 router.post("/login", async (req: UserData, res: LoginRes) => {
   try {
     const { username, password } = req.body;
@@ -38,7 +36,6 @@ router.post("/login", async (req: UserData, res: LoginRes) => {
   }
 })
 
-
 router.post("/create", async (req: PostReq, res: PostRes) => {
   try {
     const { name, date, exercise, result } = req.body.workoutItem
@@ -54,7 +51,6 @@ router.post("/create", async (req: PostReq, res: PostRes) => {
     return res.status(500).json({ error: "Internal server error" })
   }
 })
-
 
 router.get("/get", async (req: GetReq, res: GetRes) => {
   try {
@@ -85,7 +81,7 @@ router.put("/put", async (req: EditReq, res: EditRes) => {
     const editedWorkoutItem = await editWorkoutItem(workoutItem)
     return res.status(200).json(editedWorkoutItem)
   } catch (error) {
-    return res.status(500).json({ message: "Internal server error" })
+    return res.status(500).json({ error: "Internal server error" })
   }
 })
 
@@ -99,5 +95,31 @@ router.delete("/delete/:id", async (req: DeleteReq, res: DeleteRes) => {
     return res.status(500).json({ message: "Internal server error" })
   }
 })
+
+router.get("/get-theme/:username", async (req: GetThemeReq, res: GetRes) => {
+  try {
+    const username = req.params.username
+
+    const getTheme = await getUserTheme(username)
+    return res.status(200).json(getTheme);
+  } catch (error) {
+    return res.status(500).json({ error: "Internal server error" })
+  }
+})
+
+router.post("/set-theme", async (req: PostThemeReq, res: PostRes) => {
+  try {
+    const { username, theme } = req.body;
+
+    if (!username || !['light', 'dark'].includes(theme)) {
+      return res.status(422).json({ error: "Missing or invalid fields" });
+    }
+
+    const updatedTheme = await setUserTheme({ username, theme });
+    return res.status(200).json(updatedTheme);
+  } catch (error) {
+    return res.status(500).json({ error: "Internal server error" });
+  }
+});
 
 export default router;

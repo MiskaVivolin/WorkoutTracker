@@ -3,7 +3,7 @@ import React from 'react'
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTheme } from '../../context/ThemeContext';
-import { userSignup } from '../../services/userSignup';
+import { userSignup } from '../../services/auth/userSignup';
 import { SignupContainerProps } from '../../types/componentProps';
 import { Themes } from '../../../assets/styles/Themes';
 import { useForm } from 'react-hook-form';
@@ -38,7 +38,7 @@ const SignupContainer = ({navigation}: SignupContainerProps) => {
 
   return (
     <View style={[styles.signupContainer, { backgroundColor: Themes[theme].background }]}>
-      <Text style={[styles.header, { color: Themes[theme].defaultText }]}>Create a new account</Text>
+      <Text style={[styles.title, { color: Themes[theme].defaultText }]}>Create a new account</Text>
       <View style={styles.fieldContainer}>
         <Text style={[styles.label, { color: Themes[theme].defaultText }]}>Username</Text>
         <TextInput
@@ -111,8 +111,8 @@ const styles = StyleSheet.create({
     fontFamily: 'MerriweatherSans',
     marginBottom: 2,
   },
-  header: {
-    fontSize: 24,
+  title: {
+    fontSize: 22,
     fontWeight: Platform.OS === 'android' || Platform.OS === 'ios' ? '700' : '500',
     fontFamily: 'MerriweatherSans',
     marginBottom: Platform.OS === 'android' || Platform.OS === 'ios' ? 60 : 100,

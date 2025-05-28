@@ -1,16 +1,13 @@
   // TODO: 
   // PopUp paremmaksi
-  // piilota tabbar ja header kun on kirjoittamassa tekstiä
+  // readme pienet parantelut
   // navbar responsiivisuus
   // konsoliin tuleva uncaught (in promise) error
-  // kaikki testit ei toimi
+  // keyboardavoidingview ei hallitse UI elementtien muutosta hyvin
   // kun vaihtaa sivua, validaation pitäisi restartata (ei enää valita tyhjistä fieldeistä)
   // jos listassa ei ole itemeitä, näytä teksti ja kuva.
   // mahdollisuus lisätä settien määrä. (numero field jonka default on 1? + ja - napit?)
   // mahdollisuus poistaa käyttäjä ja kaikki sen tiedot
-  // navigaatio mobiili näkymässä alhaalla
-  // bugi: jos login ohjaa workoutList sivulle, lista ei päivity kunnolla
-  // bugi: jos painaa log out, username ja password fieldit ovat täytetty valmiiksi
   // settingscreen: mahdollisuus lisätä oma nimi jonka user voisi asettaa default nimeksi kun tekee uusia tuloksia
   // kun lisää uusia tuloksia tämän hetkinen päivä olisi Date fieldissä valmiiksi. Mahdollisuus toggleta tämä pois päältä asetuksista. ehkä myös kalenteri
   // teemat paremmiksi

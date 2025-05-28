@@ -1,6 +1,6 @@
-import { WorkoutItemFields, ResponseData } from "../types/workoutItemTypes";
+import { WorkoutItemFields, ResponseData } from "../../types/workoutItemTypes";
 import { Platform } from 'react-native';
-import { API_BASE_URL } from "../../config";
+import { API_BASE_URL } from "../../../config";
 
 
 const createWorkoutItem = async (workoutItem: WorkoutItemFields, username: string): Promise<void> => {

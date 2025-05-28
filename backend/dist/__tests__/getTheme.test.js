@@ -24,32 +24,28 @@ globals_1.jest.mock("../db");
     (0, globals_1.afterAll)(() => __awaiter(void 0, void 0, void 0, function* () {
         yield db_1.pool.end();
     }));
-    const mockReqData = {
-        id: 3,
-        name: "John Doe",
-        date: "10.3.2025",
-        exercise: "Bench Press",
-        result: "80kg x 6",
-    };
-    const mockResData = {
-        id: 3,
-        name: "John Doe",
-        date: "10.3.2025",
-        exercise: "Bench Press",
-        result: "80kg x 8",
-        user_id: 1,
-    };
-    (0, globals_1.test)("PUT /put - should edit a workout item", () => __awaiter(void 0, void 0, void 0, function* () {
+    (0, globals_1.test)("GET /get-theme/:username - should return user theme", () => __awaiter(void 0, void 0, void 0, function* () {
+        const mockThemeRes = { theme: "dark" };
         const querySpy = globals_1.jest.spyOn(db_1.pool, "query")
-            .mockResolvedValueOnce({ rows: [mockResData] });
-        const res = yield (0, supertest_1.default)(server_1.app).put("/put").query(mockReqData);
+            .mockResolvedValueOnce({ rows: [{ id: 1 }] })
+            .mockResolvedValueOnce({ rows: [mockThemeRes] });
+        const res = yield (0, supertest_1.default)(server_1.app).get("/get-theme/user123");
         (0, globals_1.expect)(res.status).toBe(200);
+        (0, globals_1.expect)(res.body).toEqual(mockThemeRes);
+        (0, globals_1.expect)(querySpy).toHaveBeenCalledTimes(2);
+    }));
+    (0, globals_1.test)("GET /get-theme/:username - should return 500 if user not found", () => __awaiter(void 0, void 0, void 0, function* () {
+        const querySpy = globals_1.jest.spyOn(db_1.pool, "query")
+            .mockResolvedValueOnce({ rows: [] });
+        const res = yield (0, supertest_1.default)(server_1.app).get("/get-theme/nonexistentuser");
+        (0, globals_1.expect)(res.status).toBe(500);
+        (0, globals_1.expect)(res.body).toEqual({ error: "Internal server error" });
         (0, globals_1.expect)(querySpy).toHaveBeenCalledTimes(1);
     }));
-    (0, globals_1.test)("PUT /put - should return status 500 on database error", () => __awaiter(void 0, void 0, void 0, function* () {
+    (0, globals_1.test)("GET /get-theme/:username - should return 500 on database error", () => __awaiter(void 0, void 0, void 0, function* () {
         const querySpy = globals_1.jest.spyOn(db_1.pool, "query")
-            .mockRejectedValueOnce(new Error("Database error"));
-        const res = yield (0, supertest_1.default)(server_1.app).put("/put").query(mockReqData);
+            .mockRejectedValueOnce(new Error("DB failure"));
+        const res = yield (0, supertest_1.default)(server_1.app).get("/get-theme/user123");
         (0, globals_1.expect)(res.status).toBe(500);
         (0, globals_1.expect)(res.body).toEqual({ error: "Internal server error" });
         (0, globals_1.expect)(querySpy).toHaveBeenCalledTimes(1);

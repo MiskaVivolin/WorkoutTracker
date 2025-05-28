@@ -1,15 +1,16 @@
 import { Dimensions, Platform, Pressable, StyleSheet, Text, TextInput, View } from 'react-native'
-import React, { useEffect } from 'react'
+import React, { useCallback } from 'react'
 import { useTheme } from '../../context/ThemeContext';
 import { useUserToken } from '../../context/UserTokenContext';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { userLogin } from "../../services/userLogin";
+import { userLogin } from "../../services/auth/userLogin";
 import { z } from 'zod';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LoginContainerProps } from 'types/componentProps';
 import { useForm } from 'react-hook-form';
 import Button from "../Button";
 import { Themes } from '../../../assets/styles/Themes';
+import { useFocusEffect } from '@react-navigation/native';
 
 const LoginContainer = ({navigation}: LoginContainerProps) => {
 
@@ -19,7 +20,7 @@ const LoginContainer = ({navigation}: LoginContainerProps) => {
       password: z.string().min(1, "Password is required"),
     });
     const { setToken } = useUserToken();
-    const { theme } = useTheme();
+    const { theme, refreshTheme } = useTheme();
     const { register, handleSubmit, setValue, watch, clearErrors, setError, formState: { errors } } = useForm<LoginFormData>({
       resolver: zodResolver(loginSchema),
       defaultValues: { username: "", password: "" }
@@ -35,13 +36,15 @@ const LoginContainer = ({navigation}: LoginContainerProps) => {
           })
         } else {
           setToken(data.username);
+          await refreshTheme();
         }
       } catch (err) {
         console.error("Login onSubmit error:", err)
       }
     };
   
-    useEffect(() => {
+  useFocusEffect(
+    useCallback(() => {
       const autoLogin = async () => {
         try {
           const storedUserJSON = await AsyncStorage.getItem("userInputFields")
@@ -52,18 +55,22 @@ const LoginContainer = ({navigation}: LoginContainerProps) => {
               setValue("password", storedUser.password);
               await onSubmit(storedUser)
             }
+          } else {
+            setValue("username", "")
+            setValue("password", "")
           }
         } catch(err) {
           console.error("Auto login error:", err)
         }
       }
       autoLogin()
-    }, []);
+    }, [])
+  )
 
 
   return (
     <View style={[styles.loginContainer, { backgroundColor: Themes[theme].background }]}>
-      <Text style={[styles.header, { color: Themes[theme].defaultText }]}>
+      <Text style={[styles.title, { color: Themes[theme].defaultText }]}>
         Log in to your account
       </Text>
 
@@ -141,8 +148,8 @@ const styles = StyleSheet.create({
     fontFamily: 'MerriweatherSans',
     marginBottom: 2,
   },
-  header: {
-    fontSize: 24,
+  title: {
+    fontSize: 22,
     fontWeight: Platform.OS === 'android' || Platform.OS === 'ios' ? '700' : '500',
     fontFamily: 'MerriweatherSans',
     marginBottom: Platform.OS === 'android' || Platform.OS === 'ios' ? 60 : 100,

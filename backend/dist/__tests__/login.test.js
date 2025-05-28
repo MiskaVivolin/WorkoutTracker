@@ -37,13 +37,14 @@ globals_1.jest.mock("../db");
         };
         const querySpy = globals_1.jest.spyOn(db_1.pool, "query")
             .mockResolvedValueOnce({ rows: [mockHashedUser] });
+        globals_1.jest.spyOn(bcrypt_1.default, "compare").mockResolvedValueOnce(true);
         const res = yield (0, supertest_1.default)(server_1.app).post("/login").send(mockUser);
         (0, globals_1.expect)(res.status).toBe(200);
         (0, globals_1.expect)(querySpy).toHaveBeenCalledTimes(1);
     }));
     (0, globals_1.test)("POST /login - should return status 500 on database error", () => __awaiter(void 0, void 0, void 0, function* () {
         const querySpy = globals_1.jest.spyOn(db_1.pool, "query")
-            .mockResolvedValueOnce(new Error("Database error"));
+            .mockRejectedValueOnce(new Error("Database error"));
         const res = yield (0, supertest_1.default)(server_1.app).post("/login").send(mockUser);
         (0, globals_1.expect)(res.status).toBe(500);
         (0, globals_1.expect)(querySpy).toHaveBeenCalledTimes(1);
