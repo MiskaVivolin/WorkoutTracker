@@ -3,7 +3,6 @@
   // readme pienet parantelut
   // navbar responsiivisuus
   // konsoliin tuleva uncaught (in promise) error
-  // kaikki testit eivät toimi. tee testit teemoille
   // keyboardavoidingview ei hallitse UI elementtien muutosta hyvin
   // kun vaihtaa sivua, validaation pitäisi restartata (ei enää valita tyhjistä fieldeistä)
   // jos listassa ei ole itemeitä, näytä teksti ja kuva.

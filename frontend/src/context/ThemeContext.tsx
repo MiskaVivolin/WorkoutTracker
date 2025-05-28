@@ -11,24 +11,24 @@ export const ThemeProvider = ({children}: {children: ReactNode}) => {
   const [username, setUsername] = useState<string>('');
 
 
-    useEffect(() => {
-    const fetchTheme = async () => {
-      try {
-        const stored = await AsyncStorage.getItem('userInputFields');
-        const parsed = stored ? JSON.parse(stored) : null;
-
-        if (parsed?.username) {
-          setUsername(parsed.username);
-          const storedTheme = await getUserTheme(parsed.username);
-          if (storedTheme) {
-            setThemeState(storedTheme);
-          }
+  const fetchTheme = async () => {
+    try {
+      const stored = await AsyncStorage.getItem('userInputFields');
+      const parsed = stored ? JSON.parse(stored) : null;
+      
+      if (parsed?.username) {
+        setUsername(parsed.username);
+        const storedTheme = await getUserTheme(parsed.username);
+        if (storedTheme) {
+          setThemeState(storedTheme);
         }
-      } catch (err) {
-        console.error('Failed to initialize theme from AsyncStorage:', err);
       }
-    };
-
+    } catch (err) {
+      console.error('Failed to initialize theme from AsyncStorage:', err);
+    }
+  };
+  
+  useEffect(() => {
     fetchTheme();
   }, []);
 
@@ -38,7 +38,7 @@ export const ThemeProvider = ({children}: {children: ReactNode}) => {
   };
 
   return (
-    <ThemeContext.Provider value={{ theme, setTheme }}>
+    <ThemeContext.Provider value={{ theme, setTheme, refreshTheme: fetchTheme }}>
       {children}
     </ThemeContext.Provider>
   );

@@ -1,5 +1,5 @@
 import { Dimensions, Platform, Pressable, StyleSheet, Text, TextInput, View } from 'react-native'
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback } from 'react'
 import { useTheme } from '../../context/ThemeContext';
 import { useUserToken } from '../../context/UserTokenContext';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -11,7 +11,6 @@ import { useForm } from 'react-hook-form';
 import Button from "../Button";
 import { Themes } from '../../../assets/styles/Themes';
 import { useFocusEffect } from '@react-navigation/native';
-import getUserTheme from '../../services/theme/getUserTheme';
 
 const LoginContainer = ({navigation}: LoginContainerProps) => {
 
@@ -21,7 +20,7 @@ const LoginContainer = ({navigation}: LoginContainerProps) => {
       password: z.string().min(1, "Password is required"),
     });
     const { setToken } = useUserToken();
-    const { theme } = useTheme();
+    const { theme, refreshTheme } = useTheme();
     const { register, handleSubmit, setValue, watch, clearErrors, setError, formState: { errors } } = useForm<LoginFormData>({
       resolver: zodResolver(loginSchema),
       defaultValues: { username: "", password: "" }
@@ -37,6 +36,7 @@ const LoginContainer = ({navigation}: LoginContainerProps) => {
           })
         } else {
           setToken(data.username);
+          await refreshTheme();
         }
       } catch (err) {
         console.error("Login onSubmit error:", err)

@@ -5,6 +5,7 @@ export type Theme = 'light' | 'dark'
 export interface ThemeContextType {
     theme: Theme;
     setTheme: (theme: Theme) => void;
+    refreshTheme: () => Promise<void>
 }
 
 export type UserTokenContextType = {
