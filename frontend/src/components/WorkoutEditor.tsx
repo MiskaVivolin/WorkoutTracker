@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
     paddingVertical: Dimensions.get('window').width < 440 ? 6 : 0,
     ...Platform.select({
       android: {
-        lineHeight: 15,
+        lineHeight: 19,
         textAlignVertical: 'center',
       },
       default: {

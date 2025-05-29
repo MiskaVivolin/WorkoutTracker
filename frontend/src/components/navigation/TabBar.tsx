@@ -47,10 +47,7 @@ const TabBar = ({ navigation }: TabBarProps) => {
         />
       <NavButton
         title='Log out'
-        onPress={async () => {
-          await AsyncStorage.removeItem('userInputFields');
-          navigation.navigate('LoginScreen');
-        }}
+        onPress={() => setModalVisible(true)}
         isActive={handleHighlight('LoginScreen')}
         />
         {modalVisible ? 

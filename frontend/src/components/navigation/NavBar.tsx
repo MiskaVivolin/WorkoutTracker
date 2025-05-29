@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Platform } from 'react-native';
 import { NavBarProps } from '../../types/componentProps';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Themes } from '../../../assets/styles/Themes';
 import NavButton from './NavButton';
 import { useTheme } from '../../context/ThemeContext';
