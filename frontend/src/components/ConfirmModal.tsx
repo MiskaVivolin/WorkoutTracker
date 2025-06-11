@@ -1,4 +1,5 @@
-import { Modal, Pressable, StyleSheet, Text, View } from 'react-native'
+import { Modal, StyleSheet, Text, View } from 'react-native'
+import Button from './Button';
 import React from 'react'
 import { Themes } from '../../assets/styles/Themes';
 import { useTheme } from '../context/ThemeContext';
@@ -17,20 +18,18 @@ const ConfirmModal = ({ navigation, setModalVisible, }: ConfirmModalProps) => {
             Are you sure you want to log out?
           </Text>
           <View style={styles.modalButtons}>
-            <Pressable
-              style={[styles.modalButton, { backgroundColor: Themes[theme].primary }]}
+            <Button
+              title="Yes"
               onPress={async () => {
               await AsyncStorage.removeItem('userInputFields');
               navigation.navigate('LoginScreen')}}
-              >
-              <Text style={{ color: Themes[theme].secondaryText }}>Yes</Text>
-            </Pressable>
-            <Pressable
-              style={[styles.modalButton, { backgroundColor: Themes[theme].inputField }]}
+              buttonStyle={styles.modalButton}
+            />
+            <Button
+              title="Cancel"
               onPress={() => setModalVisible(false)}
-            >
-              <Text style={{ color: Themes[theme].defaultText }}>Cancel</Text>
-            </Pressable>
+              buttonStyle={styles.modalButton}
+            />
           </View>
         </View>
       </View>
@@ -46,8 +45,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   modalContainer: {
-    width: '80%',
-    padding: 20,
+    width: '40%',
+    padding: 25,
     borderRadius: 12,
     alignItems: 'center',
   },
@@ -64,8 +63,6 @@ const styles = StyleSheet.create({
   modalButton: {
     flex: 1,
     marginHorizontal: 5,
-    paddingVertical: 10,
-    borderRadius: 8,
     alignItems: 'center',
   },
 });
