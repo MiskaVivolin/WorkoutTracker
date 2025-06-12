@@ -23,7 +23,7 @@ const ConfirmModal = ({ navigation, setModalVisible, }: ConfirmModalProps) => {
               onPress={async () => {
               await AsyncStorage.removeItem('userInputFields');
               navigation.navigate('LoginScreen')}}
-              buttonStyle={styles.modalButton}
+              buttonStyle={{ marginHorizontal: 5, alignItems: 'center', width: 110,backgroundColor: Themes[theme].secondaryButton }}
             />
             <Button
               title="Cancel"
@@ -45,25 +45,26 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   modalContainer: {
-    width: '40%',
-    padding: 25,
+    width: 360,
+    paddingVertical: 30,
     borderRadius: 12,
     alignItems: 'center',
   },
   modalTitle: {
     fontSize: 18,
+    fontWeight: '500',
     marginBottom: 20,
     textAlign: 'center',
   },
   modalButtons: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-evenly',
     width: '100%',
   },
   modalButton: {
-    flex: 1,
     marginHorizontal: 5,
     alignItems: 'center',
+    width: 110,
   },
 });
 

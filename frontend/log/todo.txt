@@ -1,6 +1,7 @@
   // TODO: 
   // readme pienet parantelut
-  // parantele modal ja korjaa nav errorit
+  // korjaa nav errorit
+  // implementoi themeselectorille dynaamiset napit
   // kun vaihtaa sivua, validaation pitäisi restartata (ei enää valita tyhjistä fieldeistä)
   // jos listassa ei ole itemeitä, näytä teksti ja kuva.
   // keyboardavoidingview ei hallitse UI elementtien muutosta hyvin

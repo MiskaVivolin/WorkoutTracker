@@ -11,7 +11,7 @@ export const Themes = {
     deleteButton: '#ff3232',
     border: 'rgb(135, 135, 135)',
     inputField: 'rgb(248, 248, 248)',
-    secondaryButton: 'rgb(65, 65, 65)'
+    secondaryButton: 'rgb(200, 200, 200)'
   },
   dark: {
     primary: 'rgb(50, 50, 50)',
@@ -25,6 +25,6 @@ export const Themes = {
     deleteButton: '#ff3232',
     border: 'rgb(60, 60, 60)',
     inputField: 'rgb(80, 80, 80)',
-    secondaryButton: 'rgb(65, 65, 65)'
+    secondaryButton: 'rgb(140, 140, 140)'
   }
 }

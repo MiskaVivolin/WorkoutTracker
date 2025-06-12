@@ -29,12 +29,11 @@ const styles = StyleSheet.create({
   themeContainer: {
     flex: 1,
     width: '100%',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     alignItems: 'center',
-    marginVertical: '30%',
   },
   buttonContainer: {
-    flexDirection: 'row', 
+    flexDirection: 'row',
     width: '80%',
     justifyContent: Platform.OS === 'android' || Platform.OS === 'ios' ? "space-evenly" : "center",
     
