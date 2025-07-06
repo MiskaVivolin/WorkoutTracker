@@ -5,17 +5,18 @@ import { ThemeProvider } from './src/context/ThemeContext';
 import * as SplashScreen from 'expo-splash-screen'
 import * as Font from 'expo-font'
 import AppContent from './src/app/AppContent';
-
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 export default function App() {
   
   const [appIsReady, setAppIsReady] = useState(false);
   
-  SplashScreen.preventAutoHideAsync();
+  const queryClient = new QueryClient();
   
   useEffect(() => {
     async function prepare() {
       try {
+        await SplashScreen.preventAutoHideAsync();
         await Font.loadAsync({
           'BlackOpsOne-Regular': require('./assets/fonts/BlackOpsOne-Regular.ttf'),
           'MerriweatherSans': require('./assets/fonts/MerriweatherSans-VariableFont_wght.ttf')
@@ -36,11 +37,13 @@ export default function App() {
 
   return (
     <SafeAreaProvider>
-      <ThemeProvider>
-        <UserTokenProvider>
-          <AppContent/>
-        </UserTokenProvider>
-      </ThemeProvider>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider>
+          <UserTokenProvider>
+            <AppContent/>
+          </UserTokenProvider>
+        </ThemeProvider>
+      </QueryClientProvider>
     </SafeAreaProvider>
   );
 }

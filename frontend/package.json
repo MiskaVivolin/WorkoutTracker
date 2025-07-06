@@ -14,6 +14,7 @@
     "@react-native-async-storage/async-storage": "^2.1.2",
     "@react-navigation/native": "^6.1.9",
     "@react-navigation/stack": "^6.3.20",
+    "@tanstack/react-query": "^5.81.5",
     "expo": "53.0.9",
     "expo-splash-screen": "^0.30.8",
     "expo-status-bar": "~2.2.3",

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { TabBarProps } from '../../types/componentProps';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import NavButton from './NavButton';
 import { useNavigationState } from '@react-navigation/native';
 import ConfirmModal from '../../components/ConfirmModal';
