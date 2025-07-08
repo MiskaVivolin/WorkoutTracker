@@ -1,6 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, View, Dimensions, Platform, } from 'react-native'
 import { FlatList } from 'react-native'
+import { useQueryClient } from '@tanstack/react-query'
 import useGetWorkoutList from '../hooks/useGetWorkoutList'
 import { WorkoutListProps } from '../types/componentProps'
 import { WorkoutItem } from '../types/workoutItemTypes'
@@ -13,7 +14,8 @@ import Button from './Button'
 const WorkoutList = ({ workoutList, setWorkoutList, setIsEditMode, setWorkoutItem }: WorkoutListProps) => {
   
   const { theme } = useTheme();
-  
+  const queryClient = useQueryClient();
+
   useGetWorkoutList(setWorkoutList);
   
   return (
@@ -44,7 +46,12 @@ const WorkoutList = ({ workoutList, setWorkoutList, setIsEditMode, setWorkoutIte
             buttonStyle={{marginTop: 6, marginBottom: 10}}
             title='Edit'
             onPress={async () => {
-              await getWorkoutItem(item.id, setWorkoutItem)
+              const workoutItem = await queryClient.fetchQuery({
+                queryKey: ['workoutItem', item.id],
+                queryFn: () => getWorkoutItem(item.id)
+              })
+
+              setWorkoutItem(workoutItem)
               setIsEditMode(true)
             }}
           />
