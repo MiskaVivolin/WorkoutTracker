@@ -4,18 +4,21 @@ import { Themes } from "../../assets/styles/Themes"
 import { ButtonProps } from '../types/componentProps';
 import { useTheme } from '../context/ThemeContext';
 
-const Button = ({ title, onPress, buttonStyle, textStyle }: ButtonProps) => {
+
+const Button = ({ title, onPress, buttonStyle, textStyle, disabled }: ButtonProps) => {
   
   const { theme } = useTheme();
+  const backgroundColor = disabled ? '#ccc' : buttonStyle?.backgroundColor || Themes[theme].secondary;
+  const textColor = disabled ? '#888' : textStyle?.color || Themes[theme].secondaryText;
   
   return (
-    <Pressable style={[styles.button, buttonStyle, {
-      backgroundColor: buttonStyle?.backgroundColor || Themes[theme].secondary}]} 
-      onPress={onPress}>
-    <Text style={[styles.buttonText, textStyle, { 
-      color: textStyle?.color || Themes[theme].secondaryText }]}>
-      {title}
-    </Text>
+    <Pressable 
+      style={[styles.button, buttonStyle, { backgroundColor, opacity: disabled ? 0.6 : 1 }]} 
+      onPress={disabled ? undefined : onPress}>
+      <Text 
+        style={[styles.buttonText, textStyle, { color: textColor }]}>
+        {title}
+      </Text>
   </Pressable>
   )
 }

@@ -43,6 +43,7 @@ export interface ButtonProps {
     onPress: () => void;
     buttonStyle?: ViewStyle;
     textStyle?: TextStyle;
+    disabled?: boolean;
   };
 
 export interface NavButtonProps {

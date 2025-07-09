@@ -46,13 +46,18 @@ const WorkoutList = ({ workoutList, setWorkoutList, setIsEditMode, setWorkoutIte
             buttonStyle={{marginTop: 6, marginBottom: 10}}
             title='Edit'
             onPress={async () => {
-              const workoutItem = await queryClient.fetchQuery({
-                queryKey: ['workoutItem', item.id],
-                queryFn: () => getWorkoutItem(item.id)
-              })
+              try {
+                const workoutItem = await queryClient.fetchQuery({
+                  queryKey: ['workoutItem', item.id],
+                  queryFn: () => getWorkoutItem(item.id)
+                });
 
-              setWorkoutItem(workoutItem)
-              setIsEditMode(true)
+                setWorkoutItem(workoutItem);
+                setIsEditMode(true);
+              } catch (err) {
+                console.error('Error fetching workout item:', err);
+                alert('Failed to load workout. Please try again later.');
+              }
             }}
           />
         </View>}

@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TextInput, StyleSheet, Dimensions, Platform, Keyboard, KeyboardAvoidingView } from "react-native";
+import { Text, TextInput, StyleSheet, Dimensions, Platform, Keyboard, KeyboardAvoidingView } from "react-native";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from '@tanstack/react-query';
+import { z } from "zod";
 import Button from "./Button";
 import createWorkoutItem from "../services/workoutItem/createWorkoutItem";
 import { useUserToken } from "../context/UserTokenContext";
 import { AddWorkoutFormProps } from "../types/componentProps";
 import { Themes } from "../../assets/styles/Themes";
 import { useTheme } from "../context/ThemeContext";
-import { z } from "zod";
+import { WorkoutItem } from "../types/workoutItemTypes";
 
 
 const AddWorkoutForm = ({workoutItem, setWorkoutItem}: AddWorkoutFormProps) => {
@@ -47,17 +49,26 @@ const AddWorkoutForm = ({workoutItem, setWorkoutItem}: AddWorkoutFormProps) => {
     };
   }, []);
 
+  const mutation = useMutation({
+    mutationFn: async ({ workoutItem, username }: { workoutItem: WorkoutItem; username: string }) => {
+      return await createWorkoutItem(workoutItem, username);
+    },
+    onSuccess: () => {
+      reset();
+    },
+    onError: (error) => {
+      console.error("Workout submission failed:", error);
+    },
+  });
+
+
   const onSubmit = async () => {
-    try {
-      if (!userToken){
-        throw new Error("User token is undefined")
-      } 
-      await createWorkoutItem(workoutItem, userToken)
-      reset()
-    } catch (err) {
-      console.error("Failed to submit workout item: ", err)
+    if (!userToken) {
+      console.error("User token is undefined");
+      return;
     }
-  }
+    mutation.mutate({ workoutItem, username: userToken });
+  };
 
   return (
     <KeyboardAvoidingView
@@ -118,7 +129,25 @@ const AddWorkoutForm = ({workoutItem, setWorkoutItem}: AddWorkoutFormProps) => {
         value={watch("result")}
       />
       {errors.result && <Text style={[styles.errorText, {color: Themes[theme].errorText}]}>{errors.result.message}</Text>}
-      <Button title="Add" onPress={handleSubmit(onSubmit)} buttonStyle={{marginTop: 60}} />
+      <Button
+        title={mutation.status === 'pending' ? "Submitting..." : "Add"}
+        onPress={handleSubmit(onSubmit)}
+        buttonStyle={{ marginTop: 60 }}
+        disabled={mutation.status === 'pending'}
+      />
+
+      {mutation.status === 'error' && (
+        <Text style={[styles.errorText, { color: Themes[theme].errorText }]}>
+          Failed to submit. Please try again.
+        </Text>
+      )}
+
+      {mutation.status === 'success' && (
+        <Text style={[styles.label, { color: Themes[theme].defaultText }]}>
+          Workout item added successfully!
+        </Text>
+      )}
+
     </KeyboardAvoidingView>
   )
 }

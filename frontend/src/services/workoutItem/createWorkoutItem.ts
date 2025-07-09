@@ -7,7 +7,6 @@ const createWorkoutItem = async (workoutItem: WorkoutItemFields, username: strin
 
   const apiUrl = Platform.OS === 'android' ? `${API_BASE_URL}/create` : 'http://127.0.0.1:3001/create';
 
-  try {
     const response = await fetch(apiUrl, {
       method: 'POST',
       headers: {
@@ -15,11 +14,9 @@ const createWorkoutItem = async (workoutItem: WorkoutItemFields, username: strin
       },
       body: JSON.stringify({ workoutItem, username })
     })
-    const data: ResponseData = await response.json()
-    console.log("Data Submitted:", data)
-  } catch (err) {
-    console.error("Error sending POST request:", err)
-  }
+    if (!response.ok) throw new Error('Failed to submit workout item')
+
+    return await response.json();
 }
 
 export default createWorkoutItem;
