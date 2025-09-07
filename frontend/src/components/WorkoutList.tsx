@@ -16,6 +16,10 @@ const WorkoutList = ({ workoutList, setWorkoutList, setIsEditMode, setWorkoutIte
   const { theme } = useTheme();
   const queryClient = useQueryClient();
 
+  const screenWidth = Dimensions.get('window').width;
+  const itemWidth = 170; // 👈 your desired card width
+  const numColumns = Math.floor(screenWidth / itemWidth);
+
   useGetWorkoutList(setWorkoutList);
   
   return (
@@ -24,6 +28,7 @@ const WorkoutList = ({ workoutList, setWorkoutList, setIsEditMode, setWorkoutIte
       <FlatList
         data={workoutList}
         keyExtractor={(item, index) => index.toString()}
+        numColumns={2}
         renderItem={({ item }: {item: WorkoutItem}) =>
         <View style={[styles.listItem, {backgroundColor: Themes[theme].primary}]}>
           <View style={styles.labelContainer}>
@@ -100,6 +105,7 @@ const styles = StyleSheet.create({
     marginBottom: Dimensions.get('window').height < 1000 ? 30 : 50, 
   },
   listItem: {
+    marginHorizontal: 8,
     alignItems: 'center',
     justifyContent: 'center',
     minWidth: Platform.OS === 'android' || Platform.OS === 'ios' ? '90%' : 345,
