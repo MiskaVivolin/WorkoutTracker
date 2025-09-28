@@ -34,7 +34,7 @@ const AddWorkoutScreen: React.FC<AddWorkoutScreenProps> = ({ navigation }) => {
     <View style={[styles.container,{ backgroundColor: Themes[theme].background}]}>
       {mobileView ?
         <KeyboardAvoidingView style={{flex: 1}}>
-          <Logo textStyle={{marginBottom: 5}}/>
+          <Logo />
             <AddWorkoutForm workoutItem={workoutItem} setWorkoutItem={setWorkoutItem}/>
           {!keyboardVisible && (
           <TabBar navigation={navigation}/>

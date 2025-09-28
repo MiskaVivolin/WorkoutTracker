@@ -17,8 +17,7 @@ const WorkoutList = ({ workoutList, setWorkoutList, setIsEditMode, setWorkoutIte
   const queryClient = useQueryClient();
 
   const screenWidth = Dimensions.get('window').width;
-  const itemWidth = 170; // 👈 your desired card width
-  const numColumns = Math.floor(screenWidth / itemWidth);
+  const itemWidth = 170;
 
   useGetWorkoutList(setWorkoutList);
   

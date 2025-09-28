@@ -27,7 +27,7 @@ const NavBar = ({ navigation }: NavBarProps) => {
 
   return (
     <View style={[styles.navContainer, {backgroundColor: Themes[theme].primary}]}>
-      <Logo viewStyle={{marginLeft: 20}}/>
+      <Logo />
       <View style={styles.buttonContainer}>
         <NavButton
           title='Add new'

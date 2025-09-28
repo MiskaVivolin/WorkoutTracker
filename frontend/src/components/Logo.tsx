@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { Platform, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { Themes } from '../../assets/styles/Themes'
 import { useTheme } from '../context/ThemeContext'
@@ -7,10 +7,12 @@ import { LogoProps } from '../types/componentProps'
 const Logo = ({viewStyle, textStyle}: LogoProps) => {
 
   const { theme } = useTheme()
+  const mobileView = Platform.OS === 'android' || Platform.OS === 'ios';
 
   return (
     <View style={[styles.headerContainer, viewStyle, {backgroundColor: Themes[theme].primary}]}>
-      <Text style={[styles.header, textStyle, {color: Themes[theme].secondaryText}]}>Workout Tracker</Text>
+      <Text style={[styles.header, {color: Themes[theme].logoText}]}>Workout Tracker</Text>
+      {mobileView ? <View style={{marginBottom: 5}}></View>:<View></View>}
     </View>
   )
 }
@@ -18,6 +20,7 @@ const Logo = ({viewStyle, textStyle}: LogoProps) => {
 const styles = StyleSheet.create({
   headerContainer: {
     alignItems: 'center',
+    paddingHorizontal: 20,
 },
   header: {
     fontSize: 30,
