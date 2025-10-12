@@ -8,6 +8,7 @@ import { WorkoutItem } from '../types/workoutItemTypes'
 import getWorkoutItem from '../services/workoutItem/getWorkoutItem'
 import { Themes } from "../../assets/styles/Themes"
 import { useTheme } from '../context/ThemeContext'
+import ExerciseNavigation from './navigation/ExerciseNavigation'
 import Button from './Button'
 
 
@@ -23,6 +24,7 @@ const WorkoutList = ({ workoutList, setWorkoutList, setIsEditMode, setWorkoutIte
   
   return (
     <View style={[styles.listContainer, {backgroundColor: Themes[theme].background}]}>
+      <ExerciseNavigation />
       <Text style={[styles.title, {color: Themes[theme].defaultText}]}>Exercise results</Text>
       <FlatList
         data={workoutList}
