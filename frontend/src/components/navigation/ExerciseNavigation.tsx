@@ -1,26 +1,33 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import NavButton from './NavButton'
+import React from 'react';
+import { View } from 'react-native';
+import NavButton from './NavButton';
+import { Dispatch, SetStateAction } from 'react';
 
-const ExerciseNavigation = () => {
-  return (
-    <View style={{flexDirection: 'row', paddingTop: 10}}>
-        <NavButton
-          title='Bench'
-          onPress={() => console.log('nav test')}
-        />
-        <NavButton
-          title='Squat'
-          onPress={() => console.log('nav test')}
-        />
-        <NavButton
-          title='Deadlift'
-          onPress={() => console.log('nav test')}
-        />
-    </View>
-  )
+interface ExerciseNavigationProps {
+  setExercise: Dispatch<SetStateAction<string>>;
 }
 
-export default ExerciseNavigation
+const ExerciseNavigation: React.FC<ExerciseNavigationProps> = ({ setExercise }) => {
+  return (
+    <View style={{ flexDirection: 'row', paddingTop: 10 }}>
+      <NavButton
+        title="All"
+        onPress={() => setExercise('')}
+      />
+      <NavButton
+        title="Bench"
+        onPress={() => setExercise('Bench')}
+      />
+      <NavButton
+        title="Squat"
+        onPress={() => setExercise('Squat')}
+      />
+      <NavButton
+        title="Deadlift"
+        onPress={() => setExercise('Deadlift')}
+      />
+    </View>
+  );
+};
 
-const styles = StyleSheet.create({})
+export default ExerciseNavigation;

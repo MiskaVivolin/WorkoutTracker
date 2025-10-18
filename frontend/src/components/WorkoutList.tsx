@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, Text, View, Dimensions, Platform, } from 'react-native'
 import { FlatList } from 'react-native'
 import { useQueryClient } from '@tanstack/react-query'
@@ -16,15 +16,16 @@ const WorkoutList = ({ workoutList, setWorkoutList, setIsEditMode, setWorkoutIte
   
   const { theme } = useTheme();
   const queryClient = useQueryClient();
+  const [exercise, setExercise] = useState('');
 
   const screenWidth = Dimensions.get('window').width;
   const itemWidth = 170;
 
-  useGetWorkoutList(setWorkoutList);
+  useGetWorkoutList(setWorkoutList, exercise);
   
   return (
     <View style={[styles.listContainer, {backgroundColor: Themes[theme].background}]}>
-      <ExerciseNavigation />
+      <ExerciseNavigation setExercise={setExercise}/>
       <Text style={[styles.title, {color: Themes[theme].defaultText}]}>Exercise results</Text>
       <FlatList
         data={workoutList}
