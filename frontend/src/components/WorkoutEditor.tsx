@@ -9,11 +9,13 @@ import { useTheme } from '../context/ThemeContext'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
+import { useQueryClient, useMutation } from '@tanstack/react-query'
 
 
 const WorkoutEditor = ({ workoutItem, setIsEditMode, setWorkoutList }: WorkoutEditorProps) => {
   
   type WorkoutFormData = z.infer<typeof workoutSchema>
+  const queryClient = useQueryClient();
   const workoutSchema = z.object({
     name: z.string().min(1, "Name required"),
     date: z.string().min(1, "Date required"),
@@ -40,17 +42,31 @@ const WorkoutEditor = ({ workoutItem, setIsEditMode, setWorkoutList }: WorkoutEd
     });
   }, [workoutItem, reset]);
 
+    const { mutateAsync: editWorkout } = useMutation({
+    mutationFn: editWorkoutItem,
+    onSuccess: () => {
+      // Invalidate related queries so UI refetches fresh data
+    queryClient.invalidateQueries({
+      queryKey: ['workoutItem', workoutItem.id],
+    });      
+    alert('Workout updated successfully!');
+    },
+    onError: (err) => {
+      console.error('Error updating workout:', err);
+      alert('Failed to update workout. Please try again.');
+    },
+  });
+
   const onSubmit = async (data: WorkoutFormData) => {
+      const updatedWorkoutItem = {
+        ...workoutItem,
+        name: data.name,
+        date: data.date,
+        exercise: data.exercise,
+        result: data.result
+      };
 
-    const updatedWorkoutItem = {
-      ...workoutItem,
-      name: data.name,
-      date: data.date,
-      exercise: data.exercise,
-      result: data.result
-    };
-
-    await editWorkoutItem(updatedWorkoutItem)
+    await editWorkout(updatedWorkoutItem);
     setIsEditMode(false);
   };
 

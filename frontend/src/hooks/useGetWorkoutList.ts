@@ -17,8 +17,7 @@ const useGetWorkoutList = (setWorkoutList: SetWorkoutList, exercise: string): vo
         const response = await fetch(`${apiUrl}?token=${userToken}`);
         const data = await response.json();
 
-        // Log the response to check its structure
-        console.log("API Response:", data); // Check if this is the array you're expecting
+        console.log("API Response:", data);
         if (!exercise){
           const responseList: WorkoutItem[] = data
           .map((item: WorkoutItem) => ({
@@ -31,9 +30,8 @@ const useGetWorkoutList = (setWorkoutList: SetWorkoutList, exercise: string): vo
         console.log("Filtered responseList:", responseList);
         setWorkoutList(responseList);
         } else {
-        // Now `data` is directly an array, no need for `data.json`
         const responseList: WorkoutItem[] = data
-          .filter((item) => item.exercise === exercise)
+          .filter((item: WorkoutItem) => item.exercise === exercise)
           .map((item: WorkoutItem) => ({
             id: item.id,
             name: item.name,

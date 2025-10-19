@@ -1,7 +1,7 @@
 export const Themes = {
   light: {
     primary: 'rgb(255, 255, 255)',
-    secondary: '#f2b096',
+    secondary: '#82CAFF',
     background: 'rgb(243, 241, 235)',
     defaultText: 'rgb(30, 30, 30)',
     secondaryText: 'rgb(60, 60, 60)',
