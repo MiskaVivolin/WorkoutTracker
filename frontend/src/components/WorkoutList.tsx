@@ -10,6 +10,7 @@ import { Themes } from "../../assets/styles/Themes"
 import { useTheme } from '../context/ThemeContext'
 import ExerciseNavigation from './navigation/ExerciseNavigation'
 import Button from './Button'
+import FilterDropdown from './FilterDropdown';
 
 
 const WorkoutList = ({ workoutList, setWorkoutList, setIsEditMode, setWorkoutItem }: WorkoutListProps) => {
@@ -18,15 +19,26 @@ const WorkoutList = ({ workoutList, setWorkoutList, setIsEditMode, setWorkoutIte
   const queryClient = useQueryClient();
   const [exercise, setExercise] = useState('');
 
-  const screenWidth = Dimensions.get('window').width;
-  const itemWidth = 170;
-
   useGetWorkoutList(setWorkoutList, exercise);
   
   return (
     <View style={[styles.listContainer, {backgroundColor: Themes[theme].background}]}>
       <ExerciseNavigation setExercise={setExercise}/>
       <Text style={[styles.title, {color: Themes[theme].defaultText}]}>Exercise results</Text>
+      <FilterDropdown
+        options={[
+          { label: 'Filter by Name', value: 'name' },
+          { label: 'Filter by Date', value: 'date' },
+        ]}
+        onSelect={(value) => {
+          const sortedList = [...workoutList].sort((a, b) => {
+            if (value === 'name') return a.name.localeCompare(b.name);
+            if (value === 'date') return a.date.localeCompare(b.date);
+            return 0;
+          });
+          setWorkoutList(sortedList);
+        }}
+      />
       <FlatList
         data={workoutList}
         keyExtractor={(item, index) => index.toString()}
