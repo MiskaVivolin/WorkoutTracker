@@ -19,10 +19,13 @@ const FilterDropdown = ({ options, onSelect }: FilterDropdownProps) => {
     onSelect(value);
   };
 
+  // ratkaise miksi bordercolor ei näy
+  // Korjaa marginleft
+
   return (
     <View style={styles.container}>
       <Pressable
-        style={[styles.button, { backgroundColor: Themes[theme].primary }]}
+        style={[styles.button, { backgroundColor: Themes[theme].primary, borderColor: Themes[theme].border }]}
         onPress={() => setVisible(!visible)}
       >
         <Text style={[styles.buttonText, { color: Themes[theme].defaultText }]}>
@@ -35,7 +38,7 @@ const FilterDropdown = ({ options, onSelect }: FilterDropdownProps) => {
           {options.map((option) => (
             <Pressable
               key={option.value}
-              style={styles.dropdownItem}
+              style={[styles.dropdownItem, {borderColor: Themes[theme].border}]}
               onPress={() => handleSelect(option.value)}
             >
               <Text style={[styles.dropdownItemText, { color: Themes[theme].defaultText }]}>
@@ -51,13 +54,14 @@ const FilterDropdown = ({ options, onSelect }: FilterDropdownProps) => {
 
 const styles = StyleSheet.create({
   container: {
+    marginRight: '64%',
     position: 'relative',
-    alignSelf: 'flex-start',
+    alignSelf: 'center',
     marginBottom: 20,
   },
   button: {
     paddingVertical: 6,
-    paddingHorizontal: 10,
+    paddingHorizontal: 20,
     borderRadius: 8,
   },
   buttonText: {
