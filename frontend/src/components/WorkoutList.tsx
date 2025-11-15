@@ -10,14 +10,19 @@ import { Themes } from "../../assets/styles/Themes"
 import { useTheme } from '../context/ThemeContext'
 import ExerciseNavigation from './navigation/ExerciseNavigation'
 import Button from './Button'
+import { useWindowDimensions } from 'react-native';
 import FilterDropdown from './FilterDropdown';
 
 
 const WorkoutList = ({ workoutList, setWorkoutList, setIsEditMode, setWorkoutItem }: WorkoutListProps) => {
   
+  const ITEM_MIN_WIDTH = 345; 
   const { theme } = useTheme();
   const queryClient = useQueryClient();
   const [exercise, setExercise] = useState('');
+  const { width } = useWindowDimensions();
+  const horizontalPadding = 16 * 2;
+  const numColumns = Math.max( 1, Math.floor((width - horizontalPadding) / ITEM_MIN_WIDTH));
 
   useGetWorkoutList(setWorkoutList, exercise);
   
@@ -42,7 +47,8 @@ const WorkoutList = ({ workoutList, setWorkoutList, setIsEditMode, setWorkoutIte
       <FlatList
         data={workoutList}
         keyExtractor={(item, index) => index.toString()}
-        numColumns={2}
+        numColumns={numColumns}
+        key={numColumns}
         renderItem={({ item }: {item: WorkoutItem}) =>
         <View style={[styles.listItem, {backgroundColor: Themes[theme].primary}]}>
           <View style={styles.labelContainer}>
@@ -89,7 +95,8 @@ const styles = StyleSheet.create({
   listContainer: {
     flex: 1,
     width: '100%',
-    alignItems: 'center',
+    marginHorizontal: Platform.OS === 'android' || Platform.OS === 'ios' ? 0 : 10,
+    alignItems: Platform.OS === 'android' || Platform.OS === 'ios' ? 'center' : 'flex-start',
     justifyContent: 'center',
   },
   label: {
@@ -115,14 +122,14 @@ const styles = StyleSheet.create({
     fontSize: 22, 
     fontFamily: 'MerriweatherSans', 
     fontWeight: Platform.OS === 'android' || Platform.OS === 'ios' ? '700' : '500',
-    marginTop: Dimensions.get('window').height < 1000 ? 30 : 50,
-    marginBottom: Dimensions.get('window').height < 1000 ? 30 : 50, 
+    marginHorizontal: Platform.OS === 'android' || Platform.OS === 'ios' ? 0 : 8,
+    marginVertical: Dimensions.get('window').height < 1000 ? 30 : 50, 
   },
   listItem: {
-    marginHorizontal: 8,
     alignItems: 'center',
     justifyContent: 'center',
     minWidth: Platform.OS === 'android' || Platform.OS === 'ios' ? '90%' : 345,
+    marginHorizontal: Platform.OS === 'android' || Platform.OS === 'ios' ? 0 : 8,
     marginVertical: 8,
     borderRadius: 8,
     paddingTop: 8,

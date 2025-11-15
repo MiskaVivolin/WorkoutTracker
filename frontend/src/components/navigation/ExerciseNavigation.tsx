@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { Platform, View, StyleSheet } from 'react-native';
 import NavButton from './NavButton';
 import { Dispatch, SetStateAction } from 'react';
 
@@ -9,7 +9,7 @@ interface ExerciseNavigationProps {
 
 const ExerciseNavigation: React.FC<ExerciseNavigationProps> = ({ setExercise }) => {
   return (
-    <View style={{ flexDirection: 'row', paddingTop: 10 }}>
+    <View style={styles.container}>
       <NavButton
         title="All"
         onPress={() => setExercise('')}
@@ -29,5 +29,13 @@ const ExerciseNavigation: React.FC<ExerciseNavigationProps> = ({ setExercise }) 
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row', 
+    marginHorizontal: Platform.OS === 'android' || Platform.OS === 'ios' ? 0 : 4,
+    paddingTop: 10
+  }
+})
 
 export default ExerciseNavigation;

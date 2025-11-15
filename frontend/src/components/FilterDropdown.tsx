@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, Pressable, StyleSheet } from 'react-native';
+import { View, Text, Pressable, StyleSheet, Platform } from 'react-native';
 import { Themes } from "../../assets/styles/Themes";
 import { useTheme } from '../context/ThemeContext';
 
@@ -20,7 +20,6 @@ const FilterDropdown = ({ options, onSelect }: FilterDropdownProps) => {
   };
 
   // ratkaise miksi bordercolor ei näy
-  // Korjaa marginleft
 
   return (
     <View style={styles.container}>
@@ -54,9 +53,9 @@ const FilterDropdown = ({ options, onSelect }: FilterDropdownProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginRight: '64%',
     position: 'relative',
-    alignSelf: 'center',
+    alignSelf: 'flex-start',
+    marginHorizontal: Platform.OS === 'android' || Platform.OS === 'ios' ? 0 : 8,
     marginBottom: 20,
   },
   button: {
