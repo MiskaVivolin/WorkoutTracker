@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width < 440 ? '90%' : 400,
     marginTop: 5,
     marginBottom: 5,
-    borderRadius: 8,
+    borderRadius: 10,
     padding: 6,
   },
   label: {

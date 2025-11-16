@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
     minWidth: Platform.OS === 'android' || Platform.OS === 'ios' ? '90%' : 345,
     marginHorizontal: Platform.OS === 'android' || Platform.OS === 'ios' ? 0 : 8,
     marginVertical: 8,
-    borderRadius: 8,
+    borderRadius: 10,
     paddingTop: 8,
     }
 });
