@@ -71,3 +71,13 @@ export interface ConfirmModalProps {
   onCancel: () => void;
   navigation: StackNavigationProp<RootStackParamList, 'AddWorkoutScreen'>;
 };
+
+export interface SortDropdownProps {
+  options: { label: string; value: string }[];
+  onSelect: (value: string) => void;
+};
+
+export interface SearchBarProps {
+  value: string;
+  onChange: (text: string) => void;
+};

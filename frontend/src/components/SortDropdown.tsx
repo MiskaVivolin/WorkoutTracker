@@ -2,13 +2,9 @@ import React, { useState } from 'react';
 import { View, Text, Pressable, StyleSheet, Platform } from 'react-native';
 import { Themes } from "../../assets/styles/Themes";
 import { useTheme } from '../context/ThemeContext';
+import { SortDropdownProps } from '../types/componentProps';
 
-type FilterDropdownProps = {
-  options: { label: string; value: string }[];
-  onSelect: (value: string) => void;
-};
-
-const FilterDropdown = ({ options, onSelect }: FilterDropdownProps) => {
+const SortDropdown = ({ options, onSelect }: SortDropdownProps) => {
   const { theme } = useTheme();
   const [visible, setVisible] = useState(false);
   const [selected, setSelected] = useState<string | null>(null);
@@ -19,7 +15,7 @@ const FilterDropdown = ({ options, onSelect }: FilterDropdownProps) => {
     onSelect(value);
   };
 
-  // ratkaise miksi bordercolor ei näy
+  // sorttaaminen ei toimi
 
   return (
     <View style={styles.container}>
@@ -89,4 +85,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FilterDropdown;
+export default SortDropdown;

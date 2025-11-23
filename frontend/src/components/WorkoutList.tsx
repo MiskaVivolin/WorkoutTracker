@@ -11,7 +11,8 @@ import { useTheme } from '../context/ThemeContext'
 import ExerciseNavigation from './navigation/ExerciseNavigation'
 import Button from './Button'
 import { useWindowDimensions } from 'react-native';
-import FilterDropdown from './FilterDropdown';
+import SortDropdown from './SortDropdown';
+import SearchBar from './SearchBar';
 
 
 const WorkoutList = ({ workoutList, setWorkoutList, setIsEditMode, setWorkoutItem }: WorkoutListProps) => {
@@ -19,33 +20,47 @@ const WorkoutList = ({ workoutList, setWorkoutList, setIsEditMode, setWorkoutIte
   const ITEM_MIN_WIDTH = 345; 
   const { theme } = useTheme();
   const queryClient = useQueryClient();
-  const [exercise, setExercise] = useState('');
   const { width } = useWindowDimensions();
   const horizontalPadding = 16 * 2;
   const numColumns = Math.max( 1, Math.floor((width - horizontalPadding) / ITEM_MIN_WIDTH));
+  const [exercise, setExercise] = useState(''); 
+  const [searchText, setSearchText] = useState('');
 
   useGetWorkoutList(setWorkoutList, exercise);
+
+  const filteredList = workoutList.filter(item =>
+  item.name.toLowerCase().includes(searchText.toLowerCase()) ||
+  item.exercise.toLowerCase().includes(searchText.toLowerCase()) ||
+  item.date.toLowerCase().includes(searchText.toLowerCase())
+);
   
   return (
     <View style={[styles.listContainer, {backgroundColor: Themes[theme].background}]}>
       <ExerciseNavigation setExercise={setExercise}/>
       <Text style={[styles.title, {color: Themes[theme].defaultText}]}>Exercise results</Text>
-      <FilterDropdown
-        options={[
-          { label: 'Filter by Name', value: 'name' },
-          { label: 'Filter by Date', value: 'date' },
-        ]}
-        onSelect={(value) => {
-          const sortedList = [...workoutList].sort((a, b) => {
-            if (value === 'name') return a.name.localeCompare(b.name);
-            if (value === 'date') return a.date.localeCompare(b.date);
-            return 0;
-          });
-          setWorkoutList(sortedList);
-        }}
-      />
+      <View style={styles.topBar}>
+        <SortDropdown
+          options={[
+            { label: 'Filter by Name', value: 'name' },
+            { label: 'Filter by Date', value: 'date' },
+          ]}
+          onSelect={(value) => {
+            const sortedList = [...filteredList].sort((a, b) => {
+              if (value === 'name') return a.name.localeCompare(b.name);
+              if (value === 'date') return a.date.localeCompare(b.date);
+              return 0;
+            });
+            setWorkoutList(sortedList);
+          }}
+        />
+
+        <SearchBar
+          value={searchText}
+          onChange={setSearchText}
+        />
+      </View>
       <FlatList
-        data={workoutList}
+        data={filteredList}
         keyExtractor={(item, index) => index.toString()}
         numColumns={numColumns}
         key={numColumns}
@@ -98,6 +113,12 @@ const styles = StyleSheet.create({
     marginHorizontal: Platform.OS === 'android' || Platform.OS === 'ios' ? 0 : 10,
     alignItems: Platform.OS === 'android' || Platform.OS === 'ios' ? 'center' : 'flex-start',
     justifyContent: 'center',
+  },
+  topBar: {
+    width: '90%',
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    marginBottom: 10,
   },
   label: {
     width: '50%',
