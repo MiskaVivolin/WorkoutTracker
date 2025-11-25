@@ -119,6 +119,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-start',
     marginBottom: 10,
+    zIndex: 20,       // <— IMPORTANT
+    elevation: 20,    // <— For Android
   },
   label: {
     width: '50%',

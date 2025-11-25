@@ -10,7 +10,7 @@ export const Themes = {
     whiteText: 'FFFFFF',
     errorText: 'rgb(255, 0, 0)',
     deleteButton: '#ff3232',
-    border: 'rgb(135, 135, 135)',
+    border: 'rgb(150, 150, 150)',
     inputField: 'rgb(248, 248, 248)',
     secondaryButton: 'rgb(200, 200, 200)'
   },

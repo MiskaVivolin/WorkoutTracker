@@ -29,11 +29,11 @@ const SortDropdown = ({ options, onSelect }: SortDropdownProps) => {
       </Pressable>
 
       {visible && (
-        <View style={[styles.dropdown, { backgroundColor: Themes[theme].primary }]}>
+        <View style={[styles.dropdown, { backgroundColor: Themes[theme].primary, borderColor: Themes[theme].border }]}>
           {options.map((option) => (
             <Pressable
               key={option.value}
-              style={[styles.dropdownItem, {borderColor: Themes[theme].border}]}
+              style={styles.dropdownItem}
               onPress={() => handleSelect(option.value)}
             >
               <Text style={[styles.dropdownItemText, { color: Themes[theme].defaultText }]}>
