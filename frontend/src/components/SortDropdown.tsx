@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, Pressable, StyleSheet, Platform } from 'react-native';
 import { Themes } from "../../assets/styles/Themes";
 import { useTheme } from '../context/ThemeContext';
@@ -7,15 +7,13 @@ import { SortDropdownProps } from '../types/componentProps';
 const SortDropdown = ({ options, onSelect }: SortDropdownProps) => {
   const { theme } = useTheme();
   const [visible, setVisible] = useState(false);
-  const [selected, setSelected] = useState<string | null>(null);
+  const [selected, setSelected] = useState<string>('Newest');
 
   const handleSelect = (value: string) => {
     setSelected(value);
     setVisible(false);
     onSelect(value);
   };
-
-  // sorttaaminen ei toimi
 
   return (
     <View style={styles.container}>
@@ -24,7 +22,7 @@ const SortDropdown = ({ options, onSelect }: SortDropdownProps) => {
         onPress={() => setVisible(!visible)}
       >
         <Text style={[styles.buttonText, { color: Themes[theme].defaultText }]}>
-          {selected ? `Filtered by ${selected}` : 'Filter'}
+          {selected ? selected : 'Filter'}
         </Text>
       </Pressable>
 
@@ -58,9 +56,9 @@ const styles = StyleSheet.create({
   },
   button: {
     height: Platform.OS === 'android' || Platform.OS === 'ios' ? 30 : 32,
-    width: 75,
+    width: 80,
     paddingVertical: 6,
-    paddingHorizontal: 20,
+    paddingHorizontal: 15,
     borderRadius: 10,
   },
   buttonText: {

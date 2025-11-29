@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, View, Dimensions, Platform, } from 'react-native'
 import { FlatList } from 'react-native'
 import { useQueryClient } from '@tanstack/react-query'
@@ -28,11 +28,24 @@ const WorkoutList = ({ workoutList, setWorkoutList, setIsEditMode, setWorkoutIte
 
   useGetWorkoutList(setWorkoutList, exercise);
 
-  const filteredList = workoutList.filter(item =>
-  item.name.toLowerCase().includes(searchText.toLowerCase()) ||
-  item.exercise.toLowerCase().includes(searchText.toLowerCase()) ||
-  item.date.toLowerCase().includes(searchText.toLowerCase())
-);
+  useEffect(() => {
+    sortWorkouts('Newest');
+  }, [workoutList.length]);
+
+const sortWorkouts = (mode: string) => {
+  const parseDate = (str: string) => {
+    const [day, month, year] = str.split('.').map(Number);
+    return new Date(year, month - 1, day).getTime();
+  };
+
+  const sorted = [...workoutList].sort((a, b) => {
+    if (mode === 'Newest') return parseDate(b.date) - parseDate(a.date);
+    if (mode === 'Oldest') return parseDate(a.date) - parseDate(b.date);
+    return 0;
+  });
+
+  setWorkoutList(sorted);
+};
   
   return (
     <View style={[styles.listContainer, {backgroundColor: Themes[theme].background}]}>
@@ -41,17 +54,10 @@ const WorkoutList = ({ workoutList, setWorkoutList, setIsEditMode, setWorkoutIte
       <View style={styles.topBar}>
         <SortDropdown
           options={[
-            { label: 'Filter by Name', value: 'name' },
-            { label: 'Filter by Date', value: 'date' },
-          ]}
-          onSelect={(value) => {
-            const sortedList = [...filteredList].sort((a, b) => {
-              if (value === 'name') return a.name.localeCompare(b.name);
-              if (value === 'date') return a.date.localeCompare(b.date);
-              return 0;
-            });
-            setWorkoutList(sortedList);
-          }}
+          { label: 'Newest First', value: 'Newest' },
+          { label: 'Oldest First', value: 'Oldest' },
+        ]}
+        onSelect={(value) => sortWorkouts(value)}
         />
 
         <SearchBar
@@ -60,7 +66,7 @@ const WorkoutList = ({ workoutList, setWorkoutList, setIsEditMode, setWorkoutIte
         />
       </View>
       <FlatList
-        data={filteredList}
+        data={workoutList}
         keyExtractor={(item, index) => index.toString()}
         numColumns={numColumns}
         key={numColumns}
@@ -119,8 +125,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-start',
     marginBottom: 10,
-    zIndex: 20,       // <— IMPORTANT
-    elevation: 20,    // <— For Android
+    zIndex: 20,
+    elevation: 20,
   },
   label: {
     width: '50%',
