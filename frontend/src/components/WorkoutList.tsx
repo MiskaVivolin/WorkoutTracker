@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { StyleSheet, Text, View, Dimensions, Platform, } from 'react-native'
 import { FlatList } from 'react-native'
 import { useQueryClient } from '@tanstack/react-query'
-import useGetWorkoutList from '../hooks/useGetWorkoutList'
+import useWorkoutList from '../hooks/useWorkoutList'
 import { WorkoutListProps } from '../types/componentProps'
 import { WorkoutItem } from '../types/workoutItemTypes'
 import getWorkoutItem from '../services/workoutItem/getWorkoutItem'
@@ -13,9 +13,10 @@ import Button from './Button'
 import { useWindowDimensions } from 'react-native';
 import SortDropdown from './SortDropdown';
 import SearchBar from './SearchBar';
+import { useUserToken } from '../context/UserTokenContext'
 
 
-const WorkoutList = ({ workoutList, setWorkoutList, setIsEditMode, setWorkoutItem }: WorkoutListProps) => {
+const WorkoutList = ({ setIsEditMode, setWorkoutItem }: WorkoutListProps) => {
   
   const ITEM_MIN_WIDTH = 345; 
   const { theme } = useTheme();
@@ -25,27 +26,41 @@ const WorkoutList = ({ workoutList, setWorkoutList, setIsEditMode, setWorkoutIte
   const numColumns = Math.max( 1, Math.floor((width - horizontalPadding) / ITEM_MIN_WIDTH));
   const [exercise, setExercise] = useState(''); 
   const [searchText, setSearchText] = useState('');
+  const [sortMode, setSortMode] = useState('Newest');
+  const { userToken } = useUserToken();
 
-  useGetWorkoutList(setWorkoutList, exercise);
+  if (!userToken) return null;
 
-  useEffect(() => {
-    sortWorkouts('Newest');
-  }, [workoutList.length]);
+  const { data: workoutList = [] } = useWorkoutList(userToken, exercise);
 
-const sortWorkouts = (mode: string) => {
-  const parseDate = (str: string) => {
-    const [day, month, year] = str.split('.').map(Number);
-    return new Date(year, month - 1, day).getTime();
-  };
 
-  const sorted = [...workoutList].sort((a, b) => {
-    if (mode === 'Newest') return parseDate(b.date) - parseDate(a.date);
-    if (mode === 'Oldest') return parseDate(a.date) - parseDate(b.date);
-    return 0;
-  });
+  const sortedWorkoutList = useMemo(() => {
+    const parseDate = (str: string) => {
+      const [day, month, year] = str.split('.').map(Number);
+      return new Date(year, month - 1, day).getTime();
+    };
 
-  setWorkoutList(sorted);
-};
+    const sorted = [...workoutList].sort((a, b) => {
+      if (sortMode === 'Newest') return parseDate(b.date) - parseDate(a.date);
+      if (sortMode === 'Oldest') return parseDate(a.date) - parseDate(b.date);
+      return 0;
+    });
+
+    return sorted;
+  }, [workoutList, sortMode]);
+
+  const filteredWorkoutList = useMemo(() => {
+  if (!searchText.trim()) return sortedWorkoutList;
+
+  const lower = searchText.toLowerCase();
+
+  return sortedWorkoutList.filter(item =>
+    item.name.toLowerCase().includes(lower) ||
+    item.exercise.toLowerCase().includes(lower) ||
+    item.result.toLowerCase().includes(lower) ||
+    item.date.toLowerCase().includes(lower)
+  );
+}, [sortedWorkoutList, searchText]);
   
   return (
     <View style={[styles.listContainer, {backgroundColor: Themes[theme].background}]}>
@@ -54,10 +69,10 @@ const sortWorkouts = (mode: string) => {
       <View style={styles.topBar}>
         <SortDropdown
           options={[
-          { label: 'Newest First', value: 'Newest' },
-          { label: 'Oldest First', value: 'Oldest' },
-        ]}
-        onSelect={(value) => sortWorkouts(value)}
+            { label: 'Newest First', value: 'Newest' },
+            { label: 'Oldest First', value: 'Oldest' },
+          ]}
+          onSelect={setSortMode}
         />
 
         <SearchBar
@@ -66,7 +81,7 @@ const sortWorkouts = (mode: string) => {
         />
       </View>
       <FlatList
-        data={workoutList}
+        data={filteredWorkoutList}
         keyExtractor={(item, index) => index.toString()}
         numColumns={numColumns}
         key={numColumns}

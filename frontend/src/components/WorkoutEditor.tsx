@@ -45,7 +45,6 @@ const WorkoutEditor = ({ workoutItem, setIsEditMode, setWorkoutList }: WorkoutEd
     const { mutateAsync: editWorkout } = useMutation({
     mutationFn: editWorkoutItem,
     onSuccess: () => {
-      // Invalidate related queries so UI refetches fresh data
     queryClient.invalidateQueries({
       queryKey: ['workoutItem', workoutItem.id],
     });      

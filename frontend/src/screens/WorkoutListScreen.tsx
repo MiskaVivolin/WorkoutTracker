@@ -27,7 +27,7 @@ const WorkoutListScreen: React.FC<WorkoutListScreenProps> = ({ navigation }) => 
             <WorkoutEditor workoutItem={workoutItem} setIsEditMode={setIsEditMode} setWorkoutList={setWorkoutList} />
           ) : (
             <>
-            <WorkoutList workoutList={workoutList} setWorkoutList={setWorkoutList} setIsEditMode={setIsEditMode} setWorkoutItem={setWorkoutItem} />
+            <WorkoutList setIsEditMode={setIsEditMode} setWorkoutItem={setWorkoutItem} />
             <TabBar navigation={navigation} />
             </>
           )}
@@ -38,7 +38,7 @@ const WorkoutListScreen: React.FC<WorkoutListScreenProps> = ({ navigation }) => 
           {isEditMode ? (
             <WorkoutEditor workoutItem={workoutItem} setIsEditMode={setIsEditMode} setWorkoutList={setWorkoutList} />
           ) : (
-            <WorkoutList workoutList={workoutList} setWorkoutList={setWorkoutList} setIsEditMode={setIsEditMode} setWorkoutItem={setWorkoutItem} />
+            <WorkoutList setIsEditMode={setIsEditMode} setWorkoutItem={setWorkoutItem} />
           )}
         </View>
       )}

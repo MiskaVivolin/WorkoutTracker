@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Text, TextInput, StyleSheet, Dimensions, Platform, Keyboard, KeyboardAvoidingView } from "react-native";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { z } from "zod";
 import Button from "./Button";
 import createWorkoutItem from "../services/workoutItem/createWorkoutItem";
@@ -34,6 +34,7 @@ const AddWorkoutForm = ({workoutItem, setWorkoutItem}: AddWorkoutFormProps) => {
       }
   })
   const [keyboardVisible, setKeyboardVisible] = useState(false);
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
@@ -48,6 +49,7 @@ const AddWorkoutForm = ({workoutItem, setWorkoutItem}: AddWorkoutFormProps) => {
       hideSubscription.remove();
     };
   }, []);
+  
 
   const mutation = useMutation({
     mutationFn: async ({ workoutItem, username }: { workoutItem: WorkoutItem; username: string }) => {
@@ -55,6 +57,7 @@ const AddWorkoutForm = ({workoutItem, setWorkoutItem}: AddWorkoutFormProps) => {
     },
     onSuccess: () => {
       reset();
+      queryClient.invalidateQueries({ queryKey: ['workouts'] });
     },
     onError: (error) => {
       console.error("Workout submission failed:", error);

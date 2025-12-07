@@ -32,8 +32,8 @@ export interface TabBarProps {
 // }
 
 export interface WorkoutListProps {
-    workoutList: WorkoutItem[];
-    setWorkoutList: SetWorkoutList;
+    // workoutList: WorkoutItem[];
+    // setWorkoutList: SetWorkoutList;
     setIsEditMode: SetBoolean;
     setWorkoutItem: SetWorkoutItem;
 }
