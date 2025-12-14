@@ -16,4 +16,4 @@
   // kaaviot, cardio/kalorit/paino, emojit/kuvat, profiilitiedot, kieliasetukset jne.
   // docker, cloud 
 
-react query tehty: createWorkout, getWorkout, useWorkoutlist, EditWorkout
+react query tehty: createWorkout, getWorkout, useWorkoutlist, EditWorkout, deleteWorkout

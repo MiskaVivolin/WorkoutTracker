@@ -12,7 +12,7 @@ import { z } from 'zod'
 import { useQueryClient, useMutation } from '@tanstack/react-query'
 
 
-const WorkoutEditor = ({ workoutItem, setIsEditMode, setWorkoutList }: WorkoutEditorProps) => {
+const WorkoutEditor = ({ workoutItem, setIsEditMode }: WorkoutEditorProps) => {
   
   type WorkoutFormData = z.infer<typeof workoutSchema>
   const queryClient = useQueryClient();
@@ -42,7 +42,7 @@ const WorkoutEditor = ({ workoutItem, setIsEditMode, setWorkoutList }: WorkoutEd
     });
   }, [workoutItem, reset]);
 
-    const { mutateAsync: editWorkout } = useMutation({
+  const { mutateAsync: editWorkout } = useMutation({
     mutationFn: editWorkoutItem,
     onSuccess: () => {
     queryClient.invalidateQueries({
@@ -53,6 +53,21 @@ const WorkoutEditor = ({ workoutItem, setIsEditMode, setWorkoutList }: WorkoutEd
     onError: (err) => {
       console.error('Error updating workout:', err);
       alert('Failed to update workout. Please try again.');
+    },
+  });
+
+  const { mutateAsync: deleteWorkout } = useMutation({
+    mutationFn: deleteWorkoutItem,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['workouts'] });
+      queryClient.invalidateQueries({ queryKey: ['workoutItem', workoutItem.id] });
+
+      alert('Workout deleted successfully!');
+      setIsEditMode(false);
+    },
+    onError: (err) => {
+      console.error('Error deleting workout:', err);
+      alert('Failed to delete workout. Please try again.');
     },
   });
 
@@ -77,8 +92,7 @@ const WorkoutEditor = ({ workoutItem, setIsEditMode, setWorkoutList }: WorkoutEd
           buttonStyle={{ backgroundColor: Themes[theme].deleteButton, alignSelf: 'flex-end', marginTop: 10, marginBottom: 6, marginHorizontal: 15 }}
           textStyle={{ color: '#FFFFFF' }}
           onPress={async () => {
-            await deleteWorkoutItem(workoutItem.id, setWorkoutList)
-            setIsEditMode(false)
+            await deleteWorkout(workoutItem.id)
           }}
         />
         <Text style={[styles.title, { color: Themes[theme].defaultText }]}>Edit Training Data</Text>

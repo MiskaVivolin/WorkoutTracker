@@ -6,7 +6,6 @@ import { TextStyle, ViewStyle } from "react-native";
 export interface WorkoutEditorProps { 
     workoutItem: WorkoutItem;
     setIsEditMode: SetBoolean;
-    setWorkoutList: SetWorkoutList;
 }
 
 export interface AddWorkoutFormProps {
