@@ -3,13 +3,16 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../types/utilTypes";
 import { API_BASE_URL } from "../../../config";
+import { useMutation } from '@tanstack/react-query';
 
 
-export const userLogin = async (navigation: StackNavigationProp<RootStackParamList>, username: string, password: string): Promise<string | undefined> => {
+export const useLogin = (navigation: StackNavigationProp<RootStackParamList>) => {
+  
+  return useMutation({
+    mutationFn: async ({ username, password }: {username: string; password: string}) => {
 
       const apiUrl = Platform.OS === 'android' ? `${API_BASE_URL}/login` : 'http://127.0.0.1:3001/login';
-    
-      try {
+  
       const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
@@ -17,13 +20,13 @@ export const userLogin = async (navigation: StackNavigationProp<RootStackParamLi
         },
         body: JSON.stringify({ username, password })
       })
-      if(response.status === 401 || response.status === 403) {
-        return "Invalid username or password"
-      } else {
-        await AsyncStorage.setItem('userInputFields', JSON.stringify({ username, password }));
-        navigation.navigate('WorkoutListScreen');
-      }
-    } catch (err) {
-      console.error("Error sending login API call:", err)
+
+    if(response.status === 401 || response.status === 403) {
+      return "Invalid username or password"
     }
-  };
+    
+    await AsyncStorage.setItem('userInputFields', JSON.stringify({ username, password }));
+      navigation.navigate('WorkoutListScreen');
+    }
+  })
+};
