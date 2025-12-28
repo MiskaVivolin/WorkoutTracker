@@ -22,7 +22,7 @@ export const useLogin = (navigation: StackNavigationProp<RootStackParamList>) =>
       })
 
     if(response.status === 401 || response.status === 403) {
-      return "Invalid username or password"
+      throw new Error("Invalid username or password")
     }
     
     await AsyncStorage.setItem('userInputFields', JSON.stringify({ username, password }));
