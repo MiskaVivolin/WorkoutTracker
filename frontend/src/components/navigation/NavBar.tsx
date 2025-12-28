@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Platform } from 'react-native';
 import { NavBarProps } from '../../types/componentProps';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Themes } from '../../../assets/styles/Themes';
 import NavButton from './NavButton';
 import { useTheme } from '../../context/ThemeContext';
@@ -28,7 +27,7 @@ const NavBar = ({ navigation }: NavBarProps) => {
 
   return (
     <View style={[styles.navContainer, {backgroundColor: Themes[theme].primary}]}>
-      <Logo viewStyle={{marginLeft: 20}}/>
+      <Logo />
       <View style={styles.buttonContainer}>
         <NavButton
           title='Add new'

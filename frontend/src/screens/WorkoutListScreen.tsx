@@ -12,7 +12,6 @@ import Logo from '../components/Logo';
 
 const WorkoutListScreen: React.FC<WorkoutListScreenProps> = ({ navigation }) => {
   
-  const [workoutList, setWorkoutList] = useState<WorkoutItem[]>([])
   const [isEditMode, setIsEditMode] = useState(false)
   const [workoutItem, setWorkoutItem] = useState<WorkoutItem>({ id: 0, name: '', date: '', exercise: '', result: '' })
   const { theme } = useTheme();
@@ -24,10 +23,10 @@ const WorkoutListScreen: React.FC<WorkoutListScreenProps> = ({ navigation }) => 
         <View style={{ flex: 1 }}>
           <Logo textStyle={{marginBottom: 5}}/>
           {isEditMode ? (
-            <WorkoutEditor workoutItem={workoutItem} setIsEditMode={setIsEditMode} setWorkoutList={setWorkoutList} />
+            <WorkoutEditor workoutItem={workoutItem} setIsEditMode={setIsEditMode} />
           ) : (
             <>
-            <WorkoutList workoutList={workoutList} setWorkoutList={setWorkoutList} setIsEditMode={setIsEditMode} setWorkoutItem={setWorkoutItem} />
+            <WorkoutList setIsEditMode={setIsEditMode} setWorkoutItem={setWorkoutItem} />
             <TabBar navigation={navigation} />
             </>
           )}
@@ -36,9 +35,9 @@ const WorkoutListScreen: React.FC<WorkoutListScreenProps> = ({ navigation }) => 
         <View style={{ flex: 1 }}>
           <NavBar navigation={navigation} />
           {isEditMode ? (
-            <WorkoutEditor workoutItem={workoutItem} setIsEditMode={setIsEditMode} setWorkoutList={setWorkoutList} />
+            <WorkoutEditor workoutItem={workoutItem} setIsEditMode={setIsEditMode} />
           ) : (
-            <WorkoutList workoutList={workoutList} setWorkoutList={setWorkoutList} setIsEditMode={setIsEditMode} setWorkoutItem={setWorkoutItem} />
+            <WorkoutList setIsEditMode={setIsEditMode} setWorkoutItem={setWorkoutItem} />
           )}
         </View>
       )}

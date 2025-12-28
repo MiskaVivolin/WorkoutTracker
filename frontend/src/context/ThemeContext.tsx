@@ -3,42 +3,64 @@ import { Theme, ThemeContextType } from '../types/utilTypes';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import getUserTheme from '../services/theme/getUserTheme';
 import setUserTheme from '../services/theme/setUserTheme';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
-export const ThemeProvider = ({children}: {children: ReactNode}) => {
-  const [theme, setThemeState] = useState<Theme>('dark');
-  const [username, setUsername] = useState<string>('');
+export const ThemeProvider = ({ children }: { children: ReactNode }) => {
+  const [username, setUsername] = useState<string | null>(null);
 
+  const useUserThemeQuery = (username: string | null) => {
+    return useQuery<'light' | 'dark'>({
+      queryKey: ['userTheme', username],
+      queryFn: () => getUserTheme(username!),
+      enabled: !!username,
+      staleTime: Infinity,
+    });
+  };
 
-  const fetchTheme = async () => {
-    try {
+  const setThemeMutation = useMutation({
+    mutationFn: ({ username, theme }: { username: string; theme: Theme }) =>
+      setUserTheme(username, theme),
+
+    onSuccess: (_, { username, theme }) => {
+      queryClient.setQueryData(['userTheme', username], theme);
+    },
+  });
+
+  useEffect(() => {
+    const loadUsername = async () => {
       const stored = await AsyncStorage.getItem('userInputFields');
       const parsed = stored ? JSON.parse(stored) : null;
-      
       if (parsed?.username) {
         setUsername(parsed.username);
-        const storedTheme = await getUserTheme(parsed.username);
-        if (storedTheme) {
-          setThemeState(storedTheme);
-        }
       }
-    } catch (err) {
-      console.error('Failed to initialize theme from AsyncStorage:', err);
-    }
-  };
-  
-  useEffect(() => {
-    fetchTheme();
+    };
+
+    loadUsername();
   }, []);
 
-    const setTheme = async (newTheme: Theme) => {
-    setThemeState(newTheme);
-    await setUserTheme(username, newTheme);
+  const queryClient = useQueryClient();
+
+  const { data: theme = 'dark' } = useUserThemeQuery(username);
+
+  const setTheme = async (newTheme: Theme) => {
+    if (!username) return;
+
+    await setThemeMutation.mutateAsync({
+      username,
+      theme: newTheme,
+    });
+  };
+
+  const refreshTheme = async (): Promise<void> => {
+    if (!username) return;
+    await queryClient.invalidateQueries({ queryKey: ['userTheme', username] });
   };
 
   return (
-    <ThemeContext.Provider value={{ theme, setTheme, refreshTheme: fetchTheme }}>
+    <ThemeContext.Provider value={{ theme, setTheme, refreshTheme }}>
       {children}
     </ThemeContext.Provider>
   );
@@ -46,8 +68,10 @@ export const ThemeProvider = ({children}: {children: ReactNode}) => {
 
 export const useTheme = (): ThemeContextType => {
   const context = useContext(ThemeContext);
+
   if (!context) {
     throw new Error('useTheme must be used within a ThemeProvider');
   }
+
   return context;
 };

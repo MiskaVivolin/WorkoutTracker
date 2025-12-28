@@ -1,27 +1,90 @@
-import React from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { StyleSheet, Text, View, Dimensions, Platform, } from 'react-native'
 import { FlatList } from 'react-native'
-import useGetWorkoutList from '../hooks/useGetWorkoutList'
+import { useQueryClient } from '@tanstack/react-query'
+import useWorkoutList from '../hooks/useWorkoutList'
 import { WorkoutListProps } from '../types/componentProps'
 import { WorkoutItem } from '../types/workoutItemTypes'
 import getWorkoutItem from '../services/workoutItem/getWorkoutItem'
 import { Themes } from "../../assets/styles/Themes"
 import { useTheme } from '../context/ThemeContext'
+import ExerciseNavigation from './navigation/ExerciseNavigation'
 import Button from './Button'
+import { useWindowDimensions } from 'react-native';
+import SortDropdown from './SortDropdown';
+import SearchBar from './SearchBar';
+import { useUserToken } from '../context/UserTokenContext'
 
 
-const WorkoutList = ({ workoutList, setWorkoutList, setIsEditMode, setWorkoutItem }: WorkoutListProps) => {
+const WorkoutList = ({ setIsEditMode, setWorkoutItem }: WorkoutListProps) => {
   
+  const ITEM_MIN_WIDTH = 345; 
   const { theme } = useTheme();
-  
-  useGetWorkoutList(setWorkoutList);
+  const queryClient = useQueryClient();
+  const { width } = useWindowDimensions();
+  const horizontalPadding = 16 * 2;
+  const numColumns = Math.max( 1, Math.floor((width - horizontalPadding) / ITEM_MIN_WIDTH));
+  const [exercise, setExercise] = useState(''); 
+  const [searchText, setSearchText] = useState('');
+  const [sortMode, setSortMode] = useState('Newest');
+  const { userToken } = useUserToken();
+
+  if (!userToken) return null;
+
+  const { data: workoutList = [] } = useWorkoutList(userToken, exercise);
+
+
+  const sortedWorkoutList = useMemo(() => {
+    const parseDate = (str: string) => {
+      const [day, month, year] = str.split('.').map(Number);
+      return new Date(year, month - 1, day).getTime();
+    };
+
+    const sorted = [...workoutList].sort((a, b) => {
+      if (sortMode === 'Newest') return parseDate(b.date) - parseDate(a.date);
+      if (sortMode === 'Oldest') return parseDate(a.date) - parseDate(b.date);
+      return 0;
+    });
+
+    return sorted;
+  }, [workoutList, sortMode]);
+
+  const filteredWorkoutList = useMemo(() => {
+  if (!searchText.trim()) return sortedWorkoutList;
+
+  const lower = searchText.toLowerCase();
+
+  return sortedWorkoutList.filter(item =>
+    item.name.toLowerCase().includes(lower) ||
+    item.exercise.toLowerCase().includes(lower) ||
+    item.result.toLowerCase().includes(lower) ||
+    item.date.toLowerCase().includes(lower)
+  );
+}, [sortedWorkoutList, searchText]);
   
   return (
     <View style={[styles.listContainer, {backgroundColor: Themes[theme].background}]}>
+      <ExerciseNavigation setExercise={setExercise}/>
       <Text style={[styles.title, {color: Themes[theme].defaultText}]}>Exercise results</Text>
+      <View style={styles.topBar}>
+        <SortDropdown
+          options={[
+            { label: 'Newest First', value: 'Newest' },
+            { label: 'Oldest First', value: 'Oldest' },
+          ]}
+          onSelect={setSortMode}
+        />
+
+        <SearchBar
+          value={searchText}
+          onChange={setSearchText}
+        />
+      </View>
       <FlatList
-        data={workoutList}
+        data={filteredWorkoutList}
         keyExtractor={(item, index) => index.toString()}
+        numColumns={numColumns}
+        key={numColumns}
         renderItem={({ item }: {item: WorkoutItem}) =>
         <View style={[styles.listItem, {backgroundColor: Themes[theme].primary}]}>
           <View style={styles.labelContainer}>
@@ -44,8 +107,18 @@ const WorkoutList = ({ workoutList, setWorkoutList, setIsEditMode, setWorkoutIte
             buttonStyle={{marginTop: 6, marginBottom: 10}}
             title='Edit'
             onPress={async () => {
-              await getWorkoutItem(item.id, setWorkoutItem)
-              setIsEditMode(true)
+              try {
+                const workoutItem = await queryClient.fetchQuery({
+                  queryKey: ['workoutItem', item.id],
+                  queryFn: () => getWorkoutItem(item.id)
+                });
+
+                setWorkoutItem(workoutItem);
+                setIsEditMode(true);
+              } catch (err) {
+                console.error('Error fetching workout item:', err);
+                alert('Failed to load workout. Please try again later.');
+              }
             }}
           />
         </View>}
@@ -58,8 +131,17 @@ const styles = StyleSheet.create({
   listContainer: {
     flex: 1,
     width: '100%',
-    alignItems: 'center',
+    marginHorizontal: Platform.OS === 'android' || Platform.OS === 'ios' ? 0 : 10,
+    alignItems: Platform.OS === 'android' || Platform.OS === 'ios' ? 'center' : 'flex-start',
     justifyContent: 'center',
+  },
+  topBar: {
+    width: '90%',
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    marginBottom: 10,
+    zIndex: 20,
+    elevation: 20,
   },
   label: {
     width: '50%',
@@ -84,15 +166,16 @@ const styles = StyleSheet.create({
     fontSize: 22, 
     fontFamily: 'MerriweatherSans', 
     fontWeight: Platform.OS === 'android' || Platform.OS === 'ios' ? '700' : '500',
-    marginTop: Dimensions.get('window').height < 1000 ? 30 : 50,
-    marginBottom: Dimensions.get('window').height < 1000 ? 30 : 50, 
+    marginHorizontal: Platform.OS === 'android' || Platform.OS === 'ios' ? 0 : 8,
+    marginVertical: Dimensions.get('window').height < 1000 ? 30 : 50, 
   },
   listItem: {
     alignItems: 'center',
     justifyContent: 'center',
     minWidth: Platform.OS === 'android' || Platform.OS === 'ios' ? '90%' : 345,
+    marginHorizontal: Platform.OS === 'android' || Platform.OS === 'ios' ? 0 : 8,
     marginVertical: 8,
-    borderRadius: 8,
+    borderRadius: 10,
     paddingTop: 8,
     }
 });

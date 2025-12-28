@@ -3,7 +3,7 @@ import React from 'react'
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTheme } from '../../context/ThemeContext';
-import { userSignup } from '../../services/auth/userSignup';
+import { useSignup } from '../../services/auth/useSignup';
 import { SignupContainerProps } from '../../types/componentProps';
 import { Themes } from '../../../assets/styles/Themes';
 import { useForm } from 'react-hook-form';
@@ -11,30 +11,32 @@ import Button from "../Button";
 
 const SignupContainer = ({navigation}: SignupContainerProps) => {
 
-    type SignupFormData = z.infer<typeof signupSchema>;
-    const signupSchema = z.object({
-      username: z.string().min(4, 'Username must be at least 4 characters'),
-      password: z.string().min(8, 'Password must be at least 8 characters'),
-    });
-    const { theme } = useTheme();
-    const { register, handleSubmit, setValue, watch, clearErrors, setError, formState: { errors } } = useForm<SignupFormData>({
-      resolver: zodResolver(signupSchema),
-      defaultValues: { username: '', password: '' }
-    });
+  type SignupFormData = z.infer<typeof signupSchema>;
+  const signupSchema = z.object({
+    username: z.string().min(4, 'Username must be at least 4 characters'),
+    password: z.string().min(8, 'Password must be at least 8 characters'),
+  });
+  const { theme } = useTheme();
+  const { register, handleSubmit, setValue, watch, clearErrors, setError, formState: { errors } } = useForm<SignupFormData>({
+    resolver: zodResolver(signupSchema),
+    defaultValues: { username: '', password: '' }
+  });
+
+  const signupMutation = useSignup(navigation);
   
-    const onSubmit = async (data: SignupFormData) => {
-      try {
-        const response = await userSignup(navigation, data.username, data.password)
-        if (response === "This username is already taken") {
-          setError("username", {
-            type: "manual",
-            message: response
-          })
-        }
-      } catch (err) {
-        console.error("Signup onSubmit error:", err)
-      }
-    };
+  const onSubmit = async (data: SignupFormData) => {
+    try {
+      await signupMutation.mutateAsync({
+        username: data.username,
+        password: data.password,
+      });
+    } catch (err: any) {
+      setError('username', {
+        type: 'manual',
+        message: err.message,
+      });
+    }
+  };
 
   return (
     <View style={[styles.signupContainer, { backgroundColor: Themes[theme].background }]}>

@@ -1,4 +1,5 @@
-import { Modal, Pressable, StyleSheet, Text, View } from 'react-native'
+import { Modal, StyleSheet, Text, View } from 'react-native'
+import Button from './Button';
 import React from 'react'
 import { Themes } from '../../assets/styles/Themes';
 import { useTheme } from '../context/ThemeContext';
@@ -17,20 +18,18 @@ const ConfirmModal = ({ navigation, setModalVisible, }: ConfirmModalProps) => {
             Are you sure you want to log out?
           </Text>
           <View style={styles.modalButtons}>
-            <Pressable
-              style={[styles.modalButton, { backgroundColor: Themes[theme].primary }]}
+            <Button
+              title="Yes"
               onPress={async () => {
               await AsyncStorage.removeItem('userInputFields');
               navigation.navigate('LoginScreen')}}
-              >
-              <Text style={{ color: Themes[theme].secondaryText }}>Yes</Text>
-            </Pressable>
-            <Pressable
-              style={[styles.modalButton, { backgroundColor: Themes[theme].inputField }]}
+              buttonStyle={{ marginHorizontal: 5, alignItems: 'center', width: 110,backgroundColor: Themes[theme].secondaryButton }}
+            />
+            <Button
+              title="Cancel"
               onPress={() => setModalVisible(false)}
-            >
-              <Text style={{ color: Themes[theme].defaultText }}>Cancel</Text>
-            </Pressable>
+              buttonStyle={styles.modalButton}
+            />
           </View>
         </View>
       </View>
@@ -46,27 +45,26 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   modalContainer: {
-    width: '80%',
-    padding: 20,
+    width: 360,
+    paddingVertical: 30,
     borderRadius: 12,
     alignItems: 'center',
   },
   modalTitle: {
     fontSize: 18,
+    fontWeight: '500',
     marginBottom: 20,
     textAlign: 'center',
   },
   modalButtons: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-evenly',
     width: '100%',
   },
   modalButton: {
-    flex: 1,
     marginHorizontal: 5,
-    paddingVertical: 10,
-    borderRadius: 8,
     alignItems: 'center',
+    width: 110,
   },
 });
 

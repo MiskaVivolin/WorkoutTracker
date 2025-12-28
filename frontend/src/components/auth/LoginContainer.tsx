@@ -3,7 +3,7 @@ import React, { useCallback } from 'react'
 import { useTheme } from '../../context/ThemeContext';
 import { useUserToken } from '../../context/UserTokenContext';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { userLogin } from "../../services/auth/userLogin";
+import { useLogin } from "../../services/auth/useLogin";
 import { z } from 'zod';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LoginContainerProps } from 'types/componentProps';
@@ -14,34 +14,29 @@ import { useFocusEffect } from '@react-navigation/native';
 
 const LoginContainer = ({navigation}: LoginContainerProps) => {
 
-    type LoginFormData = z.infer<typeof loginSchema>;
-    const loginSchema = z.object({
-      username: z.string().min(1, "Username is required"),
-      password: z.string().min(1, "Password is required"),
-    });
-    const { setToken } = useUserToken();
-    const { theme, refreshTheme } = useTheme();
-    const { register, handleSubmit, setValue, watch, clearErrors, setError, formState: { errors } } = useForm<LoginFormData>({
-      resolver: zodResolver(loginSchema),
-      defaultValues: { username: "", password: "" }
-    });
-  
-    const onSubmit = async (data: LoginFormData) => {
-      try {
-        const response = await userLogin(navigation, data.username, data.password)
-        if(response === "Invalid username or password") {
-          setError("password", {
-            type: "manual",
-            message: response
-          })
-        } else {
-          setToken(data.username);
-          await refreshTheme();
-        }
-      } catch (err) {
-        console.error("Login onSubmit error:", err)
-      }
-    };
+  type LoginFormData = z.infer<typeof loginSchema>;
+  const loginSchema = z.object({
+    username: z.string().min(1, "Username is required"),
+    password: z.string().min(1, "Password is required"),
+  });
+  const { setToken } = useUserToken();
+  const { theme, refreshTheme } = useTheme();
+  const { register, handleSubmit, setValue, watch, clearErrors, setError, formState: { errors } } = useForm<LoginFormData>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: { username: "", password: "" }
+  });
+
+  const loginMutation = useLogin(navigation);
+
+
+  const onSubmit = async (data: LoginFormData) => {
+    try {
+      await loginMutation.mutateAsync({ username: data.username, password: data.password })
+      setToken(data.username)
+    } catch (err: any) {
+      setError('password', { type: 'manual', message: err.message });
+    }
+  };
   
   useFocusEffect(
     useCallback(() => {

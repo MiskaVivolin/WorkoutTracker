@@ -24,10 +24,10 @@ const NavButton = ({ title, onPress, style, isActive = false }: NavButtonProps) 
 
 const styles = StyleSheet.create({
   button: {
-    height: Platform.OS === 'android' || Platform.OS === 'ios' ? 30 : 33,
+    height: Platform.OS === 'android' || Platform.OS === 'ios' ? 30 : 35,
     width: Platform.OS === 'android' || Platform.OS === 'ios' ? 80 : 90,
     padding: Platform.OS === 'android' || Platform.OS === 'ios' ? 5 : 8,
-    marginHorizontal: Platform.OS === 'android' || Platform.OS === 'ios' ? 0 : 10,
+    marginHorizontal: Platform.OS === 'android' || Platform.OS === 'ios' ? 0 : 4,
     borderRadius: 20, 
     textAlign: 'center',
     fontSize: 16,

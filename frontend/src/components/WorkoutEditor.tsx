@@ -9,11 +9,13 @@ import { useTheme } from '../context/ThemeContext'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
+import { useQueryClient, useMutation } from '@tanstack/react-query'
 
 
-const WorkoutEditor = ({ workoutItem, setIsEditMode, setWorkoutList }: WorkoutEditorProps) => {
+const WorkoutEditor = ({ workoutItem, setIsEditMode }: WorkoutEditorProps) => {
   
   type WorkoutFormData = z.infer<typeof workoutSchema>
+  const queryClient = useQueryClient();
   const workoutSchema = z.object({
     name: z.string().min(1, "Name required"),
     date: z.string().min(1, "Date required"),
@@ -40,17 +42,45 @@ const WorkoutEditor = ({ workoutItem, setIsEditMode, setWorkoutList }: WorkoutEd
     });
   }, [workoutItem, reset]);
 
+  const { mutateAsync: editWorkout } = useMutation({
+    mutationFn: editWorkoutItem,
+    onSuccess: () => {
+    queryClient.invalidateQueries({
+      queryKey: ['workoutItem', workoutItem.id],
+    });      
+    alert('Workout updated successfully!');
+    },
+    onError: (err) => {
+      console.error('Error updating workout:', err);
+      alert('Failed to update workout. Please try again.');
+    },
+  });
+
+  const { mutateAsync: deleteWorkout } = useMutation({
+    mutationFn: deleteWorkoutItem,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['workouts'] });
+      queryClient.invalidateQueries({ queryKey: ['workoutItem', workoutItem.id] });
+
+      alert('Workout deleted successfully!');
+      setIsEditMode(false);
+    },
+    onError: (err) => {
+      console.error('Error deleting workout:', err);
+      alert('Failed to delete workout. Please try again.');
+    },
+  });
+
   const onSubmit = async (data: WorkoutFormData) => {
+      const updatedWorkoutItem = {
+        ...workoutItem,
+        name: data.name,
+        date: data.date,
+        exercise: data.exercise,
+        result: data.result
+      };
 
-    const updatedWorkoutItem = {
-      ...workoutItem,
-      name: data.name,
-      date: data.date,
-      exercise: data.exercise,
-      result: data.result
-    };
-
-    await editWorkoutItem(updatedWorkoutItem)
+    await editWorkout(updatedWorkoutItem);
     setIsEditMode(false);
   };
 
@@ -62,8 +92,7 @@ const WorkoutEditor = ({ workoutItem, setIsEditMode, setWorkoutList }: WorkoutEd
           buttonStyle={{ backgroundColor: Themes[theme].deleteButton, alignSelf: 'flex-end', marginTop: 10, marginBottom: 6, marginHorizontal: 15 }}
           textStyle={{ color: '#FFFFFF' }}
           onPress={async () => {
-            await deleteWorkoutItem(workoutItem.id, setWorkoutList)
-            setIsEditMode(false)
+            await deleteWorkout(workoutItem.id)
           }}
         />
         <Text style={[styles.title, { color: Themes[theme].defaultText }]}>Edit Training Data</Text>
@@ -165,7 +194,7 @@ const styles = StyleSheet.create({
     paddingVertical: Dimensions.get('window').width < 440 ? 6 : 0,
     ...Platform.select({
       android: {
-        lineHeight: 15,
+        lineHeight: 19,
         textAlignVertical: 'center',
       },
       default: {
@@ -179,7 +208,7 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width < 440 ? '90%' : 400,
     marginTop: 5,
     marginBottom: 5,
-    borderRadius: 8,
+    borderRadius: 10,
     padding: 6,
   },
   label: {

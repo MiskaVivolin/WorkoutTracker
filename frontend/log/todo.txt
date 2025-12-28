@@ -1,18 +1,19 @@
   // TODO: 
-  // PopUp paremmaksi
   // readme pienet parantelut
-  // navbar responsiivisuus
-  // konsoliin tuleva uncaught (in promise) error
-  // keyboardavoidingview ei hallitse UI elementtien muutosta hyvin
+  // korjaa nav errorit
+  // implementoi themeselectorille dynaamiset napit
   // kun vaihtaa sivua, validaation pitäisi restartata (ei enää valita tyhjistä fieldeistä)
   // jos listassa ei ole itemeitä, näytä teksti ja kuva.
+  // keyboardavoidingview ei hallitse UI elementtien muutosta hyvin
   // mahdollisuus lisätä settien määrä. (numero field jonka default on 1? + ja - napit?)
   // mahdollisuus poistaa käyttäjä ja kaikki sen tiedot
   // settingscreen: mahdollisuus lisätä oma nimi jonka user voisi asettaa default nimeksi kun tekee uusia tuloksia
   // kun lisää uusia tuloksia tämän hetkinen päivä olisi Date fieldissä valmiiksi. Mahdollisuus toggleta tämä pois päältä asetuksista. ehkä myös kalenteri
   // teemat paremmiksi
   // tarkista voiko funktioiden typetystä parantaa
-  // integroi react query
+  // PopUp käyttö: kun esim lisää tuloksen, menee sivu automaattisesti listaan ja tulee noin 5 sec popup
   // app should fully handle three most common states of a network request – loading, success, and error
-  // search, filter, kaaviot, cardio/kalorit/paino, emojit/kuvat, profiilitiedot, kieliasetukset jne.
-  // docker, cloud
+  // kaaviot, cardio/kalorit/paino, emojit/kuvat, profiilitiedot, kieliasetukset jne.
+  // docker, cloud 
+
+react query tehty: createWorkout, getWorkout, useWorkoutlist, EditWorkout, deleteWorkout, theme, useLogin

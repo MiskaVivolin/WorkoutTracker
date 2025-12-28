@@ -16,7 +16,7 @@ const SignupScreen: React.FC<SignupScreenProps> = ({ navigation }) => {
     <View style={[styles.signupScreenContainer,{ backgroundColor: Themes[theme].background}]}>
       {mobileView ?
         <View style={{ flex: 1 }}>
-          <Logo textStyle={{marginBottom: 5}}/>
+          <Logo />
           <SignupContainer navigation={navigation}/>
         </View>
         :
@@ -38,7 +38,6 @@ const styles = StyleSheet.create({
   logoContainer: {
     alignItems: "flex-start", 
     paddingVertical: 10, 
-    paddingLeft: 20
   }
 })
 
