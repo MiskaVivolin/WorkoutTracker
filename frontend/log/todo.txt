@@ -3,7 +3,6 @@
   // korjaa nav errorit
   // implementoi themeselectorille dynaamiset napit
   // kun vaihtaa sivua, validaation pitäisi restartata (ei enää valita tyhjistä fieldeistä)
-  // jos listassa ei ole itemeitä, näytä teksti ja kuva.
   // keyboardavoidingview ei hallitse UI elementtien muutosta hyvin
   // mahdollisuus lisätä settien määrä. (numero field jonka default on 1? + ja - napit?)
   // mahdollisuus poistaa käyttäjä ja kaikki sen tiedot
@@ -12,8 +11,5 @@
   // teemat paremmiksi
   // tarkista voiko funktioiden typetystä parantaa
   // PopUp käyttö: kun esim lisää tuloksen, menee sivu automaattisesti listaan ja tulee noin 5 sec popup
-  // app should fully handle three most common states of a network request – loading, success, and error
   // kaaviot, cardio/kalorit/paino, emojit/kuvat, profiilitiedot, kieliasetukset jne.
-  // docker, cloud 
-
-react query tehty: createWorkout, getWorkout, useWorkoutlist, EditWorkout, deleteWorkout, theme, useLogin
+  // docker, cloud

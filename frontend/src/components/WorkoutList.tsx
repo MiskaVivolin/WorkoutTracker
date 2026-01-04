@@ -50,17 +50,25 @@ const WorkoutList = ({ setIsEditMode, setWorkoutItem }: WorkoutListProps) => {
   }, [workoutList, sortMode]);
 
   const filteredWorkoutList = useMemo(() => {
-  if (!searchText.trim()) return sortedWorkoutList;
+    if (!searchText.trim()) return sortedWorkoutList;
 
-  const lower = searchText.toLowerCase();
+    const lower = searchText.toLowerCase();
 
-  return sortedWorkoutList.filter(item =>
-    item.name.toLowerCase().includes(lower) ||
-    item.exercise.toLowerCase().includes(lower) ||
-    item.result.toLowerCase().includes(lower) ||
-    item.date.toLowerCase().includes(lower)
+    return sortedWorkoutList.filter(item =>
+      item.name.toLowerCase().includes(lower) ||
+      item.exercise.toLowerCase().includes(lower) ||
+      item.result.toLowerCase().includes(lower) ||
+      item.date.toLowerCase().includes(lower)
+    );
+  }, [sortedWorkoutList, searchText]);
+
+  const EmptyList = () => (
+    <View style={styles.emptyContainer}>
+      <Text style={[styles.emptyText, { color: Themes[theme].greyText }]}>
+        No results added
+      </Text>
+    </View>
   );
-}, [sortedWorkoutList, searchText]);
   
   return (
     <View style={[styles.listContainer, {backgroundColor: Themes[theme].background}]}>
@@ -85,6 +93,10 @@ const WorkoutList = ({ setIsEditMode, setWorkoutItem }: WorkoutListProps) => {
         keyExtractor={(item, index) => index.toString()}
         numColumns={numColumns}
         key={numColumns}
+        ListEmptyComponent={EmptyList}
+        contentContainerStyle={
+          filteredWorkoutList.length === 0 && styles.emptyListContent
+        }
         renderItem={({ item }: {item: WorkoutItem}) =>
         <View style={[styles.listItem, {backgroundColor: Themes[theme].primary}]}>
           <View style={styles.labelContainer}>
@@ -177,7 +189,19 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     borderRadius: 10,
     paddingTop: 8,
-    }
+  },
+  emptyContainer: {
+    flex: 1,
+    padding: 16,
+    paddingTop: 40,
+  },
+  emptyText: {
+    fontSize: 16,
+    opacity: 0.7,
+  },
+  emptyListContent: {
+    flexGrow: 1,
+  },
 });
 
 export default WorkoutList;
