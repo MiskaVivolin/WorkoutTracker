@@ -1,10 +1,10 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { StyleSheet, Text, View, Dimensions, Platform, } from 'react-native'
 import { FlatList } from 'react-native'
 import { useQueryClient } from '@tanstack/react-query'
 import useWorkoutList from '../hooks/useWorkoutList'
 import { WorkoutListProps } from '../types/componentProps'
-import { WorkoutItem } from '../types/workoutItemTypes'
+import { ResponseData, WorkoutItem } from '../types/workoutItemTypes'
 import getWorkoutItem from '../services/workoutItem/getWorkoutItem'
 import { Themes } from "../../assets/styles/Themes"
 import { useTheme } from '../context/ThemeContext'
