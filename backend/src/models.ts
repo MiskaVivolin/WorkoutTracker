@@ -164,3 +164,22 @@ export const setUserTheme = async (themeData: ThemeData) => {
     throw new Error("Unable to set user theme in the database");
   }
 };
+
+export const deleteUser = async (username: string) => {
+  try {
+    const res = await pool.query(
+      `DELETE FROM users
+       WHERE username = $1
+       RETURNING id, username`,
+      [username]
+    );
+
+    if (res.rows.length === 0) {
+      return null;
+    }
+
+    return res.rows[0];
+  } catch (error) {
+    throw new Error("Unable to delete user");
+  }
+};

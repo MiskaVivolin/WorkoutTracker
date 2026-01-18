@@ -10,5 +10,6 @@
   // teemat paremmiksi
   // tarkista voiko funktioiden typetystä parantaa
   // PopUp käyttö: kun esim lisää tuloksen, menee sivu automaattisesti listaan ja tulee noin 5 sec popup
+  // jwt backendille
   // kaaviot, cardio/kalorit/paino, emojit/kuvat, profiilitiedot, kieliasetukset jne.
   // docker, cloud
