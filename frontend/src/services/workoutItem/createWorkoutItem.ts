@@ -1,4 +1,4 @@
-import { WorkoutItemFields, ResponseData } from "../../types/workoutItemTypes";
+import { WorkoutItemFields } from "../../types/workoutItemTypes";
 import { Platform } from 'react-native';
 import { API_BASE_URL } from "../../../config";
 

@@ -3,7 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import { TabBarProps } from '../../types/componentProps';
 import NavButton from './NavButton';
 import { useNavigationState } from '@react-navigation/native';
-import ConfirmModal from '../../components/ConfirmModal';
+import ConfirmLogout from '../ConfirmLogout';
 
 const TabBar = ({ navigation }: TabBarProps) => {
     
@@ -50,7 +50,7 @@ const TabBar = ({ navigation }: TabBarProps) => {
         isActive={handleHighlight('LoginScreen')}
         />
         {modalVisible ? 
-    <ConfirmModal navigation={navigation} setModalVisible={setModalVisible}  />
+    <ConfirmLogout navigation={navigation} setModalVisible={setModalVisible}  />
     :  
     <></>
     }

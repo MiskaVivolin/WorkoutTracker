@@ -123,4 +123,23 @@ router.post("/set-theme", (req, res) => __awaiter(void 0, void 0, void 0, functi
         return res.status(500).json({ error: "Internal server error" });
     }
 }));
+router.delete("/delete-user/:username", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { username } = req.params;
+        if (!username) {
+            return res.status(422).json({ error: "Username required" });
+        }
+        const deletedUser = yield (0, models_1.deleteUser)(username);
+        if (!deletedUser) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        return res.status(200).json({
+            message: "User deleted successfully",
+            user: deletedUser
+        });
+    }
+    catch (error) {
+        return res.status(500).json({ error: "Internal server error" });
+    }
+}));
 exports.default = router;

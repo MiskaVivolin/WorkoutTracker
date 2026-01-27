@@ -6,7 +6,7 @@ import NavButton from './NavButton';
 import { useTheme } from '../../context/ThemeContext';
 import { useNavigationState } from '@react-navigation/native';
 import Logo from '../Logo';
-import ConfirmModal from '../../components/ConfirmModal';
+import ConfirmLogout from '../ConfirmLogout';
 
 const NavBar = ({ navigation }: NavBarProps) => {
   
@@ -57,7 +57,7 @@ const NavBar = ({ navigation }: NavBarProps) => {
         />
       </View>
       {modalVisible ? 
-    <ConfirmModal navigation={navigation} setModalVisible={setModalVisible}  />
+    <ConfirmLogout navigation={navigation} setModalVisible={setModalVisible}  />
     :  
     <></>
     }

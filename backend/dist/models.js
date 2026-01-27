@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.setUserTheme = exports.getUserTheme = exports.deleteWorkoutItem = exports.editWorkoutItem = exports.getWorkoutItem = exports.getWorkoutData = exports.createWorkoutItem = exports.userLogin = exports.userSignup = void 0;
+exports.deleteUser = exports.setUserTheme = exports.getUserTheme = exports.deleteWorkoutItem = exports.editWorkoutItem = exports.getWorkoutItem = exports.getWorkoutData = exports.createWorkoutItem = exports.userLogin = exports.userSignup = void 0;
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const db_1 = require("./db");
@@ -149,3 +149,18 @@ const setUserTheme = (themeData) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 exports.setUserTheme = setUserTheme;
+const deleteUser = (username) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const res = yield db_1.pool.query(`DELETE FROM users
+       WHERE username = $1
+       RETURNING id, username`, [username]);
+        if (res.rows.length === 0) {
+            return null;
+        }
+        return res.rows[0];
+    }
+    catch (error) {
+        throw new Error("Unable to delete user");
+    }
+});
+exports.deleteUser = deleteUser;
