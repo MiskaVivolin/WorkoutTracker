@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: 50,
   },
   buttonContainer: {
     flexDirection: 'row',
@@ -38,7 +39,7 @@ const styles = StyleSheet.create({
     justifyContent: Platform.OS === 'android' || Platform.OS === 'ios' ? "space-evenly" : "center",
   }, 
   title: {
-    marginBottom: Platform.OS === 'android' || Platform.OS === 'ios' ? 20 : 50, 
+    marginBottom: Platform.OS === 'android' || Platform.OS === 'ios' ? 20 : 30, 
     fontFamily: 'MerriweatherSans',
     fontSize: Platform.OS === 'android' || Platform.OS === 'ios' ? 18 : 20, 
   }

@@ -17,7 +17,7 @@ const DeleteAccount = ({ navigation }: NavBarProps) => {
       <Text style={[styles.title, {color: Themes[theme].defaultText}]}>Delete your Account</Text>
       <View style={styles.buttonContainer}>
         <Button
-        buttonStyle={{marginRight: Platform.OS === 'android' || Platform.OS === 'ios' ? 0 : 50, width: 90}}
+        buttonStyle={{ width: 90 }}
         title="Delete" 
         onPress={() => setModalVisible(true)}
         />
@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: 50,
   },
   buttonContainer: {
     flexDirection: 'row',
@@ -46,7 +47,7 @@ const styles = StyleSheet.create({
     justifyContent: Platform.OS === 'android' || Platform.OS === 'ios' ? "space-evenly" : "center",
   }, 
   title: {
-    marginBottom: Platform.OS === 'android' || Platform.OS === 'ios' ? 20 : 50, 
+    marginBottom: Platform.OS === 'android' || Platform.OS === 'ios' ? 20 : 30, 
     fontFamily: 'MerriweatherSans',
     fontSize: Platform.OS === 'android' || Platform.OS === 'ios' ? 18 : 20, 
   }

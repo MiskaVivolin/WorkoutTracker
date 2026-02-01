@@ -17,13 +17,14 @@ const WorkoutListScreen: React.FC<WorkoutListScreenProps> = ({ navigation }) => 
   return (
     <View style={[styles.container, { backgroundColor: Themes[theme].background }]}>
       {mobileView ? (
-        <View style={{ flex: 1 }}>
+        <View>
           <Logo />
+          <DeleteAccount navigation={navigation}/>
           <ThemeSwitcher />
           <TabBar navigation={navigation}/>
         </View>
       ) : (
-        <View style={{ flex: 1 }}>
+        <View>
           <NavBar navigation={navigation}/>
           <DeleteAccount navigation={navigation}/>
           <ThemeSwitcher/>
