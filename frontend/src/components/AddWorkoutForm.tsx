@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Text, TextInput, StyleSheet, Dimensions, Platform, Keyboard, KeyboardAvoidingView } from "react-native";
+import { Text, TextInput, StyleSheet, Dimensions, Platform, Keyboard, KeyboardAvoidingView, View } from "react-native";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -11,6 +11,7 @@ import { AddWorkoutFormProps } from "../types/componentProps";
 import { Themes } from "../../assets/styles/Themes";
 import { useTheme } from "../context/ThemeContext";
 import { WorkoutItem } from "../types/workoutItemTypes";
+import PopUp from "./PopUp";
 
 
 const AddWorkoutForm = ({workoutItem, setWorkoutItem}: AddWorkoutFormProps) => {
@@ -35,6 +36,7 @@ const AddWorkoutForm = ({workoutItem, setWorkoutItem}: AddWorkoutFormProps) => {
   })
   const [keyboardVisible, setKeyboardVisible] = useState(false);
   const queryClient = useQueryClient();
+  const [successVisible, setSuccessVisible] = useState(false);
 
   useEffect(() => {
     const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
@@ -58,6 +60,12 @@ const AddWorkoutForm = ({workoutItem, setWorkoutItem}: AddWorkoutFormProps) => {
     onSuccess: () => {
       reset();
       queryClient.invalidateQueries({ queryKey: ['workouts'] });
+
+      setSuccessVisible(true);
+
+      setTimeout(() => {
+        setSuccessVisible(false);
+      }, 2500);
     },
     onError: (error) => {
       console.error("Workout submission failed:", error);
@@ -146,9 +154,7 @@ const AddWorkoutForm = ({workoutItem, setWorkoutItem}: AddWorkoutFormProps) => {
       )}
 
       {mutation.status === 'success' && (
-        <Text style={[styles.label, { color: Themes[theme].defaultText }]}>
-          Workout item added successfully!
-        </Text>
+        <PopUp successVisible={successVisible} />
       )}
 
     </KeyboardAvoidingView>
@@ -156,50 +162,67 @@ const AddWorkoutForm = ({workoutItem, setWorkoutItem}: AddWorkoutFormProps) => {
 }
 
 const styles = StyleSheet.create({
-    addWorkoutContainer: {
-      flex: 1,
-      alignSelf: "center",
-      alignItems: 'center',
-      justifyContent: 'center',
-      width: Platform.OS === 'android' || Platform.OS === 'ios' ? '80%' : 350,
+  addWorkoutContainer: {
+    flex: 1,
+    alignSelf: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: Platform.OS === 'android' || Platform.OS === 'ios' ? '80%' : 350,
 
-    },
-    label: {
-      alignSelf: "flex-start",
-      width: Platform.OS === 'android' || Platform.OS === 'ios' ? '100%' : 350,
-      fontSize: 13,
-      fontFamily: 'MerriweatherSans',
-      marginBottom: 2,
-      marginTop: 12
-    },
-    title: {
-      fontSize: 22,
-      fontWeight: Platform.OS === 'android' || Platform.OS === 'ios' ? '700' : '500', 
-      fontFamily: 'MerriweatherSans', 
-      marginBottom: Dimensions.get('window').height < 1000 ? 30 : 50, 
-    },
-    inputField: {
-      fontFamily: 'MerriweatherSans',
-      fontSize: 13,
-      width: Platform.OS === 'android' || Platform.OS === 'ios' ? '100%' : 350,
-      borderWidth: 1,
-      borderRadius: 4,
-      marginBottom: Dimensions.get('window').height < 1000 ? 8 : 12,
-      paddingHorizontal: 8,
-      ...Platform.select({
-        android: {
-          paddingBottom: 8,
-          lineHeight: 15,
-        },
-        default: {
-          height: 35,
-        },
-      }),
-    },
-    errorText: {
-      fontSize: 13,
-      fontFamily: 'MerriweatherSans', 
-    },
-  });
+  },
+  label: {
+    alignSelf: "flex-start",
+    width: Platform.OS === 'android' || Platform.OS === 'ios' ? '100%' : 350,
+    fontSize: 13,
+    fontFamily: 'MerriweatherSans',
+    marginBottom: 2,
+    marginTop: 12
+  },
+  title: {
+    fontSize: 22,
+    fontWeight: Platform.OS === 'android' || Platform.OS === 'ios' ? '700' : '500', 
+    fontFamily: 'MerriweatherSans', 
+    marginBottom: Dimensions.get('window').height < 1000 ? 30 : 50, 
+  },
+  inputField: {
+    fontFamily: 'MerriweatherSans',
+    fontSize: 13,
+    width: Platform.OS === 'android' || Platform.OS === 'ios' ? '100%' : 350,
+    borderWidth: 1,
+    borderRadius: 4,
+    marginBottom: Dimensions.get('window').height < 1000 ? 8 : 12,
+    paddingHorizontal: 8,
+    ...Platform.select({
+      android: {
+        paddingBottom: 8,
+        lineHeight: 15,
+      },
+      default: {
+        height: 35,
+      },
+    }),
+  },
+  errorText: {
+    fontSize: 13,
+    fontFamily: 'MerriweatherSans', 
+  },
+  modalOverlay: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0,0,0,0.4)",
+  },
+  modalContent: {
+    paddingVertical: 20,
+    paddingHorizontal: 30,
+    borderRadius: 12,
+    elevation: 5,
+  },
 
-  export default AddWorkoutForm
+  modalText: {
+    fontSize: 16,
+    fontFamily: "MerriweatherSans",
+  },
+});
+
+export default AddWorkoutForm

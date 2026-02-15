@@ -1,54 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, Animated, StyleSheet } from 'react-native';
+import { useTheme } from '../context/ThemeContext';
+import { Themes } from '../../assets/styles/Themes';
+import React from 'react';
+import { View, StyleSheet, Modal, Text } from 'react-native';
 import { PopUpProps } from '../types/componentProps';
 
-const PopUp = ({setValidationInit, setPressedAdd, workoutItemFieldIsValid, setWorkoutItemFieldIsValid}: PopUpProps) => {
-  const [visible, setVisible] = useState(true);
-  const fadeAnim = new Animated.Value(0);
+const PopUp = ({successVisible}: PopUpProps)  => {
 
+  const { theme } = useTheme()
 
-  useEffect(() => {
-    if (visible) {
-      console.log("workoutItemIsValid, ", workoutItemFieldIsValid)
-      fadeIn();
-      const fadeTimeout = setTimeout(() => {
-        fadeOut(); 
-      }, 1000);
-      return () => clearTimeout(fadeTimeout);
-    }
-  }, [visible]); 
-
-  const fadeIn = () => {
-    Animated.timing(fadeAnim, {
-      toValue: 1,
-      useNativeDriver: true,
-    }).start();
-  };
-
-  const fadeOut = () => {
-    Animated.timing(fadeAnim, {
-      toValue: 0,
-      useNativeDriver: true,
-    }).start(() => {
-      setVisible(false);
-      setPressedAdd(false)
-      setWorkoutItemFieldIsValid({ name: false, date: false, exercise: false, result: false })
-      setValidationInit(false)
-    });
-  };
+  if (!successVisible) return null;
 
   return (
-    <View style={styles.container}>
-      {visible && workoutItemFieldIsValid && (
-        <View
-          style={[
-            styles.popup,
-            { opacity: fadeAnim }, 
-          ]}
-        >
-          <Text style={styles.popupText}>Exercise result Added!</Text>
-        </View>
-      )}
+    <View style={styles.container} pointerEvents="none">
+      <View
+        style={[
+          styles.toast,
+          { backgroundColor: Themes[theme].inputField },
+        ]}
+      >
+        <Text style={[styles.text, { color: Themes[theme].defaultText }]}>
+          Workout added successfully!
+        </Text>
+      </View>
     </View>
   );
 };
@@ -56,24 +29,22 @@ const PopUp = ({setValidationInit, setPressedAdd, workoutItemFieldIsValid, setWo
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-  },
-  popup: {
     position: 'absolute',
-    padding: 50,
-    bottom: 400,
-    transform: [{ translateX: -75 }],
-    backgroundColor: 'rgba(0, 0, 0, 0.7)',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
+    marginTop: "10%",
+    width: '100%',
+    alignItems: 'center',
+    zIndex: 999,
   },
-  popupText: {
-    color: '#fff',
-    fontSize: 16,
-  }
+  toast: {
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 20,
+    elevation: 6,
+  },
+  text: {
+    fontSize: 14,
+    fontFamily: 'MerriweatherSans',
+  },
 });
 
 export default PopUp;

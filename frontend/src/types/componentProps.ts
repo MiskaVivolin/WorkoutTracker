@@ -21,18 +21,11 @@ export interface TabBarProps {
     navigation: StackNavigationProp<RootStackParamList>;
 }
 
-// export interface PopUpProps {
-//     setValidationInit: SetBoolean;
-//     setPressedAdd: SetBoolean;
-//     workoutItemFieldIsValid: {
-//         [key: string]: boolean;
-//     }
-//     setWorkoutItemFieldIsValid: React.Dispatch<React.SetStateAction<PrevStateBooleanObj>>;
-// }
+export interface PopUpProps {
+    successVisible: boolean;
+}
 
 export interface WorkoutListProps {
-    // workoutList: WorkoutItem[];
-    // setWorkoutList: SetWorkoutList;
     setIsEditMode: SetBoolean;
     setWorkoutItem: SetWorkoutItem;
 }
@@ -54,7 +47,6 @@ export interface NavButtonProps {
 
 export interface LogoProps {
     viewStyle?: ViewStyle;
-    textStyle?: TextStyle;
 } 
 
 export interface LoginContainerProps {

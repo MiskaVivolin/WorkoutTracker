@@ -4,7 +4,7 @@ import { Themes } from '../../assets/styles/Themes'
 import { useTheme } from '../context/ThemeContext'
 import { LogoProps } from '../types/componentProps'
 
-const Logo = ({viewStyle, textStyle}: LogoProps) => {
+const Logo = ({viewStyle}: LogoProps) => {
 
   const { theme } = useTheme()
   const mobileView = Platform.OS === 'android' || Platform.OS === 'ios';
