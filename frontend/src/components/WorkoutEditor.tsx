@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, View, TextInput, Dimensions, Platform, } from 'react-native'
 import { WorkoutEditorProps } from '../types/componentProps'
 import deleteWorkoutItem from '../services/workoutItem/deleteWorkoutItem'
@@ -10,9 +10,10 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { useQueryClient, useMutation } from '@tanstack/react-query'
+import PopUp from './PopUp'
 
 
-const WorkoutEditor = ({ workoutItem, setIsEditMode }: WorkoutEditorProps) => {
+const WorkoutEditor = ({ workoutItem, setIsEditMode, showPopup }: WorkoutEditorProps) => {
   
   type WorkoutFormData = z.infer<typeof workoutSchema>
   const queryClient = useQueryClient();
@@ -48,11 +49,14 @@ const WorkoutEditor = ({ workoutItem, setIsEditMode }: WorkoutEditorProps) => {
     queryClient.invalidateQueries({
       queryKey: ['workoutItem', workoutItem.id],
     });      
-    alert('Workout updated successfully!');
+
+    setTimeout(() => {
+    }, 2500);
+    showPopup('Workout updated successfully!');
+    setIsEditMode(false);
     },
     onError: (err) => {
       console.error('Error updating workout:', err);
-      alert('Failed to update workout. Please try again.');
     },
   });
 
@@ -62,12 +66,14 @@ const WorkoutEditor = ({ workoutItem, setIsEditMode }: WorkoutEditorProps) => {
       queryClient.invalidateQueries({ queryKey: ['workouts'] });
       queryClient.invalidateQueries({ queryKey: ['workoutItem', workoutItem.id] });
 
-      alert('Workout deleted successfully!');
+
+      setTimeout(() => {
+      }, 2500);
+      showPopup('Workout deleted successfully!');
       setIsEditMode(false);
     },
     onError: (err) => {
       console.error('Error deleting workout:', err);
-      alert('Failed to delete workout. Please try again.');
     },
   });
 

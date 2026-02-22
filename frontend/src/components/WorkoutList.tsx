@@ -14,9 +14,10 @@ import { useWindowDimensions } from 'react-native';
 import SortDropdown from './SortDropdown';
 import SearchBar from './SearchBar';
 import { useUserToken } from '../context/UserTokenContext'
+import PopUp from './PopUp'
 
 
-const WorkoutList = ({ setIsEditMode, setWorkoutItem }: WorkoutListProps) => {
+const WorkoutList = ({ setIsEditMode, setWorkoutItem, popupVisible, popupMessage }: WorkoutListProps) => {
   
   const ITEM_MIN_WIDTH = 345; 
   const { theme } = useTheme();
@@ -135,6 +136,7 @@ const WorkoutList = ({ setIsEditMode, setWorkoutItem }: WorkoutListProps) => {
           />
         </View>}
       />
+        <PopUp popupVisible={popupVisible} message={popupMessage} />
     </View>
   )
 }

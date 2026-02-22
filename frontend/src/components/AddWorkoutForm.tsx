@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Text, TextInput, StyleSheet, Dimensions, Platform, Keyboard, KeyboardAvoidingView, View } from "react-native";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { z } from "zod";
@@ -36,7 +36,8 @@ const AddWorkoutForm = ({workoutItem, setWorkoutItem}: AddWorkoutFormProps) => {
   })
   const [keyboardVisible, setKeyboardVisible] = useState(false);
   const queryClient = useQueryClient();
-  const [successVisible, setSuccessVisible] = useState(false);
+  const [popupVisible, setPopupVisible] = useState(false);
+  const [popupMessage, setPopupMessage] = useState('');
 
   useEffect(() => {
     const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
@@ -61,10 +62,11 @@ const AddWorkoutForm = ({workoutItem, setWorkoutItem}: AddWorkoutFormProps) => {
       reset();
       queryClient.invalidateQueries({ queryKey: ['workouts'] });
 
-      setSuccessVisible(true);
+      setPopupVisible(true);
+      setPopupMessage('Workout added successfully!');
 
       setTimeout(() => {
-        setSuccessVisible(false);
+        setPopupVisible(false);
       }, 2500);
     },
     onError: (error) => {
@@ -154,7 +156,7 @@ const AddWorkoutForm = ({workoutItem, setWorkoutItem}: AddWorkoutFormProps) => {
       )}
 
       {mutation.status === 'success' && (
-        <PopUp successVisible={successVisible} />
+        <PopUp popupVisible={popupVisible} message={popupMessage}/>
       )}
 
     </KeyboardAvoidingView>

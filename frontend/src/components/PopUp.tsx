@@ -4,11 +4,11 @@ import React from 'react';
 import { View, StyleSheet, Modal, Text } from 'react-native';
 import { PopUpProps } from '../types/componentProps';
 
-const PopUp = ({successVisible}: PopUpProps)  => {
+const PopUp = ({popupVisible, message}: PopUpProps)  => {
 
   const { theme } = useTheme()
 
-  if (!successVisible) return null;
+  if (!popupVisible) return null;
 
   return (
     <View style={styles.container} pointerEvents="none">
@@ -19,7 +19,7 @@ const PopUp = ({successVisible}: PopUpProps)  => {
         ]}
       >
         <Text style={[styles.text, { color: Themes[theme].defaultText }]}>
-          Workout added successfully!
+          {message}
         </Text>
       </View>
     </View>
@@ -28,9 +28,8 @@ const PopUp = ({successVisible}: PopUpProps)  => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     position: 'absolute',
-    marginTop: "10%",
+    top: 80,
     width: '100%',
     alignItems: 'center',
     zIndex: 999,

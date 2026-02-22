@@ -6,6 +6,7 @@ import { TextStyle, ViewStyle } from "react-native";
 export interface WorkoutEditorProps { 
     workoutItem: WorkoutItem;
     setIsEditMode: SetBoolean;
+    showPopup: (message: string) => void;
 }
 
 export interface AddWorkoutFormProps {
@@ -22,12 +23,15 @@ export interface TabBarProps {
 }
 
 export interface PopUpProps {
-    successVisible: boolean;
+    popupVisible: boolean;
+    message: string;
 }
 
 export interface WorkoutListProps {
     setIsEditMode: SetBoolean;
     setWorkoutItem: SetWorkoutItem;
+    popupVisible: boolean;
+    popupMessage: string;
 }
 
 export interface ButtonProps {
