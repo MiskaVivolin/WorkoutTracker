@@ -6,6 +6,7 @@ import { TextStyle, ViewStyle } from "react-native";
 export interface WorkoutEditorProps { 
     workoutItem: WorkoutItem;
     setIsEditMode: SetBoolean;
+    showPopup: (message: string) => void;
 }
 
 export interface AddWorkoutFormProps {
@@ -21,20 +22,16 @@ export interface TabBarProps {
     navigation: StackNavigationProp<RootStackParamList>;
 }
 
-// export interface PopUpProps {
-//     setValidationInit: SetBoolean;
-//     setPressedAdd: SetBoolean;
-//     workoutItemFieldIsValid: {
-//         [key: string]: boolean;
-//     }
-//     setWorkoutItemFieldIsValid: React.Dispatch<React.SetStateAction<PrevStateBooleanObj>>;
-// }
+export interface PopUpProps {
+    popupVisible: boolean;
+    message: string;
+}
 
 export interface WorkoutListProps {
-    // workoutList: WorkoutItem[];
-    // setWorkoutList: SetWorkoutList;
     setIsEditMode: SetBoolean;
     setWorkoutItem: SetWorkoutItem;
+    popupVisible: boolean;
+    popupMessage: string;
 }
 
 export interface ButtonProps {
@@ -54,7 +51,6 @@ export interface NavButtonProps {
 
 export interface LogoProps {
     viewStyle?: ViewStyle;
-    textStyle?: TextStyle;
 } 
 
 export interface LoginContainerProps {
@@ -67,8 +63,7 @@ export interface SignupContainerProps {
 
 export interface ConfirmModalProps {
   setModalVisible: SetBoolean;
-  onCancel: () => void;
-  navigation: StackNavigationProp<RootStackParamList, 'AddWorkoutScreen'>;
+  navigation: StackNavigationProp<RootStackParamList>;
 };
 
 export interface SortDropdownProps {

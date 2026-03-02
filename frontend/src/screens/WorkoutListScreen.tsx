@@ -16,6 +16,8 @@ const WorkoutListScreen: React.FC<WorkoutListScreenProps> = ({ navigation }) => 
   const [workoutItem, setWorkoutItem] = useState<WorkoutItem>({ id: 0, name: '', date: '', exercise: '', result: '' })
   const { theme } = useTheme();
   const mobileView = Platform.OS === 'android' || Platform.OS === 'ios';
+  const [popupVisible, setPopupVisible] = useState(false);
+  const [popupMessage, setPopupMessage] = useState('');
 
   return (
     <View style={[styles.container, { backgroundColor: Themes[theme].background }]}>
@@ -23,10 +25,20 @@ const WorkoutListScreen: React.FC<WorkoutListScreenProps> = ({ navigation }) => 
         <View style={{ flex: 1 }}>
           <Logo textStyle={{marginBottom: 5}}/>
           {isEditMode ? (
-            <WorkoutEditor workoutItem={workoutItem} setIsEditMode={setIsEditMode} />
+            <WorkoutEditor 
+              workoutItem={workoutItem} 
+              setIsEditMode={setIsEditMode}   
+              showPopup={(message: string) => {
+              setPopupMessage(message);
+              setPopupVisible(true);
+
+              setTimeout(() => {
+                setPopupVisible(false);
+              }, 2500);
+            }}/>
           ) : (
             <>
-            <WorkoutList setIsEditMode={setIsEditMode} setWorkoutItem={setWorkoutItem} />
+            <WorkoutList setIsEditMode={setIsEditMode} setWorkoutItem={setWorkoutItem} popupVisible={popupVisible} popupMessage={popupMessage} />
             <TabBar navigation={navigation} />
             </>
           )}
@@ -35,9 +47,19 @@ const WorkoutListScreen: React.FC<WorkoutListScreenProps> = ({ navigation }) => 
         <View style={{ flex: 1 }}>
           <NavBar navigation={navigation} />
           {isEditMode ? (
-            <WorkoutEditor workoutItem={workoutItem} setIsEditMode={setIsEditMode} />
+            <WorkoutEditor
+              workoutItem={workoutItem} 
+              setIsEditMode={setIsEditMode}   
+              showPopup={(message: string) => {
+              setPopupMessage(message);
+              setPopupVisible(true);
+
+              setTimeout(() => {
+                setPopupVisible(false);
+              }, 2500);
+            }} />
           ) : (
-            <WorkoutList setIsEditMode={setIsEditMode} setWorkoutItem={setWorkoutItem} />
+            <WorkoutList setIsEditMode={setIsEditMode} setWorkoutItem={setWorkoutItem} popupVisible={popupVisible} popupMessage={popupMessage} />
           )}
         </View>
       )}

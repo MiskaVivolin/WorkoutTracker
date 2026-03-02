@@ -6,7 +6,7 @@ import { useTheme } from '../context/ThemeContext';
 import { ConfirmModalProps } from '../types/componentProps';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const ConfirmModal = ({ navigation, setModalVisible, }: ConfirmModalProps) => {
+const ConfirmLogout = ({ navigation, setModalVisible, }: ConfirmModalProps) => {
 
   const { theme } = useTheme();
 
@@ -68,4 +68,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ConfirmModal
+export default ConfirmLogout;

@@ -1,5 +1,5 @@
 import express from "express";
-import { createWorkoutItem, deleteWorkoutItem, editWorkoutItem, getUserTheme, getWorkoutData, getWorkoutItem, setUserTheme, userLogin, userSignup } from "./models";
+import { createWorkoutItem, deleteUser, deleteWorkoutItem, editWorkoutItem, getUserTheme, getWorkoutData, getWorkoutItem, setUserTheme, userLogin, userSignup } from "./models";
 import { PostReq, PostRes, GetRes, UserData, SignupRes, LoginRes, GetReq, GetItemReq, EditReq, EditRes, DeleteReq, DeleteRes, PostThemeReq, GetThemeReq } from "./types/types";
 
 const router = express.Router()
@@ -117,6 +117,29 @@ router.post("/set-theme", async (req: PostThemeReq, res: PostRes) => {
 
     const updatedTheme = await setUserTheme({ username, theme });
     return res.status(200).json(updatedTheme);
+  } catch (error) {
+    return res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.delete("/delete-user/:username", async (req: any, res: any) => {
+  try {
+    const { username } = req.params;
+
+    if (!username) {
+      return res.status(422).json({ error: "Username required" });
+    }
+
+    const deletedUser = await deleteUser(username);
+
+    if (!deletedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    return res.status(200).json({
+      message: "User deleted successfully",
+      user: deletedUser
+    });
   } catch (error) {
     return res.status(500).json({ error: "Internal server error" });
   }

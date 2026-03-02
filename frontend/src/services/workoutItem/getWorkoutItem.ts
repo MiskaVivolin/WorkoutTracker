@@ -9,6 +9,7 @@ const getWorkoutItem = async (itemId: number): Promise<ResponseData> => {
   const response = await fetch(apiUrl, {
     method: 'GET'
   })
+  
   if (!response.ok) throw new Error('Failed to fetch workout item');
   return await response.json();
 }

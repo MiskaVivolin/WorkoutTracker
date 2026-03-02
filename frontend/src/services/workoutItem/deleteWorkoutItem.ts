@@ -1,4 +1,3 @@
-import { SetWorkoutList, ResponseData } from '../../types/workoutItemTypes'
 import { Platform } from 'react-native';
 import { API_BASE_URL } from "../../../config";
 
