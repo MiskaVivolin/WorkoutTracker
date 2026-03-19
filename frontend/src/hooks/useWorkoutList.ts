@@ -23,7 +23,8 @@ const useWorkoutList = (userToken: string, exercise: string) => {
           exercise: item.exercise,
           result: item.result
         }));
-    }
+    },
+    enabled: !!userToken
   });
 };
 

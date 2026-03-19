@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { StyleSheet, Text, View, Dimensions, Platform, } from 'react-native'
 import { FlatList } from 'react-native'
 import { useQueryClient } from '@tanstack/react-query'
@@ -30,8 +30,6 @@ const WorkoutList = ({ setIsEditMode, setWorkoutItem, popupVisible, popupMessage
   const [sortMode, setSortMode] = useState('Newest');
   const { userToken } = useUserToken();
 
-  if (!userToken) return null;
-
   const { data: workoutList = [] } = useWorkoutList(userToken, exercise);
 
 
@@ -62,6 +60,8 @@ const WorkoutList = ({ setIsEditMode, setWorkoutItem, popupVisible, popupMessage
       item.date.toLowerCase().includes(lower)
     );
   }, [sortedWorkoutList, searchText]);
+
+  if (!userToken) return null;
 
   const EmptyList = () => (
     <View style={styles.emptyContainer}>
