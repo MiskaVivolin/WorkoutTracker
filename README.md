@@ -18,7 +18,7 @@ users can start adding their exercise results, by filling the form.
 
 ![addworkoutImg](/frontend/assets/images/addworkout.jpg)
 
-In future updates sorting and searching will be implemented to this page to improve user experience.
+Searching can be used to find specific workouts.
 
 ![workoutlist](/frontend/assets/images/workoutlist.jpg)
 
@@ -36,8 +36,8 @@ Also fully responsive in the browser.
 
 ## Future updates
 
-UI/UX improvements, Searches and sorting for exercises. Charts to visually track progress. More workout customization options.
+UI/UX improvements, Charts to visually track progress. More workout customization options.
 
 ## Tech stack
 
-React Native, TypeScript, Nodejs, Express, PostgreSQL, Jest.
+React Native, TypeScript, React query, Nodejs, Express, PostgreSQL, Jest.

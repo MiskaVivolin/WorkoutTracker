@@ -22,6 +22,7 @@ const ConfirmLogout = ({ navigation, setModalVisible, }: ConfirmModalProps) => {
               title="Yes"
               onPress={async () => {
               await AsyncStorage.removeItem('userInputFields');
+              setModalVisible(false)
               navigation.navigate('LoginScreen')}}
               buttonStyle={{ marginHorizontal: 5, alignItems: 'center', width: 110,backgroundColor: Themes[theme].secondaryButton }}
             />

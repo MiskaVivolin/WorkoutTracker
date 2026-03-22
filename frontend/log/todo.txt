@@ -10,6 +10,7 @@
   // kun lisää uusia tuloksia tämän hetkinen päivä olisi Date fieldissä valmiiksi. Mahdollisuus toggleta tämä pois päältä asetuksista. ehkä myös kalenteri
   // bugi: kun poistaa käyttäjän, appi yrittää autologinia.
   // teemat paremmiksi
+  // kalenteri josta valita päivämäärä
   // tarkista voiko funktioiden typetystä parantaa
   // PopUp käyttö: kun esim lisää tuloksen, menee sivu automaattisesti listaan ja tulee noin 5 sec popup
   // jwt backendille
