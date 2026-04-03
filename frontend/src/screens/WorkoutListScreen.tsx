@@ -15,9 +15,9 @@ const WorkoutListScreen: React.FC<WorkoutListScreenProps> = ({ navigation }) => 
   const [isEditMode, setIsEditMode] = useState(false)
   const [workoutItem, setWorkoutItem] = useState<WorkoutItem>({ id: 0, name: '', date: '', exercise: '', result: '' })
   const { theme } = useTheme();
-  const mobileView = Platform.OS === 'android' || Platform.OS === 'ios';
   const [popupVisible, setPopupVisible] = useState(false);
   const [popupMessage, setPopupMessage] = useState('');
+  const mobileView = Platform.OS === 'android' || Platform.OS === 'ios';
 
   return (
     <View style={[styles.container, { backgroundColor: Themes[theme].background }]}>

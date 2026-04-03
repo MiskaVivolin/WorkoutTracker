@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
     position: 'relative',
     alignSelf: 'flex-start',
     marginHorizontal: Platform.OS === 'android' || Platform.OS === 'ios' ? 0 : 8,
+    marginRight: Platform.OS === 'android' || Platform.OS === 'ios' ? 8 : 0,
     marginBottom: 20,
     zIndex: 100,
     elevation: 6, 

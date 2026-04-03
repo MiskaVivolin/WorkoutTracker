@@ -25,15 +25,15 @@ const Button = ({ title, onPress, buttonStyle, textStyle, disabled }: ButtonProp
 
 const styles = StyleSheet.create({
   button: {
-    height: Platform.OS === 'android' || Platform.OS === 'ios' ? 30 : 35,
+    height: Platform.OS === 'android' || Platform.OS === 'ios' ? 34 : 35,
     width: Platform.OS === 'android' || Platform.OS === 'ios' ? 80 : 80,
-    padding: Platform.OS === 'android' || Platform.OS === 'ios' ? 5 : 8,
+    padding: Platform.OS === 'android' || Platform.OS === 'ios' ? 6 : 8,
     borderRadius: 20, 
     textAlign: 'center',
     fontSize: 16,
   },
   buttonText: {
-    fontSize: Platform.OS === 'android' || Platform.OS === 'ios' ? 13 : 15, 
+    fontSize: Platform.OS === 'android' || Platform.OS === 'ios' ? 15 : 15, 
     fontFamily: 'MerriweatherSans',
     fontWeight: Platform.OS === 'android' || Platform.OS === 'ios' ? '700' : '500',
     alignSelf: 'center', 
