@@ -1,5 +1,5 @@
 import { Platform, StyleSheet, Text, View } from 'react-native'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import Button from '../Button';
 import { Themes } from '../../../assets/styles/Themes';
 import { useTheme } from '../../context/ThemeContext';
@@ -35,11 +35,10 @@ export default DeleteAccount
 
 const styles = StyleSheet.create({
   deleteAccountContainer: {
-    flex: 1,
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 50,
+    marginTop:  50,
   },
   buttonContainer: {
     flexDirection: 'row',

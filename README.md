@@ -18,7 +18,7 @@ users can start adding their exercise results, by filling the form.
 
 ![addworkoutImg](/frontend/assets/images/addworkout.jpg)
 
-Searching can be used to find specific workouts.
+Searching, sorting and workout tabs can be used to find specific workouts.
 
 ![workoutlist](/frontend/assets/images/workoutlist.jpg)
 

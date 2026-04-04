@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { View, TextInput, StyleSheet, Platform } from 'react-native';
 import { Themes } from "../../assets/styles/Themes";
 import { useTheme } from '../context/ThemeContext';
@@ -26,13 +25,15 @@ const SearchBar = ({ value, onChange }: SearchBarProps) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    height: Platform.OS === 'android' || Platform.OS === 'ios' ? 30 : 32,
-    width: 200,
-    paddingVertical: 6,
+    alignItems: 'center',
+    height: 32,
+    width: 220,
     paddingHorizontal: 10,
     borderRadius: 10,
+   
   },
   input: {
+    height: 40,
     marginLeft: 6,
     flex: 1,
     fontSize: 14,
