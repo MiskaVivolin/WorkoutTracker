@@ -50,12 +50,13 @@ const styles = StyleSheet.create({
     position: 'relative',
     alignSelf: 'flex-start',
     marginHorizontal: Platform.OS === 'android' || Platform.OS === 'ios' ? 0 : 8,
+    marginRight: 8,
     marginBottom: 20,
     zIndex: 100,
     elevation: 6, 
   },
   button: {
-    height: Platform.OS === 'android' || Platform.OS === 'ios' ? 30 : 32,
+    height: 32,
     width: 80,
     paddingVertical: 6,
     paddingHorizontal: 15,
@@ -63,6 +64,8 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 14,
+    fontWeight: 500,
+
   },
   dropdown: {
     position: 'absolute',
@@ -80,6 +83,7 @@ const styles = StyleSheet.create({
   },
   dropdownItemText: {
     fontSize: 14,
+    fontWeight: 500,
   },
 });
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Platform } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { NavBarProps } from '../../types/componentProps';
 import { Themes } from '../../../assets/styles/Themes';
 import NavButton from './NavButton';

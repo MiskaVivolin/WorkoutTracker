@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   themeContainer: {
     flex: 1,
     width: '100%',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     marginTop: 50,
   },

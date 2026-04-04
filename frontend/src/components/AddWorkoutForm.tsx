@@ -190,17 +190,15 @@ const styles = StyleSheet.create({
     fontFamily: 'MerriweatherSans',
     fontSize: 13,
     width: Platform.OS === 'android' || Platform.OS === 'ios' ? '100%' : 350,
+    height: 35,
     borderWidth: 1,
     borderRadius: 4,
-    marginBottom: Dimensions.get('window').height < 1000 ? 8 : 12,
+    marginBottom: Platform.OS === 'android' || Platform.OS === 'ios' ? 6 : 12,
     paddingHorizontal: 8,
     ...Platform.select({
       android: {
         paddingBottom: 8,
         lineHeight: 15,
-      },
-      default: {
-        height: 35,
       },
     }),
   },

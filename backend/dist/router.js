@@ -57,6 +57,7 @@ router.post("/create", (req, res) => __awaiter(void 0, void 0, void 0, function*
         return res.status(200).json(newWorkoutData);
     }
     catch (error) {
+        console.error("Error in /create:", error);
         return res.status(500).json({ error: "Internal server error" });
     }
 }));

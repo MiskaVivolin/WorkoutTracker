@@ -16,6 +16,7 @@ router.post("/signup", async (req: UserData, res: SignupRes) => {
       return res.status(201).json({ message: "Signup successful"})
     }
   } catch (error) {
+    console.error("DB SIGNUP ERROR:", error);
     return res.status(500).json({ error: "Internal server error" })
   }
 })
@@ -32,6 +33,7 @@ router.post("/login", async (req: UserData, res: LoginRes) => {
     }
     return res.status(200).json({ token: user })
   } catch (error) {
+    console.error("DB LOGIN ERROR:", error);
     return res.status(500).json({ error: "internal server error" })
   }
 })
@@ -48,6 +50,7 @@ router.post("/create", async (req: PostReq, res: PostRes) => {
     const newWorkoutData = await createWorkoutItem({ username, name, date, exercise, result })
     return res.status(200).json(newWorkoutData)
   } catch (error) {
+    console.error("Error in /create:", error);
     return res.status(500).json({ error: "Internal server error" })
   }
 })
