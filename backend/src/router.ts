@@ -40,14 +40,14 @@ router.post("/login", async (req: UserData, res: LoginRes) => {
 
 router.post("/create", async (req: PostReq, res: PostRes) => {
   try {
-    const { name, date, exercise, result } = req.body.workoutItem
+    const { exercise, date, sets, reps } = req.body.workoutItem
     const { username } = req.body
 
-    if (!username || !name || !date || !exercise || !result) {
+    if (!username || !exercise || !date || !sets || !reps) {
       return res.status(422).json({ error: "Missing required fields" });
     }
     
-    const newWorkoutData = await createWorkoutItem({ username, name, date, exercise, result })
+    const newWorkoutData = await createWorkoutItem({ username, exercise, date, sets, reps })
     return res.status(200).json(newWorkoutData)
   } catch (error) {
     console.error("Error in /create:", error);

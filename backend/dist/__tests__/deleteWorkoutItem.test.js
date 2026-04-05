@@ -25,12 +25,12 @@ globals_1.jest.mock("../db");
         yield db_1.pool.end();
     }));
     const mockResData = {
-        id: 3,
-        name: "John Doe",
-        date: "10.3.2025",
+        id: 1,
         exercise: "Bench Press",
-        result: "80kg x 8",
-        user_id: 1,
+        date: "2025-03-01",
+        sets: 3,
+        reps: 10,
+        user_id: 1
     };
     (0, globals_1.test)("DELETE /delete/:id - should delete a workout item", () => __awaiter(void 0, void 0, void 0, function* () {
         const querySpy = globals_1.jest.spyOn(db_1.pool, "query")

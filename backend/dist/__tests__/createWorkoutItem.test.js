@@ -26,26 +26,25 @@ globals_1.jest.mock("../db");
     }));
     const mockReqData = {
         workoutItem: {
-            name: "John Doe",
-            date: "1.3.2025",
+            date: "2025-03-01",
             exercise: "Bench Press",
-            result: "100kg"
+            sets: 3,
+            reps: 10
         },
         username: "user123",
     };
     const mockResData = {
         id: 1,
-        name: "John Doe",
-        date: "1.3.2025",
         exercise: "Bench Press",
-        result: "80kg x 5",
+        date: "2025-03-01",
+        sets: 3,
+        reps: 10,
         user_id: 1
     };
     const mockFalseReqData = {
         workoutItem: {
-            date: "1.3.2025",
+            date: "2025-03-01",
             exercise: "Bench Press",
-            result: "80kg x 5",
         },
         username: "user123",
     };
