@@ -10,7 +10,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { useQueryClient, useMutation } from '@tanstack/react-query'
-import PopUp from './PopUp'
+import { Stepper } from './Stepper'
 
 
 const WorkoutEditor = ({ workoutItem, setIsEditMode, showPopup }: WorkoutEditorProps) => {
@@ -18,28 +18,28 @@ const WorkoutEditor = ({ workoutItem, setIsEditMode, showPopup }: WorkoutEditorP
   type WorkoutFormData = z.infer<typeof workoutSchema>
   const queryClient = useQueryClient();
   const workoutSchema = z.object({
-    name: z.string().min(1, "Name required"),
-    date: z.string().min(1, "Date required"),
     exercise: z.string().min(1, "Exercise required"),
-    result: z.string().min(1, "Result required")})
+    date: z.string().min(1, "Date required"),
+    sets: z.number().min(1, "Sets required"),
+    reps: z.number().min(1, "Reps required")})
 
   const { theme } = useTheme();
   const { register, handleSubmit, setValue, watch, clearErrors, formState: { errors }, reset } = useForm<WorkoutFormData>({
       resolver: zodResolver(workoutSchema),
       defaultValues: {
-        name: workoutItem.name,
-        date: workoutItem.date,
         exercise: workoutItem.exercise,
-        result: workoutItem.result
+        date: workoutItem.date,
+        sets: workoutItem.sets,
+        reps: workoutItem.reps
       }
   })
 
   useEffect(() => {
     reset({
-      name: workoutItem.name,
-      date: workoutItem.date,
       exercise: workoutItem.exercise,
-      result: workoutItem.result,
+      date: workoutItem.date,
+      sets: workoutItem.sets,
+      reps: workoutItem.reps
     });
   }, [workoutItem, reset]);
 
@@ -80,10 +80,10 @@ const WorkoutEditor = ({ workoutItem, setIsEditMode, showPopup }: WorkoutEditorP
   const onSubmit = async (data: WorkoutFormData) => {
       const updatedWorkoutItem = {
         ...workoutItem,
-        name: data.name,
-        date: data.date,
         exercise: data.exercise,
-        result: data.result
+        date: data.date,
+        sets: data.sets,
+        reps: data.reps
       };
 
     await editWorkout(updatedWorkoutItem);
@@ -104,17 +104,17 @@ const WorkoutEditor = ({ workoutItem, setIsEditMode, showPopup }: WorkoutEditorP
         <Text style={[styles.title, { color: Themes[theme].defaultText }]}>Edit Training Data</Text>
         <View style={styles.inputRow}>
           <View style={styles.columnRow}>
-            <Text style={[styles.label, { color: Themes[theme].defaultText }]}>Name</Text>
+            <Text style={[styles.label, { color: Themes[theme].defaultText }]}>Exercise</Text>
             <TextInput
               style={[styles.inputField, { color: Themes[theme].defaultText, backgroundColor: Themes[theme].inputField, borderColor: Themes[theme].border }]}
-              {...register("name")}
-              onChangeText={name => {
-                setValue("name", name)
-                clearErrors('name')
+              {...register("exercise")}
+              onChangeText={value => {
+                setValue("exercise", value)
+                clearErrors('exercise')
               }}
-              value={watch("name")}
+              value={watch("exercise")}
             />
-            {errors.name && <Text style={[styles.inputFieldError, { color: Themes[theme].errorText }]}>{errors.name.message}</Text>}
+            {errors.exercise && <Text style={[styles.inputFieldError, { color: Themes[theme].errorText }]}>{errors.exercise.message}</Text>}
           </View>
           <View style={styles.columnRow}>
             <Text style={[styles.label, { color: Themes[theme].defaultText }]}>Date</Text>
@@ -132,30 +132,26 @@ const WorkoutEditor = ({ workoutItem, setIsEditMode, showPopup }: WorkoutEditorP
         </View>
         <View style={styles.inputRow}>
           <View style={styles.columnRow}>
-            <Text style={[styles.label, { color: Themes[theme].defaultText }]}>Exercise</Text>
-            <TextInput
-              style={[styles.inputField, { color: Themes[theme].defaultText, backgroundColor: Themes[theme].inputField, borderColor: Themes[theme].border }]}
-              {...register("exercise")}
-              onChangeText={exercise => {
-                setValue("exercise", exercise)
-                clearErrors('exercise')
+            <Text style={[styles.label, { color: Themes[theme].defaultText }]}>Sets</Text>
+            <Stepper
+              value={watch("sets")}
+              onChange={(value) => {
+                setValue("sets", value);
+                clearErrors("sets");
               }}
-              value={watch("exercise")}
             />
-            {errors.exercise && <Text style={[styles.inputFieldError, { color: Themes[theme].errorText }]}>{errors.exercise.message}</Text>}
+            {errors.sets && <Text style={[styles.inputFieldError, { color: Themes[theme].errorText }]}>{errors.sets.message}</Text>}
           </View>
           <View style={styles.columnRow}>
-            <Text style={[styles.label, { color: Themes[theme].defaultText }]}>Result</Text>
-            <TextInput
-              style={[styles.inputField, { color: Themes[theme].defaultText, backgroundColor: Themes[theme].inputField, borderColor: Themes[theme].border }]}
-              {...register("result")}
-              onChangeText={result => {
-                setValue("result", result)
-                clearErrors('result')
+            <Text style={[styles.label, { color: Themes[theme].defaultText }]}>Reps</Text>
+            <Stepper
+              value={watch("reps")}
+              onChange={(value) => {
+                setValue("reps", value);
+                clearErrors("reps");
               }}
-              value={watch("result")}
             />
-            {errors.result && <Text style={[styles.inputFieldError, { color: Themes[theme].errorText }]}>{errors.result.message}</Text>}
+            {errors.reps && <Text style={[styles.inputFieldError, { color: Themes[theme].errorText }]}>{errors.reps.message}</Text>}
           </View>
         </View>
         <View style={styles.buttonContainer}>

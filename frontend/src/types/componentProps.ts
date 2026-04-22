@@ -75,3 +75,10 @@ export interface SearchBarProps {
   value: string;
   onChange: (text: string) => void;
 };
+
+export interface StepperProps {
+  value: number;
+  onChange: (val: number) => void;
+  min?: number;
+  max?: number;
+};

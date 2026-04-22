@@ -1,16 +1,16 @@
 export interface WorkoutItem {
     readonly id: number;
-    name: string;
-    date: string;
     exercise: string;
-    result: string;
+    date: string;
+    sets: number;
+    reps: number;
 }
 
 export interface WorkoutItemFields {
-    name: string;
-    date: string;
     exercise: string;
-    result: string;
+    date: string;
+    sets: number;
+    reps: number;
 }
 
 export interface ResponseData{

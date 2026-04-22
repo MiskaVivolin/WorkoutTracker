@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { Text, TextInput, StyleSheet, Dimensions, Platform, Keyboard, KeyboardAvoidingView, View } from "react-native";
-import { set, useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
+import { Text, TextInput, StyleSheet, Dimensions, Platform, Keyboard, KeyboardAvoidingView } from "react-native";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { z } from "zod";
@@ -12,26 +12,27 @@ import { Themes } from "../../assets/styles/Themes";
 import { useTheme } from "../context/ThemeContext";
 import { WorkoutItem } from "../types/workoutItemTypes";
 import PopUp from "./PopUp";
+import { Stepper } from "./Stepper";
 
 
 const AddWorkoutForm = ({workoutItem, setWorkoutItem}: AddWorkoutFormProps) => {
   
   type WorkoutFormData = z.infer<typeof workoutSchema>
   const workoutSchema = z.object({
-    name: z.string().min(1, "Name required"),
-    date: z.string().min(1, "Date required"),
     exercise: z.string().min(1, "Exercise required"),
-    result: z.string().min(1, "Result required")
+    date: z.string().min(1, "Date required"),
+    sets: z.number().min(1, "Sets required"),
+    reps: z.number().min(1, "Reps required")
   })
   const { theme } = useTheme()
   const { userToken } = useUserToken();
   const { register, handleSubmit, setValue, watch, clearErrors, formState: { errors }, reset } = useForm<WorkoutFormData>({
       resolver: zodResolver(workoutSchema),
       defaultValues: {
-          name: workoutItem.name,
-          date: workoutItem.date,
           exercise: workoutItem.exercise,
-          result: workoutItem.result
+          date: workoutItem.date,
+          sets: workoutItem.sets,
+          reps: workoutItem.reps
       }
   })
   const [keyboardVisible, setKeyboardVisible] = useState(false);
@@ -91,57 +92,55 @@ const AddWorkoutForm = ({workoutItem, setWorkoutItem}: AddWorkoutFormProps) => {
       {!keyboardVisible && (
       <Text style={[styles.title, { color: Themes[theme].defaultText }]}>Add a new exercise result</Text>
       )}          
-      <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Name</Text>
+      <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Exercise</Text>
       <TextInput
         style={[styles.inputField, {color: Themes[theme].defaultText, borderColor: Themes[theme].border, backgroundColor: Themes[theme].inputField}]}
-        {...register("name")}
-        onChangeText={(name) => {
-          setValue("name", name)
-          setWorkoutItem({ ...workoutItem, name })
-          clearErrors('name')
+        {...register("exercise")}
+        onChangeText={(value) => {
+          setValue("exercise", value)
+          setWorkoutItem({ ...workoutItem, exercise: value })
+          clearErrors('exercise')
         }}
-        value={watch("name")}
+        value={watch("exercise")}
         />
-      {errors.name && <Text style={[styles.errorText, {color: Themes[theme].errorText}]}>{errors.name.message}</Text>}
+      {errors.exercise && <Text style={[styles.errorText, {color: Themes[theme].errorText}]}>{errors.exercise.message}</Text>}
 
       <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Date</Text>
       <TextInput
         style={[styles.inputField, {color: Themes[theme].defaultText, borderColor: Themes[theme].border, backgroundColor: Themes[theme].inputField}]}
         {...register("date")}
-        onChangeText={(date) => {
-          setValue("date", date)
-          setWorkoutItem({ ...workoutItem, date })
+        onChangeText={(value) => {
+          setValue("date", value)
+          setWorkoutItem({ ...workoutItem, date: value })
           clearErrors('date')
         }}
         value={watch("date")}
       />
       {errors.date && <Text style={[styles.errorText, {color: Themes[theme].errorText}]}>{errors.date.message}</Text>}
 
-      <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Exercise</Text>
-      <TextInput
-        style={[styles.inputField, {color: Themes[theme].defaultText, borderColor: Themes[theme].border, backgroundColor: Themes[theme].inputField}]}
-        {...register("exercise")}
-        onChangeText={(exercise) => {
-          setValue("exercise", exercise)
-          setWorkoutItem({ ...workoutItem, exercise })
-          clearErrors('exercise')
+      <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Sets</Text>
+      <Stepper
+        value={watch("sets")}
+        onChange={(value) => {
+          setValue("sets", value);
+          setWorkoutItem({ ...workoutItem, sets: value });
+          clearErrors("sets");
         }}
-        value={watch("exercise")}
       />
-      {errors.exercise && <Text style={[styles.errorText, {color: Themes[theme].errorText}]}>{errors.exercise.message}</Text>}
 
-      <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Result</Text>
-      <TextInput
-        style={[styles.inputField, {color: Themes[theme].defaultText, borderColor: Themes[theme].border, backgroundColor: Themes[theme].inputField}]}
-        {...register("result")}
-        onChangeText={(result) => {
-          setValue("result", result)
-          setWorkoutItem({ ...workoutItem, result })
-          clearErrors('result')
+      {errors.sets && <Text>{errors.sets.message}</Text>}
+      {errors.sets && <Text style={[styles.errorText, {color: Themes[theme].errorText}]}>{errors.sets.message}</Text>}
+
+      <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Reps</Text>
+      <Stepper
+        value={watch("reps")}
+        onChange={(value) => {
+          setValue("reps", value);
+          setWorkoutItem({ ...workoutItem, reps: value });
+          clearErrors("reps");
         }}
-        value={watch("result")}
       />
-      {errors.result && <Text style={[styles.errorText, {color: Themes[theme].errorText}]}>{errors.result.message}</Text>}
+      {errors.reps && <Text style={[styles.errorText, {color: Themes[theme].errorText}]}>{errors.reps.message}</Text>}
       <Button
         title={mutation.status === 'pending' ? "Submitting..." : "Add"}
         onPress={handleSubmit(onSubmit)}

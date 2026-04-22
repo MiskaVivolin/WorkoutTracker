@@ -4,7 +4,7 @@ import { FlatList } from 'react-native'
 import { useQueryClient } from '@tanstack/react-query'
 import useWorkoutList from '../hooks/useWorkoutList'
 import { WorkoutListProps } from '../types/componentProps'
-import { ResponseData, WorkoutItem } from '../types/workoutItemTypes'
+import { WorkoutItem } from '../types/workoutItemTypes'
 import getWorkoutItem from '../services/workoutItem/getWorkoutItem'
 import { Themes } from "../../assets/styles/Themes"
 import { useTheme } from '../context/ThemeContext'
@@ -54,10 +54,10 @@ const WorkoutList = ({ setIsEditMode, setWorkoutItem, popupVisible, popupMessage
     const lower = searchText.toLowerCase();
 
     return sortedWorkoutList.filter(item =>
-      item.name.toLowerCase().includes(lower) ||
       item.exercise.toLowerCase().includes(lower) ||
-      item.result.toLowerCase().includes(lower) ||
-      item.date.toLowerCase().includes(lower)
+      item.date.toLowerCase().includes(lower) ||
+      item.sets.toLowerCase().includes(lower) ||
+      item.reps.toLowerCase().includes(lower)
     );
   }, [sortedWorkoutList, searchText]);
 
@@ -101,20 +101,20 @@ const WorkoutList = ({ setIsEditMode, setWorkoutItem, popupVisible, popupMessage
         renderItem={({ item }: {item: WorkoutItem}) =>
         <View style={[styles.listItem, {backgroundColor: Themes[theme].primary}]}>
           <View style={styles.labelContainer}>
-            <Text style={[styles.label, {color: Themes[theme].greyText}]}>Name</Text>
+            <Text style={[styles.label, {color: Themes[theme].greyText}]}>Exercise</Text>
             <Text style={[styles.label, {color: Themes[theme].greyText}]}>Date</Text>
           </View>
           <View style={styles.labelContainer}>
-            <Text style={[styles.labelData, {color: Themes[theme].defaultText}]}>{item.name}</Text>
+            <Text style={[styles.labelData, {color: Themes[theme].defaultText}]}>{item.exercise}</Text>
             <Text style={[styles.labelData, {color: Themes[theme].defaultText}]}>{item.date}</Text>
           </View>
           <View style={styles.labelContainer}>
-            <Text style={[styles.label, {color: Themes[theme].greyText}]}>Exercise</Text>
-            <Text style={[styles.label, {color: Themes[theme].greyText}]}>Result</Text>
+            <Text style={[styles.label, {color: Themes[theme].greyText}]}>Sets</Text>
+            <Text style={[styles.label, {color: Themes[theme].greyText}]}>Reps</Text>
           </View>
           <View style={styles.labelContainer}>
-            <Text style={[styles.labelData, {color: Themes[theme].defaultText}]}>{item.exercise}</Text>
-            <Text style={[styles.labelData, {color: Themes[theme].defaultText}]}>{item.result}</Text>
+            <Text style={[styles.labelData, {color: Themes[theme].defaultText}]}>{item.sets}</Text>
+            <Text style={[styles.labelData, {color: Themes[theme].defaultText}]}>{item.reps}</Text>
           </View>
           <Button
             buttonStyle={{marginTop: 6, marginBottom: 10}}
