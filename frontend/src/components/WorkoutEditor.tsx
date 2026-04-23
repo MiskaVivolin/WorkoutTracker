@@ -10,7 +10,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { useQueryClient, useMutation } from '@tanstack/react-query'
-import { Stepper } from './Stepper'
+import NumberDropdown from './Numberdropdown.tsx'
 
 
 const WorkoutEditor = ({ workoutItem, setIsEditMode, showPopup }: WorkoutEditorProps) => {
@@ -133,9 +133,10 @@ const WorkoutEditor = ({ workoutItem, setIsEditMode, showPopup }: WorkoutEditorP
         <View style={styles.inputRow}>
           <View style={styles.columnRow}>
             <Text style={[styles.label, { color: Themes[theme].defaultText }]}>Sets</Text>
-            <Stepper
+            <NumberDropdown
               value={watch("sets")}
-              onChange={(value) => {
+              options={[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]}
+              onSelect={(value) => {
                 setValue("sets", value);
                 clearErrors("sets");
               }}
@@ -144,9 +145,10 @@ const WorkoutEditor = ({ workoutItem, setIsEditMode, showPopup }: WorkoutEditorP
           </View>
           <View style={styles.columnRow}>
             <Text style={[styles.label, { color: Themes[theme].defaultText }]}>Reps</Text>
-            <Stepper
+            <NumberDropdown
               value={watch("reps")}
-              onChange={(value) => {
+              options={[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]}
+              onSelect={(value) => {
                 setValue("reps", value);
                 clearErrors("reps");
               }}

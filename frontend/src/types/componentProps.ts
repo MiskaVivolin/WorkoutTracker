@@ -76,9 +76,9 @@ export interface SearchBarProps {
   onChange: (text: string) => void;
 };
 
-export interface StepperProps {
+export interface NumberDropdownProps {
   value: number;
-  onChange: (val: number) => void;
-  min?: number;
-  max?: number;
+  onSelect: (value: number) => void;
+  options: number[];
+  placeholder?: string;
 };

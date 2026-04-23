@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { StyleSheet, Text, View, Dimensions, Platform, } from 'react-native'
 import { FlatList } from 'react-native'
 import { useQueryClient } from '@tanstack/react-query'
@@ -44,20 +44,21 @@ const WorkoutList = ({ setIsEditMode, setWorkoutItem, popupVisible, popupMessage
       if (sortMode === 'Oldest') return parseDate(a.date) - parseDate(b.date);
       return 0;
     });
-
+    console.log(sorted)
     return sorted;
   }, [workoutList, sortMode]);
 
   const filteredWorkoutList = useMemo(() => {
-    if (!searchText.trim()) return sortedWorkoutList;
+    if (!searchText.trim()) {
+      return sortedWorkoutList;
+    }
 
     const lower = searchText.toLowerCase();
-
     return sortedWorkoutList.filter(item =>
       item.exercise.toLowerCase().includes(lower) ||
       item.date.toLowerCase().includes(lower) ||
-      item.sets.toLowerCase().includes(lower) ||
-      item.reps.toLowerCase().includes(lower)
+      item.sets.toString().includes(lower) ||
+      item.reps.toString().includes(lower)
     );
   }, [sortedWorkoutList, searchText]);
 

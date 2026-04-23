@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Text, TextInput, StyleSheet, Dimensions, Platform, Keyboard, KeyboardAvoidingView } from "react-native";
+import { Text, TextInput, StyleSheet, Dimensions, Platform, Keyboard, KeyboardAvoidingView, View } from "react-native";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -12,7 +12,7 @@ import { Themes } from "../../assets/styles/Themes";
 import { useTheme } from "../context/ThemeContext";
 import { WorkoutItem } from "../types/workoutItemTypes";
 import PopUp from "./PopUp";
-import { Stepper } from "./Stepper";
+import NumberDropdown from "./Numberdropdown.tsx";
 
 
 const AddWorkoutForm = ({workoutItem, setWorkoutItem}: AddWorkoutFormProps) => {
@@ -118,29 +118,36 @@ const AddWorkoutForm = ({workoutItem, setWorkoutItem}: AddWorkoutFormProps) => {
       />
       {errors.date && <Text style={[styles.errorText, {color: Themes[theme].errorText}]}>{errors.date.message}</Text>}
 
-      <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Sets</Text>
-      <Stepper
-        value={watch("sets")}
-        onChange={(value) => {
-          setValue("sets", value);
-          setWorkoutItem({ ...workoutItem, sets: value });
-          clearErrors("sets");
-        }}
-      />
+      <View style={styles.labelContainer}>
+        <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Sets</Text>
+        <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Reps</Text>
+      </View>
 
-      {errors.sets && <Text>{errors.sets.message}</Text>}
-      {errors.sets && <Text style={[styles.errorText, {color: Themes[theme].errorText}]}>{errors.sets.message}</Text>}
+      <View style={styles.labelContainer}>
+        <NumberDropdown
+          value={watch("sets")}
+          options={[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]}
+          onSelect={(value) => {
+            setValue("sets", value);
+            setWorkoutItem({ ...workoutItem, sets: value });
+            clearErrors("sets");
+          }}
+        />
+        {errors.sets && <Text>{errors.sets.message}</Text>}
+        {errors.sets && <Text style={[styles.errorText, {color: Themes[theme].errorText}]}>{errors.sets.message}</Text>}
 
-      <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Reps</Text>
-      <Stepper
-        value={watch("reps")}
-        onChange={(value) => {
-          setValue("reps", value);
-          setWorkoutItem({ ...workoutItem, reps: value });
-          clearErrors("reps");
-        }}
-      />
-      {errors.reps && <Text style={[styles.errorText, {color: Themes[theme].errorText}]}>{errors.reps.message}</Text>}
+        <NumberDropdown
+          value={watch("reps")}
+          options={[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]}
+          onSelect={(value) => {
+            setValue("reps", value);
+            setWorkoutItem({ ...workoutItem, reps: value });
+            clearErrors("reps");
+          }}
+        />
+        {errors.reps && <Text style={[styles.errorText, {color: Themes[theme].errorText}]}>{errors.reps.message}</Text>}
+      </View>
+
       <Button
         title={mutation.status === 'pending' ? "Submitting..." : "Add"}
         onPress={handleSubmit(onSubmit)}
@@ -178,6 +185,11 @@ const styles = StyleSheet.create({
     fontFamily: 'MerriweatherSans',
     marginBottom: 2,
     marginTop: 12
+  },
+  labelContainer: {
+    width: '90%',
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
   title: {
     fontSize: 22,
