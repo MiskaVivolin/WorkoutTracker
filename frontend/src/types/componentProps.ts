@@ -80,5 +80,5 @@ export interface NumberDropdownProps {
   value: number;
   onSelect: (value: number) => void;
   options: number[];
-  placeholder?: string;
+  customStyle?: string;
 };

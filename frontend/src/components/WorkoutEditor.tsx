@@ -133,25 +133,31 @@ const WorkoutEditor = ({ workoutItem, setIsEditMode, showPopup }: WorkoutEditorP
         <View style={styles.inputRow}>
           <View style={styles.columnRow}>
             <Text style={[styles.label, { color: Themes[theme].defaultText }]}>Sets</Text>
-            <NumberDropdown
-              value={watch("sets")}
-              options={[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]}
-              onSelect={(value) => {
-                setValue("sets", value);
-                clearErrors("sets");
+            <TextInput
+              keyboardType="numeric"
+              style={[styles.inputField, {color: Themes[theme].defaultText, borderColor: Themes[theme].border, backgroundColor: Themes[theme].inputField, width: 100}]}
+              {...register("sets")}
+              onChangeText={(value) => {
+                const numericValue = value.replace(/[^0-9]/g, "");
+                setValue("sets", numericValue === "" ? 0 : Number(numericValue));
+                clearErrors('sets')
               }}
+              value={watch("sets")?.toString()}
             />
             {errors.sets && <Text style={[styles.inputFieldError, { color: Themes[theme].errorText }]}>{errors.sets.message}</Text>}
           </View>
           <View style={styles.columnRow}>
             <Text style={[styles.label, { color: Themes[theme].defaultText }]}>Reps</Text>
-            <NumberDropdown
-              value={watch("reps")}
-              options={[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]}
-              onSelect={(value) => {
-                setValue("reps", value);
-                clearErrors("reps");
+            <TextInput
+              keyboardType="numeric"
+              style={[styles.inputField, {color: Themes[theme].defaultText, borderColor: Themes[theme].border, backgroundColor: Themes[theme].inputField, width: 100}]}
+              {...register("reps")}
+              onChangeText={(value) => {
+                const numericValue = value.replace(/[^0-9]/g, "");
+                setValue("reps", numericValue === "" ? 0 : Number(numericValue));
+                clearErrors('reps');
               }}
+              value={watch("reps")?.toString()}
             />
             {errors.reps && <Text style={[styles.inputFieldError, { color: Themes[theme].errorText }]}>{errors.reps.message}</Text>}
           </View>
