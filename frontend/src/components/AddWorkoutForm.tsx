@@ -19,7 +19,7 @@ const AddWorkoutForm = ({workoutItem, setWorkoutItem}: AddWorkoutFormProps) => {
   type WorkoutFormData = z.infer<typeof workoutSchema>
   const workoutSchema = z.object({
     exercise: z.string().min(1, "Exercise required"),
-    date: z.string().min(1, "Date required"),
+    date: z.number().min(1, "Date required"),
     sets: z.number().min(1, "Sets required"),
     reps: z.number().min(1, "Reps required")
   })
@@ -110,11 +110,11 @@ const AddWorkoutForm = ({workoutItem, setWorkoutItem}: AddWorkoutFormProps) => {
         {...register("date")}
         onChangeText={(value) => {
           const numericValue = value.replace(/[^0-9]/g, "");
-          setValue("sets", numericValue === "" ? 0 : Number(numericValue));
-          setWorkoutItem({ ...workoutItem, sets: Number(numericValue) });
+          setValue("date", numericValue === "" ? 0 : Number(numericValue));
+          setWorkoutItem({ ...workoutItem, date: Number(numericValue) });
           clearErrors('date')
         }}
-        value={watch("date")}
+        value={watch("date").toString()}
       />
       {errors.date && <Text style={[styles.errorText, {color: Themes[theme].errorText}]}>{errors.date.message}</Text>}
 
