@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { Text, TextInput, StyleSheet, Dimensions, Platform, Keyboard, KeyboardAvoidingView, View } from "react-native";
+import { View, Text, TextInput, StyleSheet, Pressable, Dimensions, Platform, Keyboard, KeyboardAvoidingView } from "react-native";
+import DateTimePicker from '@react-native-community/datetimepicker';
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -13,13 +14,14 @@ import { useTheme } from "../context/ThemeContext";
 import { WorkoutItem } from "../types/workoutItemTypes";
 import PopUp from "./PopUp";
 
+// kalenteri ongelma löytyi: DateTimePicker ei toimi webissä. etsi toinen 
 
 const AddWorkoutForm = ({workoutItem, setWorkoutItem}: AddWorkoutFormProps) => {
   
   type WorkoutFormData = z.infer<typeof workoutSchema>
   const workoutSchema = z.object({
     exercise: z.string().min(1, "Exercise required"),
-    date: z.number().min(1, "Date required"),
+    date: z.date(),
     sets: z.number().min(1, "Sets required"),
     reps: z.number().min(1, "Reps required")
   })
@@ -29,13 +31,14 @@ const AddWorkoutForm = ({workoutItem, setWorkoutItem}: AddWorkoutFormProps) => {
       resolver: zodResolver(workoutSchema),
       defaultValues: {
           exercise: workoutItem.exercise,
-          date: workoutItem.date,
+          date: workoutItem.date || new Date(),
           sets: workoutItem.sets,
           reps: workoutItem.reps
       }
   })
   const [keyboardVisible, setKeyboardVisible] = useState(false);
   const queryClient = useQueryClient();
+  const [showDatePicker, setShowDatePicker] = useState(false);
   const [popupVisible, setPopupVisible] = useState(false);
   const [popupMessage, setPopupMessage] = useState('');
 
@@ -56,7 +59,7 @@ const AddWorkoutForm = ({workoutItem, setWorkoutItem}: AddWorkoutFormProps) => {
 
   const mutation = useMutation({
     mutationFn: async ({ workoutItem, username }: { workoutItem: WorkoutItem; username: string }) => {
-      return await createWorkoutItem(workoutItem, username);
+      return await createWorkoutItem(workoutItem, username);    
     },
     onSuccess: () => {
       reset();
@@ -104,20 +107,41 @@ const AddWorkoutForm = ({workoutItem, setWorkoutItem}: AddWorkoutFormProps) => {
         />
       {errors.exercise && <Text style={[styles.errorText, {color: Themes[theme].errorText}]}>{errors.exercise.message}</Text>}
 
-      <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Date</Text>
-      <TextInput
-        style={[styles.inputField, {color: Themes[theme].defaultText, borderColor: Themes[theme].border, backgroundColor: Themes[theme].inputField}]}
-        {...register("date")}
-        onChangeText={(value) => {
-          const numericValue = value.replace(/[^0-9]/g, "");
-          setValue("date", numericValue === "" ? 0 : Number(numericValue));
-          setWorkoutItem({ ...workoutItem, date: Number(numericValue) });
-          clearErrors('date')
-        }}
-        value={watch("date").toString()}
-      />
-      {errors.date && <Text style={[styles.errorText, {color: Themes[theme].errorText}]}>{errors.date.message}</Text>}
 
+      <Pressable onPress={() => { 
+        setShowDatePicker(true)
+        console.log("pressed")
+        }}>
+        <Text style={styles.inputField}>
+          {watch("date")
+            ? watch("date").toISOString().split("T")[0]
+            : "Select date"}
+        </Text>
+      </Pressable>
+      {showDatePicker && (
+        <DateTimePicker
+          value={watch("date") || new Date()}
+          mode="date"
+          display="calendar"
+          onChange={(event, selectedDate) => {
+            setShowDatePicker(false);
+
+            if (selectedDate) {
+              setValue("date", selectedDate);
+
+              setWorkoutItem({
+                ...workoutItem,
+                date: selectedDate
+              });
+
+              clearErrors("date");
+            }
+          }}
+        />
+      )}
+
+
+      {errors.date && <Text style={[styles.errorText, {color: Themes[theme].errorText}]}>{errors.date.message}</Text>}
 
       <View style={styles.labelContainer}>
 

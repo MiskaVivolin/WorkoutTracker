@@ -1,14 +1,14 @@
 export interface WorkoutItem {
     readonly id: number;
     exercise: string;
-    date: string;
+    date: Date;
     sets: number;
     reps: number;
 }
 
 export interface WorkoutItemFields {
     exercise: string;
-    date: string;
+    date: Date;
     sets: number;
     reps: number;
 }
