@@ -19,7 +19,7 @@ describe("API Routes", () => {
         id: 1,
         exercise: "Bench Press",
         date: "2025-03-01",
-        sets: 3,
+        weight: 3,
         reps: 10,
         user_id: 1
     };

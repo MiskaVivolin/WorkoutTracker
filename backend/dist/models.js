@@ -51,15 +51,15 @@ const userLogin = (username, password) => __awaiter(void 0, void 0, void 0, func
     }
 });
 exports.userLogin = userLogin;
-const createWorkoutItem = (_a) => __awaiter(void 0, [_a], void 0, function* ({ username, date, exercise, sets, reps }) {
+const createWorkoutItem = (_a) => __awaiter(void 0, [_a], void 0, function* ({ username, date, exercise, weight, reps }) {
     try {
         const userRes = yield db_1.pool.query(`SELECT id 
       FROM users 
       WHERE username = $1`, [username]);
         const user_id = userRes.rows[0].id;
-        const res = yield db_1.pool.query(`INSERT INTO user_records (exercise, date, sets, reps, user_id) 
+        const res = yield db_1.pool.query(`INSERT INTO user_records (exercise, date, weight, reps, user_id) 
        VALUES ($1, $2, $3, $4, $5) 
-       RETURNING *`, [exercise, date, sets, reps, user_id]);
+       RETURNING *`, [exercise, date, weight, reps, user_id]);
         return res.rows[0];
     }
     catch (error) {
@@ -93,11 +93,11 @@ const getWorkoutItem = (itemId) => __awaiter(void 0, void 0, void 0, function* (
 exports.getWorkoutItem = getWorkoutItem;
 const editWorkoutItem = (workoutData) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { exercise, date, sets, reps, id } = workoutData;
+        const { exercise, date, weight, reps, id } = workoutData;
         const res = yield db_1.pool.query(`UPDATE user_records 
-      SET exercise = $1, date = $2, sets = $3, reps = $4 
+      SET exercise = $1, date = $2, weight = $3, reps = $4 
       WHERE id = $5
-      RETURNING *`, [exercise, date, sets, reps, id]);
+      RETURNING *`, [exercise, date, weight, reps, id]);
         return res.rows;
     }
     catch (error) {

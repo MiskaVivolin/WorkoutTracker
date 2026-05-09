@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS user_records (
     id SERIAL PRIMARY KEY,
     exercise TEXT NOT NULL,
     date DATE NOT NULL,
-    sets INTEGER NOT NULL,
+    weight INTEGER NOT NULL,
     reps INTEGER NOT NULL,
     user_id INTEGER NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE

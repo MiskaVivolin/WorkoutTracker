@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { UserTokenProvider } from './src/context/UserTokenContext';
 import { ThemeProvider } from './src/context/ThemeContext';
+import { Provider as PaperProvider } from 'react-native-paper';
 import * as SplashScreen from 'expo-splash-screen'
 import * as Font from 'expo-font'
 import AppContent from './src/app/AppContent';
@@ -40,7 +41,9 @@ export default function App() {
       <QueryClientProvider client={queryClient}>
         <ThemeProvider>
           <UserTokenProvider>
-            <AppContent/>
+            <PaperProvider>
+              <AppContent/>
+            </PaperProvider>
           </UserTokenProvider>
         </ThemeProvider>
       </QueryClientProvider>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { View, Text, TextInput, StyleSheet, Pressable, Dimensions, Platform, Keyboard, KeyboardAvoidingView } from "react-native";
-import DateTimePicker from '@react-native-community/datetimepicker';
+import { DatePickerModal } from 'react-native-paper-dates';
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -14,7 +14,6 @@ import { useTheme } from "../context/ThemeContext";
 import { WorkoutItem } from "../types/workoutItemTypes";
 import PopUp from "./PopUp";
 
-// kalenteri ongelma löytyi: DateTimePicker ei toimi webissä. etsi toinen 
 
 const AddWorkoutForm = ({workoutItem, setWorkoutItem}: AddWorkoutFormProps) => {
   
@@ -22,7 +21,7 @@ const AddWorkoutForm = ({workoutItem, setWorkoutItem}: AddWorkoutFormProps) => {
   const workoutSchema = z.object({
     exercise: z.string().min(1, "Exercise required"),
     date: z.date(),
-    sets: z.number().min(1, "Sets required"),
+    weight: z.number().min(1, "Weight required"),
     reps: z.number().min(1, "Reps required")
   })
   const { theme } = useTheme()
@@ -32,13 +31,13 @@ const AddWorkoutForm = ({workoutItem, setWorkoutItem}: AddWorkoutFormProps) => {
       defaultValues: {
           exercise: workoutItem.exercise,
           date: workoutItem.date || new Date(),
-          sets: workoutItem.sets,
+          weight: workoutItem.weight,
           reps: workoutItem.reps
       }
   })
   const [keyboardVisible, setKeyboardVisible] = useState(false);
   const queryClient = useQueryClient();
-  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [open, setOpen] = useState(false);
   const [popupVisible, setPopupVisible] = useState(false);
   const [popupMessage, setPopupMessage] = useState('');
 
@@ -108,37 +107,34 @@ const AddWorkoutForm = ({workoutItem, setWorkoutItem}: AddWorkoutFormProps) => {
       {errors.exercise && <Text style={[styles.errorText, {color: Themes[theme].errorText}]}>{errors.exercise.message}</Text>}
 
 
-      <Pressable onPress={() => { 
-        setShowDatePicker(true)
-        console.log("pressed")
-        }}>
+      <Pressable onPress={() => setOpen(true)}>
         <Text style={styles.inputField}>
           {watch("date")
             ? watch("date").toISOString().split("T")[0]
             : "Select date"}
         </Text>
       </Pressable>
-      {showDatePicker && (
-        <DateTimePicker
-          value={watch("date") || new Date()}
-          mode="date"
-          display="calendar"
-          onChange={(event, selectedDate) => {
-            setShowDatePicker(false);
+      <DatePickerModal
+        locale="en"
+        mode="single"
+        visible={open}
+        onDismiss={() => setOpen(false)}
+        date={watch("date")}
+        onConfirm={({ date }) => {
+          setOpen(false);
 
-            if (selectedDate) {
-              setValue("date", selectedDate);
+          if (date) {
+            setValue("date", date);
 
-              setWorkoutItem({
-                ...workoutItem,
-                date: selectedDate
-              });
+            setWorkoutItem({
+              ...workoutItem,
+              date,
+            });
 
-              clearErrors("date");
-            }
-          }}
-        />
-      )}
+            clearErrors("date");
+          }
+        }}
+      />
 
 
       {errors.date && <Text style={[styles.errorText, {color: Themes[theme].errorText}]}>{errors.date.message}</Text>}
@@ -146,20 +142,20 @@ const AddWorkoutForm = ({workoutItem, setWorkoutItem}: AddWorkoutFormProps) => {
       <View style={styles.labelContainer}>
 
         <View style={styles.columnRow}>
-          <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Sets</Text>
+          <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Weight</Text>
           <TextInput
             keyboardType="numeric"
             style={[styles.inputField, {color: Themes[theme].defaultText, borderColor: Themes[theme].border, backgroundColor: Themes[theme].inputField, width: 100}]}
-            {...register("sets")}
+            {...register("weight")}
             onChangeText={(value) => {
               const numericValue = value.replace(/[^0-9]/g, "");
-              setValue("sets", numericValue === "" ? 0 : Number(numericValue));
-              setWorkoutItem({ ...workoutItem, sets: Number(numericValue) });
-              clearErrors('sets')
+              setValue("weight", numericValue === "" ? 0 : Number(numericValue));
+              setWorkoutItem({ ...workoutItem, weight: Number(numericValue) });
+              clearErrors('weight')
             }}
-            value={watch("sets")?.toString()}
+            value={watch("weight")?.toString()}
           />
-          {errors.sets && <Text style={[styles.errorText, {color: Themes[theme].errorText}]}>{errors.sets.message}</Text>}
+          {errors.weight && <Text style={[styles.errorText, {color: Themes[theme].errorText}]}>{errors.weight.message}</Text>}
         </View>
         
         <View style={styles.columnRow}>

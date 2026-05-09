@@ -2,7 +2,7 @@ export interface WorkoutData {
     id: number;
     exercise: string;
     date: string;
-    sets: number;
+    weight: number;
     reps: number;
     user_id: number;
 }
@@ -11,7 +11,7 @@ export interface CreateWorkoutData {
     username: string;
     exercise: string;
     date: string;
-    sets: number;
+    weight: number;
     reps: number;
 }
 

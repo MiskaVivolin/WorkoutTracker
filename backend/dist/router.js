@@ -50,12 +50,12 @@ router.post("/login", (req, res) => __awaiter(void 0, void 0, void 0, function* 
 }));
 router.post("/create", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { exercise, date, sets, reps } = req.body.workoutItem;
+        const { exercise, date, weight, reps } = req.body.workoutItem;
         const { username } = req.body;
-        if (!username || !exercise || !date || !sets || !reps) {
+        if (!username || !exercise || !date || !weight || !reps) {
             return res.status(422).json({ error: "Missing required fields" });
         }
-        const newWorkoutData = yield (0, models_1.createWorkoutItem)({ username, exercise, date, sets, reps });
+        const newWorkoutData = yield (0, models_1.createWorkoutItem)({ username, exercise, date, weight, reps });
         return res.status(200).json(newWorkoutData);
     }
     catch (error) {

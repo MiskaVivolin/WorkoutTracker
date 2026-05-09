@@ -20,7 +20,7 @@ const useWorkoutList = (userToken: string, exercise: string) => {
           id: item.id,
           exercise: item.exercise,
           date: item.date,
-          sets: item.sets,
+          weight: item.weight,
           reps: item.reps
         }));
     },

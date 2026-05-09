@@ -28,7 +28,7 @@ globals_1.jest.mock("../db");
         id: 3,
         exercise: "Bench Press",
         date: "2025-03-10",
-        sets: 3,
+        weight: 3,
         reps: 8,
         user_id: 1,
     };

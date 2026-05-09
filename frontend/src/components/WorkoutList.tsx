@@ -16,6 +16,7 @@ import SearchBar from './SearchBar';
 import { useUserToken } from '../context/UserTokenContext'
 import PopUp from './PopUp'
 
+// jatka täältä
 
 const WorkoutList = ({ setIsEditMode, setWorkoutItem, popupVisible, popupMessage }: WorkoutListProps) => {
   
@@ -57,7 +58,7 @@ const WorkoutList = ({ setIsEditMode, setWorkoutItem, popupVisible, popupMessage
     return sortedWorkoutList.filter(item =>
       item.exercise.toLowerCase().includes(lower) ||
       item.date.toLowerCase().includes(lower) ||
-      item.sets.toString().includes(lower) ||
+      item.weight.toString().includes(lower) ||
       item.reps.toString().includes(lower)
     );
   }, [sortedWorkoutList, searchText]);
@@ -110,11 +111,11 @@ const WorkoutList = ({ setIsEditMode, setWorkoutItem, popupVisible, popupMessage
             <Text style={[styles.labelData, {color: Themes[theme].defaultText}]}>{item.date}</Text>
           </View>
           <View style={styles.labelContainer}>
-            <Text style={[styles.label, {color: Themes[theme].greyText}]}>Sets</Text>
+            <Text style={[styles.label, {color: Themes[theme].greyText}]}>Weight</Text>
             <Text style={[styles.label, {color: Themes[theme].greyText}]}>Reps</Text>
           </View>
           <View style={styles.labelContainer}>
-            <Text style={[styles.labelData, {color: Themes[theme].defaultText}]}>{item.sets}</Text>
+            <Text style={[styles.labelData, {color: Themes[theme].defaultText}]}>{item.weight}</Text>
             <Text style={[styles.labelData, {color: Themes[theme].defaultText}]}>{item.reps}</Text>
           </View>
           <Button

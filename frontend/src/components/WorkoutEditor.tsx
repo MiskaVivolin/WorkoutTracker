@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { StyleSheet, Text, View, TextInput, Dimensions, Platform, } from 'react-native'
+import { useEffect, useState } from 'react'
+import { StyleSheet, Text, View, TextInput, Dimensions, Platform, Pressable, } from 'react-native'
 import { WorkoutEditorProps } from '../types/componentProps'
 import deleteWorkoutItem from '../services/workoutItem/deleteWorkoutItem'
 import editWorkoutItem from '../services/workoutItem/editWorkoutItem'
@@ -10,7 +10,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { useQueryClient, useMutation } from '@tanstack/react-query'
-import NumberDropdown from './Numberdropdown.tsx'
+import { DatePickerModal } from 'react-native-paper-dates'
 
 
 const WorkoutEditor = ({ workoutItem, setIsEditMode, showPopup }: WorkoutEditorProps) => {
@@ -19,26 +19,27 @@ const WorkoutEditor = ({ workoutItem, setIsEditMode, showPopup }: WorkoutEditorP
   const queryClient = useQueryClient();
   const workoutSchema = z.object({
     exercise: z.string().min(1, "Exercise required"),
-    date: z.string().min(1, "Date required"),
-    sets: z.number().min(1, "Sets required"),
+    date: z.date(),
+    weight: z.number().min(1, "weight required"),
     reps: z.number().min(1, "Reps required")})
-
   const { theme } = useTheme();
   const { register, handleSubmit, setValue, watch, clearErrors, formState: { errors }, reset } = useForm<WorkoutFormData>({
       resolver: zodResolver(workoutSchema),
       defaultValues: {
         exercise: workoutItem.exercise,
         date: workoutItem.date,
-        sets: workoutItem.sets,
+        weight: workoutItem.weight,
         reps: workoutItem.reps
       }
   })
+  const [open, setOpen] = useState(false);
+  
 
   useEffect(() => {
     reset({
       exercise: workoutItem.exercise,
       date: workoutItem.date,
-      sets: workoutItem.sets,
+      weight: workoutItem.weight,
       reps: workoutItem.reps
     });
   }, [workoutItem, reset]);
@@ -82,7 +83,7 @@ const WorkoutEditor = ({ workoutItem, setIsEditMode, showPopup }: WorkoutEditorP
         ...workoutItem,
         exercise: data.exercise,
         date: data.date,
-        sets: data.sets,
+        weight: data.weight,
         reps: data.reps
       };
 
@@ -118,33 +119,47 @@ const WorkoutEditor = ({ workoutItem, setIsEditMode, showPopup }: WorkoutEditorP
           </View>
           <View style={styles.columnRow}>
             <Text style={[styles.label, { color: Themes[theme].defaultText }]}>Date</Text>
-            <TextInput
-              style={[styles.inputField, { color: Themes[theme].defaultText, backgroundColor: Themes[theme].inputField, borderColor: Themes[theme].border }]}
-              {...register("date")}
-              onChangeText={date => {
-                setValue("date", date)
-                clearErrors('date')
-              }}
-              value={watch("date")}
-            />
+      <Pressable onPress={() => setOpen(true)}>
+        <Text style={styles.inputField}>
+          {watch("date")
+            ? watch("date").toISOString().split("T")[0]
+            : "Select date"}
+        </Text>
+      </Pressable>
+      <DatePickerModal
+        locale="en"
+        mode="single"
+        visible={open}
+        onDismiss={() => setOpen(false)}
+        date={watch("date")}
+        onConfirm={({ date }) => {
+          setOpen(false);
+
+          if (date) {
+            setValue("date", date);
+
+            clearErrors("date");
+          }
+        }}
+      />
             {errors.date && <Text style={[styles.inputFieldError, { color: Themes[theme].errorText }]}>{errors.date.message}</Text>}
           </View>
         </View>
         <View style={styles.inputRow}>
           <View style={styles.columnRow}>
-            <Text style={[styles.label, { color: Themes[theme].defaultText }]}>Sets</Text>
+            <Text style={[styles.label, { color: Themes[theme].defaultText }]}>weight</Text>
             <TextInput
               keyboardType="numeric"
               style={[styles.inputField, {color: Themes[theme].defaultText, borderColor: Themes[theme].border, backgroundColor: Themes[theme].inputField, width: 100}]}
-              {...register("sets")}
+              {...register("weight")}
               onChangeText={(value) => {
                 const numericValue = value.replace(/[^0-9]/g, "");
-                setValue("sets", numericValue === "" ? 0 : Number(numericValue));
-                clearErrors('sets')
+                setValue("weight", numericValue === "" ? 0 : Number(numericValue));
+                clearErrors('weight')
               }}
-              value={watch("sets")?.toString()}
+              value={watch("weight")?.toString()}
             />
-            {errors.sets && <Text style={[styles.inputFieldError, { color: Themes[theme].errorText }]}>{errors.sets.message}</Text>}
+            {errors.weight && <Text style={[styles.inputFieldError, { color: Themes[theme].errorText }]}>{errors.weight.message}</Text>}
           </View>
           <View style={styles.columnRow}>
             <Text style={[styles.label, { color: Themes[theme].defaultText }]}>Reps</Text>

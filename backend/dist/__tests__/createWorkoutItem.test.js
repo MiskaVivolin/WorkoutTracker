@@ -28,7 +28,7 @@ globals_1.jest.mock("../db");
         workoutItem: {
             date: "2025-03-01",
             exercise: "Bench Press",
-            sets: 3,
+            weight: 3,
             reps: 10
         },
         username: "user123",
@@ -37,7 +37,7 @@ globals_1.jest.mock("../db");
         id: 1,
         exercise: "Bench Press",
         date: "2025-03-01",
-        sets: 3,
+        weight: 3,
         reps: 10,
         user_id: 1
     };
