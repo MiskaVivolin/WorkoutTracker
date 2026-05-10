@@ -108,7 +108,7 @@ const WorkoutList = ({ setIsEditMode, setWorkoutItem, popupVisible, popupMessage
           </View>
           <View style={styles.labelContainer}>
             <Text style={[styles.labelData, {color: Themes[theme].defaultText}]}>{item.exercise}</Text>
-            <Text style={[styles.labelData, {color: Themes[theme].defaultText}]}>{item.date}</Text>
+            <Text style={[styles.labelData, {color: Themes[theme].defaultText}]}>{new Date(item.date).toLocaleDateString()}</Text>
           </View>
           <View style={styles.labelContainer}>
             <Text style={[styles.label, {color: Themes[theme].greyText}]}>Weight</Text>
@@ -128,7 +128,10 @@ const WorkoutList = ({ setIsEditMode, setWorkoutItem, popupVisible, popupMessage
                   queryFn: () => getWorkoutItem(item.id)
                 });
 
-                setWorkoutItem(workoutItem);
+                setWorkoutItem({
+                  ...workoutItem,
+                  date: new Date(workoutItem.date)
+                });
                 setIsEditMode(true);
               } catch (err) {
                 console.error('Error fetching workout item:', err);

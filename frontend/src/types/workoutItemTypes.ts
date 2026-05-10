@@ -15,7 +15,7 @@ export interface WorkoutItemFields {
 
 export interface ResponseData{
     message: string;
-    json: WorkoutItem[];
+    json: WorkoutItem;
 }
 
 export type SetWorkoutList = React.Dispatch<React.SetStateAction<WorkoutItem[]>>;
