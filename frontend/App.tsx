@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { UserTokenProvider } from './src/context/UserTokenContext';
-import { ThemeProvider } from './src/context/ThemeContext';
-import { Provider as PaperProvider } from 'react-native-paper';
+import { ThemeProvider, useTheme } from './src/context/ThemeContext';
+import { Provider as PaperProvider, MD3LightTheme  } from 'react-native-paper';
+import { Themes } from "../../assets/styles/Themes";
 import * as SplashScreen from 'expo-splash-screen'
 import * as Font from 'expo-font'
 import AppContent from './src/app/AppContent';
@@ -10,9 +11,21 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 export default function App() {
   
+  // jatka täältä
+
   const [appIsReady, setAppIsReady] = useState(false);
-  
+  const { theme } = useTheme();
   const queryClient = new QueryClient();
+
+  const paperTheme = {
+  ...MD3LightTheme,
+  colors: {
+    primary: ,
+    surface: '#1E1E1E',
+    onSurface: '#FFFFFF',
+    background: '#2c2c2c',
+  },
+};
   
   useEffect(() => {
     async function prepare() {
@@ -41,7 +54,7 @@ export default function App() {
       <QueryClientProvider client={queryClient}>
         <ThemeProvider>
           <UserTokenProvider>
-            <PaperProvider>
+            <PaperProvider theme={paperTheme}>
               <AppContent/>
             </PaperProvider>
           </UserTokenProvider>

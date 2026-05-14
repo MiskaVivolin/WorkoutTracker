@@ -17,23 +17,23 @@ import PopUp from "./PopUp";
 
 const AddWorkoutForm = ({workoutItem, setWorkoutItem}: AddWorkoutFormProps) => {
   
-  type WorkoutFormData = z.infer<typeof workoutSchema>
   const workoutSchema = z.object({
     exercise: z.string().min(1, "Exercise required"),
     date: z.date(),
-    weight: z.number().min(1, "Weight required"),
-    reps: z.number().min(1, "Reps required")
+    weight: z.coerce.number().min(1, "Weight required"),
+    reps: z.coerce.number().min(1, "Reps required")
   })
   const { theme } = useTheme()
   const { userToken } = useUserToken();
-  const { register, handleSubmit, setValue, watch, clearErrors, formState: { errors }, reset } = useForm<WorkoutFormData>({
-      resolver: zodResolver(workoutSchema),
-      defaultValues: {
-          exercise: workoutItem.exercise,
-          date: workoutItem.date || new Date(),
-          weight: workoutItem.weight,
-          reps: workoutItem.reps
-      }
+  const { register, handleSubmit, setValue, watch, clearErrors, formState: { errors }, reset } = useForm<z.input<typeof workoutSchema>,any,z.output<typeof workoutSchema>>
+  ({
+    resolver: zodResolver(workoutSchema),
+    defaultValues: {
+      exercise: workoutItem.exercise,
+      date: workoutItem.date || new Date(),
+      weight: workoutItem.weight,
+      reps: workoutItem.reps
+    }
   })
   const [keyboardVisible, setKeyboardVisible] = useState(false);
   const queryClient = useQueryClient();
@@ -106,9 +106,11 @@ const AddWorkoutForm = ({workoutItem, setWorkoutItem}: AddWorkoutFormProps) => {
         />
       {errors.exercise && <Text style={[styles.errorText, {color: Themes[theme].errorText}]}>{errors.exercise.message}</Text>}
 
-
-      <Pressable onPress={() => setOpen(true)}>
-        <Text style={styles.inputField}>
+      <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Date</Text>
+      <Pressable 
+        onPress={() => setOpen(true)}
+        style={styles.inputField}>
+        <Text style={[styles.label, {color: Themes[theme].defaultText}]}>
           {watch("date")
             ? watch("date").toISOString().split("T")[0]
             : "Select date"}

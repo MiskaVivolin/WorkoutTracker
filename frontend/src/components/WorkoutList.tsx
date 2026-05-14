@@ -16,7 +16,6 @@ import SearchBar from './SearchBar';
 import { useUserToken } from '../context/UserTokenContext'
 import PopUp from './PopUp'
 
-// jatka täältä
 
 const WorkoutList = ({ setIsEditMode, setWorkoutItem, popupVisible, popupMessage }: WorkoutListProps) => {
   

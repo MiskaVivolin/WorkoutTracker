@@ -119,8 +119,10 @@ const WorkoutEditor = ({ workoutItem, setIsEditMode, showPopup }: WorkoutEditorP
           </View>
           <View style={styles.columnRow}>
             <Text style={[styles.label, { color: Themes[theme].defaultText }]}>Date</Text>
-      <Pressable onPress={() => setOpen(true)}>
-        <Text style={styles.inputField}>
+      <Pressable 
+        style={styles.inputField}
+        onPress={() => setOpen(true)}>
+        <Text style={[styles.label, { color: Themes[theme].defaultText }]}>
           {watch("date")
             ? watch("date").toISOString().split("T")[0]
             : "Select date"}
