@@ -51,10 +51,13 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     ...MD3LightTheme,
     colors: {
       ...MD3LightTheme.colors,
-      primary: Themes[theme].primary,
-      surface: Themes[theme].background,
+      primary: Themes[theme].secondary,
+      surface: Themes[theme].primary,
       onSurface: Themes[theme].defaultText,
-      background: Themes[theme].background,
+      background: Themes[theme].primary,
+      onSurfaceVariant: Themes[theme].defaultText,
+      surfaceVariant: Themes[theme].errorText,
+      backdrop: 'rgba(255, 255, 255, 0.0)',
     },
   };
 

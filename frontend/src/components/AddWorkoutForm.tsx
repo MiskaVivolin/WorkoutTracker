@@ -93,9 +93,9 @@ const AddWorkoutForm = ({workoutItem, setWorkoutItem}: AddWorkoutFormProps) => {
       {!keyboardVisible && (
       <Text style={[styles.title, { color: Themes[theme].defaultText }]}>Add a new exercise result</Text>
       )}          
-      <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Exercise</Text>
+      <Text style={[styles.label, { color: Themes[theme].defaultText }]}>Exercise</Text>
       <TextInput
-        style={[styles.inputField, {color: Themes[theme].defaultText, borderColor: Themes[theme].border, backgroundColor: Themes[theme].inputField}]}
+        style={[styles.inputField, { color: Themes[theme].defaultText, borderColor: Themes[theme].border, backgroundColor: Themes[theme].inputField }]}
         {...register("exercise")}
         onChangeText={(value) => {
           setValue("exercise", value)
@@ -104,13 +104,13 @@ const AddWorkoutForm = ({workoutItem, setWorkoutItem}: AddWorkoutFormProps) => {
         }}
         value={watch("exercise")}
         />
-      {errors.exercise && <Text style={[styles.errorText, {color: Themes[theme].errorText}]}>{errors.exercise.message}</Text>}
+      {errors.exercise && <Text style={[ styles.errorText, {color: Themes[theme].errorText }]}>{errors.exercise.message}</Text>}
 
-      <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Date</Text>
+      <Text style={[styles.label, { color: Themes[theme].defaultText }]}>Date</Text>
       <Pressable 
         onPress={() => setOpen(true)}
-        style={styles.inputField}>
-        <Text style={[styles.label, {color: Themes[theme].defaultText}]}>
+        style={[styles.inputField, { borderColor: Themes[theme].border, backgroundColor: Themes[theme].inputField }]}>
+        <Text style={[styles.label, { color: Themes[theme].defaultText, lineHeight: 12 }]}>
           {watch("date")
             ? watch("date").toISOString().split("T")[0]
             : "Select date"}
