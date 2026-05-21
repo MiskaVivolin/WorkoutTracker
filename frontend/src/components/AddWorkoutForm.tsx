@@ -144,7 +144,7 @@ const AddWorkoutForm = ({workoutItem, setWorkoutItem}: AddWorkoutFormProps) => {
       <View style={styles.labelContainer}>
 
         <View style={styles.columnRow}>
-          <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Weight</Text>
+          <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Weight in kg</Text>
           <TextInput
             keyboardType="numeric"
             style={[styles.inputField, {color: Themes[theme].defaultText, borderColor: Themes[theme].border, backgroundColor: Themes[theme].inputField, width: 100}]}

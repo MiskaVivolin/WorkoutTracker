@@ -149,7 +149,7 @@ const WorkoutEditor = ({ workoutItem, setIsEditMode, showPopup }: WorkoutEditorP
         </View>
         <View style={styles.inputRow}>
           <View style={styles.columnRow}>
-            <Text style={[styles.label, { color: Themes[theme].defaultText }]}>weight</Text>
+            <Text style={[styles.label, { color: Themes[theme].defaultText }]}>Weight in kg</Text>
             <TextInput
               keyboardType="numeric"
               style={[styles.inputField, {color: Themes[theme].defaultText, borderColor: Themes[theme].border, backgroundColor: Themes[theme].inputField, width: 100}]}
@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
     width: '100%', 
     flexDirection: 'row', 
     justifyContent: 'space-evenly', 
-    marginBottom: 5
+    marginBottom: 10
   },
   columnRow: {
     width: "45%"
@@ -216,27 +216,25 @@ const styles = StyleSheet.create({
     fontFamily: 'MerriweatherSans',
     width: Dimensions.get('window').width < 440 ? '100%' : 180,
     borderWidth: 1, 
-    borderRadius: 3,
+    borderRadius: 4,
     paddingHorizontal: 8,
-    paddingVertical: Dimensions.get('window').width < 440 ? 6 : 0,
+    paddingVertical: Dimensions.get('window').width < 440 ? 6 : 1,
     ...Platform.select({
       android: {
         lineHeight: 19,
         textAlignVertical: 'center',
       },
       default: {
-        height: 30,
+        height: 32,
       },
     }),
   },
   listItem: {
     alignItems: 'center',
     justifyContent: 'center',
-    width: Dimensions.get('window').width < 440 ? '90%' : 400,
-    marginTop: 5,
-    marginBottom: 5,
+    width: Dimensions.get('window').width < 460 ? '90%' : 440,
     borderRadius: 10,
-    padding: 6,
+    padding: 8,
   },
   label: {
     fontSize: 13,
@@ -248,7 +246,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: Platform.OS === 'android' || Platform.OS === 'ios' ? '700' : '500',
     fontFamily: 'MerriweatherSans', 
-    marginVertical: 12
+    marginVertical: 15
   },
   inputFieldError: {
     alignSelf: 'flex-start',
@@ -260,12 +258,13 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     paddingTop: 3, 
-    width: Dimensions.get('window').width < 440 ? '100%' : 400,
+    width: Dimensions.get('window').width < 440 ? '100%' : 440,
     justifyContent: 'space-between',
+    padding: 8,
   },
   button: {
     marginTop: 6, 
-    marginBottom: 10, 
+    marginBottom: 2, 
     marginHorizontal: 15
   },
 })

@@ -57,7 +57,7 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
       background: Themes[theme].primary,
       onSurfaceVariant: Themes[theme].defaultText,
       surfaceVariant: Themes[theme].errorText,
-      backdrop: 'rgba(255, 255, 255, 0.0)',
+      backdrop: 'rgba(0, 0, 0, 0.2)',
     },
   };
 

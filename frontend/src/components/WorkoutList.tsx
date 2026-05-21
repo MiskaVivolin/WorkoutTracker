@@ -110,7 +110,7 @@ const WorkoutList = ({ setIsEditMode, setWorkoutItem, popupVisible, popupMessage
             <Text style={[styles.labelData, {color: Themes[theme].defaultText}]}>{new Date(item.date).toLocaleDateString()}</Text>
           </View>
           <View style={styles.labelContainer}>
-            <Text style={[styles.label, {color: Themes[theme].greyText}]}>Weight</Text>
+            <Text style={[styles.label, {color: Themes[theme].greyText}]}>Weight in kg</Text>
             <Text style={[styles.label, {color: Themes[theme].greyText}]}>Reps</Text>
           </View>
           <View style={styles.labelContainer}>
