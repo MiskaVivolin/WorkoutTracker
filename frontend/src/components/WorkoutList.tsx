@@ -101,43 +101,49 @@ const WorkoutList = ({ setIsEditMode, setWorkoutItem, popupVisible, popupMessage
         }
         renderItem={({ item }: {item: WorkoutItem}) =>
         <View style={[styles.listItem, {backgroundColor: Themes[theme].primary}]}>
-          <View style={styles.labelContainer}>
-            <Text style={[styles.label, {color: Themes[theme].greyText}]}>Exercise</Text>
-            <Text style={[styles.label, {color: Themes[theme].greyText}]}>Date</Text>
-          </View>
-          <View style={styles.labelContainer}>
-            <Text style={[styles.labelData, {color: Themes[theme].defaultText}]}>{item.exercise}</Text>
-            <Text style={[styles.labelData, {color: Themes[theme].defaultText}]}>{new Date(item.date).toLocaleDateString()}</Text>
-          </View>
-          <View style={styles.labelContainer}>
-            <Text style={[styles.label, {color: Themes[theme].greyText}]}>Weight in kg</Text>
-            <Text style={[styles.label, {color: Themes[theme].greyText}]}>Reps</Text>
-          </View>
-          <View style={styles.labelContainer}>
-            <Text style={[styles.labelData, {color: Themes[theme].defaultText}]}>{item.weight}</Text>
-            <Text style={[styles.labelData, {color: Themes[theme].defaultText}]}>{item.reps}</Text>
-          </View>
-          <Button
-            buttonStyle={{marginTop: 6, marginBottom: 10}}
-            title='Edit'
-            onPress={async () => {
-              try {
-                const workoutItem = await queryClient.fetchQuery({
-                  queryKey: ['workoutItem', item.id],
-                  queryFn: () => getWorkoutItem(item.id)
-                });
+          <View style={[styles.labelContainer]}>
+            <View style={styles.labelColumn}>
+              <Text style={[styles.label, {color: Themes[theme].greyText}]}>Exercise</Text>
+              <Text style={[styles.labelData, {color: Themes[theme].defaultText}]}>{item.exercise}</Text>
+            </View>
+            <View style={styles.labelColumn}>
+              <Text style={[styles.label, {color: Themes[theme].greyText}]}>Date</Text>
+              <Text style={[styles.labelData, {color: Themes[theme].defaultText}]}>{new Date(item.date).toLocaleDateString()}</Text>
+            </View>
+            <Button
+              buttonStyle={{}}
+              title='Edit'
+              onPress={async () => {
+                try {
+                  const workoutItem = await queryClient.fetchQuery({
+                    queryKey: ['workoutItem', item.id],
+                    queryFn: () => getWorkoutItem(item.id)
+                  });
 
-                setWorkoutItem({
-                  ...workoutItem,
-                  date: new Date(workoutItem.date)
-                });
-                setIsEditMode(true);
-              } catch (err) {
-                console.error('Error fetching workout item:', err);
-                alert('Failed to load workout. Please try again later.');
-              }
-            }}
-          />
+                  setWorkoutItem({
+                    ...workoutItem,
+                    date: new Date(workoutItem.date)
+                  });
+                  setIsEditMode(true);
+                } catch (err) {
+                  console.error('Error fetching workout item:', err);
+                  alert('Failed to load workout. Please try again later.');
+                }
+              }}
+            />
+          </View>
+          
+          <View style={styles.labelContainer}>
+            <View style={styles.labelColumn}>
+              <Text style={[styles.label, {color: Themes[theme].greyText}]}>Weight in kg</Text>
+              <Text style={[styles.labelData, {color: Themes[theme].defaultText}]}>{item.weight}</Text>
+            </View>
+            <View style={styles.labelColumn}>
+              <Text style={[styles.label, {color: Themes[theme].greyText}]}>Reps</Text>
+              <Text style={[styles.labelData, {color: Themes[theme].defaultText}]}>{item.reps}</Text>
+          </View>
+            <View style={{width: 80}}></View>
+          </View>
         </View>}
       />
         <PopUp popupVisible={popupVisible} message={popupMessage} />
@@ -162,23 +168,28 @@ const styles = StyleSheet.create({
     elevation: 20,
   },
   label: {
-    width: '50%',
+    width: '100%',
     fontWeight: '100',
     fontSize: 12,
     fontFamily: 'MerriweatherSans',
-    marginBottom: 2
+    marginBottom: 2,
   },
   labelData: {
-    width: '50%',
+    width: '100%',
     fontSize: 15,
     fontWeight: '700',
     fontFamily: 'MerriweatherSans',
-    marginBottom: 8,
+    marginBottom: 10,
   },
   labelContainer: {
-    width: '90%',
+    width: '100%',
     flexDirection: 'row',
+    paddingHorizontal: 15,
     justifyContent: 'space-between'
+  },
+  labelColumn: {
+    flex: 1,
+    flexDirection: 'column'
   },
   title: {
     fontSize: 22, 
@@ -190,15 +201,16 @@ const styles = StyleSheet.create({
   listItem: {
     alignItems: 'center',
     justifyContent: 'center',
-    minWidth: Platform.OS === 'android' || Platform.OS === 'ios' ? '90%' : 345,
+    width: Platform.OS === 'android' || Platform.OS === 'ios' ? '90%' : 350,
     marginHorizontal: Platform.OS === 'android' || Platform.OS === 'ios' ? 0 : 8,
     marginVertical: 8,
     borderRadius: 10,
-    paddingTop: 8,
+    paddingTop: 15,
+    paddingBottom: 5
   },
   emptyContainer: {
     flex: 1,
-    padding: 16,
+    padding: 6,
     paddingTop: 40,
   },
   emptyText: {
