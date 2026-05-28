@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
     width: Platform.OS === 'android' || Platform.OS === 'ios' ? '100%' : 350,
     fontSize: 13,
-    fontFamily: 'MerriweatherSans',
+    fontFamily: 'Inter18',
     marginBottom: 2,
     marginTop: 12
   },
@@ -224,16 +224,16 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 22,
     fontWeight: Platform.OS === 'android' || Platform.OS === 'ios' ? '700' : '500', 
-    fontFamily: 'MerriweatherSans', 
+    fontFamily: 'Inter18', 
     marginBottom: Dimensions.get('window').height < 1000 ? 30 : 50, 
   },
   inputField: {
-    fontFamily: 'MerriweatherSans',
+    fontFamily: 'Inter18',
     fontSize: 13,
     width: Platform.OS === 'android' || Platform.OS === 'ios' ? '100%' : 350,
     height: 35,
     borderWidth: 1,
-    borderRadius: 4,
+    borderRadius: 5,
     marginBottom: Platform.OS === 'android' || Platform.OS === 'ios' ? 6 : 12,
     paddingHorizontal: 8,
     ...Platform.select({
@@ -248,7 +248,7 @@ const styles = StyleSheet.create({
   },
   errorText: {
     fontSize: 13,
-    fontFamily: 'MerriweatherSans', 
+    fontFamily: 'Inter18', 
   },
   modalOverlay: {
     flex: 1,
@@ -265,7 +265,7 @@ const styles = StyleSheet.create({
 
   modalText: {
     fontSize: 16,
-    fontFamily: "MerriweatherSans",
+    fontFamily: "Inter18",
   },
 });
 

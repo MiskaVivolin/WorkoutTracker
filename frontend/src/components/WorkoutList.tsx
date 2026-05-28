@@ -171,14 +171,14 @@ const styles = StyleSheet.create({
     width: '100%',
     fontWeight: '100',
     fontSize: 12,
-    fontFamily: 'MerriweatherSans',
+    fontFamily: 'Inter18',
     marginBottom: 2,
   },
   labelData: {
     width: '100%',
     fontSize: 15,
     fontWeight: '700',
-    fontFamily: 'MerriweatherSans',
+    fontFamily: 'Inter18',
     marginBottom: 10,
   },
   labelContainer: {
@@ -193,20 +193,21 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 22, 
-    fontFamily: 'MerriweatherSans', 
+    fontFamily: 'Inter24', 
     fontWeight: Platform.OS === 'android' || Platform.OS === 'ios' ? '700' : '500',
+    paddingLeft: 5,
     marginHorizontal: Platform.OS === 'android' || Platform.OS === 'ios' ? 0 : 8,
     marginVertical: Dimensions.get('window').height < 1000 ? 30 : 50, 
   },
   listItem: {
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     width: Platform.OS === 'android' || Platform.OS === 'ios' ? '90%' : 350,
     marginHorizontal: Platform.OS === 'android' || Platform.OS === 'ios' ? 0 : 8,
     marginVertical: 8,
     borderRadius: 10,
-    paddingTop: 15,
-    paddingBottom: 5
+    paddingTop: 12,
+    paddingBottom: 4
   },
   emptyContainer: {
     flex: 1,

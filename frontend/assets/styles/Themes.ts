@@ -25,8 +25,8 @@ export const Themes = {
     whiteText: 'FFFFFF',
     errorText: 'rgb(225, 40, 40)',
     deleteButton: '#ff3232',
-    border: 'rgb(60, 60, 60)',
-    inputField: 'rgb(80, 80, 80)',
+    border: 'rgb(85, 85, 85)',
+    inputField: 'rgb(75, 75, 75)',
     secondaryButton: 'rgb(160, 160, 160)'
   }
 }

@@ -26,15 +26,15 @@ const styles = StyleSheet.create({
   button: {
     height: Platform.OS === 'android' || Platform.OS === 'ios' ? 32 : 35,
     width: Platform.OS === 'android' || Platform.OS === 'ios' ? 80 : 90,
-    padding: Platform.OS === 'android' || Platform.OS === 'ios' ? 7 : 9,
+    padding: Platform.OS === 'android' || Platform.OS === 'ios' ? 7 : 8,
     marginHorizontal: 4,
     borderRadius: 20, 
     textAlign: 'center',
     fontSize: 16,
   },
   buttonText: {
-    fontSize: Platform.OS === 'android' || Platform.OS === 'ios' ? 13 : 14, 
-    fontFamily: 'MerriweatherSans',
+    fontSize: Platform.OS === 'android' || Platform.OS === 'ios' ? 14 : 15, 
+    fontFamily: 'Inter24',
     fontWeight: Platform.OS === 'android' || Platform.OS === 'ios' ? '700' : '500',
     alignSelf: 'center', 
   }

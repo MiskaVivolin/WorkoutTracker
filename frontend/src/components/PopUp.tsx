@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 14,
-    fontFamily: 'MerriweatherSans',
+    fontFamily: 'Inter18',
   },
 });
 

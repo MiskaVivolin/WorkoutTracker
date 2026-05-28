@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   }, 
   title: {
     marginBottom: Platform.OS === 'android' || Platform.OS === 'ios' ? 20 : 30, 
-    fontFamily: 'MerriweatherSans',
+    fontFamily: 'Inter24',
     fontSize: Platform.OS === 'android' || Platform.OS === 'ios' ? 18 : 20, 
   }
 })

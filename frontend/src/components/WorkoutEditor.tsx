@@ -213,10 +213,10 @@ const styles = StyleSheet.create({
   },
   inputField: {
     fontSize: 12,
-    fontFamily: 'MerriweatherSans',
+    fontFamily: 'Inter18',
     width: Dimensions.get('window').width < 440 ? '100%' : 180,
     borderWidth: 1, 
-    borderRadius: 4,
+    borderRadius: 5,
     paddingHorizontal: 8,
     paddingVertical: Dimensions.get('window').width < 440 ? 6 : 1,
     ...Platform.select({
@@ -238,21 +238,21 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 13,
-    fontFamily: 'MerriweatherSans',
+    fontFamily: 'Inter18',
     marginBottom: 2,
     marginTop: 5
   },
   title: {
-    fontSize: 18,
+    fontSize: 22,
     fontWeight: Platform.OS === 'android' || Platform.OS === 'ios' ? '700' : '500',
-    fontFamily: 'MerriweatherSans', 
+    fontFamily: 'Inter24', 
     marginVertical: 15
   },
   inputFieldError: {
     alignSelf: 'flex-start',
     width: '100%',
     fontSize: Dimensions.get('window').width < 440 ? 10 : 13,
-    fontFamily: 'MerriweatherSans',
+    fontFamily: 'Inter18',
     paddingVertical: 5,
   },
   buttonContainer: {

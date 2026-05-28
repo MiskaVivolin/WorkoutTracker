@@ -33,7 +33,8 @@ function AppProviders() {
 
         await Font.loadAsync({
           'BlackOpsOne-Regular': require('./assets/fonts/BlackOpsOne-Regular.ttf'),
-          'MerriweatherSans': require('./assets/fonts/MerriweatherSans-VariableFont_wght.ttf'),
+          'Inter18': require('./assets/fonts/Inter_18pt-Regular.ttf'),
+          'Inter24': require('./assets/fonts/Inter_24pt-Regular.ttf'),
         });
       } catch (error) {
         console.warn(error);
