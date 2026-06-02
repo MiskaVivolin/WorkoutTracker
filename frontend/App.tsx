@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { UserTokenProvider } from './src/context/UserTokenContext';
-import { ThemeProvider } from './src/context/ThemeContext';
+import { ThemeProvider, useTheme } from './src/context/ThemeContext';
+import { Provider as PaperProvider  } from 'react-native-paper';
 import * as SplashScreen from 'expo-splash-screen'
 import * as Font from 'expo-font'
 import AppContent from './src/app/AppContent';
@@ -9,17 +10,31 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 export default function App() {
   
-  const [appIsReady, setAppIsReady] = useState(false);
-  
   const queryClient = new QueryClient();
   
+  return (
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider>
+        <AppProviders/>
+      </ThemeProvider>
+    </QueryClientProvider>
+  );
+}
+
+function AppProviders() {
+
+  const [appIsReady, setAppIsReady] = useState(false);
+  const { paperTheme } = useTheme();
+
   useEffect(() => {
     async function prepare() {
       try {
         await SplashScreen.preventAutoHideAsync();
+
         await Font.loadAsync({
           'BlackOpsOne-Regular': require('./assets/fonts/BlackOpsOne-Regular.ttf'),
-          'MerriweatherSans': require('./assets/fonts/MerriweatherSans-VariableFont_wght.ttf')
+          'Inter18': require('./assets/fonts/Inter_18pt-Regular.ttf'),
+          'Inter24': require('./assets/fonts/Inter_24pt-Regular.ttf'),
         });
       } catch (error) {
         console.warn(error);
@@ -28,6 +43,7 @@ export default function App() {
         await SplashScreen.hideAsync();
       }
     }
+
     prepare();
   }, []);
 
@@ -37,13 +53,11 @@ export default function App() {
 
   return (
     <SafeAreaProvider>
-      <QueryClientProvider client={queryClient}>
-        <ThemeProvider>
-          <UserTokenProvider>
-            <AppContent/>
-          </UserTokenProvider>
-        </ThemeProvider>
-      </QueryClientProvider>
+      <UserTokenProvider>
+        <PaperProvider theme={paperTheme}>
+          <AppContent />
+        </PaperProvider>
+      </UserTokenProvider>
     </SafeAreaProvider>
   );
 }

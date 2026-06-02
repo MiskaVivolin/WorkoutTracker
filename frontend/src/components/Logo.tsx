@@ -1,5 +1,4 @@
 import { Platform, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
 import { Themes } from '../../assets/styles/Themes'
 import { useTheme } from '../context/ThemeContext'
 import { LogoProps } from '../types/componentProps'

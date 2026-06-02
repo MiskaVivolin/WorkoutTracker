@@ -110,27 +110,27 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 13,
-    fontFamily: 'MerriweatherSans',
+    fontFamily: 'Inter18',
     marginBottom: 2,
   },
   title: {
     fontSize: 22,
     fontWeight: Platform.OS === 'android' || Platform.OS === 'ios' ? '700' : '500',
-    fontFamily: 'MerriweatherSans',
+    fontFamily: 'Inter24',
     marginBottom: Platform.OS === 'android' || Platform.OS === 'ios' ? 60 : 100,
   },
   inputFieldError: {
     fontSize: 13,
-    fontFamily: 'MerriweatherSans',
+    fontFamily: 'Inter18',
     marginBottom: 10,
   },
   labelLink: {
     fontSize: 15,
-    fontFamily: 'MerriweatherSans',
+    fontFamily: 'Inter18',
     fontWeight: '500',
   },
   inputField: {
-    fontFamily: 'MerriweatherSans',
+    fontFamily: 'Inter18',
     fontSize: 13,
     borderWidth: 1,
     borderRadius: 4,

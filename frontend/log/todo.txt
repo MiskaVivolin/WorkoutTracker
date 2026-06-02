@@ -1,19 +1,16 @@
   // TODO: 
   // readme pienet parantelut
+  // 
   // parantele settingscreen tyyliasua
+  // WorkoutItem UI parantelu. edit nappi oikealle säästääkseen tilaa?
+  // UX parantelu. Kansiot joihin lisätä treenejä?
   // implementoi themeselectorille dynaamiset napit
   // kun vaihtaa sivua, validaation pitäisi restartata (ei enää valita tyhjistä fieldeistä)
   // keyboardavoidingview ei hallitse UI elementtien muutosta hyvin
-  // mahdollisuus lisätä settien määrä. (numero field jonka default on 1? + ja - napit?)
-  // mahdollisuus poistaa käyttäjä ja kaikki sen tiedot
   // settingscreen: mahdollisuus lisätä oma nimi jonka user voisi asettaa default nimeksi kun tekee uusia tuloksia
-  // kun lisää uusia tuloksia tämän hetkinen päivä olisi Date fieldissä valmiiksi. Mahdollisuus toggleta tämä pois päältä asetuksista. ehkä myös kalenteri
   // bugi: kun poistaa käyttäjän, appi yrittää autologinia.
-  // teemat paremmiksi
-  // kalenteri josta valita päivämäärä
   // tarkista voiko funktioiden typetystä parantaa
   // PopUp käyttö: kun esim lisää tuloksen, menee sivu automaattisesti listaan ja tulee noin 5 sec popup
   // jwt backendille
-  // testit uusille backend functioille: deleteUser
   // kaaviot, cardio/kalorit/paino, emojit/kuvat, profiilitiedot, kieliasetukset jne.
   // docker, cloud
