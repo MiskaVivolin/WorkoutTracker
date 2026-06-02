@@ -1,16 +1,16 @@
 export const Themes = {
   light: {
     primary: 'rgb(255, 255, 255)',
-    secondary: '#82CAFF',
+    secondary: '#6cc0fc',
     background: 'rgb(243, 241, 235)',
     defaultText: 'rgb(30, 30, 30)',
-    secondaryText: 'rgb(60, 60, 60)',
+    secondaryText: 'rgb(255, 255, 255)',
     logoText: 'rgb(60, 60, 60)',
     greyText: '#5A5A5A',
     whiteText: 'FFFFFF',
     errorText: 'rgb(255, 0, 0)',
     deleteButton: '#ff3232',
-    border: 'rgb(150, 150, 150)',
+    border: 'rgb(160, 160, 160)',
     inputField: 'rgb(248, 248, 248)',
     secondaryButton: 'rgb(200, 200, 200)'
   },
@@ -25,8 +25,8 @@ export const Themes = {
     whiteText: 'FFFFFF',
     errorText: 'rgb(225, 40, 40)',
     deleteButton: '#ff3232',
-    border: 'rgb(60, 60, 60)',
-    inputField: 'rgb(80, 80, 80)',
+    border: 'rgb(85, 85, 85)',
+    inputField: 'rgb(75, 75, 75)',
     secondaryButton: 'rgb(160, 160, 160)'
   }
 }

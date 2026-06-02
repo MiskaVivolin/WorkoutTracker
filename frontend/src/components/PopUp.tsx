@@ -1,6 +1,5 @@
 import { useTheme } from '../context/ThemeContext';
 import { Themes } from '../../assets/styles/Themes';
-import React from 'react';
 import { View, StyleSheet, Modal, Text } from 'react-native';
 import { PopUpProps } from '../types/componentProps';
 
@@ -42,7 +41,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 14,
-    fontFamily: 'MerriweatherSans',
+    fontFamily: 'Inter18',
   },
 });
 

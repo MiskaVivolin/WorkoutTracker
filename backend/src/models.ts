@@ -44,7 +44,7 @@ export const userLogin = async (username: String, password: Buffer) => {
   }
 }
 
-export const createWorkoutItem = async ({username, name, date, exercise, result}: CreateWorkoutData) => {
+export const createWorkoutItem = async ({username, date, exercise, weight, reps}: CreateWorkoutData) => {
   try {
     const userRes = await pool.query(
       `SELECT id 
@@ -54,10 +54,10 @@ export const createWorkoutItem = async ({username, name, date, exercise, result}
     )
     const user_id = userRes.rows[0].id
     const res = await pool.query(
-      `INSERT INTO user_records (name, date, exercise, result, user_id) 
-      VALUES ($1, $2, $3, $4, $5) 
-      RETURNING *`,
-      [name, date, exercise, result, user_id]
+      `INSERT INTO user_records (exercise, date, weight, reps, user_id) 
+       VALUES ($1, $2, $3, $4, $5) 
+       RETURNING *`,
+      [exercise, date, weight, reps, user_id]
     )
     return res.rows[0]
   } catch (error) {
@@ -95,13 +95,13 @@ export const getWorkoutItem = async (itemId: number) => {
 
 export const editWorkoutItem = async (workoutData: WorkoutData) => {
   try {
-    const { name, date, exercise, result, id } = workoutData
+    const { exercise, date, weight, reps, id } = workoutData
     const res = await pool.query(
       `UPDATE user_records 
-      SET name = $1, date = $2, exercise = $3, result = $4 
+      SET exercise = $1, date = $2, weight = $3, reps = $4 
       WHERE id = $5
       RETURNING *`,
-      [name, date, exercise, result, id]
+      [exercise, date, weight, reps, id]
     )
     return res.rows
   } catch (error) {

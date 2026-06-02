@@ -33,8 +33,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   buttonText: {
-    fontSize: Platform.OS === 'android' || Platform.OS === 'ios' ? 15 : 15, 
-    fontFamily: 'MerriweatherSans',
+    fontSize: Platform.OS === 'android' || Platform.OS === 'ios' ? 16 : 16, 
+    fontFamily: 'Inter24',
     fontWeight: Platform.OS === 'android' || Platform.OS === 'ios' ? '700' : '500',
     alignSelf: 'center', 
   },

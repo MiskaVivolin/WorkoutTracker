@@ -14,7 +14,7 @@ const DeleteAccount = ({ navigation }: NavBarProps) => {
 
   return (
     <View style={styles.deleteAccountContainer}>
-      <Text style={[styles.title, {color: Themes[theme].defaultText}]}>Delete your Account</Text>
+      <Text style={[styles.title, {color: Themes[theme].defaultText}]}>Delete your account</Text>
       <View style={styles.buttonContainer}>
         <Button
         buttonStyle={{ width: 90 }}
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
   }, 
   title: {
     marginBottom: Platform.OS === 'android' || Platform.OS === 'ios' ? 20 : 30, 
-    fontFamily: 'MerriweatherSans',
+    fontFamily: 'Inter24',
     fontSize: Platform.OS === 'android' || Platform.OS === 'ios' ? 18 : 20, 
   }
 })

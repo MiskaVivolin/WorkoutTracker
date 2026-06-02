@@ -1,5 +1,4 @@
 import { View, Text, StyleSheet, Platform } from 'react-native'
-import React from 'react'
 import { useTheme } from '../context/ThemeContext';
 import Button from './Button';
 import { Themes } from '../../assets/styles/Themes';
@@ -40,7 +39,7 @@ const styles = StyleSheet.create({
   }, 
   title: {
     marginBottom: Platform.OS === 'android' || Platform.OS === 'ios' ? 20 : 30, 
-    fontFamily: 'MerriweatherSans',
+    fontFamily: 'Inter24',
     fontSize: Platform.OS === 'android' || Platform.OS === 'ios' ? 18 : 20, 
   }
 })

@@ -1,4 +1,4 @@
-import { View, TextInput, StyleSheet, Platform } from 'react-native';
+import { View, TextInput, StyleSheet } from 'react-native';
 import { Themes } from "../../assets/styles/Themes";
 import { useTheme } from '../context/ThemeContext';
 import { Ionicons } from '@expo/vector-icons';

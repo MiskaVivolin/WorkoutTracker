@@ -1,18 +1,18 @@
 export interface WorkoutData {
     id: number;
-    name: string;
-    date: string;
     exercise: string;
-    result: string;
+    date: string;
+    weight: number;
+    reps: number;
     user_id: number;
 }
 
 export interface CreateWorkoutData {
-    username: string
-    name: string;
-    date: string;
+    username: string;
     exercise: string;
-    result: string;
+    date: string;
+    weight: number;
+    reps: number;
 }
 
 export interface UserData {
