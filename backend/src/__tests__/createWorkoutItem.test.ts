@@ -17,27 +17,28 @@ describe("API Routes", () => {
     
     const mockReqData = {
         workoutItem: {
-            date: "2025-03-01",
+            name: "John Doe",
+            date: "1.3.2025",
             exercise: "Bench Press",
-            weight: 3,
-            reps: 10
+            result: "100kg"
         },
         username: "user123",
     };
 
     const mockResData = {
         id: 1,
+        name: "John Doe",
+        date: "1.3.2025",
         exercise: "Bench Press",
-        date: "2025-03-01",
-        weight: 3,
-        reps: 10,
+        result: "80kg x 5",
         user_id: 1
     };
 
     const mockFalseReqData = {
         workoutItem: {
-            date: "2025-03-01",
+            date: "1.3.2025",
             exercise: "Bench Press",
+            result: "80kg x 5",
         },
         username: "user123",
     };

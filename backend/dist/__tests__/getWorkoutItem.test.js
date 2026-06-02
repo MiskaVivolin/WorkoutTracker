@@ -26,10 +26,10 @@ globals_1.jest.mock("../db");
     }));
     const mockResData = {
         id: 3,
+        name: "John Doe",
+        date: "10.3.2025",
         exercise: "Bench Press",
-        date: "2025-03-10",
-        weight: 3,
-        reps: 8,
+        result: "80kg x 6",
         user_id: 1,
     };
     (0, globals_1.test)("GET /get - should retrieve a workout item", () => __awaiter(void 0, void 0, void 0, function* () {

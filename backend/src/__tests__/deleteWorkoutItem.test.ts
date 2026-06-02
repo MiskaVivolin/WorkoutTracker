@@ -16,12 +16,12 @@ describe("API Routes", () => {
     })
 
     const mockResData = {
-        id: 1,
+        id: 3,
+        name: "John Doe",
+        date: "10.3.2025",
         exercise: "Bench Press",
-        date: "2025-03-01",
-        weight: 3,
-        reps: 10,
-        user_id: 1
+        result: "80kg x 8",
+        user_id: 1,
     };
 
     test("DELETE /delete/:id - should delete a workout item", async () => {

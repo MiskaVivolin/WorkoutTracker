@@ -75,10 +75,3 @@ export interface SearchBarProps {
   value: string;
   onChange: (text: string) => void;
 };
-
-export interface NumberDropdownProps {
-  value: number;
-  onSelect: (value: number) => void;
-  options: number[];
-  customStyle?: string;
-};

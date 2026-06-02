@@ -17,18 +17,18 @@ describe("API Routes", () => {
 
     const mockReqData = {
         id: 3,
-        date: "2025-03-10",
+        name: "John Doe",
+        date: "10.3.2025",
         exercise: "Bench Press",
-        weight: 3,
-        reps: 6,
+        result: "80kg x 6",
     };
 
     const mockResData = {
         id: 3,
+        name: "John Doe",
+        date: "10.3.2025",
         exercise: "Bench Press",
-        date: "2025-03-10",
-        weight: 3,
-        reps: 8,
+        result: "80kg x 8",
         user_id: 1,
     };
 
@@ -36,7 +36,7 @@ describe("API Routes", () => {
         const querySpy = jest.spyOn(pool, "query")
         .mockResolvedValueOnce({ rows: [mockResData] })
 
-        const res = await request(app).put("/put").send(mockReqData)
+        const res = await request(app).put("/put").query(mockReqData)
         expect(res.status).toBe(200);
         expect(querySpy).toHaveBeenCalledTimes(1)
     })
@@ -45,7 +45,7 @@ describe("API Routes", () => {
         const querySpy = jest.spyOn(pool, "query")
         .mockRejectedValueOnce(new Error("Database error"));
     
-        const res = await request(app).put("/put").send(mockReqData)
+        const res = await request(app).put("/put").query(mockReqData)
         expect(res.status).toBe(500);
         expect(res.body).toEqual({ error: "Internal server error" });
         expect(querySpy).toHaveBeenCalledTimes(1)

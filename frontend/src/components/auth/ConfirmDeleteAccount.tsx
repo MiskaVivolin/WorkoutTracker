@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
   },
   modalTitle: {
     fontSize: 18,
-    fontFamily: 'Inter18',
+    fontWeight: '500',
     marginBottom: 20,
     textAlign: 'center',
   },
