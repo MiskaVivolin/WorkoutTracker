@@ -27,26 +27,26 @@ globals_1.jest.mock("../db");
     const mockResData = [
         {
             id: 1,
+            name: "John Doe",
+            date: "1.3.2025",
             exercise: "Bench Press",
-            date: "2025-03-01",
-            weight: 3,
-            reps: 5,
+            result: "80kg x 5",
             user_id: 1,
         },
         {
             id: 2,
+            name: "John Doe",
+            date: "4.3.2025",
             exercise: "Bench Press",
-            date: "2025-03-04",
-            weight: 3,
-            reps: 5,
+            result: "80kg x 5",
             user_id: 1,
         },
         {
             id: 3,
+            name: "John Doe",
+            date: "10.3.2025",
             exercise: "Bench Press",
-            date: "2025-03-10",
-            weight: 3,
-            reps: 6,
+            result: "80kg x 6",
             user_id: 1,
         }
     ];

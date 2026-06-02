@@ -1,21 +1,21 @@
 export interface WorkoutItem {
     readonly id: number;
+    name: string;
+    date: string;
     exercise: string;
-    date: Date;
-    weight: number;
-    reps: number;
+    result: string;
 }
 
 export interface WorkoutItemFields {
+    name: string;
+    date: string;
     exercise: string;
-    date: Date;
-    weight: number;
-    reps: number;
+    result: string;
 }
 
 export interface ResponseData{
     message: string;
-    json: WorkoutItem;
+    json: WorkoutItem[];
 }
 
 export type SetWorkoutList = React.Dispatch<React.SetStateAction<WorkoutItem[]>>;

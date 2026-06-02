@@ -18,10 +18,10 @@ const useWorkoutList = (userToken: string, exercise: string) => {
         .filter((item: WorkoutItem) => exercise ? item.exercise === exercise : true)
         .map((item: WorkoutItem) => ({
           id: item.id,
-          exercise: item.exercise,
+          name: item.name,
           date: item.date,
-          weight: item.weight,
-          reps: item.reps
+          exercise: item.exercise,
+          result: item.result
         }));
     },
     enabled: !!userToken

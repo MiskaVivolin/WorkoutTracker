@@ -27,7 +27,6 @@ router.post("/signup", (req, res) => __awaiter(void 0, void 0, void 0, function*
         }
     }
     catch (error) {
-        console.error("DB SIGNUP ERROR:", error);
         return res.status(500).json({ error: "Internal server error" });
     }
 }));
@@ -44,18 +43,17 @@ router.post("/login", (req, res) => __awaiter(void 0, void 0, void 0, function* 
         return res.status(200).json({ token: user });
     }
     catch (error) {
-        console.error("DB LOGIN ERROR:", error);
         return res.status(500).json({ error: "internal server error" });
     }
 }));
 router.post("/create", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { exercise, date, weight, reps } = req.body.workoutItem;
+        const { name, date, exercise, result } = req.body.workoutItem;
         const { username } = req.body;
-        if (!username || !exercise || !date || !weight || !reps) {
+        if (!username || !name || !date || !exercise || !result) {
             return res.status(422).json({ error: "Missing required fields" });
         }
-        const newWorkoutData = yield (0, models_1.createWorkoutItem)({ username, exercise, date, weight, reps });
+        const newWorkoutData = yield (0, models_1.createWorkoutItem)({ username, name, date, exercise, result });
         return res.status(200).json(newWorkoutData);
     }
     catch (error) {

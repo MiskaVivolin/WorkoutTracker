@@ -26,30 +26,30 @@ globals_1.jest.mock("../db");
     }));
     const mockReqData = {
         id: 3,
-        date: "2025-03-10",
+        name: "John Doe",
+        date: "10.3.2025",
         exercise: "Bench Press",
-        weight: 3,
-        reps: 6,
+        result: "80kg x 6",
     };
     const mockResData = {
         id: 3,
+        name: "John Doe",
+        date: "10.3.2025",
         exercise: "Bench Press",
-        date: "2025-03-10",
-        weight: 3,
-        reps: 8,
+        result: "80kg x 8",
         user_id: 1,
     };
     (0, globals_1.test)("PUT /put - should edit a workout item", () => __awaiter(void 0, void 0, void 0, function* () {
         const querySpy = globals_1.jest.spyOn(db_1.pool, "query")
             .mockResolvedValueOnce({ rows: [mockResData] });
-        const res = yield (0, supertest_1.default)(server_1.app).put("/put").send(mockReqData);
+        const res = yield (0, supertest_1.default)(server_1.app).put("/put").query(mockReqData);
         (0, globals_1.expect)(res.status).toBe(200);
         (0, globals_1.expect)(querySpy).toHaveBeenCalledTimes(1);
     }));
     (0, globals_1.test)("PUT /put - should return status 500 on database error", () => __awaiter(void 0, void 0, void 0, function* () {
         const querySpy = globals_1.jest.spyOn(db_1.pool, "query")
             .mockRejectedValueOnce(new Error("Database error"));
-        const res = yield (0, supertest_1.default)(server_1.app).put("/put").send(mockReqData);
+        const res = yield (0, supertest_1.default)(server_1.app).put("/put").query(mockReqData);
         (0, globals_1.expect)(res.status).toBe(500);
         (0, globals_1.expect)(res.body).toEqual({ error: "Internal server error" });
         (0, globals_1.expect)(querySpy).toHaveBeenCalledTimes(1);

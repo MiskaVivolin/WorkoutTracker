@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
-import { StyleSheet, Text, View, TextInput, Dimensions, Platform, Pressable, } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { StyleSheet, Text, View, TextInput, Dimensions, Platform, } from 'react-native'
 import { WorkoutEditorProps } from '../types/componentProps'
 import deleteWorkoutItem from '../services/workoutItem/deleteWorkoutItem'
 import editWorkoutItem from '../services/workoutItem/editWorkoutItem'
@@ -10,7 +10,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { useQueryClient, useMutation } from '@tanstack/react-query'
-import { DatePickerModal } from 'react-native-paper-dates'
+import PopUp from './PopUp'
 
 
 const WorkoutEditor = ({ workoutItem, setIsEditMode, showPopup }: WorkoutEditorProps) => {
@@ -18,29 +18,28 @@ const WorkoutEditor = ({ workoutItem, setIsEditMode, showPopup }: WorkoutEditorP
   type WorkoutFormData = z.infer<typeof workoutSchema>
   const queryClient = useQueryClient();
   const workoutSchema = z.object({
+    name: z.string().min(1, "Name required"),
+    date: z.string().min(1, "Date required"),
     exercise: z.string().min(1, "Exercise required"),
-    date: z.date(),
-    weight: z.number().min(1, "weight required"),
-    reps: z.number().min(1, "Reps required")})
+    result: z.string().min(1, "Result required")})
+
   const { theme } = useTheme();
   const { register, handleSubmit, setValue, watch, clearErrors, formState: { errors }, reset } = useForm<WorkoutFormData>({
       resolver: zodResolver(workoutSchema),
       defaultValues: {
-        exercise: workoutItem.exercise,
+        name: workoutItem.name,
         date: workoutItem.date,
-        weight: workoutItem.weight,
-        reps: workoutItem.reps
+        exercise: workoutItem.exercise,
+        result: workoutItem.result
       }
   })
-  const [open, setOpen] = useState(false);
-  
 
   useEffect(() => {
     reset({
-      exercise: workoutItem.exercise,
+      name: workoutItem.name,
       date: workoutItem.date,
-      weight: workoutItem.weight,
-      reps: workoutItem.reps
+      exercise: workoutItem.exercise,
+      result: workoutItem.result,
     });
   }, [workoutItem, reset]);
 
@@ -81,10 +80,10 @@ const WorkoutEditor = ({ workoutItem, setIsEditMode, showPopup }: WorkoutEditorP
   const onSubmit = async (data: WorkoutFormData) => {
       const updatedWorkoutItem = {
         ...workoutItem,
-        exercise: data.exercise,
+        name: data.name,
         date: data.date,
-        weight: data.weight,
-        reps: data.reps
+        exercise: data.exercise,
+        result: data.result
       };
 
     await editWorkout(updatedWorkoutItem);
@@ -105,12 +104,40 @@ const WorkoutEditor = ({ workoutItem, setIsEditMode, showPopup }: WorkoutEditorP
         <Text style={[styles.title, { color: Themes[theme].defaultText }]}>Edit Training Data</Text>
         <View style={styles.inputRow}>
           <View style={styles.columnRow}>
+            <Text style={[styles.label, { color: Themes[theme].defaultText }]}>Name</Text>
+            <TextInput
+              style={[styles.inputField, { color: Themes[theme].defaultText, backgroundColor: Themes[theme].inputField, borderColor: Themes[theme].border }]}
+              {...register("name")}
+              onChangeText={name => {
+                setValue("name", name)
+                clearErrors('name')
+              }}
+              value={watch("name")}
+            />
+            {errors.name && <Text style={[styles.inputFieldError, { color: Themes[theme].errorText }]}>{errors.name.message}</Text>}
+          </View>
+          <View style={styles.columnRow}>
+            <Text style={[styles.label, { color: Themes[theme].defaultText }]}>Date</Text>
+            <TextInput
+              style={[styles.inputField, { color: Themes[theme].defaultText, backgroundColor: Themes[theme].inputField, borderColor: Themes[theme].border }]}
+              {...register("date")}
+              onChangeText={date => {
+                setValue("date", date)
+                clearErrors('date')
+              }}
+              value={watch("date")}
+            />
+            {errors.date && <Text style={[styles.inputFieldError, { color: Themes[theme].errorText }]}>{errors.date.message}</Text>}
+          </View>
+        </View>
+        <View style={styles.inputRow}>
+          <View style={styles.columnRow}>
             <Text style={[styles.label, { color: Themes[theme].defaultText }]}>Exercise</Text>
             <TextInput
               style={[styles.inputField, { color: Themes[theme].defaultText, backgroundColor: Themes[theme].inputField, borderColor: Themes[theme].border }]}
               {...register("exercise")}
-              onChangeText={value => {
-                setValue("exercise", value)
+              onChangeText={exercise => {
+                setValue("exercise", exercise)
                 clearErrors('exercise')
               }}
               value={watch("exercise")}
@@ -118,65 +145,17 @@ const WorkoutEditor = ({ workoutItem, setIsEditMode, showPopup }: WorkoutEditorP
             {errors.exercise && <Text style={[styles.inputFieldError, { color: Themes[theme].errorText }]}>{errors.exercise.message}</Text>}
           </View>
           <View style={styles.columnRow}>
-            <Text style={[styles.label, { color: Themes[theme].defaultText }]}>Date</Text>
-      <Pressable 
-        style={[styles.inputField, { borderColor: Themes[theme].border, backgroundColor: Themes[theme].inputField }]}
-        onPress={() => setOpen(true)}>
-        <Text style={[styles.label, { color: Themes[theme].defaultText, lineHeight: 19 }]}>
-          {watch("date")
-            ? watch("date").toISOString().split("T")[0]
-            : "Select date"}
-        </Text>
-      </Pressable>
-      <DatePickerModal
-        locale="en"
-        mode="single"
-        visible={open}
-        onDismiss={() => setOpen(false)}
-        date={watch("date")}
-        onConfirm={({ date }) => {
-          setOpen(false);
-
-          if (date) {
-            setValue("date", date);
-
-            clearErrors("date");
-          }
-        }}
-      />
-            {errors.date && <Text style={[styles.inputFieldError, { color: Themes[theme].errorText }]}>{errors.date.message}</Text>}
-          </View>
-        </View>
-        <View style={styles.inputRow}>
-          <View style={styles.columnRow}>
-            <Text style={[styles.label, { color: Themes[theme].defaultText }]}>Weight in kg</Text>
+            <Text style={[styles.label, { color: Themes[theme].defaultText }]}>Result</Text>
             <TextInput
-              keyboardType="numeric"
-              style={[styles.inputField, {color: Themes[theme].defaultText, borderColor: Themes[theme].border, backgroundColor: Themes[theme].inputField, width: 100}]}
-              {...register("weight")}
-              onChangeText={(value) => {
-                const numericValue = value.replace(/[^0-9]/g, "");
-                setValue("weight", numericValue === "" ? 0 : Number(numericValue));
-                clearErrors('weight')
+              style={[styles.inputField, { color: Themes[theme].defaultText, backgroundColor: Themes[theme].inputField, borderColor: Themes[theme].border }]}
+              {...register("result")}
+              onChangeText={result => {
+                setValue("result", result)
+                clearErrors('result')
               }}
-              value={watch("weight")?.toString()}
+              value={watch("result")}
             />
-            {errors.weight && <Text style={[styles.inputFieldError, { color: Themes[theme].errorText }]}>{errors.weight.message}</Text>}
-          </View>
-          <View style={styles.columnRow}>
-            <Text style={[styles.label, { color: Themes[theme].defaultText }]}>Reps</Text>
-            <TextInput
-              keyboardType="numeric"
-              style={[styles.inputField, {color: Themes[theme].defaultText, borderColor: Themes[theme].border, backgroundColor: Themes[theme].inputField, width: 100}]}
-              {...register("reps")}
-              onChangeText={(value) => {
-                const numericValue = value.replace(/[^0-9]/g, "");
-                setValue("reps", numericValue === "" ? 0 : Number(numericValue));
-                clearErrors('reps');
-              }}
-              value={watch("reps")?.toString()}
-            />
-            {errors.reps && <Text style={[styles.inputFieldError, { color: Themes[theme].errorText }]}>{errors.reps.message}</Text>}
+            {errors.result && <Text style={[styles.inputFieldError, { color: Themes[theme].errorText }]}>{errors.result.message}</Text>}
           </View>
         </View>
         <View style={styles.buttonContainer}>
@@ -206,65 +185,66 @@ const styles = StyleSheet.create({
     width: '100%', 
     flexDirection: 'row', 
     justifyContent: 'space-evenly', 
-    marginBottom: 10
+    marginBottom: 5
   },
   columnRow: {
     width: "45%"
   },
   inputField: {
     fontSize: 12,
-    fontFamily: 'Inter18',
+    fontFamily: 'MerriweatherSans',
     width: Dimensions.get('window').width < 440 ? '100%' : 180,
     borderWidth: 1, 
-    borderRadius: 5,
+    borderRadius: 3,
     paddingHorizontal: 8,
-    paddingVertical: Dimensions.get('window').width < 440 ? 6 : 1,
+    paddingVertical: Dimensions.get('window').width < 440 ? 6 : 0,
     ...Platform.select({
       android: {
         lineHeight: 19,
         textAlignVertical: 'center',
       },
       default: {
-        height: 32,
+        height: 30,
       },
     }),
   },
   listItem: {
     alignItems: 'center',
     justifyContent: 'center',
-    width: Dimensions.get('window').width < 460 ? '90%' : 440,
+    width: Dimensions.get('window').width < 440 ? '90%' : 400,
+    marginTop: 5,
+    marginBottom: 5,
     borderRadius: 10,
-    padding: 8,
+    padding: 6,
   },
   label: {
     fontSize: 13,
-    fontFamily: 'Inter18',
+    fontFamily: 'MerriweatherSans',
     marginBottom: 2,
     marginTop: 5
   },
   title: {
-    fontSize: 22,
+    fontSize: 18,
     fontWeight: Platform.OS === 'android' || Platform.OS === 'ios' ? '700' : '500',
-    fontFamily: 'Inter24', 
-    marginVertical: 15
+    fontFamily: 'MerriweatherSans', 
+    marginVertical: 12
   },
   inputFieldError: {
     alignSelf: 'flex-start',
     width: '100%',
     fontSize: Dimensions.get('window').width < 440 ? 10 : 13,
-    fontFamily: 'Inter18',
+    fontFamily: 'MerriweatherSans',
     paddingVertical: 5,
   },
   buttonContainer: {
     flexDirection: 'row',
     paddingTop: 3, 
-    width: Dimensions.get('window').width < 440 ? '100%' : 440,
+    width: Dimensions.get('window').width < 440 ? '100%' : 400,
     justifyContent: 'space-between',
-    padding: 8,
   },
   button: {
     marginTop: 6, 
-    marginBottom: 2, 
+    marginBottom: 10, 
     marginHorizontal: 15
   },
 })

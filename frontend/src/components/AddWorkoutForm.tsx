@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
-import { View, Text, TextInput, StyleSheet, Pressable, Dimensions, Platform, Keyboard, KeyboardAvoidingView } from "react-native";
-import { DatePickerModal } from 'react-native-paper-dates';
-import { useForm } from "react-hook-form";
+import React, { useEffect, useState } from "react";
+import { Text, TextInput, StyleSheet, Dimensions, Platform, Keyboard, KeyboardAvoidingView, View } from "react-native";
+import { set, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { z } from "zod";
@@ -17,27 +16,26 @@ import PopUp from "./PopUp";
 
 const AddWorkoutForm = ({workoutItem, setWorkoutItem}: AddWorkoutFormProps) => {
   
+  type WorkoutFormData = z.infer<typeof workoutSchema>
   const workoutSchema = z.object({
+    name: z.string().min(1, "Name required"),
+    date: z.string().min(1, "Date required"),
     exercise: z.string().min(1, "Exercise required"),
-    date: z.date(),
-    weight: z.coerce.number().min(1, "Weight required"),
-    reps: z.coerce.number().min(1, "Reps required")
+    result: z.string().min(1, "Result required")
   })
   const { theme } = useTheme()
   const { userToken } = useUserToken();
-  const { register, handleSubmit, setValue, watch, clearErrors, formState: { errors }, reset } = useForm<z.input<typeof workoutSchema>,any,z.output<typeof workoutSchema>>
-  ({
-    resolver: zodResolver(workoutSchema),
-    defaultValues: {
-      exercise: workoutItem.exercise,
-      date: workoutItem.date || new Date(),
-      weight: workoutItem.weight,
-      reps: workoutItem.reps
-    }
+  const { register, handleSubmit, setValue, watch, clearErrors, formState: { errors }, reset } = useForm<WorkoutFormData>({
+      resolver: zodResolver(workoutSchema),
+      defaultValues: {
+          name: workoutItem.name,
+          date: workoutItem.date,
+          exercise: workoutItem.exercise,
+          result: workoutItem.result
+      }
   })
   const [keyboardVisible, setKeyboardVisible] = useState(false);
   const queryClient = useQueryClient();
-  const [open, setOpen] = useState(false);
   const [popupVisible, setPopupVisible] = useState(false);
   const [popupMessage, setPopupMessage] = useState('');
 
@@ -58,7 +56,7 @@ const AddWorkoutForm = ({workoutItem, setWorkoutItem}: AddWorkoutFormProps) => {
 
   const mutation = useMutation({
     mutationFn: async ({ workoutItem, username }: { workoutItem: WorkoutItem; username: string }) => {
-      return await createWorkoutItem(workoutItem, username);    
+      return await createWorkoutItem(workoutItem, username);
     },
     onSuccess: () => {
       reset();
@@ -93,91 +91,57 @@ const AddWorkoutForm = ({workoutItem, setWorkoutItem}: AddWorkoutFormProps) => {
       {!keyboardVisible && (
       <Text style={[styles.title, { color: Themes[theme].defaultText }]}>Add a new exercise result</Text>
       )}          
-      <Text style={[styles.label, { color: Themes[theme].defaultText }]}>Exercise</Text>
+      <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Name</Text>
       <TextInput
-        style={[styles.inputField, { color: Themes[theme].defaultText, borderColor: Themes[theme].border, backgroundColor: Themes[theme].inputField }]}
+        style={[styles.inputField, {color: Themes[theme].defaultText, borderColor: Themes[theme].border, backgroundColor: Themes[theme].inputField}]}
+        {...register("name")}
+        onChangeText={(name) => {
+          setValue("name", name)
+          setWorkoutItem({ ...workoutItem, name })
+          clearErrors('name')
+        }}
+        value={watch("name")}
+        />
+      {errors.name && <Text style={[styles.errorText, {color: Themes[theme].errorText}]}>{errors.name.message}</Text>}
+
+      <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Date</Text>
+      <TextInput
+        style={[styles.inputField, {color: Themes[theme].defaultText, borderColor: Themes[theme].border, backgroundColor: Themes[theme].inputField}]}
+        {...register("date")}
+        onChangeText={(date) => {
+          setValue("date", date)
+          setWorkoutItem({ ...workoutItem, date })
+          clearErrors('date')
+        }}
+        value={watch("date")}
+      />
+      {errors.date && <Text style={[styles.errorText, {color: Themes[theme].errorText}]}>{errors.date.message}</Text>}
+
+      <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Exercise</Text>
+      <TextInput
+        style={[styles.inputField, {color: Themes[theme].defaultText, borderColor: Themes[theme].border, backgroundColor: Themes[theme].inputField}]}
         {...register("exercise")}
-        onChangeText={(value) => {
-          setValue("exercise", value)
-          setWorkoutItem({ ...workoutItem, exercise: value })
+        onChangeText={(exercise) => {
+          setValue("exercise", exercise)
+          setWorkoutItem({ ...workoutItem, exercise })
           clearErrors('exercise')
         }}
         value={watch("exercise")}
-        />
-      {errors.exercise && <Text style={[ styles.errorText, {color: Themes[theme].errorText }]}>{errors.exercise.message}</Text>}
-
-      <Text style={[styles.label, { color: Themes[theme].defaultText }]}>Date</Text>
-      <Pressable 
-        onPress={() => setOpen(true)}
-        style={[styles.inputField, { borderColor: Themes[theme].border, backgroundColor: Themes[theme].inputField }]}>
-        <Text style={[styles.label, { color: Themes[theme].defaultText, lineHeight: 12 }]}>
-          {watch("date")
-            ? watch("date").toISOString().split("T")[0]
-            : "Select date"}
-        </Text>
-      </Pressable>
-      <DatePickerModal
-        locale="en"
-        mode="single"
-        visible={open}
-        onDismiss={() => setOpen(false)}
-        date={watch("date")}
-        onConfirm={({ date }) => {
-          setOpen(false);
-
-          if (date) {
-            setValue("date", date);
-
-            setWorkoutItem({
-              ...workoutItem,
-              date,
-            });
-
-            clearErrors("date");
-          }
-        }}
       />
+      {errors.exercise && <Text style={[styles.errorText, {color: Themes[theme].errorText}]}>{errors.exercise.message}</Text>}
 
-
-      {errors.date && <Text style={[styles.errorText, {color: Themes[theme].errorText}]}>{errors.date.message}</Text>}
-
-      <View style={styles.labelContainer}>
-
-        <View style={styles.columnRow}>
-          <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Weight in kg</Text>
-          <TextInput
-            keyboardType="numeric"
-            style={[styles.inputField, {color: Themes[theme].defaultText, borderColor: Themes[theme].border, backgroundColor: Themes[theme].inputField, width: 100}]}
-            {...register("weight")}
-            onChangeText={(value) => {
-              const numericValue = value.replace(/[^0-9]/g, "");
-              setValue("weight", numericValue === "" ? 0 : Number(numericValue));
-              setWorkoutItem({ ...workoutItem, weight: Number(numericValue) });
-              clearErrors('weight')
-            }}
-            value={watch("weight")?.toString()}
-          />
-          {errors.weight && <Text style={[styles.errorText, {color: Themes[theme].errorText}]}>{errors.weight.message}</Text>}
-        </View>
-        
-        <View style={styles.columnRow}>
-          <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Reps</Text>
-          <TextInput
-            keyboardType="numeric"
-            style={[styles.inputField, {color: Themes[theme].defaultText, borderColor: Themes[theme].border, backgroundColor: Themes[theme].inputField, width: 100}]}
-            {...register("reps")}
-            onChangeText={(value) => {
-              const numericValue = value.replace(/[^0-9]/g, "");
-              setValue("reps", numericValue === "" ? 0 : Number(numericValue));
-              setWorkoutItem({ ...workoutItem, reps: Number(numericValue) });
-              clearErrors('reps');
-            }}
-            value={watch("reps")?.toString()}
-          />
-          {errors.reps && <Text style={[styles.errorText, {color: Themes[theme].errorText}]}>{errors.reps.message}</Text>}
-        </View>
-      </View>
-
+      <Text style={[styles.label, {color: Themes[theme].defaultText}]}>Result</Text>
+      <TextInput
+        style={[styles.inputField, {color: Themes[theme].defaultText, borderColor: Themes[theme].border, backgroundColor: Themes[theme].inputField}]}
+        {...register("result")}
+        onChangeText={(result) => {
+          setValue("result", result)
+          setWorkoutItem({ ...workoutItem, result })
+          clearErrors('result')
+        }}
+        value={watch("result")}
+      />
+      {errors.result && <Text style={[styles.errorText, {color: Themes[theme].errorText}]}>{errors.result.message}</Text>}
       <Button
         title={mutation.status === 'pending' ? "Submitting..." : "Add"}
         onPress={handleSubmit(onSubmit)}
@@ -212,28 +176,23 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
     width: Platform.OS === 'android' || Platform.OS === 'ios' ? '100%' : 350,
     fontSize: 13,
-    fontFamily: 'Inter18',
+    fontFamily: 'MerriweatherSans',
     marginBottom: 2,
     marginTop: 12
-  },
-  labelContainer: {
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-between'
   },
   title: {
     fontSize: 22,
     fontWeight: Platform.OS === 'android' || Platform.OS === 'ios' ? '700' : '500', 
-    fontFamily: 'Inter18', 
+    fontFamily: 'MerriweatherSans', 
     marginBottom: Dimensions.get('window').height < 1000 ? 30 : 50, 
   },
   inputField: {
-    fontFamily: 'Inter18',
+    fontFamily: 'MerriweatherSans',
     fontSize: 13,
     width: Platform.OS === 'android' || Platform.OS === 'ios' ? '100%' : 350,
     height: 35,
     borderWidth: 1,
-    borderRadius: 5,
+    borderRadius: 4,
     marginBottom: Platform.OS === 'android' || Platform.OS === 'ios' ? 6 : 12,
     paddingHorizontal: 8,
     ...Platform.select({
@@ -243,12 +202,9 @@ const styles = StyleSheet.create({
       },
     }),
   },
-  columnRow: {
-    width: "45%"
-  },
   errorText: {
     fontSize: 13,
-    fontFamily: 'Inter18', 
+    fontFamily: 'MerriweatherSans', 
   },
   modalOverlay: {
     flex: 1,
@@ -265,7 +221,7 @@ const styles = StyleSheet.create({
 
   modalText: {
     fontSize: 16,
-    fontFamily: "Inter18",
+    fontFamily: "MerriweatherSans",
   },
 });
 

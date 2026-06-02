@@ -1,5 +1,3 @@
-import { MD3LightTheme } from "react-native-paper";
-
 export type SetBoolean = (data: boolean) => void;
 
 export type Theme = 'light' | 'dark'
@@ -8,7 +6,6 @@ export interface ThemeContextType {
     theme: Theme;
     setTheme: (theme: Theme) => void;
     refreshTheme: () => Promise<void>
-    paperTheme: typeof MD3LightTheme;
 }
 
 export type UserTokenContextType = {

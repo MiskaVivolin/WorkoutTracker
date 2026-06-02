@@ -1,11 +1,9 @@
-import { createContext, useState, useContext, ReactNode, useEffect } from 'react';
+import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
 import { Theme, ThemeContextType } from '../types/utilTypes';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import getUserTheme from '../services/theme/getUserTheme';
 import setUserTheme from '../services/theme/setUserTheme';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { MD3LightTheme } from 'react-native-paper';
-import { Themes } from '../../assets/styles/Themes';
 
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -47,20 +45,6 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
 
   const { data: theme = 'dark' } = useUserThemeQuery(username);
 
-  const paperTheme = {
-    ...MD3LightTheme,
-    colors: {
-      ...MD3LightTheme.colors,
-      primary: Themes[theme].secondary,
-      surface: Themes[theme].primary,
-      onSurface: Themes[theme].defaultText,
-      background: Themes[theme].primary,
-      onSurfaceVariant: Themes[theme].defaultText,
-      surfaceVariant: Themes[theme].errorText,
-      backdrop: 'rgba(0, 0, 0, 0.2)',
-    },
-  };
-
   const setTheme = async (newTheme: Theme) => {
     if (!username) return;
 
@@ -76,7 +60,7 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <ThemeContext.Provider value={{ theme, setTheme, refreshTheme, paperTheme }}>
+    <ThemeContext.Provider value={{ theme, setTheme, refreshTheme }}>
       {children}
     </ThemeContext.Provider>
   );
