@@ -1,5 +1,4 @@
-import React from 'react';
-import { Text, StyleSheet, Pressable, Platform } from 'react-native';
+import { Text, StyleSheet, Pressable, Dimensions } from 'react-native';
 import { Themes } from "../../../assets/styles/Themes"
 import { NavButtonProps } from '../../types/componentProps';
 import { useTheme } from '../../context/ThemeContext';
@@ -24,18 +23,18 @@ const NavButton = ({ title, onPress, style, isActive = false }: NavButtonProps) 
 
 const styles = StyleSheet.create({
   button: {
-    height: Platform.OS === 'android' || Platform.OS === 'ios' ? 32 : 35,
-    width: Platform.OS === 'android' || Platform.OS === 'ios' ? 80 : 90,
-    padding: Platform.OS === 'android' || Platform.OS === 'ios' ? 7 : 8,
+    height: Dimensions.get('window').width < 500 ? 32 : 35,
+    width: Dimensions.get('window').width < 500 ? 80 : 90,
+    padding: Dimensions.get('window').width < 500 ? 7 : 8,
     marginHorizontal: 4,
     borderRadius: 20, 
     textAlign: 'center',
     fontSize: 16,
   },
   buttonText: {
-    fontSize: Platform.OS === 'android' || Platform.OS === 'ios' ? 14 : 15, 
+    fontSize: Dimensions.get('window').width < 500 ? 14 : 15, 
     fontFamily: 'Inter24',
-    fontWeight: Platform.OS === 'android' || Platform.OS === 'ios' ? '700' : '500',
+    fontWeight: Dimensions.get('window').width < 500 ? '700' : '500',
     alignSelf: 'center', 
   }
 });

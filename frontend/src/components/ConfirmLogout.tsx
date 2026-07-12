@@ -1,6 +1,5 @@
 import { Modal, StyleSheet, Text, View } from 'react-native'
 import Button from './Button';
-import React from 'react'
 import { Themes } from '../../assets/styles/Themes';
 import { useTheme } from '../context/ThemeContext';
 import { ConfirmModalProps } from '../types/componentProps';

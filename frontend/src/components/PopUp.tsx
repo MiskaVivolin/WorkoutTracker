@@ -1,6 +1,6 @@
 import { useTheme } from '../context/ThemeContext';
 import { Themes } from '../../assets/styles/Themes';
-import { View, StyleSheet, Modal, Text } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import { PopUpProps } from '../types/componentProps';
 
 const PopUp = ({popupVisible, message}: PopUpProps)  => {

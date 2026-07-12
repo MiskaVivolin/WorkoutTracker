@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform, View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Dimensions } from 'react-native';
 import NavButton from './NavButton';
 import { Dispatch, SetStateAction } from 'react';
 
@@ -33,7 +33,7 @@ const ExerciseNavigation: React.FC<ExerciseNavigationProps> = ({ setExercise }) 
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row', 
-    marginHorizontal: Platform.OS === 'android' || Platform.OS === 'ios' ? 0 : 4,
+    marginHorizontal: Dimensions.get('window').width < 500 ? 0 : 4,
     paddingTop: 10
   }
 })

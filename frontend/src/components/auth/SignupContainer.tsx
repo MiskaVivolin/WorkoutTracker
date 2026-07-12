@@ -1,5 +1,4 @@
 import { Dimensions, Platform, Pressable, StyleSheet, Text, TextInput, View } from 'react-native'
-import React from 'react'
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTheme } from '../../context/ThemeContext';
@@ -115,9 +114,9 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 22,
-    fontWeight: Platform.OS === 'android' || Platform.OS === 'ios' ? '700' : '500',
+    fontWeight: Dimensions.get('window').width < 500 ? '700' : '500',
     fontFamily: 'Inter24',
-    marginBottom: Platform.OS === 'android' || Platform.OS === 'ios' ? 60 : 100,
+    marginBottom: Dimensions.get('window').width < 500 ? 60 : 100,
   },
   inputFieldError: {
     fontSize: 13,

@@ -205,12 +205,12 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     alignItems: 'center',
     justifyContent: 'center',
-    width: Platform.OS === 'android' || Platform.OS === 'ios' ? '80%' : 350,
+    width: Dimensions.get('window').width < 500 ? '80%' : 350,
 
   },
   label: {
     alignSelf: "flex-start",
-    width: Platform.OS === 'android' || Platform.OS === 'ios' ? '100%' : 350,
+    width: Dimensions.get('window').width < 500 ? '100%' : 350,
     fontSize: 13,
     fontFamily: 'Inter18',
     marginBottom: 2,
@@ -223,18 +223,18 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 22,
-    fontWeight: Platform.OS === 'android' || Platform.OS === 'ios' ? '700' : '500', 
+    fontWeight: Dimensions.get('window').width < 500 ? '700' : '500', 
     fontFamily: 'Inter18', 
     marginBottom: Dimensions.get('window').height < 1000 ? 30 : 50, 
   },
   inputField: {
     fontFamily: 'Inter18',
     fontSize: 13,
-    width: Platform.OS === 'android' || Platform.OS === 'ios' ? '100%' : 350,
+    width: Dimensions.get('window').width < 500 ? '100%' : 350,
     height: 35,
     borderWidth: 1,
     borderRadius: 5,
-    marginBottom: Platform.OS === 'android' || Platform.OS === 'ios' ? 6 : 12,
+    marginBottom: Dimensions.get('window').width < 500 ? 6 : 12,
     paddingHorizontal: 8,
     ...Platform.select({
       android: {

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { StyleSheet, Text, View, Dimensions, Platform, } from 'react-native'
 import { FlatList } from 'react-native'
 import { useQueryClient } from '@tanstack/react-query'
@@ -194,16 +194,16 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 22, 
     fontFamily: 'Inter24', 
-    fontWeight: Platform.OS === 'android' || Platform.OS === 'ios' ? '700' : '500',
+    fontWeight: Dimensions.get('window').width < 500 ? '700' : '500',
     paddingLeft: 5,
-    marginHorizontal: Platform.OS === 'android' || Platform.OS === 'ios' ? 0 : 8,
+    marginHorizontal: Dimensions.get('window').width < 500 ? 0 : 8,
     marginVertical: Dimensions.get('window').height < 1000 ? 30 : 50, 
   },
   listItem: {
     alignItems: 'center',
     justifyContent: 'flex-start',
-    width: Platform.OS === 'android' || Platform.OS === 'ios' ? '90%' : 350,
-    marginHorizontal: Platform.OS === 'android' || Platform.OS === 'ios' ? 0 : 8,
+    width: Dimensions.get('window').width < 500 ? '90%' : 350,
+    marginHorizontal: Dimensions.get('window').width < 500 ? 0 : 8,
     marginVertical: 8,
     borderRadius: 10,
     paddingTop: 12,

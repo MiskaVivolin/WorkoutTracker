@@ -1,4 +1,3 @@
-import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';import AddWorkoutScreen from '../screens/AddWorkoutScreen';
 import LoginScreen from '../screens/LoginScreen';

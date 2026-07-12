@@ -1,5 +1,4 @@
-import React from 'react';
-import { Text, StyleSheet, Pressable, Platform } from 'react-native';
+import { Text, StyleSheet, Pressable, Dimensions } from 'react-native';
 import { Themes } from "../../assets/styles/Themes"
 import { ButtonProps } from '../types/componentProps';
 import { useTheme } from '../context/ThemeContext';
@@ -25,17 +24,17 @@ const Button = ({ title, onPress, buttonStyle, textStyle, disabled }: ButtonProp
 
 const styles = StyleSheet.create({
   button: {
-    height: Platform.OS === 'android' || Platform.OS === 'ios' ? 34 : 35,
-    width: Platform.OS === 'android' || Platform.OS === 'ios' ? 80 : 80,
-    padding: Platform.OS === 'android' || Platform.OS === 'ios' ? 6 : 8,
+    height: Dimensions.get('window').width < 500 ? 34 : 35,
+    width: Dimensions.get('window').width < 500 ? 80 : 80,
+    padding: Dimensions.get('window').width < 500 ? 6 : 8,
     borderRadius: 20, 
     textAlign: 'center',
     fontSize: 16,
   },
   buttonText: {
-    fontSize: Platform.OS === 'android' || Platform.OS === 'ios' ? 16 : 16, 
+    fontSize: Dimensions.get('window').width < 500 ? 16 : 16, 
     fontFamily: 'Inter24',
-    fontWeight: Platform.OS === 'android' || Platform.OS === 'ios' ? '700' : '500',
+    fontWeight: Dimensions.get('window').width < 500 ? '700' : '500',
     alignSelf: 'center', 
   },
 });

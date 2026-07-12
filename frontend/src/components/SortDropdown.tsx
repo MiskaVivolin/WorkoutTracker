@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { View, Text, Pressable, StyleSheet, Platform } from 'react-native';
+import { View, Text, Pressable, StyleSheet, Dimensions } from 'react-native';
 import { Themes } from "../../assets/styles/Themes";
 import { useTheme } from '../context/ThemeContext';
 import { SortDropdownProps } from '../types/componentProps';
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   container: {
     position: 'relative',
     alignSelf: 'flex-start',
-    marginHorizontal: Platform.OS === 'android' || Platform.OS === 'ios' ? 0 : 8,
+    marginHorizontal: Dimensions.get('window').width < 500 ? 0 : 8,
     marginRight: 8,
     marginBottom: 20,
     zIndex: 100,

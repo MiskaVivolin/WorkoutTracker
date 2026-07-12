@@ -1,4 +1,4 @@
-import { Platform, StyleSheet, Text, View } from 'react-native'
+import { Dimensions, StyleSheet, Text, View } from 'react-native'
 import { useState } from 'react'
 import Button from '../Button';
 import { Themes } from '../../../assets/styles/Themes';
@@ -43,11 +43,11 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     width: '80%',
-    justifyContent: Platform.OS === 'android' || Platform.OS === 'ios' ? "space-evenly" : "center",
+    justifyContent: Dimensions.get('window').width < 500 ? "space-evenly" : "center",
   }, 
   title: {
-    marginBottom: Platform.OS === 'android' || Platform.OS === 'ios' ? 20 : 30, 
+    marginBottom: Dimensions.get('window').width < 500 ? 20 : 30, 
     fontFamily: 'Inter24',
-    fontSize: Platform.OS === 'android' || Platform.OS === 'ios' ? 18 : 20, 
+    fontSize: Dimensions.get('window').width < 500 ? 18 : 20, 
   }
 })
