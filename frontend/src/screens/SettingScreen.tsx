@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform, View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet, Dimensions } from 'react-native';
 import { WorkoutListScreenProps } from '../types/screenProps';
 import TabBar from '../components/navigation/TabBar';
 import NavBar from '../components/navigation/NavBar';
@@ -12,7 +12,7 @@ import DeleteAccount from '../components/auth/DeleteAccount';
 
 const WorkoutListScreen: React.FC<WorkoutListScreenProps> = ({ navigation }) => {
   const { theme } = useTheme();
-  const mobileView = Platform.OS === 'android' || Platform.OS === 'ios';
+  const mobileView = Dimensions.get('window').width < 500;
 
   return (
     <View style={[styles.container, { backgroundColor: Themes[theme].background }]}>

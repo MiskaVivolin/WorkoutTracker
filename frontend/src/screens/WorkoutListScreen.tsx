@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Platform, View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Dimensions } from 'react-native';
 import { WorkoutListScreenProps } from '../types/screenProps';
 import { WorkoutItem } from '../types/workoutItemTypes';
 import WorkoutList from '../components/WorkoutList';
@@ -17,7 +17,7 @@ const WorkoutListScreen: React.FC<WorkoutListScreenProps> = ({ navigation }) => 
   const { theme } = useTheme();
   const [popupVisible, setPopupVisible] = useState(false);
   const [popupMessage, setPopupMessage] = useState('');
-  const mobileView = Platform.OS === 'android' || Platform.OS === 'ios';
+  const mobileView = Dimensions.get('window').width < 500;
 
   return (
     <View style={[styles.container, { backgroundColor: Themes[theme].background }]}>

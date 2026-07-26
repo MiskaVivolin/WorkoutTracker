@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform, View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Dimensions } from 'react-native';
 import { SignupScreenProps } from '../types/screenProps';
 import SignupContainer from '../components/auth/SignupContainer';
 import Logo from '../components/Logo';
@@ -10,7 +10,7 @@ import { useTheme } from '../context/ThemeContext';
 const SignupScreen: React.FC<SignupScreenProps> = ({ navigation }) => {
     
   const { theme } = useTheme();
-  const mobileView = Platform.OS === 'android' || Platform.OS === 'ios';
+  const mobileView = Dimensions.get('window').width < 500
 
   return (
     <View style={[styles.signupScreenContainer,{ backgroundColor: Themes[theme].background}]}>

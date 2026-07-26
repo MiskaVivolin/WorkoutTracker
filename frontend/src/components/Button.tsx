@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   button: {
     height: Dimensions.get('window').width < 500 ? 34 : 35,
     width: Dimensions.get('window').width < 500 ? 80 : 80,
-    padding: Dimensions.get('window').width < 500 ? 6 : 8,
+    padding: Dimensions.get('window').width < 500 ? 7 : 8,
     borderRadius: 20, 
     textAlign: 'center',
     fontSize: 16,

@@ -91,6 +91,7 @@ const WorkoutList = ({ setIsEditMode, setWorkoutItem, popupVisible, popupMessage
         />
       </View>
       <FlatList
+        style={{ width: '100%'}}
         data={filteredWorkoutList}
         keyExtractor={(item, index) => index.toString()}
         numColumns={numColumns}
@@ -155,14 +156,14 @@ const styles = StyleSheet.create({
   listContainer: {
     flex: 1,
     width: '100%',
-    marginHorizontal: Platform.OS === 'android' || Platform.OS === 'ios' ? 0 : 10,
-    alignItems: Platform.OS === 'android' || Platform.OS === 'ios' ? 'center' : 'flex-start',
+    marginHorizontal: Dimensions.get('window').width < 500 ? 0 : 10,
+    alignItems: Dimensions.get('window').width < 500 ? 'center' : 'flex-start',
     justifyContent: 'center',
   },
   topBar: {
     width: '90%',
     flexDirection: 'row',
-    alignItems: 'flex-start',
+    justifyContent: Dimensions.get('window').width < 500 ? 'center' : 'flex-start',
     marginBottom: 10,
     zIndex: 20,
     elevation: 20,
@@ -201,8 +202,8 @@ const styles = StyleSheet.create({
   },
   listItem: {
     alignItems: 'center',
-    justifyContent: 'flex-start',
-    width: Dimensions.get('window').width < 500 ? '90%' : 350,
+    alignSelf: 'center',
+    width: Dimensions.get('window').width < 500 ? '85%' : 350,
     marginHorizontal: Dimensions.get('window').width < 500 ? 0 : 8,
     marginVertical: 8,
     borderRadius: 10,

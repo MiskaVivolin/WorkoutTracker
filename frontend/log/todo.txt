@@ -1,6 +1,8 @@
   // TODO: 
   // readme pienet parantelut
-  // 
+  // mobileview signupcontainer ja logincontainer eri leveys
+  // Date pitää valita erikseen vaikka käyttäisi default päivämäärää
+  // Mobileview date inputtext väärällä korkeudella
   // parantele settingscreen tyyliasua
   // WorkoutItem UI parantelu. edit nappi oikealle säästääkseen tilaa?
   // UX parantelu. Kansiot joihin lisätä treenejä?
