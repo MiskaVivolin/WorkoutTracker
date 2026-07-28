@@ -1,5 +1,6 @@
   // TODO: 
   // readme pienet parantelut
+  // sorting ei toimi
   // mobileview signupcontainer ja logincontainer eri leveys
   // Date pitää valita erikseen vaikka käyttäisi default päivämäärää
   // Mobileview date inputtext väärällä korkeudella

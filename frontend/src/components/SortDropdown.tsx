@@ -57,13 +57,13 @@ const styles = StyleSheet.create({
   },
   button: {
     height: 32,
-    width: 80,
+    width: 82,
     paddingVertical: 6,
     paddingHorizontal: 15,
     borderRadius: 10,
   },
   buttonText: {
-    fontSize: 14,
+    fontSize: 15,
     fontWeight: 500,
 
   },
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   dropdownItemText: {
-    fontSize: 14,
+    fontSize: 15,
     fontWeight: 500,
   },
 });

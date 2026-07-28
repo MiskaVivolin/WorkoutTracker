@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     elevation: 6,
   },
   text: {
-    fontSize: 14,
+    fontSize: 18,
     fontFamily: 'Inter18',
   },
 });

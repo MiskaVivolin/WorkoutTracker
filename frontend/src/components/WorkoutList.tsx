@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
   label: {
     width: '100%',
     fontWeight: '100',
-    fontSize: 12,
+    fontSize: 13,
     fontFamily: 'Inter18',
     marginBottom: 2,
   },
@@ -193,7 +193,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column'
   },
   title: {
-    fontSize: 22, 
+    fontSize: 24, 
     fontFamily: 'Inter24', 
     fontWeight: Dimensions.get('window').width < 500 ? '700' : '500',
     paddingLeft: 5,

@@ -65,7 +65,7 @@ const AddWorkoutForm = ({workoutItem, setWorkoutItem}: AddWorkoutFormProps) => {
       queryClient.invalidateQueries({ queryKey: ['workouts'] });
 
       setPopupVisible(true);
-      setPopupMessage('Workout added successfully!');
+      setPopupMessage('Workout added!');
 
       setTimeout(() => {
         setPopupVisible(false);
@@ -91,7 +91,7 @@ const AddWorkoutForm = ({workoutItem, setWorkoutItem}: AddWorkoutFormProps) => {
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       >
       {!keyboardVisible && (
-      <Text style={[styles.title, { color: Themes[theme].defaultText }]}>Add a new exercise result</Text>
+      <Text style={[styles.title, { color: Themes[theme].defaultText }]}>Add a new result</Text>
       )}          
       <Text style={[styles.label, { color: Themes[theme].defaultText }]}>Exercise</Text>
       <TextInput
@@ -211,7 +211,7 @@ const styles = StyleSheet.create({
   label: {
     alignSelf: "flex-start",
     width: Dimensions.get('window').width < 500 ? '100%' : 350,
-    fontSize: 13,
+    fontSize: 14,
     fontFamily: 'Inter18',
     marginBottom: 2,
     marginTop: 12
@@ -222,14 +222,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   title: {
-    fontSize: 22,
+    fontSize: 24,
     fontWeight: Dimensions.get('window').width < 500 ? '700' : '500', 
     fontFamily: 'Inter18', 
     marginBottom: Dimensions.get('window').height < 1000 ? 30 : 50, 
   },
   inputField: {
     fontFamily: 'Inter18',
-    fontSize: 13,
+    fontSize: 15,
     width: Dimensions.get('window').width < 500 ? '100%' : 350,
     height: 35,
     borderWidth: 1,
@@ -249,23 +249,6 @@ const styles = StyleSheet.create({
   errorText: {
     fontSize: 13,
     fontFamily: 'Inter18', 
-  },
-  modalOverlay: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(0,0,0,0.4)",
-  },
-  modalContent: {
-    paddingVertical: 20,
-    paddingHorizontal: 30,
-    borderRadius: 12,
-    elevation: 5,
-  },
-
-  modalText: {
-    fontSize: 16,
-    fontFamily: "Inter18",
   },
 });
 

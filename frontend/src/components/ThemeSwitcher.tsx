@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   title: {
     marginBottom: Dimensions.get('window').width < 500 ? 20 : 30, 
     fontFamily: 'Inter24',
-    fontSize: Dimensions.get('window').width < 500 ? 18 : 20, 
+    fontSize: 20, 
   }
 })
 

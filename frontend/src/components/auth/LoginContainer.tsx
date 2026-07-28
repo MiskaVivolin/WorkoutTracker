@@ -139,12 +139,12 @@ const styles = StyleSheet.create({
     width: '100%'
   },
   label: {
-    fontSize: 13,
+    fontSize: 14,
     fontFamily: 'Inter18',
     marginBottom: 2,
   },
   title: {
-    fontSize: 22,
+    fontSize: 24,
     fontWeight: Dimensions.get('window').width < 500 ? '700' : '500',
     fontFamily: 'Inter24',
     marginBottom: Dimensions.get('window').width < 500 ? 60 : 100,
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
   },
   inputField: {
     fontFamily: 'Inter18',
-    fontSize: 13,
+    fontSize: 15,
     borderWidth: 1,
     borderRadius: 4,
     marginBottom: Dimensions.get('window').height < 1000 ? 8 : 12,
