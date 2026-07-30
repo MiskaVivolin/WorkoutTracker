@@ -124,23 +124,17 @@ const AddWorkoutForm = ({workoutItem, setWorkoutItem}: AddWorkoutFormProps) => {
         date={watch("date")}
         onConfirm={({ date }) => {
           setOpen(false);
-
           if (date) {
             setValue("date", date);
-
             setWorkoutItem({
               ...workoutItem,
               date,
             });
-
             clearErrors("date");
           }
         }}
       />
-
-
       {errors.date && <Text style={[styles.errorText, {color: Themes[theme].errorText}]}>{errors.date.message}</Text>}
-
       <View style={styles.labelContainer}>
 
         <View style={styles.columnRow}>
@@ -236,12 +230,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginBottom: Dimensions.get('window').width < 500 ? 6 : 12,
     paddingHorizontal: 8,
-    ...Platform.select({
-      android: {
-        paddingBottom: 8,
-        lineHeight: 15,
-      },
-    }),
+    ...(Platform.OS === "web" ? ({ outlineStyle: "none" } as any) : {}),
   },
   columnRow: {
     width: "45%"

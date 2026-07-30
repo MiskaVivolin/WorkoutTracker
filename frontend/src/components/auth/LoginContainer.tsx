@@ -162,19 +162,14 @@ const styles = StyleSheet.create({
   inputField: {
     fontFamily: 'Inter18',
     fontSize: 15,
+    height: 35,
     borderWidth: 1,
     borderRadius: 4,
     marginBottom: Dimensions.get('window').height < 1000 ? 8 : 12,
     paddingHorizontal: 8,
-    ...Platform.select({
-      android: {
-        paddingBottom: 8,
-        lineHeight: 15,
-      },
-      default: {
-        height: 35,
-      },
-    }),
+    justifyContent: 'center',
+    ...(Platform.OS === "web" ? ({ outlineStyle: "none" } as any) : {}),
+
   },
   accountButton: {
     width: 155,

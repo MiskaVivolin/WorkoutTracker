@@ -214,20 +214,14 @@ const styles = StyleSheet.create({
   inputField: {
     fontSize: 15,
     fontFamily: 'Inter18',
+    justifyContent: 'center',
     width: Dimensions.get('window').width < 440 ? '100%' : 180,
+    height: 35,
     borderWidth: 1, 
     borderRadius: 5,
     paddingHorizontal: 8,
-    paddingVertical: Dimensions.get('window').width < 440 ? 6 : 1,
-    ...Platform.select({
-      android: {
-        lineHeight: 19,
-        textAlignVertical: 'center',
-      },
-      default: {
-        height: 32,
-      },
-    }),
+    ...(Platform.OS === "web" ? ({ outlineStyle: "none" } as any) : {}),
+
   },
   listItem: {
     alignItems: 'center',

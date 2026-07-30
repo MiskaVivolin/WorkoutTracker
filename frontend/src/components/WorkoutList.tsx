@@ -67,7 +67,7 @@ const WorkoutList = ({ setIsEditMode, setWorkoutItem, popupVisible, popupMessage
   const EmptyList = () => (
     <View style={styles.emptyContainer}>
       <Text style={[styles.emptyText, { color: Themes[theme].greyText }]}>
-        No results added
+        No results found
       </Text>
     </View>
   );
@@ -216,6 +216,8 @@ const styles = StyleSheet.create({
     paddingTop: 40,
   },
   emptyText: {
+    alignSelf: Dimensions.get('window').width < 500 ? 'center' : 'flex-start',
+    paddingLeft: Dimensions.get('window').width < 500 ? 0 : 8,
     fontSize: 16,
     opacity: 0.7,
   },

@@ -72,7 +72,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     backgroundColor: 'transparent',
     position: 'relative',
-    paddingVertical: 10,
   },
   buttonContainer: {
     flexDirection: "row", 
