@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { StyleSheet, Text, View, Dimensions, Platform, } from 'react-native'
 import { FlatList } from 'react-native'
 import { useQueryClient } from '@tanstack/react-query'
@@ -67,7 +67,7 @@ const WorkoutList = ({ setIsEditMode, setWorkoutItem, popupVisible, popupMessage
   const EmptyList = () => (
     <View style={styles.emptyContainer}>
       <Text style={[styles.emptyText, { color: Themes[theme].greyText }]}>
-        No results added
+        No results found
       </Text>
     </View>
   );
@@ -91,6 +91,7 @@ const WorkoutList = ({ setIsEditMode, setWorkoutItem, popupVisible, popupMessage
         />
       </View>
       <FlatList
+        style={{ width: '100%'}}
         data={filteredWorkoutList}
         keyExtractor={(item, index) => index.toString()}
         numColumns={numColumns}
@@ -155,14 +156,14 @@ const styles = StyleSheet.create({
   listContainer: {
     flex: 1,
     width: '100%',
-    marginHorizontal: Platform.OS === 'android' || Platform.OS === 'ios' ? 0 : 10,
-    alignItems: Platform.OS === 'android' || Platform.OS === 'ios' ? 'center' : 'flex-start',
+    marginHorizontal: Dimensions.get('window').width < 500 ? 0 : 10,
+    alignItems: Dimensions.get('window').width < 500 ? 'center' : 'flex-start',
     justifyContent: 'center',
   },
   topBar: {
     width: '90%',
     flexDirection: 'row',
-    alignItems: 'flex-start',
+    justifyContent: Dimensions.get('window').width < 500 ? 'center' : 'flex-start',
     marginBottom: 10,
     zIndex: 20,
     elevation: 20,
@@ -170,7 +171,7 @@ const styles = StyleSheet.create({
   label: {
     width: '100%',
     fontWeight: '100',
-    fontSize: 12,
+    fontSize: 13,
     fontFamily: 'Inter18',
     marginBottom: 2,
   },
@@ -192,18 +193,18 @@ const styles = StyleSheet.create({
     flexDirection: 'column'
   },
   title: {
-    fontSize: 22, 
+    fontSize: 24, 
     fontFamily: 'Inter24', 
-    fontWeight: Platform.OS === 'android' || Platform.OS === 'ios' ? '700' : '500',
+    fontWeight: Dimensions.get('window').width < 500 ? '700' : '500',
     paddingLeft: 5,
-    marginHorizontal: Platform.OS === 'android' || Platform.OS === 'ios' ? 0 : 8,
+    marginHorizontal: Dimensions.get('window').width < 500 ? 0 : 8,
     marginVertical: Dimensions.get('window').height < 1000 ? 30 : 50, 
   },
   listItem: {
     alignItems: 'center',
-    justifyContent: 'flex-start',
-    width: Platform.OS === 'android' || Platform.OS === 'ios' ? '90%' : 350,
-    marginHorizontal: Platform.OS === 'android' || Platform.OS === 'ios' ? 0 : 8,
+    alignSelf: 'center',
+    width: Dimensions.get('window').width < 500 ? '85%' : 350,
+    marginHorizontal: Dimensions.get('window').width < 500 ? 0 : 8,
     marginVertical: 8,
     borderRadius: 10,
     paddingTop: 12,
@@ -215,6 +216,8 @@ const styles = StyleSheet.create({
     paddingTop: 40,
   },
   emptyText: {
+    alignSelf: Dimensions.get('window').width < 500 ? 'center' : 'flex-start',
+    paddingLeft: Dimensions.get('window').width < 500 ? 0 : 8,
     fontSize: 16,
     opacity: 0.7,
   },

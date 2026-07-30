@@ -1,4 +1,4 @@
-import { View, TextInput, StyleSheet } from 'react-native';
+import { View, TextInput, StyleSheet, Platform } from 'react-native';
 import { Themes } from "../../assets/styles/Themes";
 import { useTheme } from '../context/ThemeContext';
 import { Ionicons } from '@expo/vector-icons';
@@ -12,7 +12,7 @@ const SearchBar = ({ value, onChange }: SearchBarProps) => {
       <Ionicons name="search" size={16} color={Themes[theme].defaultText} />
       
       <TextInput
-        style={[styles.input, { color: Themes[theme].defaultText }]}
+          style={[styles.inputField, { color: Themes[theme].defaultText }]}
         placeholder="Search..."
         placeholderTextColor={Themes[theme].greyText}
         value={value}
@@ -30,13 +30,13 @@ const styles = StyleSheet.create({
     width: 220,
     paddingHorizontal: 10,
     borderRadius: 10,
-   
   },
-  input: {
+  inputField: {
     height: 40,
     marginLeft: 6,
     flex: 1,
-    fontSize: 14,
+    fontSize: 15,
+    ...(Platform.OS === "web" ? ({ outlineStyle: "none" } as any) : {}),
   },
 });
 

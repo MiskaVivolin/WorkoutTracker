@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Platform, View, StyleSheet, Keyboard, KeyboardAvoidingView } from 'react-native';
+import { View, StyleSheet, Keyboard, KeyboardAvoidingView, Dimensions } from 'react-native';
 import { AddWorkoutScreenProps } from '../types/screenProps';
 import AddWorkoutForm from '../components/AddWorkoutForm';
 import TabBar from '../components/navigation/TabBar';
@@ -14,7 +14,7 @@ const AddWorkoutScreen: React.FC<AddWorkoutScreenProps> = ({ navigation }) => {
   const [workoutItem, setWorkoutItem] = useState({ id: 0, name: '', date: '', exercise: '', result: '' })
   const { theme } = useTheme();
   const [keyboardVisible, setKeyboardVisible] = useState(false);
-  const mobileView = Platform.OS === 'android' || Platform.OS === 'ios';
+  const mobileView = Dimensions.get('window').width < 500;
   
   useEffect(() => {
     const showSubscription = Keyboard.addListener('keyboardDidShow', () => {

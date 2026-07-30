@@ -6,7 +6,10 @@ Responsive mobile first application to track personal workout results.
 
 ## Getting started
 
-Open two terminal windows, one for the backend folder and one for the frontend folder. With both enter ```npm i``` to install and ```npm start``` to start the application. Expo Go app is required if using with mobile device. When both are running, scan the QR code with the Expo app in the frontend terminal. Alternatively type "w" in the frontend terminal to launch the app in your web browser.
+1. Open two terminal windows: one in the backend directory and one in the frontend directory.
+2. Run npm install in both directories.
+3. Start both servers with npm start.
+4. Open the app using Expo Go by scanning the QR code, or press w in the frontend terminal to launch it in your browser.
 
 ## Using Workout Tracker
 
@@ -14,11 +17,11 @@ First time users need to create an account before logging in, which is quick and
 
 ![LoginImg](/frontend/assets/images/login.jpg)
 
-users can start adding their exercise results, by filling the form.
+Users can add workout results by filling out the form.
 
 ![addworkoutImg](/frontend/assets/images/addworkout.jpg)
 
-Searching, sorting and workout tabs can be used to find specific workouts.
+Use the search, sort, and workout tabs to quickly find specific workouts.
 
 ![workoutlist](/frontend/assets/images/workoutlist.jpg)
 
@@ -26,13 +29,17 @@ Exercise results can be easily edited and removed.
 
 ![EditImg](/frontend/assets/images/edit.jpg)
 
+Select the date from a responsive calendar component.
+
+![calendar](/frontend/assets/images/calendar.jpg)
+
 Switch between light and dark themes in the settings menu.
 
 ![ThemeImg](/frontend/assets/images/theme.jpg)
 
 Also fully responsive in the browser.
 
-![WebImg](/frontend/assets/images/web.png)
+![WebImg](/frontend/assets/images/web.jpg)
 
 ## Future updates
 
@@ -40,4 +47,4 @@ UI/UX improvements, Charts to visually track progress. More workout customizatio
 
 ## Tech stack
 
-React Native, TypeScript, React query, Nodejs, Express, PostgreSQL, Jest.
+React Native, TypeScript, React Query, Node.js, Express, PostgreSQL, Jest.

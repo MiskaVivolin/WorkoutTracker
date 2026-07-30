@@ -65,7 +65,7 @@ const AddWorkoutForm = ({workoutItem, setWorkoutItem}: AddWorkoutFormProps) => {
       queryClient.invalidateQueries({ queryKey: ['workouts'] });
 
       setPopupVisible(true);
-      setPopupMessage('Workout added successfully!');
+      setPopupMessage('Workout added!');
 
       setTimeout(() => {
         setPopupVisible(false);
@@ -91,7 +91,7 @@ const AddWorkoutForm = ({workoutItem, setWorkoutItem}: AddWorkoutFormProps) => {
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       >
       {!keyboardVisible && (
-      <Text style={[styles.title, { color: Themes[theme].defaultText }]}>Add a new exercise result</Text>
+      <Text style={[styles.title, { color: Themes[theme].defaultText }]}>Add a new result</Text>
       )}          
       <Text style={[styles.label, { color: Themes[theme].defaultText }]}>Exercise</Text>
       <TextInput
@@ -124,23 +124,17 @@ const AddWorkoutForm = ({workoutItem, setWorkoutItem}: AddWorkoutFormProps) => {
         date={watch("date")}
         onConfirm={({ date }) => {
           setOpen(false);
-
           if (date) {
             setValue("date", date);
-
             setWorkoutItem({
               ...workoutItem,
               date,
             });
-
             clearErrors("date");
           }
         }}
       />
-
-
       {errors.date && <Text style={[styles.errorText, {color: Themes[theme].errorText}]}>{errors.date.message}</Text>}
-
       <View style={styles.labelContainer}>
 
         <View style={styles.columnRow}>
@@ -205,13 +199,13 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     alignItems: 'center',
     justifyContent: 'center',
-    width: Platform.OS === 'android' || Platform.OS === 'ios' ? '80%' : 350,
+    width: Dimensions.get('window').width < 500 ? '80%' : 350,
 
   },
   label: {
     alignSelf: "flex-start",
-    width: Platform.OS === 'android' || Platform.OS === 'ios' ? '100%' : 350,
-    fontSize: 13,
+    width: Dimensions.get('window').width < 500 ? '100%' : 350,
+    fontSize: 14,
     fontFamily: 'Inter18',
     marginBottom: 2,
     marginTop: 12
@@ -222,26 +216,21 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   title: {
-    fontSize: 22,
-    fontWeight: Platform.OS === 'android' || Platform.OS === 'ios' ? '700' : '500', 
+    fontSize: 24,
+    fontWeight: Dimensions.get('window').width < 500 ? '700' : '500', 
     fontFamily: 'Inter18', 
     marginBottom: Dimensions.get('window').height < 1000 ? 30 : 50, 
   },
   inputField: {
     fontFamily: 'Inter18',
-    fontSize: 13,
-    width: Platform.OS === 'android' || Platform.OS === 'ios' ? '100%' : 350,
+    fontSize: 15,
+    width: Dimensions.get('window').width < 500 ? '100%' : 350,
     height: 35,
     borderWidth: 1,
     borderRadius: 5,
-    marginBottom: Platform.OS === 'android' || Platform.OS === 'ios' ? 6 : 12,
+    marginBottom: Dimensions.get('window').width < 500 ? 6 : 12,
     paddingHorizontal: 8,
-    ...Platform.select({
-      android: {
-        paddingBottom: 8,
-        lineHeight: 15,
-      },
-    }),
+    ...(Platform.OS === "web" ? ({ outlineStyle: "none" } as any) : {}),
   },
   columnRow: {
     width: "45%"
@@ -249,23 +238,6 @@ const styles = StyleSheet.create({
   errorText: {
     fontSize: 13,
     fontFamily: 'Inter18', 
-  },
-  modalOverlay: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(0,0,0,0.4)",
-  },
-  modalContent: {
-    paddingVertical: 20,
-    paddingHorizontal: 30,
-    borderRadius: 12,
-    elevation: 5,
-  },
-
-  modalText: {
-    fontSize: 16,
-    fontFamily: "Inter18",
   },
 });
 

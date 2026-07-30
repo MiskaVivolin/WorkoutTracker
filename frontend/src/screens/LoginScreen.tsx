@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform, View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Dimensions } from 'react-native';
 import { LoginScreenProps } from '../types/screenProps';
 import LoginContainer from "../components/auth/LoginContainer";
 import Logo from '../components/Logo';
@@ -10,7 +10,7 @@ import { useTheme } from '../context/ThemeContext';
 const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
 
   const { theme } = useTheme();
-  const mobileView = Platform.OS === 'android' || Platform.OS === 'ios';
+  const mobileView = Dimensions.get('window').width < 500;
 
   return (
     <View style={[styles.loginScreenContainer,{ backgroundColor: Themes[theme].background}]}>

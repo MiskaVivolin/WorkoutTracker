@@ -1,10 +1,8 @@
 import { Modal, StyleSheet, Text, View } from 'react-native'
 import Button from '../Button';
-import React from 'react'
 import { Themes } from '../../../assets/styles/Themes';
 import { useTheme } from '../../context/ThemeContext';
 import { ConfirmModalProps } from '../../types/componentProps';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useMutation } from '@tanstack/react-query';
 import deleteUser from '../../services/auth/deleteUser';
 import { useUserToken } from '../../context/UserTokenContext';

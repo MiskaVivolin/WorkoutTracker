@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { NavBarProps } from '../../types/componentProps';
 import { Themes } from '../../../assets/styles/Themes';
@@ -72,7 +72,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     backgroundColor: 'transparent',
     position: 'relative',
-    paddingVertical: 10,
   },
   buttonContainer: {
     flexDirection: "row", 

@@ -53,7 +53,7 @@ const WorkoutEditor = ({ workoutItem, setIsEditMode, showPopup }: WorkoutEditorP
 
     setTimeout(() => {
     }, 2500);
-    showPopup('Workout updated successfully!');
+    showPopup('Workout updated!');
     setIsEditMode(false);
     },
     onError: (err) => {
@@ -70,7 +70,7 @@ const WorkoutEditor = ({ workoutItem, setIsEditMode, showPopup }: WorkoutEditorP
 
       setTimeout(() => {
       }, 2500);
-      showPopup('Workout deleted successfully!');
+      showPopup('Workout deleted!');
       setIsEditMode(false);
     },
     onError: (err) => {
@@ -212,22 +212,16 @@ const styles = StyleSheet.create({
     width: "45%"
   },
   inputField: {
-    fontSize: 12,
+    fontSize: 15,
     fontFamily: 'Inter18',
+    justifyContent: 'center',
     width: Dimensions.get('window').width < 440 ? '100%' : 180,
+    height: 35,
     borderWidth: 1, 
     borderRadius: 5,
     paddingHorizontal: 8,
-    paddingVertical: Dimensions.get('window').width < 440 ? 6 : 1,
-    ...Platform.select({
-      android: {
-        lineHeight: 19,
-        textAlignVertical: 'center',
-      },
-      default: {
-        height: 32,
-      },
-    }),
+    ...(Platform.OS === "web" ? ({ outlineStyle: "none" } as any) : {}),
+
   },
   listItem: {
     alignItems: 'center',
@@ -237,21 +231,21 @@ const styles = StyleSheet.create({
     padding: 8,
   },
   label: {
-    fontSize: 13,
+    fontSize: 14,
     fontFamily: 'Inter18',
     marginBottom: 2,
     marginTop: 5
   },
   title: {
-    fontSize: 22,
-    fontWeight: Platform.OS === 'android' || Platform.OS === 'ios' ? '700' : '500',
+    fontSize: 24,
+    fontWeight: Dimensions.get('window').width < 500 ? '700' : '500',
     fontFamily: 'Inter24', 
     marginVertical: 15
   },
   inputFieldError: {
     alignSelf: 'flex-start',
     width: '100%',
-    fontSize: Dimensions.get('window').width < 440 ? 10 : 13,
+    fontSize: 13,
     fontFamily: 'Inter18',
     paddingVertical: 5,
   },

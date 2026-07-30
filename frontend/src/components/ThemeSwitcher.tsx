@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Platform } from 'react-native'
+import { View, Text, StyleSheet, Dimensions } from 'react-native'
 import { useTheme } from '../context/ThemeContext';
 import Button from './Button';
 import { Themes } from '../../assets/styles/Themes';
@@ -12,7 +12,7 @@ const ThemeSwitcher = () => {
       <Text style={[styles.title, {color: Themes[theme].defaultText}]}>Current theme: {theme}</Text>
       <View style={styles.buttonContainer}>
         <Button
-          buttonStyle={{marginRight: Platform.OS === 'android' || Platform.OS === 'ios' ? 0 : 50, width: 90}}
+          buttonStyle={{marginRight: Dimensions.get('window').width < 500 ? 0 : 50, width: 90}}
           title="Light" 
           onPress={() => setTheme('light')} 
           />
@@ -35,12 +35,12 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     width: '80%',
-    justifyContent: Platform.OS === 'android' || Platform.OS === 'ios' ? "space-evenly" : "center",
+    justifyContent: Dimensions.get('window').width < 500 ? "space-evenly" : "center",
   }, 
   title: {
-    marginBottom: Platform.OS === 'android' || Platform.OS === 'ios' ? 20 : 30, 
+    marginBottom: Dimensions.get('window').width < 500 ? 20 : 30, 
     fontFamily: 'Inter24',
-    fontSize: Platform.OS === 'android' || Platform.OS === 'ios' ? 18 : 20, 
+    fontSize: 20, 
   }
 })
 

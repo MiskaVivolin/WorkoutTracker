@@ -1,5 +1,5 @@
 import { Dimensions, Platform, Pressable, StyleSheet, Text, TextInput, View } from 'react-native'
-import React, { useCallback } from 'react'
+import { useCallback } from 'react'
 import { useTheme } from '../../context/ThemeContext';
 import { useUserToken } from '../../context/UserTokenContext';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -20,7 +20,7 @@ const LoginContainer = ({navigation}: LoginContainerProps) => {
     password: z.string().min(1, "Password is required"),
   });
   const { setToken } = useUserToken();
-  const { theme, refreshTheme } = useTheme();
+  const { theme } = useTheme();
   const { register, handleSubmit, setValue, watch, clearErrors, setError, formState: { errors } } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
     defaultValues: { username: "", password: "" }
@@ -125,11 +125,11 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     alignItems: 'center',
     justifyContent: 'center',
-    width: Platform.OS === 'android' || Platform.OS === 'ios' ? '80%' : 350,
+    width: Dimensions.get('window').width < 500 ? '80%' : 350,
   },
   fieldContainer: {
     justifyContent: 'center',
-    width: Platform.OS === 'android' || Platform.OS === 'ios' ? '100%' : 350,
+    width: Dimensions.get('window').width < 500 ? '100%' : 350,
     marginBottom: 50,
   },
   buttonContainer: { 
@@ -139,15 +139,15 @@ const styles = StyleSheet.create({
     width: '100%'
   },
   label: {
-    fontSize: 13,
+    fontSize: 14,
     fontFamily: 'Inter18',
     marginBottom: 2,
   },
   title: {
-    fontSize: 22,
-    fontWeight: Platform.OS === 'android' || Platform.OS === 'ios' ? '700' : '500',
+    fontSize: 24,
+    fontWeight: Dimensions.get('window').width < 500 ? '700' : '500',
     fontFamily: 'Inter24',
-    marginBottom: Platform.OS === 'android' || Platform.OS === 'ios' ? 60 : 100,
+    marginBottom: Dimensions.get('window').width < 500 ? 60 : 100,
   },
   inputFieldError: {
     fontSize: 13,
@@ -161,20 +161,15 @@ const styles = StyleSheet.create({
   },
   inputField: {
     fontFamily: 'Inter18',
-    fontSize: 13,
+    fontSize: 15,
+    height: 35,
     borderWidth: 1,
     borderRadius: 4,
     marginBottom: Dimensions.get('window').height < 1000 ? 8 : 12,
     paddingHorizontal: 8,
-    ...Platform.select({
-      android: {
-        paddingBottom: 8,
-        lineHeight: 15,
-      },
-      default: {
-        height: 35,
-      },
-    }),
+    justifyContent: 'center',
+    ...(Platform.OS === "web" ? ({ outlineStyle: "none" } as any) : {}),
+
   },
   accountButton: {
     width: 155,
