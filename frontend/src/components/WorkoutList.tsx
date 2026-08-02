@@ -33,20 +33,13 @@ const WorkoutList = ({ setIsEditMode, setWorkoutItem, popupVisible, popupMessage
   const { data: workoutList = [] } = useWorkoutList(userToken, exercise);
 
 
-  const sortedWorkoutList = useMemo(() => {
-    const parseDate = (str: string) => {
-      const [day, month, year] = str.split('.').map(Number);
-      return new Date(year, month - 1, day).getTime();
-    };
-
-    const sorted = [...workoutList].sort((a, b) => {
-      if (sortMode === 'Newest') return parseDate(b.date) - parseDate(a.date);
-      if (sortMode === 'Oldest') return parseDate(a.date) - parseDate(b.date);
-      return 0;
-    });
-    console.log(sorted)
-    return sorted;
-  }, [workoutList, sortMode]);
+const sortedWorkoutList = useMemo(() => {
+  return [...workoutList].sort((a, b) =>
+    sortMode === 'Newest'
+      ? Date.parse(b.date) - Date.parse(a.date)
+      : Date.parse(a.date) - Date.parse(b.date)
+  );
+}, [workoutList, sortMode]);
 
   const filteredWorkoutList = useMemo(() => {
     if (!searchText.trim()) {

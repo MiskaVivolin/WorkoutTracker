@@ -1,11 +1,8 @@
 import React from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import NavButton from './NavButton';
-import { Dispatch, SetStateAction } from 'react';
+import { ExerciseNavigationProps } from '../../types/componentProps';
 
-interface ExerciseNavigationProps {
-  setExercise: Dispatch<SetStateAction<string>>;
-}
 
 const ExerciseNavigation: React.FC<ExerciseNavigationProps> = ({ setExercise }) => {
   return (

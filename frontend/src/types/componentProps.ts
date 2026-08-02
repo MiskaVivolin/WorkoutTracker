@@ -2,6 +2,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList, SetBoolean } from "./utilTypes";
 import { SetWorkoutItem, SetWorkoutList, WorkoutItem } from "./workoutItemTypes";
 import { TextStyle, ViewStyle } from "react-native";
+import { Dispatch, SetStateAction } from "react";
 
 export interface WorkoutEditorProps { 
     workoutItem: WorkoutItem;
@@ -82,3 +83,7 @@ export interface NumberDropdownProps {
   options: number[];
   customStyle?: string;
 };
+
+export interface ExerciseNavigationProps {
+  setExercise: Dispatch<SetStateAction<string>>;
+}
