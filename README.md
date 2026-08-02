@@ -15,31 +15,31 @@ Responsive mobile first application to track personal workout results.
 
 First time users need to create an account before logging in, which is quick and simple, no email verification required. The username must be at least 4 characters long, and the password at least 10. Once logged in, the app will remember your session until you log out.
 
-![LoginImg](/frontend/assets/images/login.jpg)
+<img src="frontend/assets/images/login.jpg" alt="Login screen" width="220">
 
 Users can add workout results by filling out the form.
 
-![addworkoutImg](/frontend/assets/images/addworkout.jpg)
+<img src="frontend/assets/images/addworkout.jpg" alt="Add workout screen" width="220">
 
 Use the search, sort, and workout tabs to quickly find specific workouts.
 
-![workoutlist](/frontend/assets/images/workoutlist.jpg)
+<img src="frontend/assets/images/workoutlist.jpg" alt="Workout list" width="220">
 
 Exercise results can be easily edited and removed.
 
-![EditImg](/frontend/assets/images/edit.jpg)
+<img src="frontend/assets/images/edit.jpg" alt="Edit workout" width="220">
 
 Select the date from a responsive calendar component.
 
-![calendar](/frontend/assets/images/calendar.jpg)
+<img src="frontend/assets/images/calendar.jpg" alt="Calendar" width="220">
 
 Switch between light and dark themes in the settings menu.
 
-![ThemeImg](/frontend/assets/images/theme.jpg)
+<img src="frontend/assets/images/theme.jpg" alt="Theme settings" width="220">
 
 Also fully responsive in the browser.
 
-![WebImg](/frontend/assets/images/web.jpg)
+<img src="frontend/assets/images/web.jpg" alt="Web version" width="220">
 
 ## Future updates
 
