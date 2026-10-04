@@ -1,4 +1,3 @@
-import { Platform } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../types/utilTypes";
@@ -11,7 +10,7 @@ export const useLogin = (navigation: StackNavigationProp<RootStackParamList>) =>
   return useMutation({
     mutationFn: async ({ username, password }: {username: string; password: string}) => {
 
-      const apiUrl = Platform.OS === 'android' ? `${API_BASE_URL}/login` : 'http://127.0.0.1:3001/login';
+      const apiUrl = `${API_BASE_URL}/login`;
   
       const response = await fetch(apiUrl, {
         method: 'POST',

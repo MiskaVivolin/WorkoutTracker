@@ -1,10 +1,9 @@
 import { ResponseData, WorkoutItem } from '../../types/workoutItemTypes'
-import { Platform } from 'react-native';
 import { API_BASE_URL } from "../../../config";
 
 const getWorkoutItem = async (itemId: number): Promise<WorkoutItem> => {
 
-  const apiUrl = Platform.OS === 'android' ? `${API_BASE_URL}/get/${itemId}` : `http://127.0.0.1:3001/get/${itemId}`;
+  const apiUrl = `${API_BASE_URL}/get/${itemId}`;
 
   const response = await fetch(apiUrl, {
     method: 'GET'
