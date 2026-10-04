@@ -169,7 +169,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     justifyContent: 'center',
     ...(Platform.OS === "web" ? ({ outlineStyle: "none" } as any) : {}),
-
   },
   accountButton: {
     width: 155,

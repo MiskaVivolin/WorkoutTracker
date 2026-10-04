@@ -1,8 +1,7 @@
-import { Platform } from 'react-native';
 import { API_BASE_URL } from '../../../config';
 
 const setUserTheme = async (username: string, theme: 'light' | 'dark'): Promise<void> => {
-  const apiUrl = Platform.OS === 'android' ? `${API_BASE_URL}/set-theme` : 'http://127.0.0.1:3001/set-theme';
+  const apiUrl = `${API_BASE_URL}/set-theme`;
 
   
     const response = await fetch(apiUrl, {
